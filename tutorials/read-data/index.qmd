@@ -36,16 +36,62 @@ Metoden bygger på att vi vill ha den absoluta sökvägen till våran datafil (d
 
 ### Ta reda på den absoluta sökvägen till din fil med data
 
-Ladda ner följande fil [testdata.txt](data/testdata.txt) och spara den någonstans på din hårddisk. Om filen istället öppnas som en ny sida i din webbläsare så högerklickar du på länken och väljer "spara länk som". Då sparas den som en fil.
+Ladda ner följande fil [testdata.txt](data/testdata.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk.
 
 Alla sparade filer ligger någonstans på din hårddisk, och du måste tala om för R var den filen som du vill läsa in ligger.
 
-Det enklaste sättet att få reda på den absoluta sökvägen är att öpnna din filhanterare (finder, utforskaren eller liknande) och leta upp filen. Sedan drar du filen och släpper den i R-konsolen. Då kommer du få se dess sökväg, vilket visas i **blått** på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår Men R ger dig sökvägen, vilket är vad vi vill ha).
+Det enklaste sättet att få reda på den absoluta sökvägen är att öpna din **filhanterare** (finder, utforskaren eller liknande) och leta upp filen. Sedan **drar du filen och släpper den i R-konsolen**. Då kommer du få se dess sökväg, vilket visas i **blått** på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår, men R ger dig sökvägen, vilket är vad vi vill ha).
 
 ![](images/absolute-path-R.png){fig-align="left" width="600"}
 
-Sökvägen till filen på min dator är: `/Users/martin/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt`
+Sökvägen till filen på min dator är: `~/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt`
 
 **R Studio** - om du använder R studio fungerar det inte att dra filen till konsolen. Istället kan du öppna din terminal (Terminal, iTerm, EMAC, MobaXterm etc) och släppa filen där. Eller gör det i vanliga R. Då får du en sökväg.
 
 ![Sökväg till filen om man släpper den i en terminal (iTerm i exemplet)](images/absolute-path-terminal.png){fig-align="left" width="600"}
+
+### Läs in filen i R
+
+Vi kommer att läsa in filen med funktionen `read.table()`.
+
+```{r}
+testdata <- read.table("data/testdata.txt",
+                     header=T,
+                     sep="\t",
+                     dec=",") 
+```
+
+`<-` betyder att vi sparar resultatet av funktionen (just nu `read.table()`) i ett objekt. Eftersom det är vårt data är objektet en **dataframe**. Pilen `<-` pekar på objektet, och vi ger det ett passande namn, i det här fallet `testdata`.
+
+`read.table()` är funktionen för att läsa in textfiler med filändelsen `.txt`
+
+`"data/testdata.txt"` är sökvägen till datafilen, dvs platsen den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`). 
+
+`header=T` betyder att den första radan i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du T med F (T står för True, F står för False).
+
+`sep=T` betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).
+
+`dec=","` betyder att kommatecken används som decimalseparator (ex 1,32). Om filen istället använder punkt som decimalseparator (ex 1.32), anger du istället `dec="."`
+
+## Inspektera ditt data
+Nästa steg är att insprektera ditt dataset, för att se om allt gått rätt till vid inläsningen
+
+Börja med att inspektera datasetets struktur med `str()`.
+
+```{r}
+str(testdata)
+```
+
+`$ Colour: chr` betyder att värderna i `Colour` kolumnen är  *bokstäver* (characters)
+
+`$ Weight: int` betyder att värderna i kolumnen `Weight` är *heltal* (integers)
+
+`$ Length: num` betyder att värderna i kolumnen `Length` är *decimaltal* (numeric)
+
+Om du har en kolumn som borde innehålla decimaltal, skall det stå `num`. Om det istället står `chr` betyder det att datafiler har punkt som decimalavskiljare, men du utgår från att det är komma (eller tvärtom) och R tror att det är text. Ändra avskiljare, ex från `dec=","` till `dec="."` i koden och importera datasetet på nytt.
+
+Sedan visar du de första raderna i ditt dataset med funktionen `head()` och verifierar att allt ser korrekt ut.
+
+```{r}
+head(testdata)
+```

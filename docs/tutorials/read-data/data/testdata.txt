@@ -1,11 +1,11 @@
-Colour	Weight
-Green	4
-Green	3
-Green	5
-Green	4
-Green	5
-Blue	12
-Blue	14
-Blue	15
-Blue	11
-Blue	14
+Colour	Weight	Length
+Green	4	1,3
+Green	3	1,1
+Green	5	3,4
+Green	4	2,5
+Green	5	7,1
+Blue	12	14,5
+Blue	14	16,9
+Blue	15	13,5
+Blue	11	9,4
+Blue	14	11
