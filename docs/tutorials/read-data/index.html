@@ -217,6 +217,20 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data">Ta reda på den absoluta sökvägen till din fil med data</h3>
 <p>Ladda ner följande fil <a href="data/testdata.txt">testdata.txt</a> och spara den någonstans på din hårddisk. Om filen istället öppnas som en ny sida i din webbläsare så högerklickar du på länken och väljer “spara länk som”. Då sparas den som en fil.</p>
 <p>Alla sparade filer ligger någonstans på din hårddisk, och du måste tala om för R var den filen som du vill läsa in ligger.</p>
+<p>Det enklaste sättet att få reda på den absoluta sökvägen är att öpnna din filhanterare (finder, utforskaren eller liknande) och leta upp filen. Sedan drar du filen och släpper den i R-konsolen. Då kommer du få se dess sökväg, vilket visas i <strong>blått</strong> på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår Men R ger dig sökvägen, vilket är vad vi vill ha).</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/absolute-path-R.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="600"></p>
+</figure>
+</div>
+<p>Sökvägen till filen på min dator är: <code>/Users/martin/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt</code></p>
+<p><strong>R Studio</strong> - om du använder R studio fungerar det inte att dra filen till konsolen. Istället kan du öppna din terminal (Terminal, iTerm, EMAC, MobaXterm etc) och släppa filen där. Eller gör det i vanliga R. Då får du en sökväg.</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/absolute-path-terminal.png" class="img-fluid figure-img" width="600"></p>
+<figcaption>Sökväg till filen om man släpper den i en terminal (iTerm i exemplet)</figcaption>
+</figure>
+</div>
 
 
 </section>

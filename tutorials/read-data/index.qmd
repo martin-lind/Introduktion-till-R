@@ -38,4 +38,14 @@ Metoden bygger på att vi vill ha den absoluta sökvägen till våran datafil (d
 
 Ladda ner följande fil [testdata.txt](data/testdata.txt) och spara den någonstans på din hårddisk. Om filen istället öppnas som en ny sida i din webbläsare så högerklickar du på länken och väljer "spara länk som". Då sparas den som en fil.
 
-Alla sparade filer ligger någonstans på din hårddisk, och du måste tala om för R var den filen som du vill läsa in ligger. 
+Alla sparade filer ligger någonstans på din hårddisk, och du måste tala om för R var den filen som du vill läsa in ligger.
+
+Det enklaste sättet att få reda på den absoluta sökvägen är att öpnna din filhanterare (finder, utforskaren eller liknande) och leta upp filen. Sedan drar du filen och släpper den i R-konsolen. Då kommer du få se dess sökväg, vilket visas i **blått** på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår Men R ger dig sökvägen, vilket är vad vi vill ha).
+
+![](images/absolute-path-R.png){fig-align="left" width="600"}
+
+Sökvägen till filen på min dator är: `/Users/martin/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt`
+
+**R Studio** - om du använder R studio fungerar det inte att dra filen till konsolen. Istället kan du öppna din terminal (Terminal, iTerm, EMAC, MobaXterm etc) och släppa filen där. Eller gör det i vanliga R. Då får du en sökväg.
+
+![Sökväg till filen om man släpper den i en terminal (iTerm i exemplet)](images/absolute-path-terminal.png){fig-align="left" width="600"}
