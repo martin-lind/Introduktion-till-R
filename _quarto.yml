@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Introduktion till R"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Hem
+      - href: tutorials/index.qmd
+        text: Tutorials
+      - href: about.qmd
+        text: Om hemsidan
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+
+
+editor: visual
+

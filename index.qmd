@@ -1,0 +1,9 @@
+---
+title: "Introduktion till R"
+---
+
+Den här hemsidan ger en introduktion till statistik i R för biologer.
+
+Hemsidan är under uppbyggnad, en första version beräknas vara färdig i februari 2026, och kommer kontinuerligt att fyllas på med material.
+
+Hemsidan byggs av Martin Lind, Högskolan i Halmstad och Uppsala Universitet.

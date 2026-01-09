@@ -1,0 +1,11 @@
+Colour	Weight
+Green	4
+Green	3
+Green	5
+Green	4
+Green	5
+Blue	12
+Blue	14
+Blue	15
+Blue	11
+Blue	14

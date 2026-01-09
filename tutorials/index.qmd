@@ -1,0 +1,15 @@
+---
+title: "Tutorials"
+---
+
+## Lista över tutorials
+
+- [Installera R](install-R/)
+- [Läsa in data i R](read-data/)
+- [t-test](t-test/)
+- [Linjär regression](linear-regression/)
+- [Anova](anova/)
+- [Korrelation](correlation/)
+- [Chi2](chi2/)
+- [Utvecklingstest av funktioner och kod](testbed/)
+

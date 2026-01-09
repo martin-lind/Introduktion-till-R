@@ -1,0 +1,32 @@
+---
+title: "Linear Regression in R"
+---
+
+## Overview
+
+In this tutorial we learn how to fit linear models in R.
+
+## Dataset
+
+Download the dataset here:
+[Download housing data](data/housing.csv)
+
+## Load data
+
+```{r}
+#housing <- read.csv("data/housing.csv")
+#summary(housing)
+```
+
+## 8. Screenshots, figures, and teaching-friendly options
+
+Highly recommended options for teaching:
+
+```yaml
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: show
+    code-summary: "Show R code"
+````

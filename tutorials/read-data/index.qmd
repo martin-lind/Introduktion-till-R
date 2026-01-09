@@ -1,0 +1,41 @@
+---
+title: "Läsa in data i R"
+---
+
+Det första steget, innan man gör en statistisk analys, är alltid att läsa in data i R. Det är också ett steg som kan krångla.
+
+## Dataformat
+
+R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket
+
+| Filändelse | Beskrivning | Funktion | Extra paket krävs | Kommentarer |
+|---------------|---------------|---------------|---------------|---------------|
+| `txt` | Tab-avgränsad text | `read.table()` | \- |  |
+| `csv` | komma/semikolon-avgränsad text | `read.csv()` | \- | Specificera om avgränsningen är "," eller ";" |
+| `xlsx` | Exceldokument | `read.xlsx()` | `openxlsx` | Ange vilket blad som skall läsas in |
+
+: Vanliga datatyper som R kan läsa in (många fler alternativ finns)
+
+## Vilket sätt skall en fil läsas in på?
+
+Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen herer och var den ligger i ditt script (rekommenderas för reproducibilitet). Slutligen kan valet bero på om du använder R-projekt eller inte.
+
+## Exempel: Läsa in en `txt` i R med absolut sökväg
+
+I följande exempel läser vi in en tab-avgränsad datafil med filändelsen `txt` i R.
+
+Metoden bygger på att vi vill ha den absoluta sökvägen till våran datafil (dvs var på hårddisken den ligger), det är en bra metod att använda sig av för att alltid veta vilken fil, man arbetar med.
+
+**Fördel**
+
+-   Ger en absolut sökväg (du hittar alltid vilken fil du arbetar med)
+
+**Nackdel**
+
+-   Att få reda på den absoluta sökvägen kan vara lite omständigt (men behöver bara göras en gång per dataset)
+
+### Ta reda på den absoluta sökvägen till din fil med data
+
+Ladda ner följande fil [testdata.txt](data/testdata.txt) och spara den någonstans på din hårddisk. Om filen istället öppnas som en ny sida i din webbläsare så högerklickar du på länken och väljer "spara länk som". Då sparas den som en fil.
+
+Alla sparade filer ligger någonstans på din hårddisk, och du måste tala om för R var den filen som du vill läsa in ligger. 

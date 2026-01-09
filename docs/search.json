@@ -1,0 +1,135 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduktion till R",
+    "section": "",
+    "text": "Den här hemsidan ger en introduktion till statistik i R för biologer.\nHemsidan är under uppbyggnad, en första version beräknas vara färdig i februari 2026, och kommer kontinuerligt att fyllas på med material.\nHemsidan byggs av Martin Lind, Högskolan i Halmstad och Uppsala Universitet."
+  },
+  {
+    "objectID": "tutorials/linear-regression/index.html",
+    "href": "tutorials/linear-regression/index.html",
+    "title": "Linear Regression in R",
+    "section": "",
+    "text": "In this tutorial we learn how to fit linear models in R."
+  },
+  {
+    "objectID": "tutorials/linear-regression/index.html#overview",
+    "href": "tutorials/linear-regression/index.html#overview",
+    "title": "Linear Regression in R",
+    "section": "",
+    "text": "In this tutorial we learn how to fit linear models in R."
+  },
+  {
+    "objectID": "tutorials/linear-regression/index.html#dataset",
+    "href": "tutorials/linear-regression/index.html#dataset",
+    "title": "Linear Regression in R",
+    "section": "Dataset",
+    "text": "Dataset\nDownload the dataset here: Download housing data"
+  },
+  {
+    "objectID": "tutorials/linear-regression/index.html#load-data",
+    "href": "tutorials/linear-regression/index.html#load-data",
+    "title": "Linear Regression in R",
+    "section": "Load data",
+    "text": "Load data\n\n\nCode\n#housing &lt;- read.csv(\"data/housing.csv\")\n#summary(housing)"
+  },
+  {
+    "objectID": "tutorials/linear-regression/index.html#screenshots-figures-and-teaching-friendly-options",
+    "href": "tutorials/linear-regression/index.html#screenshots-figures-and-teaching-friendly-options",
+    "title": "Linear Regression in R",
+    "section": "8. Screenshots, figures, and teaching-friendly options",
+    "text": "8. Screenshots, figures, and teaching-friendly options\nHighly recommended options for teaching:\nformat:\n  html:\n    toc: true\n    toc-depth: 3\n    code-fold: show\n    code-summary: \"Show R code\""
+  },
+  {
+    "objectID": "tutorials/index.html",
+    "href": "tutorials/index.html",
+    "title": "Tutorials",
+    "section": "",
+    "text": "Installera R\nLäsa in data i R\nt-test\nLinjär regression\nAnova\nKorrelation\nChi2\nUtvecklingstest av funktioner och kod"
+  },
+  {
+    "objectID": "tutorials/index.html#lista-över-tutorials",
+    "href": "tutorials/index.html#lista-över-tutorials",
+    "title": "Tutorials",
+    "section": "",
+    "text": "Installera R\nLäsa in data i R\nt-test\nLinjär regression\nAnova\nKorrelation\nChi2\nUtvecklingstest av funktioner och kod"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n\nCode\n1 + 1\n\n\n[1] 2"
+  },
+  {
+    "objectID": "tutorials/testbed/index.html",
+    "href": "tutorials/testbed/index.html",
+    "title": "Linear Regression in R",
+    "section": "",
+    "text": "In this tutorial we learn how to fit linear models in R."
+  },
+  {
+    "objectID": "tutorials/testbed/index.html#overview",
+    "href": "tutorials/testbed/index.html#overview",
+    "title": "Linear Regression in R",
+    "section": "",
+    "text": "In this tutorial we learn how to fit linear models in R."
+  },
+  {
+    "objectID": "tutorials/testbed/index.html#dataset",
+    "href": "tutorials/testbed/index.html#dataset",
+    "title": "Linear Regression in R",
+    "section": "Dataset",
+    "text": "Dataset\nDownload the dataset here: Download housing data"
+  },
+  {
+    "objectID": "tutorials/testbed/index.html#load-data",
+    "href": "tutorials/testbed/index.html#load-data",
+    "title": "Linear Regression in R",
+    "section": "Load data",
+    "text": "Load data\n\n\nCode\n#housing &lt;- read.csv(\"data/housing.csv\")\n#summary(housing)"
+  },
+  {
+    "objectID": "tutorials/testbed/index.html#screenshots-figures-and-teaching-friendly-options",
+    "href": "tutorials/testbed/index.html#screenshots-figures-and-teaching-friendly-options",
+    "title": "Linear Regression in R",
+    "section": "8. Screenshots, figures, and teaching-friendly options",
+    "text": "8. Screenshots, figures, and teaching-friendly options\nHighly recommended options for teaching:\nformat:\n  html:\n    toc: true\n    toc-depth: 3\n    code-fold: show\n    code-summary: \"Show R code\""
+  },
+  {
+    "objectID": "tutorials/read-data/index.html",
+    "href": "tutorials/read-data/index.html",
+    "title": "Läsa in data i R",
+    "section": "",
+    "text": "Det första steget, innan man gör en statistisk analys, är alltid att läsa in data i R. Det är också ett steg som kan krångla."
+  },
+  {
+    "objectID": "tutorials/read-data/index.html#dataformat",
+    "href": "tutorials/read-data/index.html#dataformat",
+    "title": "Läsa in data i R",
+    "section": "Dataformat",
+    "text": "Dataformat\nR kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket\n\nVanliga datatyper som R kan läsa in (många fler alternativ finns)\n\n\n\n\n\n\n\n\n\nFiländelse\nBeskrivning\nFunktion\nExtra paket krävs\nKommentarer\n\n\n\n\ntxt\nTab-avgränsad text\nread.table()\n-\n\n\n\ncsv\nkomma/semikolon-avgränsad text\nread.csv()\n-\nSpecificera om avgränsningen är “,” eller “;”\n\n\nxlsx\nExceldokument\nread.xlsx()\nopenxlsx\nAnge vilket blad som skall läsas in"
+  },
+  {
+    "objectID": "tutorials/read-data/index.html#vilket-sätt-skall-en-fil-läsas-in-på",
+    "href": "tutorials/read-data/index.html#vilket-sätt-skall-en-fil-läsas-in-på",
+    "title": "Läsa in data i R",
+    "section": "Vilket sätt skall en fil läsas in på?",
+    "text": "Vilket sätt skall en fil läsas in på?\nDet finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen herer och var den ligger i ditt script (rekommenderas för reproducibilitet). Slutligen kan valet bero på om du använder R-projekt eller inte."
+  },
+  {
+    "objectID": "tutorials/read-data/index.html#exempel-läsa-in-en-txt-i-r",
+    "href": "tutorials/read-data/index.html#exempel-läsa-in-en-txt-i-r",
+    "title": "Läsa in data i R",
+    "section": "Exempel: Läsa in en txt i R",
+    "text": "Exempel: Läsa in en txt i R\nI följande exempel läser vi in en tab-avgränsad datafil med filändelsen txt i R.\nMetoden bygger på att vi vill ha den absoluta sökvägen till våran datafil (dvs var på hårddisken den ligger), det är en bra metod att använda sig av för att alltid veta vilken fil, man arbetar med.\nFördel\n\nGer en absolut sökväg (du hittar alltid vilken fil du arbetar med)\n\nNackdel\n\nAtt få reda på den absoluta sökvägen kan vara lite omständigt (men behöver bara göras en gång per dataset)\n\n\nTa reda på den absoluta sökvägen till din fil med data\nAlla filer ligger någonstans på din hårddisk."
+  },
+  {
+    "objectID": "tutorials/read-data/index.html#exempel-läsa-in-en-txt-i-r-med-absolut-sökväg",
+    "href": "tutorials/read-data/index.html#exempel-läsa-in-en-txt-i-r-med-absolut-sökväg",
+    "title": "Läsa in data i R",
+    "section": "Exempel: Läsa in en txt i R med absolut sökväg",
+    "text": "Exempel: Läsa in en txt i R med absolut sökväg\nI följande exempel läser vi in en tab-avgränsad datafil med filändelsen txt i R.\nMetoden bygger på att vi vill ha den absoluta sökvägen till våran datafil (dvs var på hårddisken den ligger), det är en bra metod att använda sig av för att alltid veta vilken fil, man arbetar med.\nFördel\n\nGer en absolut sökväg (du hittar alltid vilken fil du arbetar med)\n\nNackdel\n\nAtt få reda på den absoluta sökvägen kan vara lite omständigt (men behöver bara göras en gång per dataset)\n\n\nTa reda på den absoluta sökvägen till din fil med data\nLadda ner följande fil testdata.txt och spara den någonstans på din hårddisk. Om filen istället öppnas som en ny sida i din webbläsare så högerklickar du på länken och väljer “spara länk som”. Då sparas den som en fil.\nAlla sparade filer ligger någonstans på din hårddisk, och du måste tala om för R var den filen som du vill läsa in ligger."
+  }
+]
