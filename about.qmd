@@ -2,8 +2,6 @@
 title: "Om"
 ---
 
-Om hemsidan
-
 Hemsidan är tänkt att användas i statistikutbildning för biologer, med fokus på utbildningen vid Högskolan i Halmstad. På sikt skall den även fungera som en referens för vanliga analysmetoder.
 
 Hemsidan är skriven i [Quarto](https://quarto.org/), implementerat i [R Studio](https://posit.co/download/rstudio-desktop/).

@@ -11,14 +11,14 @@ R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra
 | Filändelse | Beskrivning | Funktion | Extra paket krävs | Kommentarer |
 |---------------|---------------|---------------|---------------|---------------|
 | `txt` | Tab-avgränsad text | `read.table()` | \- |  |
-| `csv` | komma/semikolon-avgränsad text | `read.csv()` | \- | Specificera om avgränsningen är "," eller ";" |
+| `csv` | Komma/semikolon-avgränsad text | `read.csv()` | \- | Specificera om avgränsningen är "," eller ";" |
 | `xlsx` | Exceldokument | `read.xlsx()` | `openxlsx` | Ange vilket blad som skall läsas in |
 
 : Vanliga datatyper som R kan läsa in (många fler alternativ finns)
 
 ## Vilket sätt skall en fil läsas in på?
 
-Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen herer och var den ligger i ditt script (rekommenderas för reproducibilitet). Slutligen kan valet bero på om du använder R-projekt eller inte.
+Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen herer och var den ligger i ditt script (rekommenderas för reproducerbarhet). Slutligen kan valet bero på om du använder R-projekt eller inte.
 
 ## Exempel: Läsa in en `txt` i R med absolut sökväg
 
@@ -67,7 +67,7 @@ testdata <- read.table("data/testdata.txt",
 
 `"data/testdata.txt"` är sökvägen till datafilen, dvs platsen den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`). 
 
-`header=T` betyder att den första radan i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du T med F (T står för True, F står för False).
+`header=T` betyder att den första radan i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du `T` med `F` (`T` står för TRUE, `F` står för FALSE).
 
 `sep=T` betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).
 

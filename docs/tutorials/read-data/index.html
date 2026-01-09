@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td><code>csv</code></td>
-<td>komma/semikolon-avgränsad text</td>
+<td>Komma/semikolon-avgränsad text</td>
 <td><code>read.csv()</code></td>
 <td>-</td>
 <td>Specificera om avgränsningen är “,” eller “;”</td>
@@ -236,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="vilket-sätt-skall-en-fil-läsas-in-på" class="level2">
 <h2 class="anchored" data-anchor-id="vilket-sätt-skall-en-fil-läsas-in-på">Vilket sätt skall en fil läsas in på?</h2>
-<p>Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen herer och var den ligger i ditt script (rekommenderas för reproducibilitet). Slutligen kan valet bero på om du använder R-projekt eller inte.</p>
+<p>Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen herer och var den ligger i ditt script (rekommenderas för reproducerbarhet). Slutligen kan valet bero på om du använder R-projekt eller inte.</p>
 </section>
 <section id="exempel-läsa-in-en-txt-i-r-med-absolut-sökväg" class="level2">
 <h2 class="anchored" data-anchor-id="exempel-läsa-in-en-txt-i-r-med-absolut-sökväg">Exempel: Läsa in en <code>txt</code> i R med absolut sökväg</h2>
@@ -284,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>&lt;-</code> betyder att vi sparar resultatet av funktionen (just nu <code>read.table()</code>) i ett objekt. Eftersom det är vårt data är objektet en <strong>dataframe</strong>. Pilen <code>&lt;-</code> pekar på objektet, och vi ger det ett passande namn, i det här fallet <code>testdata</code>.</p>
 <p><code>read.table()</code> är funktionen för att läsa in textfiler med filändelsen <code>.txt</code></p>
 <p><code>"data/testdata.txt"</code> är sökvägen till datafilen, dvs platsen den är sparad på din hårddisk (<code>data/</code>), och namnet på filen (<code>testdata.txt</code>).</p>
-<p><code>header=T</code> betyder att den första radan i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du T med F (T står för True, F står för False).</p>
+<p><code>header=T</code> betyder att den första radan i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du <code>T</code> med <code>F</code> (<code>T</code> står för TRUE, <code>F</code> står för FALSE).</p>
 <p><code>sep=T</code> betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).</p>
 <p><code>dec=","</code> betyder att kommatecken används som decimalseparator (ex 1,32). Om filen istället använder punkt som decimalseparator (ex 1.32), anger du istället <code>dec="."</code></p>
 </section>
