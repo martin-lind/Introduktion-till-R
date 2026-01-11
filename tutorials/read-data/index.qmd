@@ -35,6 +35,7 @@ Ladda ner följande fil [testdata_v2.txt](data/testdata_v2.txt) (högerklicka, v
 Nästa steg är att tala om för R var på din hårddisk du har sparat filen, dvs vad som är sökvägen till mappen som filen ligger i. Sedan kan du tala om för R vilken fil i mappen du skall läsa in.
 
 ### Var är jag?
+
 Platsen du befinner dig just nu är din Working Direcory, och du kan själv bestämma vad som är din Working Directory. Troligtvis har du alla filer som tillhör ett visst projekt i en mapp på din hårddisk, då hade det varit smart att ange den mappen som din Working Directory.
 
 Du kan se var din Working Directory är just nu genom funktionen `getwd()`
@@ -173,7 +174,7 @@ Notera att vi nu har en längre sökväg till filen.
 
 `"data/testdata.txt"` är sökvägen till datafilen, dvs där den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`).
 
-Se [Läs in filen i R] för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen `read.table()`.
+Se [Läs in filen i R] för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen `read.table()`. Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
 
 ## Dataformat
 
@@ -197,4 +198,80 @@ R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra
 
 : Vanliga datatyper som R kan läsa in (många fler alternativ finns)
 
-Vi har redan testat att läsa in en tab-avgänsad textfil.
+Vi har redan testat att läsa in en tab-avgänsad textfil. Nu skall vi testa på några andra filtyper.
+
+## Läsa in csv-fil
+
+En csv-fil är en fil där värderna är avgränsade av komma eller semikolon. Det är en mycket vanlig filtyp att långtidslagra data i.
+
+Ladda ner filen [testdata_csv.csv](data/testdata_csv.csv) och spara den någonstans på din hårddisk.
+
+Efter det letar du upp filen, antingen genom att använda [Relativ sökväg till filen] eller [Absolut sökväg till filen]. Om du sparat den i samma mapp som du har din Working Directory är det enkelt att använda en relativ sökväg.
+
+### Läs in filen
+
+Vi kommer åter att läsa in filen med funktionen `read.csv()`. Fyll i korrekt sökväg till din fil
+
+```{r}
+testdata_csv <- read.csv("data/testdata_csv.csv",
+                     header=T,
+                     sep=";",
+                     dec=",") 
+```
+
+Vi sparar resultatet från funktionen `read.csv()`, vilket är ett dataset, med namnet `testdata_csv`. Man skall alltid använda olika namn för olika dataset.
+
+`sep=";"` betyder att värderna i filen är separerade av semikolon. I övrigt påminner funktionen om `read.table()` som beskrivits i detalj ovan ([Läs in filen]). Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
+
+```{r}
+str(testdata_csv)
+head(testdata_csv)
+```
+
+## Läsa in Excelfil
+
+De flesta som samlar in biologiska data skriver in sina värden i Excel, och exporterar sedan sina data som en `*.txt`eller \`*.csv* fil. Det kan därför vara lockande att direkt läsa in sina excelblad i R, utan att gå omvägen via export till ett annat format.
+
+**Fördelar med att direkt läsa in excelfiler**
+
+-   Du har bara en enda fil med data, det är ingen risk att du lägger in nya data i Excel men glömmer att exportera det som txt eller csv-fil
+
+**Nackdelar med att direkt läsa in excelfiler**
+
+-   Excel har ett propriärt format, det är inte säkert att dina filer kan läsas i framtiden, därmed bättre att spara dina data i ett öppet format som txt eller csv
+
+-   Det är bra att separera sina excelfiler (där pågående datainsamling skrivs in) från ditt färdiga data (din txt eller csv-fil) som inte skall manipuleras
+
+-   Excelbladet du läser in måste vara helt rent, dvs du får inte ha några celler med annan information än data (exempelvis inga grafer, blanka kolumner eller liknande).
+
+Ladda ner filen [testdata_excel.xlsx](data/testdata_excel.xlsx) och spara den någonstans på din hårddisk.
+
+Efter det letar du upp filen, antingen genom att använda [Relativ sökväg till filen] eller [Absolut sökväg till filen]. Om du sparat den i samma mapp som du har din Working Directory är det enkelt att använda en relativ sökväg.
+
+### Läsa in Excelfilen
+
+För att kunna läsa in en Excelfil behöver vi installera paketet `openxlsx`. Se den tidigare informationen i kapitlet om att [installera paket](https://martin-lind.github.io/Introduktion-till-R/tutorials/R-packages/) för en fullständig genomgång om hur man hanterar paket.
+
+Du installerar paketet med koden `install.packages("openxlsx")`
+
+När paketet är installerat behöver vi läsa in det i vår pågående session i R
+
+```{r}
+library(openxlsx)
+```
+
+Nu är paketet inläst och vi kan använda oss av funktionen `read.xlsx()` för att läsa in vår Excelfil.
+
+```{r}
+testdata_excel <- read.xlsx("data/testdata_excel.xlsx",
+                     sheet=1) 
+```
+
+`sheet=1` betyder att du läser in det första bladet i Exceldokumentet.
+
+Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
+
+```{r}
+str(testdata_excel)
+head(testdata_excel)
+```

@@ -168,6 +168,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#läs-in-filen-i-r" id="toc-läs-in-filen-i-r" class="nav-link" data-scroll-target="#läs-in-filen-i-r">Läs in filen i R</a></li>
   </ul></li>
   <li><a href="#dataformat" id="toc-dataformat" class="nav-link" data-scroll-target="#dataformat">Dataformat</a></li>
+  <li><a href="#läsa-in-csv-fil" id="toc-läsa-in-csv-fil" class="nav-link" data-scroll-target="#läsa-in-csv-fil">Läsa in csv-fil</a>
+  <ul class="collapse">
+  <li><a href="#läs-in-filen-1" id="toc-läs-in-filen-1" class="nav-link" data-scroll-target="#läs-in-filen-1">Läs in filen</a></li>
+  </ul></li>
+  <li><a href="#läsa-in-excelfil" id="toc-läsa-in-excelfil" class="nav-link" data-scroll-target="#läsa-in-excelfil">Läsa in Excelfil</a>
+  <ul class="collapse">
+  <li><a href="#läsa-in-excelfilen" id="toc-läsa-in-excelfilen" class="nav-link" data-scroll-target="#läsa-in-excelfilen">Läsa in Excelfilen</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -380,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Notera att vi nu har en längre sökväg till filen.</p>
 <p><code>"data/testdata.txt"</code> är sökvägen till datafilen, dvs där den är sparad på din hårddisk (<code>data/</code>), och namnet på filen (<code>testdata.txt</code>).</p>
-<p>Se <a href="#läs-in-filen-i-r">Läs in filen i R</a> för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen <code>read.table()</code>.</p>
+<p>Se <a href="#läs-in-filen-i-r">Läs in filen i R</a> för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen <code>read.table()</code>. Efter att du läst in filen skall du alltid <a href="#inspektera-ditt-data">Inspektera ditt data</a> innan du börjar med dina analyser.</p>
 </section>
 </section>
 <section id="dataformat" class="level2">
@@ -439,9 +447,117 @@ SPSS</td>
 </tr>
 </tbody>
 </table>
-<p>Vi har redan testat att läsa in en tab-avgänsad textfil.</p>
+<p>Vi har redan testat att läsa in en tab-avgänsad textfil. Nu skall vi testa på några andra filtyper.</p>
+</section>
+<section id="läsa-in-csv-fil" class="level2">
+<h2 class="anchored" data-anchor-id="läsa-in-csv-fil">Läsa in csv-fil</h2>
+<p>En csv-fil är en fil där värderna är avgränsade av komma eller semikolon. Det är en mycket vanlig filtyp att långtidslagra data i.</p>
+<p>Ladda ner filen <a href="data/testdata_csv.csv">testdata_csv.csv</a> och spara den någonstans på din hårddisk.</p>
+<p>Efter det letar du upp filen, antingen genom att använda <a href="#relativ-sökväg-till-filen">Relativ sökväg till filen</a> eller <a href="#absolut-sökväg-till-filen">Absolut sökväg till filen</a>. Om du sparat den i samma mapp som du har din Working Directory är det enkelt att använda en relativ sökväg.</p>
+<section id="läs-in-filen-1" class="level3">
+<h3 class="anchored" data-anchor-id="läs-in-filen-1">Läs in filen</h3>
+<p>Vi kommer åter att läsa in filen med funktionen <code>read.csv()</code>. Fyll i korrekt sökväg till din fil</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>testdata_csv <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/testdata_csv.csv"</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">header=</span>T,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep=</span><span class="st">";"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dec=</span><span class="st">","</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Vi sparar resultatet från funktionen <code>read.csv()</code>, vilket är ett dataset, med namnet <code>testdata_csv</code>. Man skall alltid använda olika namn för olika dataset.</p>
+<p><code>sep=";"</code> betyder att värderna i filen är separerade av semikolon. I övrigt påminner funktionen om <code>read.table()</code> som beskrivits i detalj ovan (<a href="#läs-in-filen">Läs in filen</a>). Efter att du läst in filen skall du alltid <a href="#inspektera-ditt-data">Inspektera ditt data</a> innan du börjar med dina analyser.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(testdata_csv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10 obs. of  3 variables:
+ $ Colour: chr  "Red" "Red" "Red" "Red" ...
+ $ Weight: int  7 4 3 4 5 12 14 15 11 14
+ $ Length: num  2.3 4.1 3.4 2.5 7.1 14.5 16.9 13.5 9.4 11</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testdata_csv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Colour Weight Length
+1    Red      7    2.3
+2    Red      4    4.1
+3    Red      3    3.4
+4    Red      4    2.5
+5    Red      5    7.1
+6  White     12   14.5</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="läsa-in-excelfil" class="level2">
+<h2 class="anchored" data-anchor-id="läsa-in-excelfil">Läsa in Excelfil</h2>
+<p>De flesta som samlar in biologiska data skriver in sina värden i Excel, och exporterar sedan sina data som en <code>*.txt</code>eller `<em>.csv</em> fil. Det kan därför vara lockande att direkt läsa in sina excelblad i R, utan att gå omvägen via export till ett annat format.</p>
+<p><strong>Fördelar med att direkt läsa in excelfiler</strong></p>
+<ul>
+<li>Du har bara en enda fil med data, det är ingen risk att du lägger in nya data i Excel men glömmer att exportera det som txt eller csv-fil</li>
+</ul>
+<p><strong>Nackdelar med att direkt läsa in excelfiler</strong></p>
+<ul>
+<li><p>Excel har ett propriärt format, det är inte säkert att dina filer kan läsas i framtiden, därmed bättre att spara dina data i ett öppet format som txt eller csv</p></li>
+<li><p>Det är bra att separera sina excelfiler (där pågående datainsamling skrivs in) från ditt färdiga data (din txt eller csv-fil) som inte skall manipuleras.</p></li>
+</ul>
+<p>Ladda ner filen <a href="data/testdata_excel.xlsx">testdata_excel.xlsx</a> och spara den någonstans på din hårddisk.</p>
+<p>Efter det letar du upp filen, antingen genom att använda <a href="#relativ-sökväg-till-filen">Relativ sökväg till filen</a> eller <a href="#absolut-sökväg-till-filen">Absolut sökväg till filen</a>. Om du sparat den i samma mapp som du har din Working Directory är det enkelt att använda en relativ sökväg.</p>
+<section id="läsa-in-excelfilen" class="level3">
+<h3 class="anchored" data-anchor-id="läsa-in-excelfilen">Läsa in Excelfilen</h3>
+<p>För att kunna läsa in en Excelfil behöver vi installera paketet <code>openxlsx</code>. Se den tidigare informationen i kapitlet om att <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/R-packages/">installera paket</a> för en fullständig genomgång om hur man hanterar paket.</p>
+<p>Du installerar paketet med koden ìnstall.packages(“openxlsx”)`</p>
+<p>När paketet är installerat behöver vi läsa in det i vår pågående session i R</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Nu är paketet inläst och vi kan använda oss av funktionen <code>read.xlsx()</code> för att läsa in vår Excelfil.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>testdata_excel <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">"data/testdata_excel.xlsx"</span>,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sheet=</span><span class="dv">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><code>sheet=1</code> betyder att du läser in det första bladet i Exceldokumentet.</p>
+<p>Efter att du läst in filen skall du alltid <a href="#inspektera-ditt-data">Inspektera ditt data</a> innan du börjar med dina analyser.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(testdata_excel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10 obs. of  3 variables:
+ $ Colour: chr  "Purple" "Purple" "Purple" "Purple" ...
+ $ Mass  : num  2 5 3 5 5 12 14 15 11 14
+ $ Width : num  12.3 14.1 12.4 12.5 17.1 20.5 26.9 23.5 19.4 21</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testdata_excel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Colour Mass Width
+1 Purple    2  12.3
+2 Purple    5  14.1
+3 Purple    3  12.4
+4 Purple    5  12.5
+5 Purple    5  17.1
+6 Yellow   12  20.5</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
