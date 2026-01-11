@@ -154,19 +154,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#dataformat" id="toc-dataformat" class="nav-link active" data-scroll-target="#dataformat">Dataformat</a></li>
-  <li><a href="#vilket-sätt-skall-en-fil-läsas-in-på" id="toc-vilket-sätt-skall-en-fil-läsas-in-på" class="nav-link" data-scroll-target="#vilket-sätt-skall-en-fil-läsas-in-på">Vilket sätt skall en fil läsas in på?</a></li>
-  <li><a href="#exempel-läsa-in-en-txt-i-r-med-absolut-sökväg" id="toc-exempel-läsa-in-en-txt-i-r-med-absolut-sökväg" class="nav-link" data-scroll-target="#exempel-läsa-in-en-txt-i-r-med-absolut-sökväg">Exempel: Läsa in en <code>txt</code> i R med absolut sökväg</a>
+  <li><a href="#vilket-sätt-skall-en-fil-läsas-in-på" id="toc-vilket-sätt-skall-en-fil-läsas-in-på" class="nav-link active" data-scroll-target="#vilket-sätt-skall-en-fil-läsas-in-på">Vilket sätt skall en fil läsas in på?</a></li>
+  <li><a href="#relativ-sökväg-till-filen" id="toc-relativ-sökväg-till-filen" class="nav-link" data-scroll-target="#relativ-sökväg-till-filen">Relativ sökväg till filen</a>
+  <ul class="collapse">
+  <li><a href="#var-är-jag" id="toc-var-är-jag" class="nav-link" data-scroll-target="#var-är-jag">Var är jag?</a></li>
+  <li><a href="#ändra-din-working-directory" id="toc-ändra-din-working-directory" class="nav-link" data-scroll-target="#ändra-din-working-directory">Ändra din Working Directory</a></li>
+  <li><a href="#läs-in-filen" id="toc-läs-in-filen" class="nav-link" data-scroll-target="#läs-in-filen">Läs in filen</a></li>
+  </ul></li>
+  <li><a href="#inspektera-ditt-data" id="toc-inspektera-ditt-data" class="nav-link" data-scroll-target="#inspektera-ditt-data">Inspektera ditt data</a></li>
+  <li><a href="#absolut-sökväg-till-filen" id="toc-absolut-sökväg-till-filen" class="nav-link" data-scroll-target="#absolut-sökväg-till-filen">Absolut sökväg till filen</a>
   <ul class="collapse">
   <li><a href="#ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data" id="toc-ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data" class="nav-link" data-scroll-target="#ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data">Ta reda på den absoluta sökvägen till din fil med data</a></li>
   <li><a href="#läs-in-filen-i-r" id="toc-läs-in-filen-i-r" class="nav-link" data-scroll-target="#läs-in-filen-i-r">Läs in filen i R</a></li>
   </ul></li>
-  <li><a href="#inspektera-ditt-data" id="toc-inspektera-ditt-data" class="nav-link" data-scroll-target="#inspektera-ditt-data">Inspektera ditt data</a></li>
-  <li><a href="#använda-relativ-sökväg" id="toc-använda-relativ-sökväg" class="nav-link" data-scroll-target="#använda-relativ-sökväg">Använda relativ sökväg</a>
-  <ul class="collapse">
-  <li><a href="#använd-menyerna" id="toc-använd-menyerna" class="nav-link" data-scroll-target="#använd-menyerna">Använd menyerna</a></li>
-  <li><a href="#läs-in-filen" id="toc-läs-in-filen" class="nav-link" data-scroll-target="#läs-in-filen">Läs in filen</a></li>
-  </ul></li>
+  <li><a href="#dataformat" id="toc-dataformat" class="nav-link" data-scroll-target="#dataformat">Dataformat</a></li>
   </ul>
 </nav>
     </div>
@@ -193,9 +194,198 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Det första steget, innan man gör en statistisk analys, är alltid att läsa in data i R.</p>
+<p>Vi kommer att gå igen följande:</p>
+<ol type="1">
+<li><p>Hur man läser in datafiler i R</p></li>
+<li><p>Översikt över vanliga filtyper som R kan läsa in, vilket är beskrivet i delen om <a href="#dataformat">Dataformat</a></p></li>
+</ol>
+<section id="vilket-sätt-skall-en-fil-läsas-in-på" class="level2">
+<h2 class="anchored" data-anchor-id="vilket-sätt-skall-en-fil-läsas-in-på">Vilket sätt skall en fil läsas in på?</h2>
+<p>Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen heter och var den är placerad (rekommenderas för reproducerbarhet). Slutligen kan valet bero på om du använder R-projekt eller inte.</p>
+<p>Nedan kommer vi gå igen följande metoder:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metod</th>
+<th>Beskrivning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#relativ-sökväg-till-filen">Relativ sökväg till filen</a></td>
+<td>Du anger först vilken mapp din fil ligger i (din Working Directory) och sedan vad filen heter</td>
+</tr>
+<tr class="even">
+<td><a href="#absolut-sökväg-till-filen">Absolut sökväg till filen</a></td>
+<td>Du anger exakt var filen ligger på din hårddisk och vad den heter</td>
+</tr>
+</tbody>
+</table>
+<p>Vilken metod man använder är en smaksak, båda metoderna är vanliga och man bör känna till båda.</p>
+</section>
+<section id="relativ-sökväg-till-filen" class="level2">
+<h2 class="anchored" data-anchor-id="relativ-sökväg-till-filen">Relativ sökväg till filen</h2>
+<p>Med relativ sökväg menas att du först anger vilken mapp filen ligger i, och sedan vad filen heter.</p>
+<p>Ladda ner följande fil <a href="data/testdata_v2.txt">testdata_v2.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
+<p>Nästa steg är att tala om för R var på din hårddisk du har sparat filen, dvs vad som är sökvägen till mappen som filen ligger i. Sedan kan du tala om för R vilken fil i mappen du skall läsa in.</p>
+<section id="var-är-jag" class="level3">
+<h3 class="anchored" data-anchor-id="var-är-jag">Var är jag?</h3>
+<p>Platsen du befinner dig just nu är din Working Direcory, och du kan själv bestämma vad som är din Working Directory. Troligtvis har du alla filer som tillhör ett visst projekt i en mapp på din hårddisk, då hade det varit smart att ange den mappen som din Working Directory.</p>
+<p>Du kan se var din Working Directory är just nu genom funktionen <code>getwd()</code></p>
+<p>Testa att undersöka var din Working Directory är</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/martin/git_projects/Introduktion-till-R/tutorials/read-data"</code></pre>
+</div>
+</div>
+</section>
+<section id="ändra-din-working-directory" class="level3">
+<h3 class="anchored" data-anchor-id="ändra-din-working-directory">Ändra din Working Directory</h3>
+<p>Ett enkelt sätt att ändra din Working Directory är att använda dig av menyerna.</p>
+<p>Använd menyerna för att välja mappen där du sparat filen <code>testdata.txt</code> som din nya Working Directory!</p>
+<p>I <strong>R</strong> kan du välja Working Directory genom att klicka följande i menyerna:</p>
+<p><img src="images/R-setwd.png" class="img-fluid" width="600"></p>
+<p>I <strong>RStudio</strong> finns motsvarande menyval</p>
+<p><img src="images/RStudio-setwd.png" class="img-fluid" width="600"></p>
+<p>Nu har du ställt in din Working Directory så att det är den mappen som filerna du vill arbeta med ligger i!</p>
+<p>Det är dock bra att dokumentera din Working Directory i ditt script, så att du inte behöver sätta den manuellt i menyerna nästa gång du skall arbeta med samma data. Det gör också att du minns var filerna ligger.</p>
+<p><strong>Efter att du ställt in rätt Working Directory i menyerna, gör följande:</strong></p>
+<ol type="1">
+<li>Ta du reda på den absoluta sökvägen till din Working Directory med <code>getwd()</code></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/martin/git_projects/Introduktion-till-R/tutorials/read-data"</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Skriv in den absoluta sökvägen i ditt script, inuti funktionen <code>setwd()</code></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/martin/git_projects/Introduktion-till-R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Nästa gång du öppnar R och ditt script så räcker det att köra raden med <code>setwd()</code> där du just fyllt i din sökväg till din Working Directory, så hamnar du direkt i din mapp och kan läsa in dina filer!</p>
+</section>
+<section id="läs-in-filen" class="level3">
+<h3 class="anchored" data-anchor-id="läs-in-filen">Läs in filen</h3>
+<p>Nu är din Working Directory samma mapp som filen <code>testdata.txt</code> ligger i.</p>
+<p>Vi kommer att läsa in filen med funktionen <code>read.table()</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>testdata <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"testdata_v2.txt"</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">header=</span>T,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dec=</span><span class="st">","</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><code>&lt;-</code> betyder att vi sparar resultatet av funktionen (just nu <code>read.table()</code>) i ett objekt. Eftersom det är vårt data är objektet en <strong>dataframe</strong>. Pilen <code>&lt;-</code> pekar på objektet, och vi ger det ett passande namn, i det här fallet <code>testdata</code>.</p>
+<p><code>read.table()</code> är funktionen för att läsa in textfiler med filändelsen <code>.txt</code></p>
+<p><code>"testdata_v2.txt"</code> är sökvägen till datafilen, och eftersom den ligger direkt i din Working Directiory behöver vi bara skriva ut namnet på filen (<code>testdata_v2.txt</code>).</p>
+<p><code>header=T</code> betyder att den första raden i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du <code>T</code> med <code>F</code> (<code>T</code> står för TRUE, <code>F</code> står för FALSE).</p>
+<p><code>sep=T</code> betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).</p>
+<p><code>dec=","</code> betyder att kommatecken används som decimalseparator (ex 1,32). Om filen istället använder punkt som decimalseparator (ex 1.32), anger du istället <code>dec="."</code></p>
+</section>
+</section>
+<section id="inspektera-ditt-data" class="level2">
+<h2 class="anchored" data-anchor-id="inspektera-ditt-data">Inspektera ditt data</h2>
+<p>Nästa steg är att insprektera ditt dataset, för att se om allt gått rätt till vid inläsningen.</p>
+<p>Börja med att inspektera datasetets struktur med <code>str()</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(testdata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10 obs. of  3 variables:
+ $ Colour: chr  "Green" "Green" "Green" "Green" ...
+ $ Weight: int  4 3 5 4 5 12 14 15 11 14
+ $ Length: num  1.3 1.1 3.4 2.5 7.1 14.5 16.9 13.5 9.4 11</code></pre>
+</div>
+</div>
+<p><code>$ Colour: chr</code> betyder att värderna i <code>Colour</code> kolumnen är <em>bokstäver</em> (characters)</p>
+<p><code>$ Weight: int</code> betyder att värderna i kolumnen <code>Weight</code> är <em>heltal</em> (integers)</p>
+<p><code>$ Length: num</code> betyder att värderna i kolumnen <code>Length</code> är <em>decimaltal</em> (numeric)</p>
+<p>Om du har en kolumn som borde innehålla decimaltal, skall det stå <code>num</code>. Om det istället står <code>chr</code> betyder det att datafilen har punkt som decimalavskiljare, men du utgår från att det är komma (eller tvärtom) och därmed tror R att det är text. Ändra avskiljare, ex från <code>dec=","</code> till <code>dec="."</code> i koden och importera datasetet på nytt.</p>
+<p>Sedan visar du de första raderna i ditt dataset med funktionen <code>head()</code> och verifierar att allt ser korrekt ut.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testdata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Colour Weight Length
+1  Green      4    1.3
+2  Green      3    1.1
+3  Green      5    3.4
+4  Green      4    2.5
+5  Green      5    7.1
+6   Blue     12   14.5</code></pre>
+</div>
+</div>
+<p>Om allt ser korrekt ut så är du redo att analysera ditt data!</p>
+</section>
+<section id="absolut-sökväg-till-filen" class="level2" data-link="Absolut sökväg till filen">
+<h2 data-link="Absolut sökväg till filen" class="anchored" data-anchor-id="absolut-sökväg-till-filen">Absolut sökväg till filen</h2>
+<p>Ett alternativ är att ange den absoluta sökvägen till filen, dvs exakt var den ligger på din hårddisk, det är en bra metod att använda sig av för att alltid veta vilken fil man arbetar med och är fördelaktig om man arbetar med filer som är spridda i olika mappar på din dator. Det är oklokt att ändra Working Directory under en pågående analys, och det är också oklokt att ha mer än en kopia av samma fil på din hårddisk. För att undvika det kan man använda absoluta sökvägar.</p>
+<p><strong>Fördel</strong></p>
+<ul>
+<li>Ger en absolut sökväg (du hittar alltid vilken fil du arbetar med)</li>
+</ul>
+<p><strong>Nackdel</strong></p>
+<ul>
+<li>Att få reda på den absoluta sökvägen kan vara lite omständigt (men behöver bara göras en gång per dataset)</li>
+</ul>
+<section id="ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data" class="level3">
+<h3 class="anchored" data-anchor-id="ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data">Ta reda på den absoluta sökvägen till din fil med data</h3>
+<p>Ladda ner filen <a href="data/testdata.txt">testdata.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk <strong>i en annan mapp</strong> än där du sparade filen i förra exemplet.</p>
+<p>Nästa steg är att tala om för R var på din hårddisk du har sparat filen (den absoluta sökvägen till filen).</p>
+<p>Det enklaste sättet att få reda på den absoluta sökvägen är att öpna din <strong>filhanterare</strong> (finder, utforskaren eller liknande) och leta upp filen. Sedan <strong>drar du filen och släpper den i R-konsolen</strong>. Då kommer du få se dess sökväg, vilket visas i <strong>blått</strong> på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår, men R ger dig sökvägen, vilket är vad vi vill ha).</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/absolute-path-R.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="600"></p>
+</figure>
+</div>
+<p>Sökvägen till filen på min dator är: <code>~/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt</code></p>
+<p><strong>R Studio</strong> - om du använder R studio fungerar det inte att dra filen till konsolen. Istället kan du öppna din terminal (Terminal, iTerm, EMAC, MobaXterm etc) och släppa filen där. Eller gör det i vanliga R. Då får du en sökväg.</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/absolute-path-terminal.png" class="img-fluid figure-img" width="600"></p>
+<figcaption>Sökväg till filen om man släpper den i en terminal (iTerm i exemplet)</figcaption>
+</figure>
+</div>
+</section>
+<section id="läs-in-filen-i-r" class="level3" data-link="Läs in filen i R">
+<h3 data-link="Läs in filen i R" class="anchored" data-anchor-id="läs-in-filen-i-r">Läs in filen i R</h3>
+<p>Vi kommer åter att läsa in filen med funktionen <code>read.table()</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>testdata <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/testdata.txt"</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">header=</span>T,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dec=</span><span class="st">","</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Notera att vi nu har en längre sökväg till filen.</p>
+<p><code>"data/testdata.txt"</code> är sökvägen till datafilen, dvs där den är sparad på din hårddisk (<code>data/</code>), och namnet på filen (<code>testdata.txt</code>).</p>
+<p>Se <a href="#läs-in-filen-i-r">Läs in filen i R</a> för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen <code>read.table()</code>.</p>
+</section>
+</section>
 <section id="dataformat" class="level2">
 <h2 class="anchored" data-anchor-id="dataformat">Dataformat</h2>
-<p>R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket</p>
+<p>R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket.</p>
 <table class="caption-top table">
 <caption>Vanliga datatyper som R kan läsa in (många fler alternativ finns)</caption>
 <thead>
@@ -249,158 +439,9 @@ SPSS</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="vilket-sätt-skall-en-fil-läsas-in-på" class="level2">
-<h2 class="anchored" data-anchor-id="vilket-sätt-skall-en-fil-läsas-in-på">Vilket sätt skall en fil läsas in på?</h2>
-<p>Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen heter och var den är placerad (rekommenderas för reproducerbarhet). Slutligen kan valet bero på om du använder R-projekt eller inte.</p>
-</section>
-<section id="exempel-läsa-in-en-txt-i-r-med-absolut-sökväg" class="level2">
-<h2 class="anchored" data-anchor-id="exempel-läsa-in-en-txt-i-r-med-absolut-sökväg">Exempel: Läsa in en <code>txt</code> i R med absolut sökväg</h2>
-<p>I följande exempel läser vi in en tab-avgränsad datafil med filändelsen <code>txt</code> i R.</p>
-<p>Metoden bygger på att vi vill ha den absoluta sökvägen till vår datafil (dvs var på hårddisken den ligger), det är en bra metod att använda sig av för att alltid veta vilken fil man arbetar med.</p>
-<p><strong>Fördel</strong></p>
-<ul>
-<li>Ger en absolut sökväg (du hittar alltid vilken fil du arbetar med)</li>
-</ul>
-<p><strong>Nackdel</strong></p>
-<ul>
-<li>Att få reda på den absoluta sökvägen kan vara lite omständigt (men behöver bara göras en gång per dataset)</li>
-</ul>
-<section id="ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data" class="level3">
-<h3 class="anchored" data-anchor-id="ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data">Ta reda på den absoluta sökvägen till din fil med data</h3>
-<p>Ladda ner följande fil <a href="data/testdata.txt">testdata.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk.</p>
-<p>Nästa steg är att tala om för R var på din hårddisk du har sparat filen (den absoluta sökvägen till filen).</p>
-<p>Det enklaste sättet att få reda på den absoluta sökvägen är att öpna din <strong>filhanterare</strong> (finder, utforskaren eller liknande) och leta upp filen. Sedan <strong>drar du filen och släpper den i R-konsolen</strong>. Då kommer du få se dess sökväg, vilket visas i <strong>blått</strong> på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår, men R ger dig sökvägen, vilket är vad vi vill ha).</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="images/absolute-path-R.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="600"></p>
-</figure>
-</div>
-<p>Sökvägen till filen på min dator är: <code>~/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt</code></p>
-<p><strong>R Studio</strong> - om du använder R studio fungerar det inte att dra filen till konsolen. Istället kan du öppna din terminal (Terminal, iTerm, EMAC, MobaXterm etc) och släppa filen där. Eller gör det i vanliga R. Då får du en sökväg.</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="images/absolute-path-terminal.png" class="img-fluid figure-img" width="600"></p>
-<figcaption>Sökväg till filen om man släpper den i en terminal (iTerm i exemplet)</figcaption>
-</figure>
-</div>
-</section>
-<section id="läs-in-filen-i-r" class="level3">
-<h3 class="anchored" data-anchor-id="läs-in-filen-i-r">Läs in filen i R</h3>
-<p>Vi kommer att läsa in filen med funktionen <code>read.table()</code>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>testdata <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/testdata.txt"</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">header=</span>T,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dec=</span><span class="st">","</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<p><code>&lt;-</code> betyder att vi sparar resultatet av funktionen (just nu <code>read.table()</code>) i ett objekt. Eftersom det är vårt data är objektet en <strong>dataframe</strong>. Pilen <code>&lt;-</code> pekar på objektet, och vi ger det ett passande namn, i det här fallet <code>testdata</code>.</p>
-<p><code>read.table()</code> är funktionen för att läsa in textfiler med filändelsen <code>.txt</code></p>
-<p><code>"data/testdata.txt"</code> är sökvägen till datafilen, dvs där den är sparad på din hårddisk (<code>data/</code>), och namnet på filen (<code>testdata.txt</code>).</p>
-<p><code>header=T</code> betyder att den första raden i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du <code>T</code> med <code>F</code> (<code>T</code> står för TRUE, <code>F</code> står för FALSE).</p>
-<p><code>sep=T</code> betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).</p>
-<p><code>dec=","</code> betyder att kommatecken används som decimalseparator (ex 1,32). Om filen istället använder punkt som decimalseparator (ex 1.32), anger du istället <code>dec="."</code></p>
-</section>
-</section>
-<section id="inspektera-ditt-data" class="level2">
-<h2 class="anchored" data-anchor-id="inspektera-ditt-data">Inspektera ditt data</h2>
-<p>Nästa steg är att insprektera ditt dataset, för att se om allt gått rätt till vid inläsningen.</p>
-<p>Börja med att inspektera datasetets struktur med <code>str()</code>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(testdata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   10 obs. of  3 variables:
- $ Colour: chr  "Green" "Green" "Green" "Green" ...
- $ Weight: int  4 3 5 4 5 12 14 15 11 14
- $ Length: num  1.3 1.1 3.4 2.5 7.1 14.5 16.9 13.5 9.4 11</code></pre>
-</div>
-</div>
-<p><code>$ Colour: chr</code> betyder att värderna i <code>Colour</code> kolumnen är <em>bokstäver</em> (characters)</p>
-<p><code>$ Weight: int</code> betyder att värderna i kolumnen <code>Weight</code> är <em>heltal</em> (integers)</p>
-<p><code>$ Length: num</code> betyder att värderna i kolumnen <code>Length</code> är <em>decimaltal</em> (numeric)</p>
-<p>Om du har en kolumn som borde innehålla decimaltal, skall det stå <code>num</code>. Om det istället står <code>chr</code> betyder det att datafilen har punkt som decimalavskiljare, men du utgår från att det är komma (eller tvärtom) och därmed tror R att det är text. Ändra avskiljare, ex från <code>dec=","</code> till <code>dec="."</code> i koden och importera datasetet på nytt.</p>
-<p>Sedan visar du de första raderna i ditt dataset med funktionen <code>head()</code> och verifierar att allt ser korrekt ut.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testdata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Colour Weight Length
-1  Green      4    1.3
-2  Green      3    1.1
-3  Green      5    3.4
-4  Green      4    2.5
-5  Green      5    7.1
-6   Blue     12   14.5</code></pre>
-</div>
-</div>
-<p>Om allt ser korrekt ut så är du redo att analysera ditt data!</p>
-</section>
-<section id="använda-relativ-sökväg" class="level2">
-<h2 class="anchored" data-anchor-id="använda-relativ-sökväg">Använda relativ sökväg</h2>
-<p>Den absoluta sökvägen till en fil är ofta lång och ibland omständig att få fram. Ett alternativ är att istället använda relativa sökvägar.</p>
-<p>En relativ sökväg är <strong>sökvägen till en fil, relativt den foldern du befinner dig i just nu</strong>.</p>
-<p>Platsen du befinner dig just nu är din Working Direcory, och du kan själv bestämma vad som är din Working Directory. Troligtvis har du alla filer som tillhör ett visst projekt i en mapp på din hårddisk, då hade det varit smart att ange den mappen som din Working Directory.</p>
-<p>Du kan se var din Working Directory är just nu genom funktionen <code>getwd()</code></p>
-<p>Testa att undersöka var din Working Directory är</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/martin/git_projects/Introduktion-till-R/tutorials/read-data"</code></pre>
-</div>
-</div>
-<p>Du kan därefter skriva in den absoluta sökvägen till din Working Directory genom funktionen <code>setwd()</code></p>
-<section id="använd-menyerna" class="level3">
-<h3 class="anchored" data-anchor-id="använd-menyerna">Använd menyerna</h3>
-<p>Ett alternativt sätt att ta dig fram till din Working Directory är att använda dig av menyerna.</p>
-<p>Använd menyerna för att välja mappen där du sparat filen <code>testdata.txt</code> som din nya Working Directory!</p>
-<p>I <strong>R</strong> kan du välja Working Directory genom att klicka följande i menyerna:</p>
-<p><img src="images/R-setwd.png" class="img-fluid" width="600"></p>
-<p>I <strong>RStudio</strong> finns motsvarande menyval</p>
-<p><img src="images/RStudio-setwd.png" class="img-fluid" width="600"></p>
-<p>Det är dock bra att dokumentera din Working Directory i ditt script, så att du inte behöver sätta den manuellt nästa gång du skall arbeta med samma data.</p>
-<p><strong>Efter att du ställt in rätt Working Directory i menyerna, gör följande:</strong></p>
-<ol type="1">
-<li>Ta du reda på den absoluta sökvägen till din Working Directory med <code>getwd()</code></li>
-</ol>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/martin/git_projects/Introduktion-till-R/tutorials/read-data"</code></pre>
-</div>
-</div>
-<ol start="2" type="1">
-<li>Skriv in den absoluta sökvägen i ditt script, inuti funktionen <code>setwd()</code></li>
-</ol>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/martin/git_projects/Introduktion-till-R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<p>Nästa gång du öppnar R och ditt script så räcker det att köra raden med setwd() där du just fyllt i din sökväg, så hamnar du direkt i din mapp!</p>
-</section>
-<section id="läs-in-filen" class="level3">
-<h3 class="anchored" data-anchor-id="läs-in-filen">Läs in filen</h3>
-<p>Nu är din Working Directory samma mapp som filen <code>testdata.txt</code> ligger i. När du nu läser in din fil behöver du inte ange dess absoluta sökväg, det räcker att ange dess filnamn!</p>
-<p><code>testdata &lt;- read.table("testdata.txt", header=T,sep="\t", dec=",")</code></p>
-<p>Se <a href="#läs-in-filen-i-r">Läs in filen i R</a> för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen <code>read.table()</code>.</p>
+<p>Vi har redan testat att läsa in en tab-avgänsad textfil.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
