@@ -16,7 +16,7 @@ R är också en mjukvara (ett program) som vi använder oss av när vi gör stat
 
 ***RStudio*** är ett alternativt grafiskt interface (GUI) till R. För att använda RStudio krävs att du redan har installerat programmet ***R***.
 
-[Ladda ner R studio här](https://posit.co/download/rstudio-desktop/)
+[Ladda ner RStudio här](https://posit.co/download/rstudio-desktop/)
 
 ## R eller RStudio?
 
