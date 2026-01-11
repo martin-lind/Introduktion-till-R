@@ -161,10 +161,10 @@ Sökvägen till filen på min dator är: `~/git_projects/Introduktion-till-R/tut
 
 ### Läs in filen i R {data-link="Läs in filen i R"}
 
-Vi kommer åter att läsa in filen med funktionen `read.table()`.
+Vi kommer åter att läsa in filen med funktionen `read.table()` och vi kallar vårt inlästa dataset `testdata_absolut`.
 
 ```{r}
-testdata <- read.table("data/testdata.txt",
+testdata_absolut <- read.table("data/testdata.txt",
                      header=T,
                      sep="\t",
                      dec=",") 
@@ -175,6 +175,14 @@ Notera att vi nu har en längre sökväg till filen.
 `"data/testdata.txt"` är sökvägen till datafilen, dvs där den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`).
 
 Se [Läs in filen i R] för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen `read.table()`. Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
+
+
+
+```{r}
+str(testdata_absolut)
+head(testdata_absolut)
+```
+
 
 ## Dataformat
 
@@ -230,7 +238,7 @@ head(testdata_csv)
 
 ## Läsa in Excelfil
 
-De flesta som samlar in biologiska data skriver in sina värden i Excel, och exporterar sedan sina data som en `*.txt`eller \`*.csv* fil. Det kan därför vara lockande att direkt läsa in sina excelblad i R, utan att gå omvägen via export till ett annat format.
+De flesta som samlar in biologiska data skriver in sina värden i Excel, och exporterar sedan sina data som en txt eller csv fil. Det kan därför vara lockande att direkt läsa in sina excelblad i R, utan att gå omvägen via export till ett annat format.
 
 **Fördelar med att direkt läsa in excelfiler**
 
