@@ -1,0 +1,64 @@
+---
+title: "R-paket"
+---
+
+Alla grundläggande funktioner ingår redan i R och finns tillgängliga vid uppstart. En stor styrka med R är dock att det går att bygga ut med paket som ger nya funktioner. Det kan exampelvis vara avancerade statistiska analyser eller grafer. Det är den stora mängden specialiserade paket, utvecklad av aktiva forskare inom alla discipliner, som gör R till det ledande verktyget för dataanalys och statistik.
+
+## Vanliga paket
+
+Nedan listas några vanliga paket inom biologisk statistik.
+
+| Paket    | Användning                                       |
+|----------|--------------------------------------------------|
+| ggplot2  | Grafer och visualiseringar                       |
+| openxlsx | Läsa in Excel-dokument                           |
+| dplyr    | Bearbeta datafiler, göra urval av data           |
+| lme4     | Mixed-effect modeller                            |
+| car      | Signifikansberäkning i mixed-effect modeller     |
+| vegan    | Multivariat statistik och biodiversitetsanalyser |
+
+## Installera paket
+
+Du installerar ett paket genom funktionen `install.packages()`
+
+Som ett exempel kan vi installera paketet `ggplot2`
+
+`install.packages("ggplot2")`
+
+## Använda ett paket
+
+När du startar R är inga paket laddade i körningen, även om paketen är installerade. För att använda paketet måste du ladda in det i R, vilket du gör med funktionen `library()`.
+
+Vi laddar nu in det nyligen installerade paketet `ggplot2` i R.
+
+```{r}
+library(ggplot2)
+```
+
+## Dokumentera vilka paket som ingår i ett viss script
+
+Om du använder en viss funktion som utförs av ett paket, men inte har installerat och laddat paketet, kommur du få ett felmeddelande.
+
+Hur vet du då vilket paket som skall användas? Kommer du ihåg det? Eller har du fått en scriptfil från en kollega? Det är allstå väldigt viktigt att dokumentera vilka extra paket som används i en viss analys.
+
+### Dokumentera i början av scriptfilen
+
+Ett vanligt sätt är att börja sin scriptfil med att lista alla paket som används. Då kan du (eller den som du delar din scriptfil med) se vilka paket som används.
+
+`#Paket som används` `library(ggplot2)` `library(lme4)` `library(car)`
+
+Det här är det absolut vanligaste sättet att dokumentera vilka paket man använder sig av.
+
+Nackdelen med att enbart använda sig av det här tillvägagångssättet är att du inte vet vilken funktion som hör till vilket paket. Det är inget praktiskt problem, men ett "ordningsproblem"
+
+### Dokumentera varje gång du använder en funktion från ett paket
+
+I tillägg till att lista alla paketen först i scriptet är ett extra bra sätt är att tala om vilket paket en funktion tillhör. Det gör du genom att skriva ut paketets namn varje gång du använder den funktionen:
+
+`paketnamn::funktion`
+
+Exempel om man gör en figur med ggplot2:
+
+`ggplot2::ggplot(...)`
+
+Metoden ger en väldigt bra tydlighet och reproducerbarhet, och används när så är önskvärt.

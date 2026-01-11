@@ -46,14 +46,14 @@
     "href": "tutorials/index.html",
     "title": "Tutorials",
     "section": "",
-    "text": "Installera R\nAnvända R, en introduktion Ej påbörjad\nLäsa in data i R\n\n\n\n\n\nt-test Ej påbörjad\nLinjär regression Ej påbörjad\nAnova Ej påbörjad\nKorrelation Ej påbörjad\nChi2 Ej påbörjad\n\n\n\n\n\nUtvecklingstest av funktioner och kod Test"
+    "text": "Installera R\nAnvända R, en introduktion Ej påbörjad\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test Ej påbörjad\nLinjär regression Ej påbörjad\nAnova Ej påbörjad\nKorrelation Ej påbörjad\nChi2 Ej påbörjad\n\n\n\n\n\nUtvecklingstest av funktioner och kod Test"
   },
   {
     "objectID": "tutorials/index.html#lista-över-tutorials",
     "href": "tutorials/index.html#lista-över-tutorials",
     "title": "Tutorials",
     "section": "",
-    "text": "Installera R\nAnvända R, en introduktion Ej påbörjad\nLäsa in data i R\n\n\n\n\n\nt-test Ej påbörjad\nLinjär regression Ej påbörjad\nAnova Ej påbörjad\nKorrelation Ej påbörjad\nChi2 Ej påbörjad\n\n\n\n\n\nUtvecklingstest av funktioner och kod Test"
+    "text": "Installera R\nAnvända R, en introduktion Ej påbörjad\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test Ej påbörjad\nLinjär regression Ej påbörjad\nAnova Ej påbörjad\nKorrelation Ej påbörjad\nChi2 Ej påbörjad\n\n\n\n\n\nUtvecklingstest av funktioner och kod Test"
   },
   {
     "objectID": "about.html",
@@ -166,5 +166,40 @@
     "title": "Installera R",
     "section": "R eller RStudio?",
     "text": "R eller RStudio?\nSåväl R som RStudio hanterar R-kod på samma sätt (eftersom RStudio använder sig av R i bakgrunden) och det spelar ingen roll vilken man använder för att göra statistik och visualiseringar.\nRStudio utmärker sig genom ett annorlunda interface och hjälpsamma funktioner såsom tab completion, färgning av kod (ger bättre överblick) och möjligheter till avancerad organisering av dina projekt. Dessutom kan RStudio hantera fler programmeringsspråk och enkelt integreras i vanliga arbetsflöden (ex via github)."
+  },
+  {
+    "objectID": "tutorials/R-packages/index.html",
+    "href": "tutorials/R-packages/index.html",
+    "title": "R-paket",
+    "section": "",
+    "text": "Alla grundläggande funktioner ingår redan i R och finns tillgängliga vid uppstart. En stor styrka med R är dock att det går att bygga ut med paket som ger nya funktioner. Det kan exampelvis vara avancerade statistiska analyser eller grafer. Det är den stora mängden specialiserade paket, utvecklad av aktiva forskare inom alla discipliner, som gör R till det ledande verktyget för dataanalys och statistik."
+  },
+  {
+    "objectID": "tutorials/R-packages/index.html#vanliga-paket",
+    "href": "tutorials/R-packages/index.html#vanliga-paket",
+    "title": "R-paket",
+    "section": "Vanliga paket",
+    "text": "Vanliga paket\nNedan listas några vanliga paket inom biologisk statistik.\n\n\n\nPaket\nAnvändning\n\n\n\n\nggplot2\nGrafer och visualiseringar\n\n\nopenxlsx\nLäsa in Excel-dokument\n\n\ndplyr\nBearbeta datafiler, göra urval av data\n\n\nlme4\nMixed-effect modeller\n\n\ncar\nSignifikansberäkning i mixed-effect modeller\n\n\nvegan\nMultivariat statistik och biodiversitetsanalyser"
+  },
+  {
+    "objectID": "tutorials/R-packages/index.html#installera-paket",
+    "href": "tutorials/R-packages/index.html#installera-paket",
+    "title": "R-paket",
+    "section": "Installera paket",
+    "text": "Installera paket\nDu installerar ett paket genom funktionen install.packages()\nSom ett exempel kan vi installera paketet ggplot2\ninstall.packages(\"ggplot2\")"
+  },
+  {
+    "objectID": "tutorials/R-packages/index.html#använda-ett-paket",
+    "href": "tutorials/R-packages/index.html#använda-ett-paket",
+    "title": "R-paket",
+    "section": "Använda ett paket",
+    "text": "Använda ett paket\nNär du startar R är inga paket laddade i körningen, även om paketen är installerade. För att använda paketet måste du ladda in det i R, vilket du gör med funktionen library().\nVi laddar nu in det nyligen installerade paketet ggplot2 i R.\n\n\nCode\nlibrary(ggplot2)"
+  },
+  {
+    "objectID": "tutorials/R-packages/index.html#dokumentera-vilka-paket-som-ingår-i-ett-viss-script",
+    "href": "tutorials/R-packages/index.html#dokumentera-vilka-paket-som-ingår-i-ett-viss-script",
+    "title": "R-paket",
+    "section": "Dokumentera vilka paket som ingår i ett viss script",
+    "text": "Dokumentera vilka paket som ingår i ett viss script\nOm du använder en viss funktion som utförs av ett paket, men inte har installerat och laddat paketet, kommur du få ett felmeddelande.\nHur vet du då vilket paket som skall användas? Kommer du ihåg det? Eller har du fått en scriptfil från en kollega? Det är allstå väldigt viktigt att dokumentera vilka extra paket som används i en viss analys.\n\nDokumentera i början av scriptfilen\nEtt vanligt sätt är att börja sin scriptfil med att lista alla paket som används. Då kan du (eller den som du delar din scriptfil med) se vilka paket som används.\n#Paket som används library(ggplot2) library(lme4) library(car)\nDet här är det absolut vanligaste sättet att dokumentera vilka paket man använder sig av.\nNackdelen med att enbart använda sig av det här tillvägagångssättet är att du inte vet vilken funktion som hör till vilket paket. Det är inget praktiskt problem, men ett “ordningsproblem”\n\n\nDokumentera varje gång du använder en funktion från ett paket\nI tillägg till att lista alla paketen först i scriptet är ett extra bra sätt är att tala om vilket paket en funktion tillhör. Det gör du genom att skriva ut paketets namn varje gång du använder den funktionen:\npaketnamn::funktion\nExempel om man gör en figur med ggplot2:\nggplot2::ggplot(...)\nMetoden ger en väldigt bra tydlighet och reproducerbarhet, och används när så är önskvärt."
   }
 ]

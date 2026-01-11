@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tutorials – Introduktion till R</title>
+<title>R-paket – Introduktion till R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,9 +114,9 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Introduktion till R</span>
     </a>
   </div>
@@ -92,15 +127,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Hem</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../tutorials/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../tutorials/index.html"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">Om hemsidan</span></a>
   </li>  
 </ul>
@@ -119,11 +154,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lista-över-tutorials" id="toc-lista-över-tutorials" class="nav-link active" data-scroll-target="#lista-över-tutorials">Lista över tutorials</a>
+  <li><a href="#vanliga-paket" id="toc-vanliga-paket" class="nav-link active" data-scroll-target="#vanliga-paket">Vanliga paket</a></li>
+  <li><a href="#installera-paket" id="toc-installera-paket" class="nav-link" data-scroll-target="#installera-paket">Installera paket</a></li>
+  <li><a href="#använda-ett-paket" id="toc-använda-ett-paket" class="nav-link" data-scroll-target="#använda-ett-paket">Använda ett paket</a></li>
+  <li><a href="#dokumentera-vilka-paket-som-ingår-i-ett-viss-script" id="toc-dokumentera-vilka-paket-som-ingår-i-ett-viss-script" class="nav-link" data-scroll-target="#dokumentera-vilka-paket-som-ingår-i-ett-viss-script">Dokumentera vilka paket som ingår i ett viss script</a>
   <ul class="collapse">
-  <li><a href="#att-installera-och-arbeta-i-r" id="toc-att-installera-och-arbeta-i-r" class="nav-link" data-scroll-target="#att-installera-och-arbeta-i-r">Att installera och arbeta i R</a></li>
-  <li><a href="#statistiska-test" id="toc-statistiska-test" class="nav-link" data-scroll-target="#statistiska-test">Statistiska test</a></li>
-  <li><a href="#övrigt" id="toc-övrigt" class="nav-link" data-scroll-target="#övrigt">Övrigt</a></li>
+  <li><a href="#dokumentera-i-början-av-scriptfilen" id="toc-dokumentera-i-början-av-scriptfilen" class="nav-link" data-scroll-target="#dokumentera-i-början-av-scriptfilen">Dokumentera i början av scriptfilen</a></li>
+  <li><a href="#dokumentera-varje-gång-du-använder-en-funktion-från-ett-paket" id="toc-dokumentera-varje-gång-du-använder-en-funktion-från-ett-paket" class="nav-link" data-scroll-target="#dokumentera-varje-gång-du-använder-en-funktion-från-ett-paket">Dokumentera varje gång du använder en funktion från ett paket</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -133,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tutorials</h1>
+<h1 class="title">R-paket</h1>
 </div>
 
 
@@ -150,32 +187,80 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="lista-över-tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="lista-över-tutorials">Lista över tutorials</h2>
-<section id="att-installera-och-arbeta-i-r" class="level3">
-<h3 class="anchored" data-anchor-id="att-installera-och-arbeta-i-r">Att installera och arbeta i R</h3>
-<ul>
-<li><a href="install-R/">Installera R</a></li>
-<li><a href="use-R">Använda R, en introduktion</a> Ej påbörjad</li>
-<li><a href="R-packages">Installera paket</a></li>
-<li><a href="read-data/">Läsa in data i R</a></li>
-</ul>
+<p>Alla grundläggande funktioner ingår redan i R och finns tillgängliga vid uppstart. En stor styrka med R är dock att det går att bygga ut med paket som ger nya funktioner. Det kan exampelvis vara avancerade statistiska analyser eller grafer. Det är den stora mängden specialiserade paket, utvecklad av aktiva forskare inom alla discipliner, som gör R till det ledande verktyget för dataanalys och statistik.</p>
+<section id="vanliga-paket" class="level2">
+<h2 class="anchored" data-anchor-id="vanliga-paket">Vanliga paket</h2>
+<p>Nedan listas några vanliga paket inom biologisk statistik.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Paket</th>
+<th>Användning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ggplot2</td>
+<td>Grafer och visualiseringar</td>
+</tr>
+<tr class="even">
+<td>openxlsx</td>
+<td>Läsa in Excel-dokument</td>
+</tr>
+<tr class="odd">
+<td>dplyr</td>
+<td>Bearbeta datafiler, göra urval av data</td>
+</tr>
+<tr class="even">
+<td>lme4</td>
+<td>Mixed-effect modeller</td>
+</tr>
+<tr class="odd">
+<td>car</td>
+<td>Signifikansberäkning i mixed-effect modeller</td>
+</tr>
+<tr class="even">
+<td>vegan</td>
+<td>Multivariat statistik och biodiversitetsanalyser</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="statistiska-test" class="level3">
-<h3 class="anchored" data-anchor-id="statistiska-test">Statistiska test</h3>
-<ul>
-<li><a href="t-test/">t-test</a> Ej påbörjad</li>
-<li><a href="linear-regression/">Linjär regression</a> Ej påbörjad</li>
-<li><a href="anova/">Anova</a> Ej påbörjad</li>
-<li><a href="correlation/">Korrelation</a> Ej påbörjad</li>
-<li><a href="chi2/">Chi2</a> Ej påbörjad</li>
-</ul>
+<section id="installera-paket" class="level2">
+<h2 class="anchored" data-anchor-id="installera-paket">Installera paket</h2>
+<p>Du installerar ett paket genom funktionen <code>install.packages()</code></p>
+<p>Som ett exempel kan vi installera paketet <code>ggplot2</code></p>
+<p><code>install.packages("ggplot2")</code></p>
 </section>
-<section id="övrigt" class="level3">
-<h3 class="anchored" data-anchor-id="övrigt">Övrigt</h3>
-<ul>
-<li><a href="testbed/">Utvecklingstest av funktioner och kod</a> Test</li>
-</ul>
+<section id="använda-ett-paket" class="level2">
+<h2 class="anchored" data-anchor-id="använda-ett-paket">Använda ett paket</h2>
+<p>När du startar R är inga paket laddade i körningen, även om paketen är installerade. För att använda paketet måste du ladda in det i R, vilket du gör med funktionen <code>library()</code>.</p>
+<p>Vi laddar nu in det nyligen installerade paketet <code>ggplot2</code> i R.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="dokumentera-vilka-paket-som-ingår-i-ett-viss-script" class="level2">
+<h2 class="anchored" data-anchor-id="dokumentera-vilka-paket-som-ingår-i-ett-viss-script">Dokumentera vilka paket som ingår i ett viss script</h2>
+<p>Om du använder en viss funktion som utförs av ett paket, men inte har installerat och laddat paketet, kommur du få ett felmeddelande.</p>
+<p>Hur vet du då vilket paket som skall användas? Kommer du ihåg det? Eller har du fått en scriptfil från en kollega? Det är allstå väldigt viktigt att dokumentera vilka extra paket som används i en viss analys.</p>
+<section id="dokumentera-i-början-av-scriptfilen" class="level3">
+<h3 class="anchored" data-anchor-id="dokumentera-i-början-av-scriptfilen">Dokumentera i början av scriptfilen</h3>
+<p>Ett vanligt sätt är att börja sin scriptfil med att lista alla paket som används. Då kan du (eller den som du delar din scriptfil med) se vilka paket som används.</p>
+<p><code>#Paket som används</code> <code>library(ggplot2)</code> <code>library(lme4)</code> <code>library(car)</code></p>
+<p>Det här är det absolut vanligaste sättet att dokumentera vilka paket man använder sig av.</p>
+<p>Nackdelen med att enbart använda sig av det här tillvägagångssättet är att du inte vet vilken funktion som hör till vilket paket. Det är inget praktiskt problem, men ett “ordningsproblem”</p>
+</section>
+<section id="dokumentera-varje-gång-du-använder-en-funktion-från-ett-paket" class="level3">
+<h3 class="anchored" data-anchor-id="dokumentera-varje-gång-du-använder-en-funktion-från-ett-paket">Dokumentera varje gång du använder en funktion från ett paket</h3>
+<p>I tillägg till att lista alla paketen först i scriptet är ett extra bra sätt är att tala om vilket paket en funktion tillhör. Det gör du genom att skriva ut paketets namn varje gång du använder den funktionen:</p>
+<p><code>paketnamn::funktion</code></p>
+<p>Exempel om man gör en figur med ggplot2:</p>
+<p><code>ggplot2::ggplot(...)</code></p>
+<p>Metoden ger en väldigt bra tydlighet och reproducerbarhet, och används när så är önskvärt.</p>
 
 
 </section>
