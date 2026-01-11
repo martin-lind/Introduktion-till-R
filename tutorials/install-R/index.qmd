@@ -1,0 +1,25 @@
+---
+title: "Installera R"
+---
+
+R är ett programmeringsspråk som används för statistik och visualisering av data. Det är i språket R vi skriver när vi arbetar med R.
+
+R är också en mjukvara (ett program) som vi använder oss av när vi gör statistik och visualiseringar i språket R.
+
+## R (programmet)
+
+***R*** är fritt tillgängligt utan kostnad, och finns för alla större plattformar (OSX, Windows, Unix, Linux mm).
+
+[Ladda ner R här](https://www.r-project.org/)
+
+## RStudio
+
+***RStudio*** är ett alternativt grafiskt interface (GUI) till R. För att använda RStudio krävs att du redan har installerat programmet ***R***.
+
+[Ladda ner R studio här](https://posit.co/download/rstudio-desktop/)
+
+## R eller RStudio?
+
+Såväl ***R*** som ***RStudio*** hanterar R-kod på samma sätt (eftersom RStudio använder sig av R i bakgrunden) och det spelar ingen roll vilken man använder för att göra statistik och visualiseringar.
+
+***RStudio*** utmärker sig genom ett annorlunda interface och hjälpsamma funktioner såsom tab completion, färgning av kod (ger bättre överblick) och möjligheter till avancerad organisering av dina projekt. Dessutom kan RStudio hantera fler programmeringsspråk och enkelt integreras i vanliga arbetsflöden (ex via github).

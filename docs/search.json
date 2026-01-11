@@ -46,21 +46,21 @@
     "href": "tutorials/index.html",
     "title": "Tutorials",
     "section": "",
-    "text": "Installera R Ej påbörjad\nLäsa in data i R\nt-test Ej påbörjad\nLinjär regression Ej påbörjad\nAnova Ej påbörjad\nKorrelation Ej påbörjad\nChi2 Ej påbörjad\nUtvecklingstest av funktioner och kod Test"
+    "text": "Installera R Ej påbörjad\nAnvända R, en introduktion Ej påbörjad\nLäsa in data i R\nt-test Ej påbörjad\nLinjär regression Ej påbörjad\nAnova Ej påbörjad\nKorrelation Ej påbörjad\nChi2 Ej påbörjad\nUtvecklingstest av funktioner och kod Test"
   },
   {
     "objectID": "tutorials/index.html#lista-över-tutorials",
     "href": "tutorials/index.html#lista-över-tutorials",
     "title": "Tutorials",
     "section": "",
-    "text": "Installera R Ej påbörjad\nLäsa in data i R\nt-test Ej påbörjad\nLinjär regression Ej påbörjad\nAnova Ej påbörjad\nKorrelation Ej påbörjad\nChi2 Ej påbörjad\nUtvecklingstest av funktioner och kod Test"
+    "text": "Installera R Ej påbörjad\nAnvända R, en introduktion Ej påbörjad\nLäsa in data i R\nt-test Ej påbörjad\nLinjär regression Ej påbörjad\nAnova Ej påbörjad\nKorrelation Ej påbörjad\nChi2 Ej påbörjad\nUtvecklingstest av funktioner och kod Test"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "Om",
     "section": "",
-    "text": "Om hemsidan\nHemsidan är tänkt att användas i statistikutbildning för biologer, med fokus på utbildningen vid Högskolan i Halmstad. På sikt skall den även fungera som en referens för vanliga analysmetoder.\nHemsidan är skriven i Quarto, implementerat i R Studio.\nAnsvarig för hemsidan är Martin Lind"
+    "text": "Hemsidan är tänkt att användas i statistikutbildning för biologer, med fokus på utbildningen vid Högskolan i Halmstad. På sikt skall den även fungera som en referens för vanliga analysmetoder.\nHemsidan är skriven i Quarto, implementerat i R Studio.\nAnsvarig för hemsidan är Martin Lind"
   },
   {
     "objectID": "tutorials/testbed/index.html",
@@ -109,7 +109,7 @@
     "href": "tutorials/read-data/index.html#dataformat",
     "title": "Läsa in data i R",
     "section": "Dataformat",
-    "text": "Dataformat\nR kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket\n\nVanliga datatyper som R kan läsa in (många fler alternativ finns)\n\n\nFiländelse\nBeskrivning\nFunktion\nExtra paket krävs\nKommentarer\n\n\n\n\ntxt\nTab-avgränsad text\nread.table()\n-\n\n\n\ncsv\nKomma/semikolon-avgränsad text\nread.csv()\n-\nSpecificera om avgränsningen är “,” eller “;”\n\n\nxlsx\nExceldokument\nread.xlsx()\nopenxlsx\nAnge vilket blad som skall läsas in\n\n\nrda\nR-datafil\nload()\n\n\n\n\nsas7bdat sas7bcat dta sav\nSAS\nStata\nSPSS\nread_sas()\nread_dta()\nread_sav()\nhaven\nSe paketets dokumentation"
+    "text": "Dataformat\nR kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket\n\nVanliga datatyper som R kan läsa in (många fler alternativ finns)\n\n\nFiländelse\nBeskrivning\nFunktion\nExtra paket krävs\nKommentarer\n\n\n\n\ntxt\nTab-avgränsad text\nread.table()\n-\n\n\n\ncsv\nKomma/semikolon-avgränsad text\nread.csv()\n-\nSpecificera om avgränsningen är “,” eller “;”\n\n\nxlsx\nExceldokument\nread.xlsx()\nopenxlsx\nSe paketets dokumentation\n\n\nrda\nR-datafil\nload()\n\n\n\n\nsas7bdat sas7bcat dta sav\nSAS\nStata\nSPSS\nread_sas()\nread_dta()\nread_sav()\nhaven\nSe paketets dokumentation"
   },
   {
     "objectID": "tutorials/read-data/index.html#vilket-sätt-skall-en-fil-läsas-in-på",
@@ -138,5 +138,33 @@
     "title": "Läsa in data i R",
     "section": "Inspektera ditt data",
     "text": "Inspektera ditt data\nNästa steg är att insprektera ditt dataset, för att se om allt gått rätt till vid inläsningen.\nBörja med att inspektera datasetets struktur med str().\n\n\nCode\nstr(testdata)\n\n\n'data.frame':   10 obs. of  3 variables:\n $ Colour: chr  \"Green\" \"Green\" \"Green\" \"Green\" ...\n $ Weight: int  4 3 5 4 5 12 14 15 11 14\n $ Length: num  1.3 1.1 3.4 2.5 7.1 14.5 16.9 13.5 9.4 11\n\n\n$ Colour: chr betyder att värderna i Colour kolumnen är bokstäver (characters)\n$ Weight: int betyder att värderna i kolumnen Weight är heltal (integers)\n$ Length: num betyder att värderna i kolumnen Length är decimaltal (numeric)\nOm du har en kolumn som borde innehålla decimaltal, skall det stå num. Om det istället står chr betyder det att datafilen har punkt som decimalavskiljare, men du utgår från att det är komma (eller tvärtom) och därmed tror R att det är text. Ändra avskiljare, ex från dec=\",\" till dec=\".\" i koden och importera datasetet på nytt.\nSedan visar du de första raderna i ditt dataset med funktionen head() och verifierar att allt ser korrekt ut.\n\n\nCode\nhead(testdata)\n\n\n  Colour Weight Length\n1  Green      4    1.3\n2  Green      3    1.1\n3  Green      5    3.4\n4  Green      4    2.5\n5  Green      5    7.1\n6   Blue     12   14.5\n\n\nOm allt ser korrekt ut så är du redo att analysera ditt data!"
+  },
+  {
+    "objectID": "tutorials/install-R/index.html",
+    "href": "tutorials/install-R/index.html",
+    "title": "Installera R",
+    "section": "",
+    "text": "R är ett programmeringsspråk som används för statistik och visualisering av data. Det är i språket R vi skriver när vi arbetar med R.\nR är också en mjukvara (ett program) som vi använder oss av när vi gör statistik och visualiseringar i språket R."
+  },
+  {
+    "objectID": "tutorials/install-R/index.html#r-programmet",
+    "href": "tutorials/install-R/index.html#r-programmet",
+    "title": "Installera R",
+    "section": "R (programmet)",
+    "text": "R (programmet)\nR är fritt tillgängligt utan kostnad, och finns för alla större plattformar (OSX, Windows, Unix, Linux mm).\nLadda ner R här"
+  },
+  {
+    "objectID": "tutorials/install-R/index.html#rstudio",
+    "href": "tutorials/install-R/index.html#rstudio",
+    "title": "Installera R",
+    "section": "RStudio",
+    "text": "RStudio\nRStudio är ett alternativt grafiskt interface (GUI) till R. För att använda RStudio krävs att du redan har installerat programmet R.\nLadda ner R studio här"
+  },
+  {
+    "objectID": "tutorials/install-R/index.html#r-eller-rstudio",
+    "href": "tutorials/install-R/index.html#r-eller-rstudio",
+    "title": "Installera R",
+    "section": "R eller RStudio?",
+    "text": "R eller RStudio?\nSåväl R som RStudio hanterar R-kod på samma sätt (eftersom RStudio använder sig av R i bakgrunden) och det spelar ingen roll vilken man använder för att göra statistik och visualiseringar.\nRStudio utmärker sig genom ett annorlunda interface och hjälpsamma funktioner såsom tab completion, färgning av kod (ger bättre överblick) och möjligheter till avancerad organisering av dina projekt. Dessutom kan RStudio hantera fler programmeringsspråk och enkelt integreras i vanliga arbetsflöden (ex via github)."
   }
 ]

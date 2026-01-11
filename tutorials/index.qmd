@@ -4,7 +4,8 @@ title: "Tutorials"
 
 ## Lista över tutorials
 
--   [Installera R](install-R/) Ej påbörjad
+-   [Installera R](install-R/)
+-   [Använda R, en introduktion](use-R) Ej påbörjad
 -   [Läsa in data i R](read-data/)
 -   [t-test](t-test/) Ej påbörjad
 -   [Linjär regression](linear-regression/) Ej påbörjad
