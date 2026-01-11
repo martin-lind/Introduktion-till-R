@@ -162,6 +162,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#läs-in-filen-i-r" id="toc-läs-in-filen-i-r" class="nav-link" data-scroll-target="#läs-in-filen-i-r">Läs in filen i R</a></li>
   </ul></li>
   <li><a href="#inspektera-ditt-data" id="toc-inspektera-ditt-data" class="nav-link" data-scroll-target="#inspektera-ditt-data">Inspektera ditt data</a></li>
+  <li><a href="#använda-relativ-sökväg" id="toc-använda-relativ-sökväg" class="nav-link" data-scroll-target="#använda-relativ-sökväg">Använda relativ sökväg</a>
+  <ul class="collapse">
+  <li><a href="#använd-menyerna" id="toc-använd-menyerna" class="nav-link" data-scroll-target="#använd-menyerna">Använd menyerna</a></li>
+  <li><a href="#läs-in-filen" id="toc-läs-in-filen" class="nav-link" data-scroll-target="#läs-in-filen">Läs in filen</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -337,8 +342,65 @@ SPSS</td>
 </div>
 </div>
 <p>Om allt ser korrekt ut så är du redo att analysera ditt data!</p>
+</section>
+<section id="använda-relativ-sökväg" class="level2">
+<h2 class="anchored" data-anchor-id="använda-relativ-sökväg">Använda relativ sökväg</h2>
+<p>Den absoluta sökvägen till en fil är ofta lång och ibland omständig att få fram. Ett alternativ är att istället använda relativa sökvägar.</p>
+<p>En relativ sökväg är <strong>sökvägen till en fil, relativt den foldern du befinner dig i just nu</strong>.</p>
+<p>Platsen du befinner dig just nu är din Working Direcory, och du kan själv bestämma vad som är din Working Directory. Troligtvis har du alla filer som tillhör ett visst projekt i en mapp på din hårddisk, då hade det varit smart att ange den mappen som din Working Directory.</p>
+<p>Du kan se var din Working Directory är just nu genom funktionen <code>getwd()</code></p>
+<p>Testa att undersöka var din Working Directory är</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/martin/git_projects/Introduktion-till-R/tutorials/read-data"</code></pre>
+</div>
+</div>
+<p>Du kan därefter skriva in den absoluta sökvägen till din Working Directory genom funktionen <code>setwd()</code></p>
+<section id="använd-menyerna" class="level3">
+<h3 class="anchored" data-anchor-id="använd-menyerna">Använd menyerna</h3>
+<p>Ett alternativt sätt att ta dig fram till din Working Directory är att använda dig av menyerna.</p>
+<p>Använd menyerna för att välja mappen där du sparat filen <code>testdata.txt</code> som din nya Working Directory!</p>
+<p>I <strong>R</strong> kan du välja Working Directory genom att klicka följande i menyerna:</p>
+<p><img src="images/R-setwd.png" class="img-fluid" width="600"></p>
+<p>I <strong>RStudio</strong> finns motsvarande menyval</p>
+<p><img src="images/RStudio-setwd.png" class="img-fluid" width="600"></p>
+<p>Det är dock bra att dokumentera din Working Directory i ditt script, så att du inte behöver sätta den manuellt nästa gång du skall arbeta med samma data.</p>
+<p><strong>Efter att du ställt in rätt Working Directory i menyerna, gör följande:</strong></p>
+<ol type="1">
+<li>Ta du reda på den absoluta sökvägen till din Working Directory med <code>getwd()</code></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/martin/git_projects/Introduktion-till-R/tutorials/read-data"</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Skriv in den absoluta sökvägen i ditt script, inuti funktionen <code>setwd()</code></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/martin/git_projects/Introduktion-till-R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Nästa gång du öppnar R och ditt script så räcker det att köra raden med setwd() där du just fyllt i din sökväg, så hamnar du direkt i din mapp!</p>
+</section>
+<section id="läs-in-filen" class="level3">
+<h3 class="anchored" data-anchor-id="läs-in-filen">Läs in filen</h3>
+<p>Nu är din Working Directory samma mapp som filen <code>testdata.txt</code> ligger i. När du nu läser in din fil behöver du inte ange dess absoluta sökväg, det räcker att ange dess filnamn!</p>
+<p><code>testdata &lt;- read.table("testdata.txt", header=T,sep="\t", dec=",")</code></p>
+<p>Se <a href="#läs-in-filen-i-r">Läs in filen i R</a> för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen <code>read.table()</code>.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

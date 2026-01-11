@@ -108,3 +108,61 @@ head(testdata)
 ```
 
 Om allt ser korrekt ut så är du redo att analysera ditt data!
+
+## Använda relativ sökväg
+
+Den absoluta sökvägen till en fil är ofta lång och ibland omständig att få fram. Ett alternativ är att istället använda relativa sökvägar.
+
+En relativ sökväg är **sökvägen till en fil, relativt den foldern du befinner dig i just nu**.
+
+Platsen du befinner dig just nu är din Working Direcory, och du kan själv bestämma vad som är din Working Directory. Troligtvis har du alla filer som tillhör ett visst projekt i en mapp på din hårddisk, då hade det varit smart att ange den mappen som din Working Directory.
+
+Du kan se var din Working Directory är just nu genom funktionen `getwd()`
+
+Testa att undersöka var din Working Directory är
+
+```{r}
+getwd()
+```
+
+Du kan därefter skriva in den absoluta sökvägen till din Working Directory genom funktionen `setwd()`
+
+### Använd menyerna
+
+Ett alternativt sätt att ta dig fram till din Working Directory är att använda dig av menyerna.
+
+Använd menyerna för att välja mappen där du sparat filen `testdata.txt` som din nya Working Directory!
+
+I **R** kan du välja Working Directory genom att klicka följande i menyerna:
+
+![](images/R-setwd.png){width="600"}
+
+I **RStudio** finns motsvarande menyval
+
+![](images/RStudio-setwd.png){width="600"}
+
+Det är dock bra att dokumentera din Working Directory i ditt script, så att du inte behöver sätta den manuellt nästa gång du skall arbeta med samma data.
+
+**Efter att du ställt in rätt Working Directory i menyerna, gör följande:**
+
+1.  Ta du reda på den absoluta sökvägen till din Working Directory med `getwd()`
+
+```{r}
+getwd()
+```
+
+2.  Skriv in den absoluta sökvägen i ditt script, inuti funktionen `setwd()`
+
+```{r}
+setwd("/Users/martin/git_projects/Introduktion-till-R")
+```
+
+Nästa gång du öppnar R och ditt script så räcker det att köra raden med setwd() där du just fyllt i din sökväg, så hamnar du direkt i din mapp!
+
+### Läs in filen
+
+Nu är din Working Directory samma mapp som filen `testdata.txt` ligger i. När du nu läser in din fil behöver du inte ange dess absoluta sökväg, det räcker att ange dess filnamn!
+
+`testdata <- read.table("testdata.txt", header=T,sep="\t", dec=",")`
+
+Se [Läs in filen i R] för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen `read.table()`.
