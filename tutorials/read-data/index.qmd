@@ -8,11 +8,21 @@ Det första steget, innan man gör en statistisk analys, är alltid att läsa in
 
 R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket
 
-| Filändelse | Beskrivning | Funktion | Extra paket krävs | Kommentarer |
-|---------------|---------------|---------------|---------------|---------------|
-| `txt` | Tab-avgränsad text | `read.table()` | \- |  |
-| `csv` | Komma/semikolon-avgränsad text | `read.csv()` | \- | Specificera om avgränsningen är "," eller ";" |
-| `xlsx` | Exceldokument | `read.xlsx()` | `openxlsx` | Ange vilket blad som skall läsas in |
++-----------------------------------+--------------------------------+----------------+-------------------+-----------------------------------------------------------+
+| Filändelse                        | Beskrivning                    | Funktion       | Extra paket krävs | Kommentarer                                               |
++===================================+================================+================+===================+===========================================================+
+| `txt`                             | Tab-avgränsad text             | `read.table()` | \-                |                                                           |
++-----------------------------------+--------------------------------+----------------+-------------------+-----------------------------------------------------------+
+| `csv`                             | Komma/semikolon-avgränsad text | `read.csv()`   | \-                | Specificera om avgränsningen är "," eller ";"             |
++-----------------------------------+--------------------------------+----------------+-------------------+-----------------------------------------------------------+
+| `xlsx`                            | Exceldokument                  | `read.xlsx()`  | `openxlsx`        | Ange vilket blad som skall läsas in                       |
++-----------------------------------+--------------------------------+----------------+-------------------+-----------------------------------------------------------+
+| `rda`                             | R-datafil                      | `load()`       |                   |                                                           |
++-----------------------------------+--------------------------------+----------------+-------------------+-----------------------------------------------------------+
+| `sas7bdat` `sas7bcat` `dta` `sav` | SAS\                           | `read_sas()`\  | `haven`           | [Se paketets dokumentation](https://haven.tidyverse.org/) |
+|                                   | Stata\                         | `read_dta()`\  |                   |                                                           |
+|                                   | SPSS                           | `read_sav()`   |                   |                                                           |
++-----------------------------------+--------------------------------+----------------+-------------------+-----------------------------------------------------------+
 
 : Vanliga datatyper som R kan läsa in (många fler alternativ finns)
 
@@ -65,7 +75,7 @@ testdata <- read.table("data/testdata.txt",
 
 `read.table()` är funktionen för att läsa in textfiler med filändelsen `.txt`
 
-`"data/testdata.txt"` är sökvägen till datafilen, dvs där den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`). 
+`"data/testdata.txt"` är sökvägen till datafilen, dvs där den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`).
 
 `header=T` betyder att den första raden i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du `T` med `F` (`T` står för TRUE, `F` står för FALSE).
 
@@ -74,6 +84,7 @@ testdata <- read.table("data/testdata.txt",
 `dec=","` betyder att kommatecken används som decimalseparator (ex 1,32). Om filen istället använder punkt som decimalseparator (ex 1.32), anger du istället `dec="."`
 
 ## Inspektera ditt data
+
 Nästa steg är att insprektera ditt dataset, för att se om allt gått rätt till vid inläsningen.
 
 Börja med att inspektera datasetets struktur med `str()`.
@@ -82,7 +93,7 @@ Börja med att inspektera datasetets struktur med `str()`.
 str(testdata)
 ```
 
-`$ Colour: chr` betyder att värderna i `Colour` kolumnen är  *bokstäver* (characters)
+`$ Colour: chr` betyder att värderna i `Colour` kolumnen är *bokstäver* (characters)
 
 `$ Weight: int` betyder att värderna i kolumnen `Weight` är *heltal* (integers)
 

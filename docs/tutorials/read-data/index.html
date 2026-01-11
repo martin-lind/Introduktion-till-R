@@ -193,13 +193,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket</p>
 <table class="caption-top table">
 <caption>Vanliga datatyper som R kan läsa in (många fler alternativ finns)</caption>
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Filändelse</th>
@@ -230,6 +223,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>read.xlsx()</code></td>
 <td><code>openxlsx</code></td>
 <td>Ange vilket blad som skall läsas in</td>
+</tr>
+<tr class="even">
+<td><code>rda</code></td>
+<td>R-datafil</td>
+<td><code>load()</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>sas7bdat</code> <code>sas7bcat</code> <code>dta</code> <code>sav</code></td>
+<td>SAS<br>
+Stata<br>
+SPSS</td>
+<td><code>read_sas()</code><br>
+<code>read_dta()</code><br>
+<code>read_sav()</code></td>
+<td><code>haven</code></td>
+<td><a href="https://haven.tidyverse.org/">Se paketets dokumentation</a></td>
 </tr>
 </tbody>
 </table>

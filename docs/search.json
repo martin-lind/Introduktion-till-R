@@ -109,7 +109,7 @@
     "href": "tutorials/read-data/index.html#dataformat",
     "title": "Läsa in data i R",
     "section": "Dataformat",
-    "text": "Dataformat\nR kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket\n\nVanliga datatyper som R kan läsa in (många fler alternativ finns)\n\n\n\n\n\n\n\n\n\nFiländelse\nBeskrivning\nFunktion\nExtra paket krävs\nKommentarer\n\n\n\n\ntxt\nTab-avgränsad text\nread.table()\n-\n\n\n\ncsv\nKomma/semikolon-avgränsad text\nread.csv()\n-\nSpecificera om avgränsningen är “,” eller “;”\n\n\nxlsx\nExceldokument\nread.xlsx()\nopenxlsx\nAnge vilket blad som skall läsas in"
+    "text": "Dataformat\nR kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket\n\nVanliga datatyper som R kan läsa in (många fler alternativ finns)\n\n\nFiländelse\nBeskrivning\nFunktion\nExtra paket krävs\nKommentarer\n\n\n\n\ntxt\nTab-avgränsad text\nread.table()\n-\n\n\n\ncsv\nKomma/semikolon-avgränsad text\nread.csv()\n-\nSpecificera om avgränsningen är “,” eller “;”\n\n\nxlsx\nExceldokument\nread.xlsx()\nopenxlsx\nAnge vilket blad som skall läsas in\n\n\nrda\nR-datafil\nload()\n\n\n\n\nsas7bdat sas7bcat dta sav\nSAS\nStata\nSPSS\nread_sas()\nread_dta()\nread_sav()\nhaven\nSe paketets dokumentation"
   },
   {
     "objectID": "tutorials/read-data/index.html#vilket-sätt-skall-en-fil-läsas-in-på",
