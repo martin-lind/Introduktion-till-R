@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Det första steget, innan man gör en statistisk analys, är alltid att läsa in data i R. Det är också ett steg som kan krångla.</p>
+<p>Det första steget, innan man gör en statistisk analys, är alltid att läsa in data i R.</p>
 <section id="dataformat" class="level2">
 <h2 class="anchored" data-anchor-id="dataformat">Dataformat</h2>
 <p>R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra kräver att man laddar ner och installerar specialiserade paket</p>
@@ -236,12 +236,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="vilket-sätt-skall-en-fil-läsas-in-på" class="level2">
 <h2 class="anchored" data-anchor-id="vilket-sätt-skall-en-fil-läsas-in-på">Vilket sätt skall en fil läsas in på?</h2>
-<p>Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen herer och var den ligger i ditt script (rekommenderas för reproducerbarhet). Slutligen kan valet bero på om du använder R-projekt eller inte.</p>
+<p>Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen heter och var den är placerad (rekommenderas för reproducerbarhet). Slutligen kan valet bero på om du använder R-projekt eller inte.</p>
 </section>
 <section id="exempel-läsa-in-en-txt-i-r-med-absolut-sökväg" class="level2">
 <h2 class="anchored" data-anchor-id="exempel-läsa-in-en-txt-i-r-med-absolut-sökväg">Exempel: Läsa in en <code>txt</code> i R med absolut sökväg</h2>
 <p>I följande exempel läser vi in en tab-avgränsad datafil med filändelsen <code>txt</code> i R.</p>
-<p>Metoden bygger på att vi vill ha den absoluta sökvägen till våran datafil (dvs var på hårddisken den ligger), det är en bra metod att använda sig av för att alltid veta vilken fil, man arbetar med.</p>
+<p>Metoden bygger på att vi vill ha den absoluta sökvägen till vår datafil (dvs var på hårddisken den ligger), det är en bra metod att använda sig av för att alltid veta vilken fil man arbetar med.</p>
 <p><strong>Fördel</strong></p>
 <ul>
 <li>Ger en absolut sökväg (du hittar alltid vilken fil du arbetar med)</li>
@@ -253,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data" class="level3">
 <h3 class="anchored" data-anchor-id="ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data">Ta reda på den absoluta sökvägen till din fil med data</h3>
 <p>Ladda ner följande fil <a href="data/testdata.txt">testdata.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk.</p>
-<p>Alla sparade filer ligger någonstans på din hårddisk, och du måste tala om för R var den filen som du vill läsa in ligger.</p>
+<p>Nästa steg är att tala om för R var på din hårddisk du har sparat filen (den absoluta sökvägen till filen).</p>
 <p>Det enklaste sättet att få reda på den absoluta sökvägen är att öpna din <strong>filhanterare</strong> (finder, utforskaren eller liknande) och leta upp filen. Sedan <strong>drar du filen och släpper den i R-konsolen</strong>. Då kommer du få se dess sökväg, vilket visas i <strong>blått</strong> på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår, men R ger dig sökvägen, vilket är vad vi vill ha).</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
@@ -283,15 +283,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><code>&lt;-</code> betyder att vi sparar resultatet av funktionen (just nu <code>read.table()</code>) i ett objekt. Eftersom det är vårt data är objektet en <strong>dataframe</strong>. Pilen <code>&lt;-</code> pekar på objektet, och vi ger det ett passande namn, i det här fallet <code>testdata</code>.</p>
 <p><code>read.table()</code> är funktionen för att läsa in textfiler med filändelsen <code>.txt</code></p>
-<p><code>"data/testdata.txt"</code> är sökvägen till datafilen, dvs platsen den är sparad på din hårddisk (<code>data/</code>), och namnet på filen (<code>testdata.txt</code>).</p>
-<p><code>header=T</code> betyder att den första radan i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du <code>T</code> med <code>F</code> (<code>T</code> står för TRUE, <code>F</code> står för FALSE).</p>
+<p><code>"data/testdata.txt"</code> är sökvägen till datafilen, dvs där den är sparad på din hårddisk (<code>data/</code>), och namnet på filen (<code>testdata.txt</code>).</p>
+<p><code>header=T</code> betyder att den första raden i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du <code>T</code> med <code>F</code> (<code>T</code> står för TRUE, <code>F</code> står för FALSE).</p>
 <p><code>sep=T</code> betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).</p>
 <p><code>dec=","</code> betyder att kommatecken används som decimalseparator (ex 1,32). Om filen istället använder punkt som decimalseparator (ex 1.32), anger du istället <code>dec="."</code></p>
 </section>
 </section>
 <section id="inspektera-ditt-data" class="level2">
 <h2 class="anchored" data-anchor-id="inspektera-ditt-data">Inspektera ditt data</h2>
-<p>Nästa steg är att insprektera ditt dataset, för att se om allt gått rätt till vid inläsningen</p>
+<p>Nästa steg är att insprektera ditt dataset, för att se om allt gått rätt till vid inläsningen.</p>
 <p>Börja med att inspektera datasetets struktur med <code>str()</code>.</p>
 <div class="cell">
 <details class="code-fold">
@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>$ Colour: chr</code> betyder att värderna i <code>Colour</code> kolumnen är <em>bokstäver</em> (characters)</p>
 <p><code>$ Weight: int</code> betyder att värderna i kolumnen <code>Weight</code> är <em>heltal</em> (integers)</p>
 <p><code>$ Length: num</code> betyder att värderna i kolumnen <code>Length</code> är <em>decimaltal</em> (numeric)</p>
-<p>Om du har en kolumn som borde innehålla decimaltal, skall det stå <code>num</code>. Om det istället står <code>chr</code> betyder det att datafiler har punkt som decimalavskiljare, men du utgår från att det är komma (eller tvärtom) och R tror att det är text. Ändra avskiljare, ex från <code>dec=","</code> till <code>dec="."</code> i koden och importera datasetet på nytt.</p>
+<p>Om du har en kolumn som borde innehålla decimaltal, skall det stå <code>num</code>. Om det istället står <code>chr</code> betyder det att datafilen har punkt som decimalavskiljare, men du utgår från att det är komma (eller tvärtom) och därmed tror R att det är text. Ändra avskiljare, ex från <code>dec=","</code> till <code>dec="."</code> i koden och importera datasetet på nytt.</p>
 <p>Sedan visar du de första raderna i ditt dataset med funktionen <code>head()</code> och verifierar att allt ser korrekt ut.</p>
 <div class="cell">
 <details class="code-fold">
@@ -325,6 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6   Blue     12   14.5</code></pre>
 </div>
 </div>
+<p>Om allt ser korrekt ut så är du redo att analysera ditt data!</p>
 
 
 </section>

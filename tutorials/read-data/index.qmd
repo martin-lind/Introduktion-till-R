@@ -2,7 +2,7 @@
 title: "Läsa in data i R"
 ---
 
-Det första steget, innan man gör en statistisk analys, är alltid att läsa in data i R. Det är också ett steg som kan krångla.
+Det första steget, innan man gör en statistisk analys, är alltid att läsa in data i R.
 
 ## Dataformat
 
@@ -18,13 +18,13 @@ R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra
 
 ## Vilket sätt skall en fil läsas in på?
 
-Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen herer och var den ligger i ditt script (rekommenderas för reproducerbarhet). Slutligen kan valet bero på om du använder R-projekt eller inte.
+Det finns många sätt att läsa in en fil, det beror dels på om du använder R eller R Studio, men också på om du vill dokumentera vad filen heter och var den är placerad (rekommenderas för reproducerbarhet). Slutligen kan valet bero på om du använder R-projekt eller inte.
 
 ## Exempel: Läsa in en `txt` i R med absolut sökväg
 
 I följande exempel läser vi in en tab-avgränsad datafil med filändelsen `txt` i R.
 
-Metoden bygger på att vi vill ha den absoluta sökvägen till våran datafil (dvs var på hårddisken den ligger), det är en bra metod att använda sig av för att alltid veta vilken fil, man arbetar med.
+Metoden bygger på att vi vill ha den absoluta sökvägen till vår datafil (dvs var på hårddisken den ligger), det är en bra metod att använda sig av för att alltid veta vilken fil man arbetar med.
 
 **Fördel**
 
@@ -38,7 +38,7 @@ Metoden bygger på att vi vill ha den absoluta sökvägen till våran datafil (d
 
 Ladda ner följande fil [testdata.txt](data/testdata.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk.
 
-Alla sparade filer ligger någonstans på din hårddisk, och du måste tala om för R var den filen som du vill läsa in ligger.
+Nästa steg är att tala om för R var på din hårddisk du har sparat filen (den absoluta sökvägen till filen).
 
 Det enklaste sättet att få reda på den absoluta sökvägen är att öpna din **filhanterare** (finder, utforskaren eller liknande) och leta upp filen. Sedan **drar du filen och släpper den i R-konsolen**. Då kommer du få se dess sökväg, vilket visas i **blått** på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår, men R ger dig sökvägen, vilket är vad vi vill ha).
 
@@ -65,16 +65,16 @@ testdata <- read.table("data/testdata.txt",
 
 `read.table()` är funktionen för att läsa in textfiler med filändelsen `.txt`
 
-`"data/testdata.txt"` är sökvägen till datafilen, dvs platsen den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`). 
+`"data/testdata.txt"` är sökvägen till datafilen, dvs där den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`). 
 
-`header=T` betyder att den första radan i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du `T` med `F` (`T` står för TRUE, `F` står för FALSE).
+`header=T` betyder att den första raden i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du `T` med `F` (`T` står för TRUE, `F` står för FALSE).
 
 `sep=T` betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).
 
 `dec=","` betyder att kommatecken används som decimalseparator (ex 1,32). Om filen istället använder punkt som decimalseparator (ex 1.32), anger du istället `dec="."`
 
 ## Inspektera ditt data
-Nästa steg är att insprektera ditt dataset, för att se om allt gått rätt till vid inläsningen
+Nästa steg är att insprektera ditt dataset, för att se om allt gått rätt till vid inläsningen.
 
 Börja med att inspektera datasetets struktur med `str()`.
 
@@ -88,10 +88,12 @@ str(testdata)
 
 `$ Length: num` betyder att värderna i kolumnen `Length` är *decimaltal* (numeric)
 
-Om du har en kolumn som borde innehålla decimaltal, skall det stå `num`. Om det istället står `chr` betyder det att datafiler har punkt som decimalavskiljare, men du utgår från att det är komma (eller tvärtom) och R tror att det är text. Ändra avskiljare, ex från `dec=","` till `dec="."` i koden och importera datasetet på nytt.
+Om du har en kolumn som borde innehålla decimaltal, skall det stå `num`. Om det istället står `chr` betyder det att datafilen har punkt som decimalavskiljare, men du utgår från att det är komma (eller tvärtom) och därmed tror R att det är text. Ändra avskiljare, ex från `dec=","` till `dec="."` i koden och importera datasetet på nytt.
 
 Sedan visar du de första raderna i ditt dataset med funktionen `head()` och verifierar att allt ser korrekt ut.
 
 ```{r}
 head(testdata)
 ```
+
+Om allt ser korrekt ut så är du redo att analysera ditt data!
