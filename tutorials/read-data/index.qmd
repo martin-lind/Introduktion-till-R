@@ -74,9 +74,7 @@ getwd()
 
 2.  Skriv in den absoluta sökvägen i ditt script, inuti funktionen `setwd()`
 
-```{r}
-setwd("/Users/martin/git_projects/Introduktion-till-R")
-```
+`setwd("/Users/martin/git_projects/Introduktion-till-R")`
 
 Nästa gång du öppnar R och ditt script så räcker det att köra raden med `setwd()` där du just fyllt i din sökväg till din Working Directory, så hamnar du direkt i din mapp och kan läsa in dina filer!
 
