@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tutorials – Introduktion till R</title>
+<title>ANOVA – Introduktion till R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Introduktion till R</span>
     </a>
   </div>
@@ -92,15 +92,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Hem</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../tutorials/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../tutorials/index.html"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">Om hemsidan</span></a>
   </li>  
 </ul>
@@ -114,26 +114,15 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#lista-över-tutorials" id="toc-lista-över-tutorials" class="nav-link active" data-scroll-target="#lista-över-tutorials">Lista över tutorials</a>
-  <ul class="collapse">
-  <li><a href="#att-installera-och-arbeta-i-r" id="toc-att-installera-och-arbeta-i-r" class="nav-link" data-scroll-target="#att-installera-och-arbeta-i-r">Att installera och arbeta i R</a></li>
-  <li><a href="#statistiska-test" id="toc-statistiska-test" class="nav-link" data-scroll-target="#statistiska-test">Statistiska test</a></li>
-  <li><a href="#övrigt" id="toc-övrigt" class="nav-link" data-scroll-target="#övrigt">Övrigt</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tutorials</h1>
+<h1 class="title">ANOVA</h1>
 </div>
 
 
@@ -150,36 +139,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="lista-över-tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="lista-över-tutorials">Lista över tutorials</h2>
-<section id="att-installera-och-arbeta-i-r" class="level3">
-<h3 class="anchored" data-anchor-id="att-installera-och-arbeta-i-r">Att installera och arbeta i R</h3>
-<ul>
-<li><a href="install-R/">Installera R</a></li>
-<li><a href="use-R">Använda R, en introduktion</a> Ej påbörjad</li>
-<li><a href="R-packages">Installera paket</a></li>
-<li><a href="read-data/">Läsa in data i R</a></li>
-</ul>
-</section>
-<section id="statistiska-test" class="level3">
-<h3 class="anchored" data-anchor-id="statistiska-test">Statistiska test</h3>
-<ul>
-<li><a href="t-test/">t-test</a> Ej påbörjad</li>
-<li><a href="linear-regression/">Linjär regression</a> Ej påbörjad</li>
-<li><a href="anova/">Anova</a> Ej påbörjad</li>
-<li><a href="correlation/">Korrelation</a> Ej påbörjad</li>
-<li><a href="chi2/">Chi2</a> Ej påbörjad</li>
-</ul>
-</section>
-<section id="övrigt" class="level3">
-<h3 class="anchored" data-anchor-id="övrigt">Övrigt</h3>
-<ul>
-<li><a href="testbed/">Utvecklingstest av funktioner och kod</a> Test</li>
-</ul>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
