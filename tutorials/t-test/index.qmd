@@ -11,12 +11,17 @@ Ett **t-test** (kallas även *Student´s t-test*) används när man är intresse
 
 ## Läs in data
 
+Vi vill undersöka om växtbiomassan i ett antal odlingskrukor skiljer sig beroende på om de fått hög eller låg näring.
+
 Ladda ner följande fil [experiment_nutrients.txt](data/experiment_nutrients.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
 
-Fortsätt med att läsa in datasetet och ge den ett namn, i det här fallet kallar vi det `nutrientdata.` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/)
+Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `nutrientdata.` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/)
 
 ```{r}
-nutrientdata <- read.table("data/experiment_nutrients.txt",header=T,sep="\t",dec=",") 
+nutrientdata <- read.table("data/experiment_nutrients.txt",
+                           header=T,
+                           sep="\t",
+                           dec=",") 
 ```
 
 `<-` betyder att vi sparar resultatet av funktionen (i det här fallet `read.table()` i ett objekt. Pilen pekar på objektet, och vi ger objektet ett namn, i det här fallet `nutrientdata`.
@@ -56,24 +61,28 @@ head(nutrientdata)
 Vi gör en enkel graf med `boxplot()`
 
 ```{r}
-boxplot(Mass~Nutrient_level, data = nutrientdata)
+boxplot(Mass~Nutrient_level, 
+        data = nutrientdata)
 ```
 
 Den grå boxen innehåller de mittersta 50% av värderna i gruppen, och den horisontella linjen i mitten visar medianvärdet. Felstaplarna visar området som de 25% lägsta och 25% högsta värderna ligger i.
 
 **Observera**: en boxplot är INTE ett statistiskt test, och det motsvarar inte medelvärden och varians/standard error. Använd det enbart för snabb inspektion av data, inte för publicering.
 
+Hur tolkar du grafen? Ser det ut som att växtbiomassan skiljer sig åt beroende på näring?
+
 ## Statistisk modellering
 
-Vi vill nu göra ett t-test för att undersöka om vår responsvariabel (beroende variabel) *Mass* beror av vår förklarande variabel (oberoende variabel) *Nutrient_level*.
+Vi vill nu göra ett t-test för att undersöka om vår responsvariabel (beroende variabel) *Mass* beror av vår förklarande variabel (oberoende variabel) *Nutrient_level*, med andra ord om biomassan beror av näringstillgången.
 
 Vi specificerar en modell med hjälp av funktionen `t.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.garden`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
 
 ```{r}
-m.nutrients<-t.test(Mass~Nutrient_level,data=nutrientdata)
+m.nutrients<-t.test(Mass~Nutrient_level,
+                    data=nutrientdata)
 ```
 
-I vår modell har vi vår responsvariabel (det vu har på y-axeln) till vänster om tilde-tecknet `~` och vår förklarande variabel till höger. `data=nutrientdata` betyder att vi använder oss av datasetet vi tidigare döpt till *nutrientdata*.
+I vår modell har vi vår responsvariabel (det vi har på y-axeln) till vänster om tilde-tecknet `~` och vår förklarande variabel till höger. `data=nutrientdata` betyder att vi använder oss av datasetet vi tidigare döpt till *nutrientdata*.
 
 ### Statistiska resultat
 
@@ -85,11 +94,11 @@ m.nutrients
 
 Vi kan nu inspektera resultatet. Vi får teststatistika (t-värde) samt frihetsgrader (df) och ett p-värde.
 
-Eftersom vårt p-värde är mindre än 0.05 säger vi att massan skiljer sig signifikant mellan de två näringsbehandlingarna Vi ser att medelvärdet i grupp High är högre än i grupp Low. Stämmer det om du tittar på din boxplot?
+Eftersom vårt p-värde är mindre än 0.05 säger vi att biomassan skiljer sig signifikant mellan de två näringsbehandlingarna Vi ser att medelvärdet i grupp High är högre än i grupp Low. Stämmer det om du tittar på din boxplot?
 
 ## Presentera din statistiska analys
 
-Massan är större i hög näring än i låg näring (t = 3.758, d.f. = 16.9, p = 0.002)
+Växtbiomassan är större i hög näring än i låg näring (t-test, t = 3.758, d.f. = 16.9, p = 0.002).
 
 ## Utvärdera den statistiska modellen
 
@@ -101,4 +110,4 @@ Vi utvärderar modellen genom *diagnostiska grafer*
 qqnorm (nutrientdata$Mass)
 ```
 
-**Normal Q-Q** visar om residualerna är normalfördelade. De bör följa den diagonala streckade linjen. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data eller använda ett annat typ av test.
+**Normal Q-Q** visar om residualerna är normalfördelade. De bör följa en tänkt diagonal linje från nedre vänster hörn till övre höger hörn. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data eller använda ett annat typ av test.
