@@ -1,3 +1,104 @@
 ---
 title: "t-test"
 ---
+
+Ett **t-test** (kallas även *Student´s t-test*) används när man är intresserad om huruvida två grupper av en faktor skiljer sig åt i medelvärde. Om man har fler än två grupper, eller har flera faktorer, använder man sig istället av Anova, vilket vi kommer använda oss av senare under kursen.
+
+**Ett t-test förutsätter följande**
+
+-   att datat är normalfördelade
+-   att varianserna är homogena
+
+## Läs in data
+
+Ladda ner följande fil [experiment_nutrients.txt](data/experiment_nutrients.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
+
+Fortsätt med att läsa in datasetet och ge den ett namn, i det här fallet kallar vi det `nutrientdata.` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/)
+
+```{r}
+nutrientdata <- read.table("data/experiment_nutrients.txt",header=T,sep="\t",dec=",") 
+```
+
+`<-` betyder att vi sparar resultatet av funktionen (i det här fallet `read.table()` i ett objekt. Pilen pekar på objektet, och vi ger objektet ett namn, i det här fallet `nutrientdata`.
+
+`read.table` är kommandot för att läsa in textfiler med ändelsen `.txt`
+
+`"data/experiment_nutrients.txt"` är sökvägen till platsen där datafilen är sparad på din dator`(data/`), samt namnet på filen (`experiment_nutrients.txt`).
+
+`header=T`betyder att första raden i filen är kolumnernas rubriker, dvs inte värden.
+
+`sep=T` betyder att alla värden är separerade med TAB.
+
+`dec=","` betyder att komma används som decimalavgränsare (ex. 1,32).
+
+## Inspektera data
+
+Börja med att titta på datans struktur med `str()`.
+
+```{r}
+str(nutrientdata)
+```
+
+`$ Nutrient_level: chr` betyder att värderna i kolumnen `Nutrient_level` är *karaktärer* dvs text och inte siffror.
+
+`$ Mass: num` betyder att värderna i kolumnen `Mass` är *decimaltal*
+
+Om du har en kolumn som innehåller decimaltal skall det stå `num`. Om det istället står `chr` betyder det att datat har punkt som decimalavgränsare, medan du läste in det med komma som avgränsare (eller tvärtom) och R tror att det är text. Justera koden och läs in datat på nytt.
+
+Visa sedan de fem första raderna av ditt dataset med `head()` för att se att allt ser korrekt ut
+
+```{r}
+head(nutrientdata)
+```
+
+## Visualisera datat med en enkel graf
+
+Vi gör en enkel graf med `boxplot()`
+
+```{r}
+boxplot(Mass~Nutrient_level, data = nutrientdata)
+```
+
+Den grå boxen innehåller de mittersta 50% av värderna i gruppen, och den horisontella linjen i mitten visar medianvärdet. Felstaplarna visar området som de 25% lägsta och 25% högsta värderna ligger i.
+
+**Observera**: en boxplot är INTE ett statistiskt test, och det motsvarar inte medelvärden och varians/standard error. Använd det enbart för snabb inspektion av data, inte för publicering.
+
+## Statistisk modellering
+
+Vi vill nu göra ett t-test för att undersöka om vår responsvariabel (beroende variabel) *Mass* beror av vår förklarande variabel (oberoende variabel) *Nutrient_level*.
+
+Vi specificerar en modell med hjälp av funktionen `t.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.garden`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
+
+```{r}
+m.nutrients<-t.test(Mass~Nutrient_level,data=nutrientdata)
+```
+
+I vår modell har vi vår responsvariabel (det vu har på y-axeln) till vänster om tilde-tecknet `~` och vår förklarande variabel till höger. `data=nutrientdata` betyder att vi använder oss av datasetet vi tidigare döpt till *nutrientdata*.
+
+### Statistiska resultat
+
+Vi tittar på resultatet genom att skriva in modellens namn och köra den
+
+```{r}
+m.nutrients
+```
+
+Vi kan nu inspektera resultatet. Vi får teststatistika (t-värde) samt frihetsgrader (df) och ett p-värde.
+
+Eftersom vårt p-värde är mindre än 0.05 säger vi att massan skiljer sig signifikant mellan de två näringsbehandlingarna Vi ser att medelvärdet i grupp High är högre än i grupp Low. Stämmer det om du tittar på din boxplot?
+
+## Presentera din statistiska analys
+
+Massan är större i hög näring än i låg näring (t = 3.758, d.f. = 16.9, p = 0.002)
+
+## Utvärdera den statistiska modellen
+
+Var modellen lämplig att använda för ditt dataset?
+
+Vi utvärderar modellen genom *diagnostiska grafer*
+
+```{r}
+qqnorm (nutrientdata$Mass)
+```
+
+**Normal Q-Q** visar om residualerna är normalfördelade. De bör följa den diagonala streckade linjen. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data eller använda ett annat typ av test.

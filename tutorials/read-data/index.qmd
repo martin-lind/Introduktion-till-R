@@ -201,7 +201,7 @@ R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra
 
 : Vanliga datatyper som R kan läsa in (många fler alternativ finns)
 
-Vi har redan testat att läsa in en tab-avgänsad textfil (txt-fil)i avsnittet [Läs in filen] ovan. Nu skall vi testa på några andra filtyper.
+Vi har redan testat att läsa in en tab-avgänsad textfil (txt-fil)i avsnittet [Läs in filen](#läs-in-filen-1) ovan. Nu skall vi testa på några andra filtyper.
 
 ## Läsa in csv-fil
 

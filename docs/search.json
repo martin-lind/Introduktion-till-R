@@ -243,5 +243,54 @@
     "title": "Läsa in data i R",
     "section": "Läsa in Excelfil",
     "text": "Läsa in Excelfil\nDe flesta som samlar in biologiska data skriver in sina värden i Excel, och exporterar sedan sina data som en txt eller csv fil. Det kan därför vara lockande att direkt läsa in sina excelblad i R, utan att gå omvägen via export till ett annat format.\nFördelar med att direkt läsa in excelfiler\n\nDu har bara en enda fil med data, det är ingen risk att du lägger in nya data i Excel men glömmer att exportera det som txt eller csv-fil\n\nNackdelar med att direkt läsa in excelfiler\n\nExcel har ett propriärt format, det är inte säkert att dina filer kan läsas i framtiden, därmed bättre att spara dina data i ett öppet format som txt eller csv\nDet är bra att separera sina excelfiler (där pågående datainsamling skrivs in) från ditt färdiga data (din txt eller csv-fil) som inte skall manipuleras\nExcelbladet du läser in måste vara helt rent, dvs du får inte ha några celler med annan information än data (exempelvis inga grafer, blanka kolumner eller liknande).\n\nLadda ner filen testdata_excel.xlsx och spara den någonstans på din hårddisk.\nEfter det letar du upp filen, antingen genom att använda Relativ sökväg till filen eller Absolut sökväg till filen. Om du sparat den i samma mapp som du har din Working Directory är det enkelt att använda en relativ sökväg.\n\nLäsa in Excelfilen\nFör att kunna läsa in en Excelfil behöver vi installera paketet openxlsx. Se den tidigare informationen i kapitlet om att installera paket för en fullständig genomgång om hur man hanterar paket.\nDu installerar paketet med koden install.packages(\"openxlsx\")\nNär paketet är installerat behöver vi läsa in det i vår pågående session i R\n\n\nCode\nlibrary(openxlsx)\n\n\nNu är paketet inläst och vi kan använda oss av funktionen read.xlsx() för att läsa in vår Excelfil.\n\n\nCode\ntestdata_excel &lt;- read.xlsx(\"data/testdata_excel.xlsx\",\n                     sheet=1) \n\n\nsheet=1 betyder att du läser in det första bladet i Exceldokumentet.\nEfter att du läst in filen skall du alltid Inspektera ditt data innan du börjar med dina analyser.\n\n\nCode\nstr(testdata_excel)\n\n\n'data.frame':   10 obs. of  3 variables:\n $ Colour: chr  \"Purple\" \"Purple\" \"Purple\" \"Purple\" ...\n $ Mass  : num  2 5 3 5 5 12 14 15 11 14\n $ Width : num  12.3 14.1 12.4 12.5 17.1 20.5 26.9 23.5 19.4 21\n\n\nCode\nhead(testdata_excel)\n\n\n  Colour Mass Width\n1 Purple    2  12.3\n2 Purple    5  14.1\n3 Purple    3  12.4\n4 Purple    5  12.5\n5 Purple    5  17.1\n6 Yellow   12  20.5"
+  },
+  {
+    "objectID": "tutorials/t-test/index.html",
+    "href": "tutorials/t-test/index.html",
+    "title": "t-test",
+    "section": "",
+    "text": "Ett t-test (kallas även Student´s t-test) används när man är intresserad om huruvida två grupper av en faktor skiljer sig åt i medelvärde. Om man har fler än två grupper, eller har flera faktorer, använder man sig istället av Anova, vilket vi kommer använda oss av senare under kursen.\nEtt t-test förutsätter följande"
+  },
+  {
+    "objectID": "tutorials/t-test/index.html#läs-in-data",
+    "href": "tutorials/t-test/index.html#läs-in-data",
+    "title": "t-test",
+    "section": "Läs in data",
+    "text": "Läs in data\nLadda ner följande fil experiment_nutrients.txt (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.\nFortsätt med att läsa in datasetet och ge den ett namn, i det här fallet kallar vi det nutrientdata. En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial Läsa in data i R\n\n\nCode\nnutrientdata <- read.table(\"data/experiment_nutrients.txt\",header=T,sep=\"\\t\",dec=\",\") \n\n\n<- betyder att vi sparar resultatet av funktionen (i det här fallet read.table() i ett objekt. Pilen pekar på objektet, och vi ger objektet ett namn, i det här fallet nutrientdata.\nread.table är kommandot för att läsa in textfiler med ändelsen .txt\n\"data/experiment_nutrients.txt\" är sökvägen till platsen där datafilen är sparad på din dator(data/), samt namnet på filen (experiment_nutrients.txt).\nheader=Tbetyder att första raden i filen är kolumnernas rubriker, dvs inte värden.\nsep=T betyder att alla värden är separerade med TAB.\ndec=\",\" betyder att komma används som decimalavgränsare (ex. 1,32)."
+  },
+  {
+    "objectID": "tutorials/t-test/index.html#inspektera-data",
+    "href": "tutorials/t-test/index.html#inspektera-data",
+    "title": "t-test",
+    "section": "Inspektera data",
+    "text": "Inspektera data\nBörja med att titta på datans struktur med str().\n\n\nCode\nstr(nutrientdata)\n\n\n'data.frame':   20 obs. of  2 variables:\n $ Nutrient_level: chr  \"High\" \"High\" \"High\" \"High\" ...\n $ Mass          : num  15.5 11.7 15.9 13.7 13.2 ...\n\n\n$ Nutrient_level: chr betyder att värderna i kolumnen Nutrient_level är karaktärer dvs text och inte siffror.\n$ Mass: num betyder att värderna i kolumnen Mass är decimaltal\nOm du har en kolumn som innehåller decimaltal skall det stå num. Om det istället står chr betyder det att datat har punkt som decimalavgränsare, medan du läste in det med komma som avgränsare (eller tvärtom) och R tror att det är text. Justera koden och läs in datat på nytt.\nVisa sedan de fem första raderna av ditt dataset med head() för att se att allt ser korrekt ut\n\n\nCode\nhead(nutrientdata)\n\n\n  Nutrient_level     Mass\n1           High 15.45038\n2           High 11.65872\n3           High 15.92761\n4           High 13.74627\n5           High 13.20712\n6           High 14.79113"
+  },
+  {
+    "objectID": "tutorials/t-test/index.html#visualisera-datat-med-en-enkel-graf",
+    "href": "tutorials/t-test/index.html#visualisera-datat-med-en-enkel-graf",
+    "title": "t-test",
+    "section": "Visualisera datat med en enkel graf",
+    "text": "Visualisera datat med en enkel graf\nVi gör en enkel graf med boxplot()\n\n\nCode\nboxplot(Mass~Nutrient_level, data = nutrientdata)\n\n\n\n\n\nDen grå boxen innehåller de mittersta 50% av värderna i gruppen, och den horisontella linjen i mitten visar medianvärdet. Felstaplarna visar området som de 25% lägsta och 25% högsta värderna ligger i.\nObservera: en boxplot är INTE ett statistiskt test, och det motsvarar inte medelvärden och varians/standard error. Använd det enbart för snabb inspektion av data, inte för publicering."
+  },
+  {
+    "objectID": "tutorials/t-test/index.html#statistisk-modellering",
+    "href": "tutorials/t-test/index.html#statistisk-modellering",
+    "title": "t-test",
+    "section": "Statistisk modellering",
+    "text": "Statistisk modellering\nVi vill nu göra ett t-test för att undersöka om vår responsvariabel (beroende variabel) Mass beror av vår förklarande variabel (oberoende variabel) Nutrient_level.\nVi specificerar en modell med hjälp av funktionen t.test() och väljer att spara resultatet i ett objekt som vi kallar m.garden. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med m. för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.\n\n\nCode\nm.nutrients<-t.test(Mass~Nutrient_level,data=nutrientdata)\n\n\nI vår modell har vi vår responsvariabel (det vu har på y-axeln) till vänster om tilde-tecknet ~ och vår förklarande variabel till höger. data=nutrientdata betyder att vi använder oss av datasetet vi tidigare döpt till nutrientdata.\n\nStatistiska resultat\nVi tittar på resultatet genom att skriva in modellens namn och köra den\n\n\nCode\nm.nutrients\n\n\n\n    Welch Two Sample t-test\n\ndata:  Mass by Nutrient_level\nt = 3.7581, df = 16.853, p-value = 0.001588\nalternative hypothesis: true difference in means between group High and group Low is not equal to 0\n95 percent confidence interval:\n 1.681385 5.992311\nsample estimates:\nmean in group High  mean in group Low \n          14.53003           10.69318 \n\n\nVi kan nu inspektera resultatet. Vi får teststatistika (t-värde) samt frihetsgrader (df) och ett p-värde.\nEftersom vårt p-värde är mindre än 0.05 säger vi att massan skiljer sig signifikant mellan de två näringsbehandlingarna Vi ser att medelvärdet i grupp High är högre än i grupp Low. Stämmer det om du tittar på din boxplot?"
+  },
+  {
+    "objectID": "tutorials/t-test/index.html#presentera-din-statistiska-analys",
+    "href": "tutorials/t-test/index.html#presentera-din-statistiska-analys",
+    "title": "t-test",
+    "section": "Presentera din statistiska analys",
+    "text": "Presentera din statistiska analys\nMassan är större i hög näring än i låg näring (t = 3.758, d.f. = 16.9, p = 0.002)"
+  },
+  {
+    "objectID": "tutorials/t-test/index.html#utvärdera-den-statistiska-modellen",
+    "href": "tutorials/t-test/index.html#utvärdera-den-statistiska-modellen",
+    "title": "t-test",
+    "section": "Utvärdera den statistiska modellen",
+    "text": "Utvärdera den statistiska modellen\nVar modellen lämplig att använda för ditt dataset?\nVi utvärderar modellen genom diagnostiska grafer\n\n\nCode\nqqnorm (nutrientdata$Mass)\n\n\n\n\n\nNormal Q-Q visar om residualerna är normalfördelade. De bör följa den diagonala streckade linjen. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data eller använda ett annat typ av test."
   }
 ]
