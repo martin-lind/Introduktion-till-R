@@ -50,7 +50,7 @@ getwd()
 
 Ett enkelt sätt att ändra din Working Directory är att använda dig av menyerna.
 
-Använd menyerna för att välja mappen där du sparat filen `testdata.txt` som din nya Working Directory!
+Använd menyerna för att välja mappen där du sparat filen `testdata_v2.txt` som din nya Working Directory!
 
 I **R** kan du välja Working Directory genom att klicka följande i menyerna:
 
@@ -176,13 +176,10 @@ Notera att vi nu har en längre sökväg till filen.
 
 Se [Läs in filen i R] för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen `read.table()`. Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
 
-
-
 ```{r}
 str(testdata_absolut)
 head(testdata_absolut)
 ```
-
 
 ## Dataformat
 
@@ -216,7 +213,7 @@ Ladda ner filen [testdata_csv.csv](data/testdata_csv.csv) och spara den någonst
 
 Efter det letar du upp filen, antingen genom att använda [Relativ sökväg till filen] eller [Absolut sökväg till filen]. Om du sparat den i samma mapp som du har din Working Directory är det enkelt att använda en relativ sökväg.
 
-### Läs in filen
+### Läs in filen {#läs-in-filen-1}
 
 Vi kommer åter att läsa in filen med funktionen `read.csv()`. Fyll i korrekt sökväg till din fil
 
@@ -229,7 +226,7 @@ testdata_csv <- read.csv("data/testdata_csv.csv",
 
 Vi sparar resultatet från funktionen `read.csv()`, vilket är ett dataset, med namnet `testdata_csv`. Man skall alltid använda olika namn för olika dataset.
 
-`sep=";"` betyder att värderna i filen är separerade av semikolon. I övrigt påminner funktionen om `read.table()` som beskrivits i detalj ovan ([Läs in filen]). Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
+`sep=";"` betyder att värderna i filen är separerade av semikolon. I övrigt påminner funktionen om `read.table()` som beskrivits i detalj ovan ([Läs in filen](#läs-in-filen-1)). Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
 
 ```{r}
 str(testdata_csv)
