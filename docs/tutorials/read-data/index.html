@@ -179,7 +179,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#absolut-sökväg-till-filen" id="toc-absolut-sökväg-till-filen" class="nav-link" data-scroll-target="#absolut-sökväg-till-filen">Absolut sökväg till filen</a>
   <ul class="collapse">
   <li><a href="#ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data" id="toc-ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data" class="nav-link" data-scroll-target="#ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data">Ta reda på den absoluta sökvägen till din fil med data</a></li>
+  <li><a href="#sökväg-via-file.choose" id="toc-sökväg-via-file.choose" class="nav-link" data-scroll-target="#sökväg-via-file.choose">Sökväg via <code>file.choose()</code></a></li>
   <li><a href="#läs-in-filen-i-r" id="toc-läs-in-filen-i-r" class="nav-link" data-scroll-target="#läs-in-filen-i-r">Läs in filen i R</a></li>
+  <li><a href="#sökväg-via-din-filhanterare-terminal" id="toc-sökväg-via-din-filhanterare-terminal" class="nav-link" data-scroll-target="#sökväg-via-din-filhanterare-terminal">Sökväg via din filhanterare + terminal</a></li>
   </ul></li>
   <li><a href="#dataformat" id="toc-dataformat" class="nav-link" data-scroll-target="#dataformat">Dataformat</a></li>
   <li><a href="#läsa-in-csv-fil" id="toc-läsa-in-csv-fil" class="nav-link" data-scroll-target="#läsa-in-csv-fil">Läsa in csv-fil</a>
@@ -360,26 +362,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><strong>Nackdel</strong></p>
 <ul>
-<li>Att få reda på den absoluta sökvägen kan vara lite omständigt (men behöver bara göras en gång per dataset)</li>
+<li>Om du arbetar med många olika filer som alla ligger i samma mapp kan det vara smidigast med relativ sökväg</li>
 </ul>
 <section id="ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data" class="level3">
 <h3 class="anchored" data-anchor-id="ta-reda-på-den-absoluta-sökvägen-till-din-fil-med-data">Ta reda på den absoluta sökvägen till din fil med data</h3>
 <p>Ladda ner filen <a href="data/testdata.txt">testdata.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk <strong>i en annan mapp</strong> än där du sparade filen i förra exemplet.</p>
 <p>Nästa steg är att tala om för R var på din hårddisk du har sparat filen (den absoluta sökvägen till filen).</p>
-<p>Det enklaste sättet att få reda på den absoluta sökvägen är att öpna din <strong>filhanterare</strong> (finder, utforskaren eller liknande) och leta upp filen. Sedan <strong>drar du filen och släpper den i R-konsolen</strong>. Då kommer du få se dess sökväg, vilket visas i <strong>blått</strong> på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår, men R ger dig sökvägen, vilket är vad vi vill ha).</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="images/absolute-path-R.png" class="img-fluid figure-img" width="600"></p>
-</figure>
-</div>
-<p>Sökvägen till filen på min dator är: <code>~/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt</code></p>
-<p><strong>R Studio</strong> - om du använder R studio fungerar det inte att dra filen till konsolen. Istället kan du öppna din terminal (Terminal, iTerm, EMAC, MobaXterm etc) och släppa filen där. Eller gör det i vanliga R. Då får du en sökväg.</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="images/absolute-path-terminal.png" class="img-fluid figure-img" width="600"></p>
-<p></p><figcaption class="figure-caption">Sökväg till filen om man släpper den i en terminal (iTerm i exemplet)</figcaption><p></p>
-</figure>
-</div>
+</section>
+<section id="sökväg-via-file.choose" class="level3">
+<h3 class="anchored" data-anchor-id="sökväg-via-file.choose">Sökväg via <code>file.choose()</code></h3>
+<p>Det enklaste sättet är att använda funktionen <code>file.choose()</code>. Skriv in den funktionen utan att fylla i något inom paranteserna. Du kommer då att få upp en dialogruta där du letar upp din fil och väljer den. R kommer då ge dig den absoluta sökvägen till filen, i mitt fall blev det:</p>
+<p>[“data/testdata.txt”]</p>
+<p>Markera och kopiera sökvägen, den använder vi när vi läser in filen i R</p>
 </section>
 <section id="läs-in-filen-i-r" class="level3" data-link="Läs in filen i R">
 <h3 data-link="Läs in filen i R" class="anchored" data-anchor-id="läs-in-filen-i-r">Läs in filen i R</h3>
@@ -394,7 +388,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 </div>
 <p>Notera att vi nu har en längre sökväg till filen.</p>
-<p><code>"data/testdata.txt"</code> är sökvägen till datafilen, dvs där den är sparad på din hårddisk (<code>data/</code>), och namnet på filen (<code>testdata.txt</code>).</p>
+<p><code>"data/testdata.txt"</code> är sökvägen till datafilen, dvs där den är sparad på din hårddisk (<code>data/</code>), och namnet på filen (<code>testdata.txt</code>). Du ersätter den här texten med sökvägen till din fil som du kopierade i steget ovan.</p>
 <p>Se <a href="#läs-in-filen-i-r">Läs in filen i R</a> för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen <code>read.table()</code>. Efter att du läst in filen skall du alltid <a href="#inspektera-ditt-data">Inspektera ditt data</a> innan du börjar med dina analyser.</p>
 <div class="cell">
 <details>
@@ -420,6 +414,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5  Green      5    7.1
 6   Blue     12   14.5</code></pre>
 </div>
+</div>
+</section>
+<section id="sökväg-via-din-filhanterare-terminal" class="level3">
+<h3 class="anchored" data-anchor-id="sökväg-via-din-filhanterare-terminal">Sökväg via din filhanterare + terminal</h3>
+<p>Om du redan har filen framme i din filhanterare (finder, utforskaren eller liknande) så är ett alternativt sätt att få reda på den absoluta sökvägen är att du <strong>drar filen och släpper den i R-konsolen</strong>. Då kommer du få se dess sökväg, vilket visas i <strong>blått</strong> på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår, men R ger dig sökvägen, vilket är vad vi vill ha).</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/absolute-path-R.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+<p>Sökvägen till filen på min dator är: <code>~/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt</code></p>
+<p><strong>R Studio</strong> - om du använder R studio fungerar det inte att dra filen till konsolen. Istället kan du öppna din terminal (Terminal, iTerm, EMAC, MobaXterm etc) och släppa filen där. Eller gör det i vanliga R. Då får du en sökväg.</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/absolute-path-terminal.png" class="img-fluid figure-img" width="600"></p>
+<p></p><figcaption class="figure-caption">Sökväg till filen om man släpper den i en terminal (iTerm i exemplet)</figcaption><p></p>
+</figure>
 </div>
 </section>
 </section>
@@ -460,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td><a href="https://cran.r-project.org/web/packages/openxlsx/readme/README.html">Se paketets dokumentation</a></td>
 </tr>
 <tr class="even">
-<td><code>rda</code></td>
+<td><code>rda</code> <code>rdata</code></td>
 <td>R-datafil</td>
 <td><code>load()</code></td>
 <td></td>

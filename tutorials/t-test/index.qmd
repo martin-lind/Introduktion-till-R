@@ -15,7 +15,7 @@ Vi vill undersöka om växtbiomassan i ett antal odlingskrukor skiljer sig beroe
 
 Ladda ner följande fil [experiment_nutrients.txt](data/experiment_nutrients.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
 
-Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `nutrientdata.` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/)
+Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `nutrientdata.` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/).
 
 ```{r}
 nutrientdata <- read.table("data/experiment_nutrients.txt",

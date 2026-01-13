@@ -13,7 +13,7 @@ title: "Tutorials"
 
 ### Statistiska test
 
--   [t-test](t-test/) Ej påbörjad
+-   [t-test](t-test/)
 -   [Linjär regression](linear-regression/) Ej påbörjad
 -   [Anova](anova/) Ej påbörjad
 -   [Korrelation](correlation/) Ej påbörjad

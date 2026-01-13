@@ -139,7 +139,7 @@ Ett alternativ är att ange den absoluta sökvägen till filen, dvs exakt var de
 
 **Nackdel**
 
--   Att få reda på den absoluta sökvägen kan vara lite omständigt (men behöver bara göras en gång per dataset)
+-   Om du arbetar med många olika filer som alla ligger i samma mapp kan det vara smidigast med relativ sökväg
 
 ### Ta reda på den absoluta sökvägen till din fil med data
 
@@ -147,15 +147,13 @@ Ladda ner filen [testdata.txt](data/testdata.txt) (högerklicka, välj "spara l�
 
 Nästa steg är att tala om för R var på din hårddisk du har sparat filen (den absoluta sökvägen till filen).
 
-Det enklaste sättet att få reda på den absoluta sökvägen är att öpna din **filhanterare** (finder, utforskaren eller liknande) och leta upp filen. Sedan **drar du filen och släpper den i R-konsolen**. Då kommer du få se dess sökväg, vilket visas i **blått** på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår, men R ger dig sökvägen, vilket är vad vi vill ha).
+### Sökväg via `file.choose()`
 
-![](images/absolute-path-R.png){fig-align="left" width="600"}
+Det enklaste sättet är att använda funktionen `file.choose()`. Skriv in den funktionen utan att fylla i något inom paranteserna. Du kommer då att få upp en dialogruta där du letar upp din fil och väljer den. R kommer då ge dig den absoluta sökvägen till filen, i mitt fall blev det:
 
-Sökvägen till filen på min dator är: `~/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt`
+\["data/testdata.txt"\]
 
-**R Studio** - om du använder R studio fungerar det inte att dra filen till konsolen. Istället kan du öppna din terminal (Terminal, iTerm, EMAC, MobaXterm etc) och släppa filen där. Eller gör det i vanliga R. Då får du en sökväg.
-
-![Sökväg till filen om man släpper den i en terminal (iTerm i exemplet)](images/absolute-path-terminal.png){fig-align="left" width="600"}
+Markera och kopiera sökvägen, den använder vi när vi läser in filen i R
 
 ### Läs in filen i R {data-link="Läs in filen i R"}
 
@@ -170,7 +168,7 @@ testdata_absolut <- read.table("data/testdata.txt",
 
 Notera att vi nu har en längre sökväg till filen.
 
-`"data/testdata.txt"` är sökvägen till datafilen, dvs där den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`).
+`"data/testdata.txt"` är sökvägen till datafilen, dvs där den är sparad på din hårddisk (`data/`), och namnet på filen (`testdata.txt`). Du ersätter den här texten med sökvägen till din fil som du kopierade i steget ovan.
 
 Se [Läs in filen i R] för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen `read.table()`. Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
 
@@ -178,6 +176,18 @@ Se [Läs in filen i R] för vår tidigare beskrivning av hur man tolkar de olika
 str(testdata_absolut)
 head(testdata_absolut)
 ```
+
+### Sökväg via din filhanterare + terminal
+
+Om du redan har filen framme i din filhanterare (finder, utforskaren eller liknande) så är ett alternativt sätt att få reda på den absoluta sökvägen är att du **drar filen och släpper den i R-konsolen**. Då kommer du få se dess sökväg, vilket visas i **blått** på en Mac (samt ev felmeddelanden eftersom du gör något som R inte förstår, men R ger dig sökvägen, vilket är vad vi vill ha).
+
+![](images/absolute-path-R.png){fig-align="left" width="600"}
+
+Sökvägen till filen på min dator är: `~/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt`
+
+**R Studio** - om du använder R studio fungerar det inte att dra filen till konsolen. Istället kan du öppna din terminal (Terminal, iTerm, EMAC, MobaXterm etc) och släppa filen där. Eller gör det i vanliga R. Då får du en sökväg.
+
+![Sökväg till filen om man släpper den i en terminal (iTerm i exemplet)](images/absolute-path-terminal.png){fig-align="left" width="600"}
 
 ## Dataformat
 
@@ -192,7 +202,7 @@ R kan hantera ett stort antal dataformat, vissa av dem läses automatiskt, andra
 +-----------------------------------+--------------------------------+----------------+-------------------+--------------------------------------------------------------------------------------------------+
 | `xlsx`                            | Exceldokument                  | `read.xlsx()`  | `openxlsx`        | [Se paketets dokumentation](https://cran.r-project.org/web/packages/openxlsx/readme/README.html) |
 +-----------------------------------+--------------------------------+----------------+-------------------+--------------------------------------------------------------------------------------------------+
-| `rda`                             | R-datafil                      | `load()`       |                   |                                                                                                  |
+| `rda` `rdata`                     | R-datafil                      | `load()`       |                   |                                                                                                  |
 +-----------------------------------+--------------------------------+----------------+-------------------+--------------------------------------------------------------------------------------------------+
 | `sas7bdat` `sas7bcat` `dta` `sav` | SAS\                           | `read_sas()`\  | `haven`           | [Se paketets dokumentation](https://haven.tidyverse.org/)                                        |
 |                                   | Stata\                         | `read_dta()`\  |                   |                                                                                                  |
