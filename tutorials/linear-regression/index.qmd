@@ -71,7 +71,7 @@ A.  Växtens storlek påverkar hur många frön den har
 
 B.  Antalet frön en växt har påverkar dess storlek
 
-ALternativ A är det som är mest logiskt. Alltså är det antalet frön som beror av växtens storlek. Därför skall vi ha *antalet frön* (`Seeds`) på y-axeln, och växtens storlek (`Plants_height`) på x-axeln.
+Alternativ A är det som är mest logiskt. Alltså är det antalet frön som beror av växtens storlek. Därför skall vi ha *antalet frön* (`Seeds`) på y-axeln, och växtens storlek (`Plants_height`) på x-axeln.
 
 Vi gör en enkel graf med funktionen `plot()` och lägger sedan till en regressionslinje med funktionen `abline()`. Grafen är inte publikationsduglig men ger en snabb överblick av våra data.
 
@@ -117,7 +117,11 @@ summary(m.plant_reproduction)
 
 ## Presentera din statistiska analys
 
-Antalet frön ökad med ökad höjd (linjär regression, F<sub>1,18</sub> = 68.681, p \< 0.001, R<sup>2</sup> = 0.78).
+Antalet frön ökad med ökad höjd hos växten (linjär regression, F<sub>1,18</sub> = 68.681, p \< 0.001, R<sup>2</sup> = 0.78).
+
+Man kan uttrycka den meningen på många sätt, ett alternativ är:
+
+Ju högre växten är, desto fler frön har den (linjär regression, F<sub>1,18</sub> = 68.681, p \< 0.001, R<sup>2</sup> = 0.78).
 
 ## Utvärdera den statistiska modellen
 
