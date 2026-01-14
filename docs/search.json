@@ -46,7 +46,7 @@
     "href": "tutorials/index.html",
     "title": "Tutorials",
     "section": "",
-    "text": "Installera R\nAnvända R, en introduktion Ej påbörjad\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test\nLinjär regression Ej påbörjad\nAnova Ej påbörjad\nKorrelation Ej påbörjad\nChi2 Ej påbörjad\n\n\n\n\n\nUtvecklingstest av funktioner och kod Test"
+    "text": "Installera R\nAnvända R, en introduktion [Under utveckling]\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test [Under utveckling]\nLinjär regression [Ej påbörjad]\nAnova [Ej påbörjad]\nKorrelation [Ej påbörjad]\nChi2 [Ej påbörjad]\n\n\n\n\n\nUtvecklingstest av funktioner och kod Test"
   },
   {
     "objectID": "tutorials/index.html#lista-över-tutorials",
@@ -292,5 +292,40 @@
     "title": "t-test",
     "section": "Utvärdera den statistiska modellen",
     "text": "Utvärdera den statistiska modellen\nVar modellen lämplig att använda för ditt dataset?\nVi utvärderar modellen genom diagnostiska grafer\n\n\nCode\nqqnorm (nutrientdata$Mass)\n\n\n\n\n\nNormal Q-Q visar om residualerna är normalfördelade. De bör följa en tänkt diagonal linje från nedre vänster hörn till övre höger hörn. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data eller använda ett annat typ av test."
+  },
+  {
+    "objectID": "tutorials/use-R/index.html",
+    "href": "tutorials/use-R/index.html",
+    "title": "Använda R, en introduktion",
+    "section": "",
+    "text": "Vi skall nu öppna R (eller RStudio), bekanta oss med hur man skriver in och kör kod, och hur man använder script."
+  },
+  {
+    "objectID": "tutorials/use-R/index.html#utseende-r-programmet",
+    "href": "tutorials/use-R/index.html#utseende-r-programmet",
+    "title": "Använda R, en introduktion",
+    "section": "Utseende R (programmet)",
+    "text": "Utseende R (programmet)\nUtseendet på R ser olika ut beroende på operativsystem, vid uppstart ser man endast en konsol, och man öppnar ett nytt fönster när man öppnar en skriptfil. Figurer hamnar i ytterligare ett fönster."
+  },
+  {
+    "objectID": "tutorials/use-R/index.html#utseende-rstudio",
+    "href": "tutorials/use-R/index.html#utseende-rstudio",
+    "title": "Använda R, en introduktion",
+    "section": "Utseende RStudio",
+    "text": "Utseende RStudio\nRStudio är ett alternativt grafiskt interface (GUI) till R. Dess utseende är detsamma oberoende av operativsystem, och dess interface är uppdelat så att olika fönster (script, konsol, grafer osv) alltid ligger på samma plats. Rutan för scripts syns endast om du har öppnat en scriptfil."
+  },
+  {
+    "objectID": "tutorials/use-R/index.html#skriv-din-första-kod",
+    "href": "tutorials/use-R/index.html#skriv-din-första-kod",
+    "title": "Använda R, en introduktion",
+    "section": "Skriv din första kod",
+    "text": "Skriv din första kod\n[avsnitt under utveckling]"
+  },
+  {
+    "objectID": "tutorials/use-R/index.html#använda-scriptfiler",
+    "href": "tutorials/use-R/index.html#använda-scriptfiler",
+    "title": "Använda R, en introduktion",
+    "section": "Använda scriptfiler",
+    "text": "Använda scriptfiler\nHittils har du interagerat med R interaktivt, det vill säga du har bett R att göra något, R har gjort det, du har bett R att göra något nytt, R har gjort det också osv. Det påminner om ett samtal med en annan person.\nNackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när du tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör. Hur gör vi för att minnas vårt samtal med R, vad vi har gjort och vad vi har kommit fram till? Vi använder oss av scriptfiler!\n\nVad är en scriptfil?\nEn scriptfil är ett dokument med ändelsen *.R där du dokumenterar de kommandon du ger till R i en logisk ordning. Du kan dessutom lägga till kommentarer till ditt script där du förklarar vad du gjort.\nEftersom R alltid ger samma svar på dina kommandon (såvida du inte ber R att göra något som involveras slumptal) räcker det att du dokumenterar de kommandon du ger till R. Sedan kan du köra dina kommandon på nytt, och får då reda på svaret på nytt.\n\n\nFördelar med scriptfiler\n\nDu dokumenterar vad du gör, och kan återupprepa din analys i framtiden\nOm du skall göra en ny analys i ett nytt dataset, men med metoder du tidigare använt och dokumenterat i ett script så kan du kopiera ditt befintliga script och enbart förändra det som behövs för ditt nya data. Du behöver inte börja om från början\nDu kan enklare felsöka kod och utveckla analyser som sker i flera steg\nDu kan enkelt gå tillbaka och förändra något steg i en analys\n\nFör att summera: det finns inga nackdelar med att använda sig av scriptfiler istället för att köra R interaktivt. Enbart fördelar.\n\n\nHur ser en scriptfil ut?\nVi börjar med att ladda ner en befintlig scriptfil: testscript.R Ladda ner filen, välj sedan file -> open document i R, eller file -> open file i RStudio. Scriptfilen öppnas nu som ett nytt fönster (i R) eller i den övra vänstra delen av programmet (i RStudio).\n\n\nAtt köra kod från ett script\n\n\nSkriv ditt första script"
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduktion till R - Tutorials</title>
+<title>Introduktion till R - Använda R, en introduktion</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Introduktion till R</span>
     </a>
   </div>
@@ -79,15 +79,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">
+    <a class="nav-link" href="../../index.html">
  <span class="menu-text">Hem</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../tutorials/index.html" aria-current="page">
+    <a class="nav-link" href="../../tutorials/index.html">
  <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html">
+    <a class="nav-link" href="../../about.html">
  <span class="menu-text">Om hemsidan</span></a>
   </li>  
 </ul>
@@ -105,11 +105,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lista-över-tutorials" id="toc-lista-över-tutorials" class="nav-link active" data-scroll-target="#lista-över-tutorials">Lista över tutorials</a>
+  <li><a href="#utseende-r-programmet" id="toc-utseende-r-programmet" class="nav-link active" data-scroll-target="#utseende-r-programmet">Utseende R (programmet)</a></li>
+  <li><a href="#utseende-rstudio" id="toc-utseende-rstudio" class="nav-link" data-scroll-target="#utseende-rstudio">Utseende RStudio</a></li>
+  <li><a href="#skriv-din-första-kod" id="toc-skriv-din-första-kod" class="nav-link" data-scroll-target="#skriv-din-första-kod">Skriv din första kod</a></li>
+  <li><a href="#använda-scriptfiler" id="toc-använda-scriptfiler" class="nav-link" data-scroll-target="#använda-scriptfiler">Använda scriptfiler</a>
   <ul class="collapse">
-  <li><a href="#att-installera-och-arbeta-i-r" id="toc-att-installera-och-arbeta-i-r" class="nav-link" data-scroll-target="#att-installera-och-arbeta-i-r">Att installera och arbeta i R</a></li>
-  <li><a href="#statistiska-test" id="toc-statistiska-test" class="nav-link" data-scroll-target="#statistiska-test">Statistiska test</a></li>
-  <li><a href="#övrigt" id="toc-övrigt" class="nav-link" data-scroll-target="#övrigt">Övrigt</a></li>
+  <li><a href="#vad-är-en-scriptfil" id="toc-vad-är-en-scriptfil" class="nav-link" data-scroll-target="#vad-är-en-scriptfil">Vad är en scriptfil?</a></li>
+  <li><a href="#fördelar-med-scriptfiler" id="toc-fördelar-med-scriptfiler" class="nav-link" data-scroll-target="#fördelar-med-scriptfiler">Fördelar med scriptfiler</a></li>
+  <li><a href="#hur-ser-en-scriptfil-ut" id="toc-hur-ser-en-scriptfil-ut" class="nav-link" data-scroll-target="#hur-ser-en-scriptfil-ut">Hur ser en scriptfil ut?</a></li>
+  <li><a href="#att-köra-kod-från-ett-script" id="toc-att-köra-kod-från-ett-script" class="nav-link" data-scroll-target="#att-köra-kod-från-ett-script">Att köra kod från ett script</a></li>
+  <li><a href="#skriv-ditt-första-script" id="toc-skriv-ditt-första-script" class="nav-link" data-scroll-target="#skriv-ditt-första-script">Skriv ditt första script</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -119,7 +124,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tutorials</h1>
+<h1 class="title">Använda R, en introduktion</h1>
 </div>
 
 
@@ -134,32 +139,52 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="lista-över-tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="lista-över-tutorials">Lista över tutorials</h2>
-<section id="att-installera-och-arbeta-i-r" class="level3">
-<h3 class="anchored" data-anchor-id="att-installera-och-arbeta-i-r">Att installera och arbeta i R</h3>
-<ul>
-<li><a href="install-R/">Installera R</a></li>
-<li><a href="use-R">Använda R, en introduktion</a> [Under utveckling]</li>
-<li><a href="R-packages">Installera paket</a></li>
-<li><a href="read-data/">Läsa in data i R</a></li>
-</ul>
+<p>Vi skall nu öppna R (eller RStudio), bekanta oss med hur man skriver in och kör kod, och hur man använder script.</p>
+<section id="utseende-r-programmet" class="level2">
+<h2 class="anchored" data-anchor-id="utseende-r-programmet">Utseende R (programmet)</h2>
+<p>Utseendet på R ser olika ut beroende på operativsystem, vid uppstart ser man endast en konsol, och man öppnar ett nytt fönster när man öppnar en skriptfil. Figurer hamnar i ytterligare ett fönster.</p>
 </section>
-<section id="statistiska-test" class="level3">
-<h3 class="anchored" data-anchor-id="statistiska-test">Statistiska test</h3>
-<ul>
-<li><a href="t-test/">t-test</a> [Under utveckling]</li>
-<li><a href="linear-regression/">Linjär regression</a> [Ej påbörjad]</li>
-<li><a href="anova/">Anova</a> [Ej påbörjad]</li>
-<li><a href="correlation/">Korrelation</a> [Ej påbörjad]</li>
-<li><a href="chi2/">Chi2</a> [Ej påbörjad]</li>
-</ul>
+<section id="utseende-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="utseende-rstudio">Utseende RStudio</h2>
+<p><strong><em>RStudio</em></strong> är ett alternativt grafiskt interface (GUI) till R. Dess utseende är detsamma oberoende av operativsystem, och dess interface är uppdelat så att olika fönster (script, konsol, grafer osv) alltid ligger på samma plats. Rutan för scripts syns endast om du har öppnat en scriptfil.</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/RStudio_outline.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </section>
-<section id="övrigt" class="level3">
-<h3 class="anchored" data-anchor-id="övrigt">Övrigt</h3>
+<section id="skriv-din-första-kod" class="level2">
+<h2 class="anchored" data-anchor-id="skriv-din-första-kod">Skriv din första kod</h2>
+<p>[avsnitt under utveckling]</p>
+</section>
+<section id="använda-scriptfiler" class="level2">
+<h2 class="anchored" data-anchor-id="använda-scriptfiler">Använda scriptfiler</h2>
+<p>Hittils har du interagerat med R interaktivt, det vill säga du har bett R att göra något, R har gjort det, du har bett R att göra något nytt, R har gjort det också osv. Det påminner om ett samtal med en annan person.</p>
+<p>Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när du tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör. Hur gör vi för att minnas vårt samtal med R, vad vi har gjort och vad vi har kommit fram till? Vi använder oss av scriptfiler!</p>
+<section id="vad-är-en-scriptfil" class="level3">
+<h3 class="anchored" data-anchor-id="vad-är-en-scriptfil">Vad är en scriptfil?</h3>
+<p>En scriptfil är ett dokument med ändelsen <code>*.R</code> där du dokumenterar de kommandon du ger till R i en logisk ordning. Du kan dessutom lägga till kommentarer till ditt script där du förklarar vad du gjort.</p>
+<p>Eftersom R alltid ger samma svar på dina kommandon (såvida du inte ber R att göra något som involveras slumptal) räcker det att du dokumenterar de kommandon du ger till R. Sedan kan du köra dina kommandon på nytt, och får då reda på svaret på nytt.</p>
+</section>
+<section id="fördelar-med-scriptfiler" class="level3">
+<h3 class="anchored" data-anchor-id="fördelar-med-scriptfiler">Fördelar med scriptfiler</h3>
 <ul>
-<li><a href="testbed/">Utvecklingstest av funktioner och kod</a> Test</li>
+<li><p>Du dokumenterar vad du gör, och kan återupprepa din analys i framtiden</p></li>
+<li><p>Om du skall göra en ny analys i ett nytt dataset, men med metoder du tidigare använt och dokumenterat i ett script så kan du kopiera ditt befintliga script och enbart förändra det som behövs för ditt nya data. Du behöver inte börja om från början</p></li>
+<li><p>Du kan enklare felsöka kod och utveckla analyser som sker i flera steg</p></li>
+<li><p>Du kan enkelt gå tillbaka och förändra något steg i en analys</p></li>
 </ul>
+<p>För att summera: det finns inga nackdelar med att använda sig av scriptfiler istället för att köra R interaktivt. Enbart fördelar.</p>
+</section>
+<section id="hur-ser-en-scriptfil-ut" class="level3">
+<h3 class="anchored" data-anchor-id="hur-ser-en-scriptfil-ut">Hur ser en scriptfil ut?</h3>
+<p>Vi börjar med att ladda ner en befintlig scriptfil: testscript.R Ladda ner filen, välj sedan <strong>file -&gt; open document</strong> i R, eller <strong>file -&gt; open file</strong> i RStudio. Scriptfilen öppnas nu som ett nytt fönster (i R) eller i den övra vänstra delen av programmet (i RStudio).</p>
+</section>
+<section id="att-köra-kod-från-ett-script" class="level3">
+<h3 class="anchored" data-anchor-id="att-köra-kod-från-ett-script">Att köra kod från ett script</h3>
+</section>
+<section id="skriv-ditt-första-script" class="level3">
+<h3 class="anchored" data-anchor-id="skriv-ditt-första-script">Skriv ditt första script</h3>
 
 
 </section>

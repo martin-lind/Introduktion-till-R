@@ -7,17 +7,17 @@ title: "Tutorials"
 ### Att installera och arbeta i R
 
 -   [Installera R](install-R/)
--   [Använda R, en introduktion](use-R) Ej påbörjad
+-   [Använda R, en introduktion](use-R) \[Under utveckling\]
 -   [Installera paket](R-packages)
 -   [Läsa in data i R](read-data/)
 
 ### Statistiska test
 
--   [t-test](t-test/)
--   [Linjär regression](linear-regression/) Ej påbörjad
--   [Anova](anova/) Ej påbörjad
--   [Korrelation](correlation/) Ej påbörjad
--   [Chi2](chi2/) Ej påbörjad
+-   [t-test](t-test/) \[Under utveckling\]
+-   [Linjär regression](linear-regression/) \[Ej påbörjad\]
+-   [Anova](anova/) \[Ej påbörjad\]
+-   [Korrelation](correlation/) \[Ej påbörjad\]
+-   [Chi2](chi2/) \[Ej påbörjad\]
 
 ### Övrigt
 
