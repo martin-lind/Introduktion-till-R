@@ -210,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
 <p>Vi vill undersöka om växtbiomassan i ett antal odlingskrukor skiljer sig beroende på om de fått hög eller låg näring.</p>
 <p>Ladda ner följande fil <a href="data/experiment_nutrients.txt">experiment_nutrients.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
-<p>Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det <code>nutrientdata.</code> En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/">Läsa in data i R</a>.</p>
+<p>Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det <code>nutrientdata.</code> En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a>.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -243,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><code>$ Nutrient_level: chr</code> betyder att värderna i kolumnen <code>Nutrient_level</code> är <em>karaktärer</em> dvs text och inte siffror.</p>
 <p><code>$ Mass: num</code> betyder att värderna i kolumnen <code>Mass</code> är <em>decimaltal</em></p>
-<p>Om du har en kolumn som innehåller decimaltal skall det stå <code>num</code>. Om det istället står <code>chr</code> betyder det att datat har punkt som decimalavgränsare, medan du läste in det med komma som avgränsare (eller tvärtom) och R tror att det är text. Justera koden och läs in datat på nytt (se vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/">Läsa in data i R</a> för justerad kod).</p>
+<p>Om du har en kolumn som innehåller decimaltal skall det stå <code>num</code>. Om det istället står <code>chr</code> betyder det att datat har punkt som decimalavgränsare, medan du läste in det med komma som avgränsare (eller tvärtom) och R tror att det är text. Justera koden och läs in datat på nytt (se vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a> för justerad kod).</p>
 <p>Visa sedan de fem första raderna av ditt dataset med <code>head()</code> för att se att allt ser korrekt ut</p>
 <div class="cell">
 <details>
