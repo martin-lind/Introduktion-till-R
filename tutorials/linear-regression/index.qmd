@@ -18,7 +18,7 @@ Den enklaste typen av regression är en **linjär regression**. När man behärs
 
 ## Läs in data
 
-Vi vill undersöka reproduktionen hos en växt, och har mätt höjden på 20 plantor. Vi har även räklnat hur många från varje planta har. Nu vill vi ta reda på om antalet från beror på deras höjd.
+Vi vill undersöka reproduktionen hos en växt. Därför har vi mätt höjden på 20 plantor och vi har även räknat hur många frön varje planta har. Nu vill vi ta reda på om antalet frön beror på plantornas höjd.
 
 Ladda ner följande fil [plant_reproduction.txt](data/plant_reproduction.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
 
@@ -51,9 +51,9 @@ Börja med att titta på datans struktur med `str()`.
 str(plant_reproduction_data)
 ```
 
-`$ Nutrient_level: chr` betyder att värderna i kolumnen `Nutrient_level` är *karaktärer* dvs text och inte siffror.
+`$ Seeds: int` betyder att värderna i kolumnen `Seeds` är *heltal* (integers) 
 
-`$ Mass: num` betyder att värderna i kolumnen `Mass` är *decimaltal*
+`$ Plant_height: int` betyder att värderna i kolumnen `Mass` är *heltall* (integers)
 
 Om du har en kolumn som innehåller decimaltal skall det stå `num`. Om det istället står `chr` betyder det att datat har punkt som decimalavgränsare, medan du läste in det med komma som avgränsare (eller tvärtom) och R tror att det är text. Justera koden och läs in datat på nytt (se vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen) för justerad kod).
 
@@ -65,8 +65,6 @@ head(plant_reproduction_data)
 
 ### Visualisera datat med en enkel graf
 
-Vi gör en graf med `plot()` och lägger sedan till en regressionslinje med `abline()`
-
 För att göra grafen måste vi bestämma oss vad som skall vara på x-axeln, och vad som skall vara på y-axeln. Vilket av följande påstående är mest logiskt?
 
 A.  Växtens storlek påverkar hur många frön den har
@@ -74,6 +72,8 @@ A.  Växtens storlek påverkar hur många frön den har
 B.  Antalet frön en växt har påverkar dess storlek
 
 ALternativ A är det som är mest logiskt. Alltså är det antalet frön som beror av växtens storlek. Därför skall vi ha *antalet frön* (`Seeds`) på y-axeln, och växtens storlek (`Plants_height`) på x-axeln.
+
+Vi gör en enkel graf med funktionen `plot()` och lägger sedan till en regressionslinje med funktionen `abline()`. Grafen är inte publikationsduglig men ger en snabb överblick av våra data.
 
 ```{r}
 plot(Seeds~Plant_height,data=plant_reproduction_data)

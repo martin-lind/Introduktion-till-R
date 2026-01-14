@@ -218,7 +218,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="läs-in-data" class="level2">
 <h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
-<p>Vi vill undersöka reproduktionen hos en växt, och har mätt höjden på 20 plantor. Vi har även räklnat hur många från varje planta har. Nu vill vi ta reda på om antalet från beror på deras höjd.</p>
+<p>Vi vill undersöka reproduktionen hos en växt. Därför har vi mätt höjden på 20 plantor och vi har även räknat hur många frön varje planta har. Nu vill vi ta reda på om antalet frön beror på plantornas höjd.</p>
 <p>Ladda ner följande fil <a href="data/plant_reproduction.txt">plant_reproduction.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
 <p>Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det <code>plant_reproduction_data</code>. En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a>.</p>
 <div class="cell">
@@ -251,8 +251,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  $ Plant_height: int  45 45 44 54 52 57 53 50 48 32 ...</code></pre>
 </div>
 </div>
-<p><code>$ Nutrient_level: chr</code> betyder att värderna i kolumnen <code>Nutrient_level</code> är <em>karaktärer</em> dvs text och inte siffror.</p>
-<p><code>$ Mass: num</code> betyder att värderna i kolumnen <code>Mass</code> är <em>decimaltal</em></p>
+<p><code>$ Seeds: int</code> betyder att värderna i kolumnen <code>Seeds</code> är <em>heltal</em> (integers)</p>
+<p><code>$ Plant_height: int</code> betyder att värderna i kolumnen <code>Mass</code> är <em>heltall</em> (integers)</p>
 <p>Om du har en kolumn som innehåller decimaltal skall det stå <code>num</code>. Om det istället står <code>chr</code> betyder det att datat har punkt som decimalavgränsare, medan du läste in det med komma som avgränsare (eller tvärtom) och R tror att det är text. Justera koden och läs in datat på nytt (se vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a> för justerad kod).</p>
 <p>Visa sedan de fem första raderna av ditt dataset med <code>head()</code> för att se att allt ser korrekt ut</p>
 <div class="cell">
@@ -272,13 +272,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="visualisera-datat-med-en-enkel-graf" class="level3">
 <h3 class="anchored" data-anchor-id="visualisera-datat-med-en-enkel-graf">Visualisera datat med en enkel graf</h3>
-<p>Vi gör en graf med <code>plot()</code> och lägger sedan till en regressionslinje med <code>abline()</code></p>
 <p>För att göra grafen måste vi bestämma oss vad som skall vara på x-axeln, och vad som skall vara på y-axeln. Vilket av följande påstående är mest logiskt?</p>
 <ol type="A">
 <li><p>Växtens storlek påverkar hur många frön den har</p></li>
 <li><p>Antalet frön en växt har påverkar dess storlek</p></li>
 </ol>
 <p>ALternativ A är det som är mest logiskt. Alltså är det antalet frön som beror av växtens storlek. Därför skall vi ha <em>antalet frön</em> (<code>Seeds</code>) på y-axeln, och växtens storlek (<code>Plants_height</code>) på x-axeln.</p>
+<p>Vi gör en enkel graf med funktionen <code>plot()</code> och lägger sedan till en regressionslinje med funktionen <code>abline()</code>. Grafen är inte publikationsduglig men ger en snabb överblick av våra data.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
