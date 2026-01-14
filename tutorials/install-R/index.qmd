@@ -10,11 +10,15 @@ R är också en mjukvara (ett program) som vi använder oss av när vi gör stat
 
 ***R*** är fritt tillgängligt utan kostnad, och finns för alla större plattformar (OSX, Windows, Unix, Linux mm).
 
+![](images/R_logo.png){fig-align="left" width="66"}
+
 [Ladda ner R här](https://www.r-project.org/)
 
 ## RStudio
 
 ***RStudio*** är ett alternativt grafiskt interface (GUI) till R. För att använda RStudio krävs att du redan har installerat programmet ***R***.
+
+![](images/RStudio_logo.png){fig-align="left" width="147"}
 
 [Ladda ner RStudio här](https://posit.co/download/rstudio-desktop/)
 

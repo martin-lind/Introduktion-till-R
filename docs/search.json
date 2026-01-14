@@ -151,14 +151,14 @@
     "href": "tutorials/install-R/index.html#r-programmet",
     "title": "Installera R",
     "section": "R (programmet)",
-    "text": "R (programmet)\nR är fritt tillgängligt utan kostnad, och finns för alla större plattformar (OSX, Windows, Unix, Linux mm).\nLadda ner R här"
+    "text": "R (programmet)\nR är fritt tillgängligt utan kostnad, och finns för alla större plattformar (OSX, Windows, Unix, Linux mm).\n\n\n\n\n\nLadda ner R här"
   },
   {
     "objectID": "tutorials/install-R/index.html#rstudio",
     "href": "tutorials/install-R/index.html#rstudio",
     "title": "Installera R",
     "section": "RStudio",
-    "text": "RStudio\nRStudio är ett alternativt grafiskt interface (GUI) till R. För att använda RStudio krävs att du redan har installerat programmet R.\nLadda ner RStudio här"
+    "text": "RStudio\nRStudio är ett alternativt grafiskt interface (GUI) till R. För att använda RStudio krävs att du redan har installerat programmet R.\n\n\n\n\n\nLadda ner RStudio här"
   },
   {
     "objectID": "tutorials/install-R/index.html#r-eller-rstudio",
