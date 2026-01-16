@@ -43,9 +43,8 @@ Eftersom R alltid ger samma svar på dina kommandon (såvida du inte ber R att g
 För att summera: det finns inga nackdelar med att använda sig av scriptfiler istället för att köra R interaktivt. Enbart fördelar.
 
 ### Hur ser en scriptfil ut?
-Vi börjar med att ladda ner en befintlig scriptfil: testscript.R Ladda ner filen, välj sedan **file -> open document** i R, eller **file -> open file** i RStudio. Scriptfilen öppnas nu som ett nytt fönster (i R) eller i den övra vänstra delen av programmet (i RStudio).
 
-
+Vi börjar med att ladda ner en befintlig scriptfil: [testscript.R](scripts/testscript.R) (högerklicka, välj "spara länk som") och spara den på lämpligt ställe på din hårddisk. Välj sedan **file -\> open document** i R, eller **file -\> open file** i RStudio. Scriptfilen öppnas nu som ett nytt fönster (i R) eller i den övra vänstra delen av programmet (i RStudio).
 
 ### Att köra kod från ett script
 

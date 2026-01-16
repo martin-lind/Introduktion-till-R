@@ -51,7 +51,7 @@ Börja med att titta på datans struktur med `str()`.
 str(plant_reproduction_data)
 ```
 
-`$ Seeds: int` betyder att värderna i kolumnen `Seeds` är *heltal* (integers) 
+`$ Seeds: int` betyder att värderna i kolumnen `Seeds` är *heltal* (integers)
 
 `$ Plant_height: int` betyder att värderna i kolumnen `Mass` är *heltall* (integers)
 
