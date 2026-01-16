@@ -181,8 +181,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#kommentarer-annoteringar" id="toc-kommentarer-annoteringar" class="nav-link" data-scroll-target="#kommentarer-annoteringar">Kommentarer (annoteringar)</a></li>
   <li><a href="#kod-i-scriptfiler" id="toc-kod-i-scriptfiler" class="nav-link" data-scroll-target="#kod-i-scriptfiler">Kod i scriptfiler</a></li>
   <li><a href="#kör-kod-i-rätt-ordning" id="toc-kör-kod-i-rätt-ordning" class="nav-link" data-scroll-target="#kör-kod-i-rätt-ordning">Kör kod i rätt ordning</a></li>
-  <li><a href="#skriv-ditt-första-script" id="toc-skriv-ditt-första-script" class="nav-link" data-scroll-target="#skriv-ditt-första-script">Skriv ditt första script</a></li>
   </ul></li>
+  <li><a href="#skriv-ditt-första-script" id="toc-skriv-ditt-första-script" class="nav-link" data-scroll-target="#skriv-ditt-första-script">Skriv ditt första script</a></li>
   </ul>
 </nav>
     </div>
@@ -263,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Vad vi gör</p></li>
 <li><p>Varför vi gör det</p></li>
 </ol>
-<p>En väldokumenterad scriptfil (kallas också en <em>väl annoterad scriptfil</em>) är enkel att återvända till för att återupprepa analyserna elelr tillämpa dem på nya dataset. Använder man RStudio förgas kommentarerna automatiskt i en avvikande färg.</p>
+<p>En väldokumenterad scriptfil (kallas också en <em>väl annoterad scriptfil</em>) är enkel att återvända till för att återupprepa analyserna eller tillämpa dem på nya dataset. Använder man RStudio färgas kommentarerna automatiskt i en avvikande färg.</p>
 </section>
 <section id="kod-i-scriptfiler" class="level3">
 <h3 class="anchored" data-anchor-id="kod-i-scriptfiler">Kod i scriptfiler</h3>
@@ -275,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>tryck <strong>command + Enter</strong> (på Mac)</p></li>
 <li><p>tryck <strong>ctrl + r</strong> (i Windows)</p></li>
 </ul>
-<p>Kör koden enligt instruktionen ovan:</p>
+<p>Kör raden med koden <code>1+1</code> enligt instruktionen ovan:</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -300,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>studiemedel2025 <span class="ot">&lt;-</span><span class="dv">13500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Du måste först köra de raderna, så att R vet vad objekten studiemedel2024 och studiemedel2025 innehåller. Sedan kan du köra raden vi testade på nytt. Då skall det fungera!</p>
+<p>Du måste först köra de raderna, så att R vet vad objekten <code>studiemedel2024</code> och <code>studiemedel2025</code> innehåller. Sedan kan du köra raden <code>studiemedel2025 - studiemedel2024</code> på nytt. Då skall det fungera!</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -312,11 +312,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="skriv-ditt-första-script" class="level3">
-<h3 class="anchored" data-anchor-id="skriv-ditt-första-script">Skriv ditt första script</h3>
+</section>
+<section id="skriv-ditt-första-script" class="level2">
+<h2 class="anchored" data-anchor-id="skriv-ditt-första-script">Skriv ditt första script</h2>
 <p>Nu skall vi testa att skriva ett eget script! Vi börjar med att skapa en scriptfil genom att klicka oss fram i menyerna:</p>
-<p>R: välj <strong>FIle &gt; New document</strong> RStudio: välj <strong>File &gt; New file &gt; R Script</strong></p>
-<p>Din uppgift är följande: Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Kommentera scriptet väl. Försök själv, men kör du fast kan du tjuvkika nedan (under Code).</p>
+<ul>
+<li><p>R: välj <strong>FIle &gt; New document</strong></p></li>
+<li><p>RStudio: välj <strong>File &gt; New file &gt; R Script</strong></p></li>
+</ul>
+<p>Din uppgift är följande: Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Kommentera scriptet väl. Försök själv, men kör du fast kan du tjuvkika på en möjlig lösning nedan (under Code).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -336,10 +340,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] 46</code></pre>
 </div>
 </div>
-<p>Glöm inte att spara ditt script med ett passande namn på din hårddisk. I R måste du skriva in filändelsen .R när du sparar filen första gången, medan RStudio automatiskt lägger till den filändelsen.</p>
+<p>Glöm inte att <strong>spara ditt script med ett passande namn</strong> på din hårddisk. I R måste du skriva in filändelsen .R när du sparar filen första gången, medan RStudio automatiskt lägger till den filändelsen.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

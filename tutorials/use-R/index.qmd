@@ -64,7 +64,7 @@ Innebörden är att raden inte tolkas som kod, utan som en kommentar till din ko
 
 2.  Varför vi gör det
 
-En väldokumenterad scriptfil (kallas också en *väl annoterad scriptfil*) är enkel att återvända till för att återupprepa analyserna elelr tillämpa dem på nya dataset. Använder man RStudio förgas kommentarerna automatiskt i en avvikande färg.
+En väldokumenterad scriptfil (kallas också en *väl annoterad scriptfil*) är enkel att återvända till för att återupprepa analyserna eller tillämpa dem på nya dataset. Använder man RStudio färgas kommentarerna automatiskt i en avvikande färg.
 
 ### Kod i scriptfiler
 
@@ -80,7 +80,7 @@ I princip kan man markera raden, kopiera koden och klistra in i konsolen (ha det
 
 -   tryck **ctrl + r** (i Windows)
 
-Kör koden enligt instruktionen ovan:
+Kör raden med koden `1+1` enligt instruktionen ovan:
 
 ```{r}
 1+1
@@ -89,11 +89,10 @@ Kör koden enligt instruktionen ovan:
 När du kört raden så dyker den upp i kosnolen, och på raden under får du svaret från R.
 
 ### Kör kod i rätt ordning
-Den raden kod vi körde innehåller inga objekt, så den kan köras oberoende av andra rader. Men testa att köra raden:
-`studiemedel2025 - studiemedel2024`
 
-Får du ett felmeddelande?
-`Error: object 'studiemedel2025' not found`
+Den raden kod vi körde innehåller inga objekt, så den kan köras oberoende av andra rader. Men testa att köra raden: `studiemedel2025 - studiemedel2024`
+
+Får du ett felmeddelande? `Error: object 'studiemedel2025' not found`
 
 Det betyder att du ber R att göra någonting med ett objekt, men R vet inte vad det är för objekt. Du har dokumenterat skapandet av objektet i ditt script några rader ovanför:
 
@@ -103,22 +102,22 @@ studiemedel2024 <- 13156
 studiemedel2025 <-13500
 ```
 
-Du måste först köra de raderna, så att R vet vad objekten studiemedel2024 och studiemedel2025 innehåller. Sedan kan du köra raden vi testade på nytt. Då skall det fungera!
+Du måste först köra de raderna, så att R vet vad objekten `studiemedel2024` och `studiemedel2025` innehåller. Sedan kan du köra raden `studiemedel2025 - studiemedel2024` på nytt. Då skall det fungera!
 
 ```{r}
 # Beräkna höjningen i kronor
 studiemedel2025 - studiemedel2024
 ```
 
-### Skriv ditt första script
+## Skriv ditt första script
 
 Nu skall vi testa att skriva ett eget script! Vi börjar med att skapa en scriptfil genom att klicka oss fram i menyerna:
 
-R: välj **FIle > New document**
-RStudio: välj **File > New file > R Script**
+-   R: välj **FIle \> New document**
 
-Din uppgift är följande:
-Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Kommentera scriptet väl. Försök själv, men kör du fast kan du tjuvkika nedan (under Code).
+-   RStudio: välj **File \> New file \> R Script**
+
+Din uppgift är följande: Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Kommentera scriptet väl. Försök själv, men kör du fast kan du tjuvkika på en möjlig lösning nedan (under Code).
 
 ```{r}
 # Ett skript för att räkna ut hur många år en person fyller
@@ -134,4 +133,4 @@ year_born <- 1980
 year_now - year_born
 ```
 
-Glöm inte att spara ditt script med ett passande namn på din hårddisk. I R måste du skriva in filändelsen .R när du sparar filen första gången, medan RStudio automatiskt lägger till den filändelsen.
+Glöm inte att **spara ditt script med ett passande namn** på din hårddisk. I R måste du skriva in filändelsen .R när du sparar filen första gången, medan RStudio automatiskt lägger till den filändelsen.
