@@ -6,6 +6,10 @@
 
 20/53
 
+10^2
+
+1.24e-3
+
 sqrt(8)
 
 pi
@@ -16,9 +20,13 @@ pi
 studiemedel2024 <- 13156
 studiemedel2025 <-13500
 
+# Titta vad som är i objekten genom att köra dem
+studiemedel2024
+studiemedel2025
+
 # Beräkna höjningen i kronor
 studiemedel2025 - studiemedel2024
 
-# Beräkna den procentuelle höjningen
+# Beräkna den procentuella höjningen
 (studiemedel2025 - studiemedel2024) / studiemedel2024 * 100
 

@@ -6,7 +6,9 @@ Vi skall nu öppna R (eller RStudio), bekanta oss med hur man skriver in och kö
 
 ## Utseende R (programmet)
 
-Utseendet på R ser olika ut beroende på operativsystem, vid uppstart ser man endast en konsol, och man öppnar ett nytt fönster när man öppnar en skriptfil. Figurer hamnar i ytterligare ett fönster.
+Utseendet på **R** ser olika ut beroende på operativsystem, vid uppstart ser man endast en konsol, och man öppnar ett nytt fönster när man öppnar en skriptfil. Figurer hamnar i ytterligare ett fönster.
+
+\[Infoga bild på R för Windows med öppen scriptfil och en graf\]
 
 ## Utseende RStudio
 
@@ -26,7 +28,7 @@ Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt sa
 
 ### Vad är en scriptfil?
 
-En scriptfil är ett dokument med ändelsen `*.R` där du dokumenterar de kommandon du ger till R i en logisk ordning. Du kan dessutom lägga till kommentarer till ditt script där du förklarar vad du gjort.
+En scriptfil är ett dokument med ändelsen `*.R` där du dokumenterar de kommandon du ger till R i en logisk ordning. Du kan dessutom lägga till kommentarer till ditt script där du förklarar vad du gjort (det kallas att *annotera* scriptet).
 
 Eftersom R alltid ger samma svar på dina kommandon (såvida du inte ber R att göra något som involveras slumptal) räcker det att du dokumenterar de kommandon du ger till R. Sedan kan du köra dina kommandon på nytt, och får då reda på svaret på nytt.
 
@@ -40,12 +42,96 @@ Eftersom R alltid ger samma svar på dina kommandon (såvida du inte ber R att g
 
 -   Du kan enkelt gå tillbaka och förändra något steg i en analys
 
-För att summera: det finns inga nackdelar med att använda sig av scriptfiler istället för att köra R interaktivt. Enbart fördelar.
+För att summera: det finns inga nackdelar med att använda sig av scriptfiler istället för att köra R interaktivt. Enbart fördelar. De enda gångerna jag själv använder R interaktivt är när jag använder R som en miniräknare för vardagsproblem.
 
-### Hur ser en scriptfil ut?
+## Hur ser en scriptfil ut?
 
 Vi börjar med att ladda ner en befintlig scriptfil: [testscript.R](scripts/testscript.R) (högerklicka, välj "spara länk som") och spara den på lämpligt ställe på din hårddisk. Välj sedan **file -\> open document** i R, eller **file -\> open file** i RStudio. Scriptfilen öppnas nu som ett nytt fönster (i R) eller i den övra vänstra delen av programmet (i RStudio).
 
-### Att köra kod från ett script
+Låt oss ta en titt på scriptet
+
+![](images/script_image.png){fig-align="left" width="600"}
+
+### Kommentarer (annoteringar)
+
+Vi ser att den första raden börjar med en hashtag (`#`).
+
+`# Det här är ett testscript där vi tittar på hur ett script fungerar`
+
+Innebörden är att raden inte tolkas som kod, utan som en kommentar till din kod. En fil som bara innehåller kod men inga kommentarer är ganska obegriplig, även för dig själv när du återvänder till scriptet några dagar senare. Vi använder kommentarerna för att dokumentera:
+
+1.  Vad vi gör
+
+2.  Varför vi gör det
+
+En väldokumenterad scriptfil (kallas också en *väl annoterad scriptfil*) är enkel att återvända till för att återupprepa analyserna elelr tillämpa dem på nya dataset. Använder man RStudio förgas kommentarerna automatiskt i en avvikande färg.
+
+### Kod i scriptfiler
+
+Den första raden som inte börjar med en `#` är raden som lyder: `1+1`
+
+Det är en rad med kod. I vårt script har vi dokumenterat vår fråga till R "vad är 1+1?". Men vi har ännu inget svar från R. Vi har dokumenterat frågan, men inte ställt frågan än. Vi måste **köra den raden i scriptet** för att R skall ge oss ett svar.
+
+I princip kan man markera raden, kopiera koden och klistra in i konsolen (ha det som backuplösning om du glömmer bort hur man gör), men det är mycket smidigare att göra följande:
+
+**Markera koden du vill köra** och:
+
+-   tryck **command + Enter** (på Mac)
+
+-   tryck **ctrl + r** (i Windows)
+
+Kör koden enligt instruktionen ovan:
+
+```{r}
+1+1
+```
+
+När du kört raden så dyker den upp i kosnolen, och på raden under får du svaret från R.
+
+### Kör kod i rätt ordning
+Den raden kod vi körde innehåller inga objekt, så den kan köras oberoende av andra rader. Men testa att köra raden:
+`studiemedel2025 - studiemedel2024`
+
+Får du ett felmeddelande?
+`Error: object 'studiemedel2025' not found`
+
+Det betyder att du ber R att göra någonting med ett objekt, men R vet inte vad det är för objekt. Du har dokumenterat skapandet av objektet i ditt script några rader ovanför:
+
+```{r}
+# Skapa objekt med studiemedel för respektive år
+studiemedel2024 <- 13156
+studiemedel2025 <-13500
+```
+
+Du måste först köra de raderna, så att R vet vad objekten studiemedel2024 och studiemedel2025 innehåller. Sedan kan du köra raden vi testade på nytt. Då skall det fungera!
+
+```{r}
+# Beräkna höjningen i kronor
+studiemedel2025 - studiemedel2024
+```
 
 ### Skriv ditt första script
+
+Nu skall vi testa att skriva ett eget script! Vi börjar med att skapa en scriptfil genom att klicka oss fram i menyerna:
+
+R: välj **FIle > New document**
+RStudio: välj **File > New file > R Script**
+
+Din uppgift är följande:
+Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Kommentera scriptet väl. Försök själv, men kör du fast kan du tjuvkika nedan (under Code).
+
+```{r}
+# Ett skript för att räkna ut hur många år en person fyller
+
+# Ange vilket år det är i år
+year_now <- 2026
+
+# Ange när personen är född
+year_born <- 1980
+
+# Beräkna hur många år personen fyller i år
+
+year_now - year_born
+```
+
+Glöm inte att spara ditt script med ett passande namn på din hårddisk. I R måste du skriva in filändelsen .R när du sparar filen första gången, medan RStudio automatiskt lägger till den filändelsen.
