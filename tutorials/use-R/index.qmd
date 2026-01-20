@@ -18,11 +18,11 @@ Utseendet på **R** ser olika ut beroende på operativsystem, vid uppstart ser m
 
 ## Skriv din första kod
 
-\[avsnitt under utveckling\]
+Vi skall nu börja ineragera med R, och vi gör det till en början *interaktivt*, det vill säga vi skriver direkt i konsolen.
 
 Klicka i konsolen, så att din markör hamnar på den nedersta raden, efter `>` - tecknet. Skriv `1+1` och tryck på Enter. När du trycker på Enter så kör du koden, dvs det du skrivit på raden läses av R, och R genomför ditt kommando. I det här fallet ber du R att addera 1 med 1, och R ger dig svaret på nästa rad, dvs `2`.
 
-R är en excellent miniräknare, och eftersom dus er talen du skrev in i din formel kan du lätt dubbelkolla att du gjorde rätt. Mycket bättre än att använda mobiltelefonens kalkylator.
+R är en excellent miniräknare, och eftersom du ser din formel kan du lätt dubbelkolla att du gjorde rätt. Mycket bättre än att använda mobiltelefonens kalkylator.
 
 R kan även med enkelhet hantera potenstal. Testa att skriva följande:
 
@@ -48,15 +48,15 @@ pi
 
 ### Objekt i R
 
-R kan spara information i något som kallas **objekt**. Ett objekt kan innehålla olika saker, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller många andra saker. Vi väljer ofta att spara olika resultat som objek, för att kunna återanvända dem, men också för att göra vår kod tydligare.
+R kan spara information i något som kallas **objekt**. Ett objekt kan innehålla olika saker, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller många andra saker. Vi väljer ofta att spara olika resultat som objekt för att kunna återanvända dem, men också för att göra vår kod tydligare.
 
-Låt oss beräkna hur stor del av EUs länder du har besökt. Fundera på hur många det är. Vi skapar sedan ett objekt som vi kallar `visited_countries` och det objektet skall innehålla en siffra som motsvarar det antal länder du besökt.
+Låt oss beräkna hur stor del av EUs länder du har besökt. Fundera på hur många det är. Vi skapar sedan ett objekt som vi kallar `visited_countries` och det objektet skall innehålla ett tal som motsvarar det antal länder du besökt.
 
 ```{r}
 visited_countries <- 12
 ```
 
-Låt oss titta på formeln. `visited_countries` är namnet på vårt objekt. Det skall fyllas med innehåll. Du vill fylla det med det antalet EU-länder du besökt. Då skriver du `<-` vilket är en pil som pekar på objektet. Efter pilen skriver du det antalet länder du besökt, exemelvis `12`. Pilen går från siffran 12 till vårt objekt, dvs du skickar in siffran 12 i vårt objekt.
+Låt oss titta på formeln. `visited_countries` är namnet på vårt objekt. Det skall fyllas med innehåll. Du vill fylla det med det antalet EU-länder du besökt. Då skriver du `<-` vilket är en pil som pekar på objektet. Efter pilen skriver du det antalet länder du besökt, exemelvis `12`. Pilen går från talet 12 till vårt objekt, dvs du sparar talet 12 i vårt objekt.
 
 Vill du se vad ett objekt innehåller skriver du objektets namn och trycker på Enter.
 
@@ -82,7 +82,7 @@ Du kanske hellre vill ha det i procent? Modifiera formeln!
 visited_countries / total_countries * 100
 ```
 
-Du kanske skall använda den här procentdelen i framtida beräkningar och vii ha den sparad som ett objekt. Modifiera den senaste formeln så att du sparar resultatet som ett object du kallar `percent_EUcountries_visited`
+Du kanske skall använda det här resultatet i framtida beräkningar och vill ha det sparat som ett objekt. Modifiera den senaste formeln så att du sparar resultatet som ett objekt du kallar `percent_EUcountries_visited`
 
 ```{r}
 percent_EUcountries_visited <- visited_countries / total_countries * 100

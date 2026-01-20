@@ -226,9 +226,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="skriv-din-första-kod" class="level2">
 <h2 class="anchored" data-anchor-id="skriv-din-första-kod">Skriv din första kod</h2>
-<p>[avsnitt under utveckling]</p>
+<p>Vi skall nu börja ineragera med R, och vi gör det till en början <em>interaktivt</em>, det vill säga vi skriver direkt i konsolen.</p>
 <p>Klicka i konsolen, så att din markör hamnar på den nedersta raden, efter <code>&gt;</code> - tecknet. Skriv <code>1+1</code> och tryck på Enter. När du trycker på Enter så kör du koden, dvs det du skrivit på raden läses av R, och R genomför ditt kommando. I det här fallet ber du R att addera 1 med 1, och R ger dig svaret på nästa rad, dvs <code>2</code>.</p>
-<p>R är en excellent miniräknare, och eftersom dus er talen du skrev in i din formel kan du lätt dubbelkolla att du gjorde rätt. Mycket bättre än att använda mobiltelefonens kalkylator.</p>
+<p>R är en excellent miniräknare, och eftersom du ser din formel kan du lätt dubbelkolla att du gjorde rätt. Mycket bättre än att använda mobiltelefonens kalkylator.</p>
 <p>R kan även med enkelhet hantera potenstal. Testa att skriva följande:</p>
 <div class="cell">
 <details>
@@ -270,15 +270,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="objekt-i-r" class="level3">
 <h3 class="anchored" data-anchor-id="objekt-i-r">Objekt i R</h3>
-<p>R kan spara information i något som kallas <strong>objekt</strong>. Ett objekt kan innehålla olika saker, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller många andra saker. Vi väljer ofta att spara olika resultat som objek, för att kunna återanvända dem, men också för att göra vår kod tydligare.</p>
-<p>Låt oss beräkna hur stor del av EUs länder du har besökt. Fundera på hur många det är. Vi skapar sedan ett objekt som vi kallar <code>visited_countries</code> och det objektet skall innehålla en siffra som motsvarar det antal länder du besökt.</p>
+<p>R kan spara information i något som kallas <strong>objekt</strong>. Ett objekt kan innehålla olika saker, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller många andra saker. Vi väljer ofta att spara olika resultat som objekt för att kunna återanvända dem, men också för att göra vår kod tydligare.</p>
+<p>Låt oss beräkna hur stor del av EUs länder du har besökt. Fundera på hur många det är. Vi skapar sedan ett objekt som vi kallar <code>visited_countries</code> och det objektet skall innehålla ett tal som motsvarar det antal länder du besökt.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>visited_countries <span class="ot">&lt;-</span> <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Låt oss titta på formeln. <code>visited_countries</code> är namnet på vårt objekt. Det skall fyllas med innehåll. Du vill fylla det med det antalet EU-länder du besökt. Då skriver du <code>&lt;-</code> vilket är en pil som pekar på objektet. Efter pilen skriver du det antalet länder du besökt, exemelvis <code>12</code>. Pilen går från siffran 12 till vårt objekt, dvs du skickar in siffran 12 i vårt objekt.</p>
+<p>Låt oss titta på formeln. <code>visited_countries</code> är namnet på vårt objekt. Det skall fyllas med innehåll. Du vill fylla det med det antalet EU-länder du besökt. Då skriver du <code>&lt;-</code> vilket är en pil som pekar på objektet. Efter pilen skriver du det antalet länder du besökt, exemelvis <code>12</code>. Pilen går från talet 12 till vårt objekt, dvs du sparar talet 12 i vårt objekt.</p>
 <p>Vill du se vad ett objekt innehåller skriver du objektets namn och trycker på Enter.</p>
 <div class="cell">
 <details>
@@ -316,7 +316,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] 44.44444</code></pre>
 </div>
 </div>
-<p>Du kanske skall använda den här procentdelen i framtida beräkningar och vii ha den sparad som ett objekt. Modifiera den senaste formeln så att du sparar resultatet som ett object du kallar <code>percent_EUcountries_visited</code></p>
+<p>Du kanske skall använda det här resultatet i framtida beräkningar och vill ha det sparat som ett objekt. Modifiera den senaste formeln så att du sparar resultatet som ett objekt du kallar <code>percent_EUcountries_visited</code></p>
 <div class="cell">
 <details>
 <summary>Code</summary>
