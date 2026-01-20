@@ -170,7 +170,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#utseende-r-programmet" id="toc-utseende-r-programmet" class="nav-link active" data-scroll-target="#utseende-r-programmet">Utseende R (programmet)</a></li>
   <li><a href="#utseende-rstudio" id="toc-utseende-rstudio" class="nav-link" data-scroll-target="#utseende-rstudio">Utseende RStudio</a></li>
-  <li><a href="#skriv-din-första-kod" id="toc-skriv-din-första-kod" class="nav-link" data-scroll-target="#skriv-din-första-kod">Skriv din första kod</a></li>
+  <li><a href="#skriv-din-första-kod" id="toc-skriv-din-första-kod" class="nav-link" data-scroll-target="#skriv-din-första-kod">Skriv din första kod</a>
+  <ul class="collapse">
+  <li><a href="#objekt-i-r" id="toc-objekt-i-r" class="nav-link" data-scroll-target="#objekt-i-r">Objekt i R</a></li>
+  </ul></li>
   <li><a href="#använda-scriptfiler" id="toc-använda-scriptfiler" class="nav-link" data-scroll-target="#använda-scriptfiler">Använda scriptfiler</a>
   <ul class="collapse">
   <li><a href="#vad-är-en-scriptfil" id="toc-vad-är-en-scriptfil" class="nav-link" data-scroll-target="#vad-är-en-scriptfil">Vad är en scriptfil?</a></li>
@@ -224,11 +227,119 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="skriv-din-första-kod" class="level2">
 <h2 class="anchored" data-anchor-id="skriv-din-första-kod">Skriv din första kod</h2>
 <p>[avsnitt under utveckling]</p>
+<p>Klicka i konsolen, så att din markör hamnar på den nedersta raden, efter <code>&gt;</code> - tecknet. Skriv <code>1+1</code> och tryck på Enter. När du trycker på Enter så kör du koden, dvs det du skrivit på raden läses av R, och R genomför ditt kommando. I det här fallet ber du R att addera 1 med 1, och R ger dig svaret på nästa rad, dvs <code>2</code>.</p>
+<p>R är en excellent miniräknare, och eftersom dus er talen du skrev in i din formel kan du lätt dubbelkolla att du gjorde rätt. Mycket bättre än att använda mobiltelefonens kalkylator.</p>
+<p>R kan även med enkelhet hantera potenstal. Testa att skriva följande:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.24e-3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.00124</code></pre>
+</div>
+</div>
+<p>Att ta kvadratroten ur ett tal är inga problem:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.828427</code></pre>
+</div>
+</div>
+<p>R känner också till matematiska konstanter, som till exempel <em>pi</em></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.141593</code></pre>
+</div>
+</div>
+<section id="objekt-i-r" class="level3">
+<h3 class="anchored" data-anchor-id="objekt-i-r">Objekt i R</h3>
+<p>R kan spara information i något som kallas <strong>objekt</strong>. Ett objekt kan innehålla olika saker, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller många andra saker. Vi väljer ofta att spara olika resultat som objek, för att kunna återanvända dem, men också för att göra vår kod tydligare.</p>
+<p>Låt oss beräkna hur stor del av EUs länder du har besökt. Fundera på hur många det är. Vi skapar sedan ett objekt som vi kallar <code>visited_countries</code> och det objektet skall innehålla en siffra som motsvarar det antal länder du besökt.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>visited_countries <span class="ot">&lt;-</span> <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Låt oss titta på formeln. <code>visited_countries</code> är namnet på vårt objekt. Det skall fyllas med innehåll. Du vill fylla det med det antalet EU-länder du besökt. Då skriver du <code>&lt;-</code> vilket är en pil som pekar på objektet. Efter pilen skriver du det antalet länder du besökt, exemelvis <code>12</code>. Pilen går från siffran 12 till vårt objekt, dvs du skickar in siffran 12 i vårt objekt.</p>
+<p>Vill du se vad ett objekt innehåller skriver du objektets namn och trycker på Enter.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>visited_countries</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+<p>För att beräkna andelen av EUs länder du besökt måste vi göra ett objekt som vi kallar <code>total_countries</code> och som innehåller antalet länder som är medlemmar i EU</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>total_countries <span class="ot">&lt;-</span> <span class="dv">27</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Nu kan vi beräkna andelen av EUS länder som du besökt, genom att dividera objektet <code>visited_countries</code> med <code>total_countries</code></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>visited_countries <span class="sc">/</span> total_countries</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4444444</code></pre>
+</div>
+</div>
+<p>Du kanske hellre vill ha det i procent? Modifiera formeln!</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>visited_countries <span class="sc">/</span> total_countries <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44.44444</code></pre>
+</div>
+</div>
+<p>Du kanske skall använda den här procentdelen i framtida beräkningar och vii ha den sparad som ett objekt. Modifiera den senaste formeln så att du sparar resultatet som ett object du kallar <code>percent_EUcountries_visited</code></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>percent_EUcountries_visited <span class="ot">&lt;-</span> visited_countries <span class="sc">/</span> total_countries <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Undersök vad objektet <code>percent_EUcountries_visited</code> innehåller genom att skriva dess namn och tryck på Enter</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>percent_EUcountries_visited</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44.44444</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="använda-scriptfiler" class="level2">
 <h2 class="anchored" data-anchor-id="använda-scriptfiler">Använda scriptfiler</h2>
 <p>Hittils har du interagerat med R interaktivt, det vill säga du har bett R att göra något, R har gjort det, du har bett R att göra något nytt, R har gjort det också osv. Det påminner om ett samtal med en annan person.</p>
-<p>Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när du tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör. Hur gör vi för att minnas vårt samtal med R, vad vi har gjort och vad vi har kommit fram till? Vi använder oss av scriptfiler!</p>
+<p>Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när du tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör.</p>
+<p>Hur gör vi för att minnas vårt samtal med R, vad vi har gjort och vad vi har kommit fram till? Vi använder oss av scriptfiler!</p>
 <section id="vad-är-en-scriptfil" class="level3">
 <h3 class="anchored" data-anchor-id="vad-är-en-scriptfil">Vad är en scriptfil?</h3>
 <p>En scriptfil är ett dokument med ändelsen <code>*.R</code> där du dokumenterar de kommandon du ger till R i en logisk ordning. Du kan dessutom lägga till kommentarer till ditt script där du förklarar vad du gjort (det kallas att <em>annotera</em> scriptet).</p>
@@ -279,7 +390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
@@ -295,17 +406,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Skapa objekt med studiemedel för respektive år</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>studiemedel2024 <span class="ot">&lt;-</span> <span class="dv">13156</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>studiemedel2025 <span class="ot">&lt;-</span><span class="dv">13500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Skapa objekt med studiemedel för respektive år</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>studiemedel2024 <span class="ot">&lt;-</span> <span class="dv">13156</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>studiemedel2025 <span class="ot">&lt;-</span><span class="dv">13500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Du måste först köra de raderna, så att R vet vad objekten <code>studiemedel2024</code> och <code>studiemedel2025</code> innehåller. Sedan kan du köra raden <code>studiemedel2025 - studiemedel2024</code> på nytt. Då skall det fungera!</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beräkna höjningen i kronor</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>studiemedel2025 <span class="sc">-</span> studiemedel2024</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beräkna höjningen i kronor</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>studiemedel2025 <span class="sc">-</span> studiemedel2024</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 344</code></pre>
@@ -320,27 +431,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>R: välj <strong>FIle &gt; New document</strong></p></li>
 <li><p>RStudio: välj <strong>File &gt; New file &gt; R Script</strong></p></li>
 </ul>
-<p>Din uppgift är följande: Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Kommentera scriptet väl. Försök själv, men kör du fast kan du tjuvkika på en möjlig lösning nedan (under Code).</p>
+<p><em>Din uppgift är följande:</em> Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Använd vårt script om studiemedelshöjningen ovan som inspirationskälla och kommentera scriptet väl.</p>
+<p>Försök själv, men kör du fast kan du tjuvkika på en möjlig lösning nedan (under Code).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ett skript för att räkna ut hur många år en person fyller</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ange vilket år det är i år</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>year_now <span class="ot">&lt;-</span> <span class="dv">2026</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ange när personen är född</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>year_born <span class="ot">&lt;-</span> <span class="dv">1980</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Beräkna hur många år personen fyller i år</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>year_now <span class="sc">-</span> year_born</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ett skript för att räkna ut hur många år en person fyller</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ange vilket år det är i år</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>year_now <span class="ot">&lt;-</span> <span class="dv">2026</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ange när personen är född</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>year_born <span class="ot">&lt;-</span> <span class="dv">1998</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Beräkna hur många år personen fyller i år</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>year_now <span class="sc">-</span> year_born</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 46</code></pre>
+<pre><code>[1] 28</code></pre>
 </div>
 </div>
-<p>Glöm inte att <strong>spara ditt script med ett passande namn</strong> på din hårddisk. I R måste du skriva in filändelsen .R när du sparar filen första gången, medan RStudio automatiskt lägger till den filändelsen.</p>
+<p>Glöm inte att <strong>spara ditt script med ett passande namn</strong> på din hårddisk. I R måste du skriva in filändelsen .R när du sparar scriptet första gången, medan RStudio automatiskt lägger till den filändelsen.</p>
 
 
 </section>

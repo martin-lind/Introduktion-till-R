@@ -20,11 +20,88 @@ Utseendet på **R** ser olika ut beroende på operativsystem, vid uppstart ser m
 
 \[avsnitt under utveckling\]
 
+Klicka i konsolen, så att din markör hamnar på den nedersta raden, efter `>` - tecknet. Skriv `1+1` och tryck på Enter. När du trycker på Enter så kör du koden, dvs det du skrivit på raden läses av R, och R genomför ditt kommando. I det här fallet ber du R att addera 1 med 1, och R ger dig svaret på nästa rad, dvs `2`.
+
+R är en excellent miniräknare, och eftersom dus er talen du skrev in i din formel kan du lätt dubbelkolla att du gjorde rätt. Mycket bättre än att använda mobiltelefonens kalkylator.
+
+R kan även med enkelhet hantera potenstal. Testa att skriva följande:
+
+```{r}
+10^2
+```
+
+```{r}
+1.24e-3
+```
+
+Att ta kvadratroten ur ett tal är inga problem:
+
+```{r}
+sqrt(8)
+```
+
+R känner också till matematiska konstanter, som till exempel *pi*
+
+```{r}
+pi
+```
+
+### Objekt i R
+
+R kan spara information i något som kallas **objekt**. Ett objekt kan innehålla olika saker, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller många andra saker. Vi väljer ofta att spara olika resultat som objek, för att kunna återanvända dem, men också för att göra vår kod tydligare.
+
+Låt oss beräkna hur stor del av EUs länder du har besökt. Fundera på hur många det är. Vi skapar sedan ett objekt som vi kallar `visited_countries` och det objektet skall innehålla en siffra som motsvarar det antal länder du besökt.
+
+```{r}
+visited_countries <- 12
+```
+
+Låt oss titta på formeln. `visited_countries` är namnet på vårt objekt. Det skall fyllas med innehåll. Du vill fylla det med det antalet EU-länder du besökt. Då skriver du `<-` vilket är en pil som pekar på objektet. Efter pilen skriver du det antalet länder du besökt, exemelvis `12`. Pilen går från siffran 12 till vårt objekt, dvs du skickar in siffran 12 i vårt objekt.
+
+Vill du se vad ett objekt innehåller skriver du objektets namn och trycker på Enter.
+
+```{r}
+visited_countries
+```
+
+För att beräkna andelen av EUs länder du besökt måste vi göra ett objekt som vi kallar `total_countries` och som innehåller antalet länder som är medlemmar i EU
+
+```{r}
+total_countries <- 27
+```
+
+Nu kan vi beräkna andelen av EUS länder som du besökt, genom att dividera objektet `visited_countries` med `total_countries`
+
+```{r}
+visited_countries / total_countries
+```
+
+Du kanske hellre vill ha det i procent? Modifiera formeln!
+
+```{r}
+visited_countries / total_countries * 100
+```
+
+Du kanske skall använda den här procentdelen i framtida beräkningar och vii ha den sparad som ett objekt. Modifiera den senaste formeln så att du sparar resultatet som ett object du kallar `percent_EUcountries_visited`
+
+```{r}
+percent_EUcountries_visited <- visited_countries / total_countries * 100
+```
+
+Undersök vad objektet `percent_EUcountries_visited` innehåller genom att skriva dess namn och tryck på Enter
+
+```{r}
+percent_EUcountries_visited
+```
+
+
 ## Använda scriptfiler
 
 Hittils har du interagerat med R interaktivt, det vill säga du har bett R att göra något, R har gjort det, du har bett R att göra något nytt, R har gjort det också osv. Det påminner om ett samtal med en annan person.
 
-Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när du tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör. Hur gör vi för att minnas vårt samtal med R, vad vi har gjort och vad vi har kommit fram till? Vi använder oss av scriptfiler!
+Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när du tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör.
+
+Hur gör vi för att minnas vårt samtal med R, vad vi har gjort och vad vi har kommit fram till? Vi använder oss av scriptfiler!
 
 ### Vad är en scriptfil?
 
@@ -117,7 +194,9 @@ Nu skall vi testa att skriva ett eget script! Vi börjar med att skapa en script
 
 -   RStudio: välj **File \> New file \> R Script**
 
-Din uppgift är följande: Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Kommentera scriptet väl. Försök själv, men kör du fast kan du tjuvkika på en möjlig lösning nedan (under Code).
+*Din uppgift är följande:* Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Använd vårt script om studiemedelshöjningen ovan som inspirationskälla och kommentera scriptet väl. 
+
+Försök själv, men kör du fast kan du tjuvkika på en möjlig lösning nedan (under Code).
 
 ```{r}
 # Ett skript för att räkna ut hur många år en person fyller
@@ -126,11 +205,11 @@ Din uppgift är följande: Skapa ett script som räknar ut hur många år en per
 year_now <- 2026
 
 # Ange när personen är född
-year_born <- 1980
+year_born <- 1998
 
 # Beräkna hur många år personen fyller i år
 
 year_now - year_born
 ```
 
-Glöm inte att **spara ditt script med ett passande namn** på din hårddisk. I R måste du skriva in filändelsen .R när du sparar filen första gången, medan RStudio automatiskt lägger till den filändelsen.
+Glöm inte att **spara ditt script med ett passande namn** på din hårddisk. I R måste du skriva in filändelsen .R när du sparar scriptet första gången, medan RStudio automatiskt lägger till den filändelsen.
