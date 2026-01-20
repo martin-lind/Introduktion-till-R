@@ -173,6 +173,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#skriv-din-första-kod" id="toc-skriv-din-första-kod" class="nav-link" data-scroll-target="#skriv-din-första-kod">Skriv din första kod</a>
   <ul class="collapse">
   <li><a href="#objekt-i-r" id="toc-objekt-i-r" class="nav-link" data-scroll-target="#objekt-i-r">Objekt i R</a></li>
+  <li><a href="#funktioner-i-r" id="toc-funktioner-i-r" class="nav-link" data-scroll-target="#funktioner-i-r">Funktioner i R</a></li>
   </ul></li>
   <li><a href="#använda-scriptfiler" id="toc-använda-scriptfiler" class="nav-link" data-scroll-target="#använda-scriptfiler">Använda scriptfiler</a>
   <ul class="collapse">
@@ -334,6 +335,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
+<section id="funktioner-i-r" class="level3">
+<h3 class="anchored" data-anchor-id="funktioner-i-r">Funktioner i R</h3>
+<p>Tycker du att R visar onödigt många decimaler? Om du använder funtionen <code>round()</code> kan du bestämma hur många decimaler R skall visa. Lås oss uttrycka procentsatsen i objektet <code>percent_EUcountries_visited</code> med en decimal</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(percent_EUcountries_visited, <span class="at">digits =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44.4</code></pre>
+</div>
+</div>
+<p>En funktion är en operation som är inbyggd i R. Funktionen har ett namn (i det här fallet <code>round</code>) och följs alltid av en parentes. I parentesen anger du objektet R skall göra något med, samt eventuella andra parametrar som måste anges. om du använder dig av round() måste du ange hur många decimaler R skall avrunda till <code>, digits = 1</code></p>
+<p>Om du inte vet hur en funktion fungerar kan du alltid nå R’s hjälpfiler genom att skriva ett frågetecken följt av funktionens namn, och trycka Enter. Testa!</p>
+<p><code>?round</code></p>
+<p>När vi gör statistik så använder vi hela tiden R´s olika funktioner för att läsa in data, göra grafer, göra statistiska test och ge oss resultaten av testen. Det är alla inbyggda statistiska funktioner som gör R till ett ledande språk för statistiska beräkningar.</p>
+</section>
 </section>
 <section id="använda-scriptfiler" class="level2">
 <h2 class="anchored" data-anchor-id="använda-scriptfiler">Använda scriptfiler</h2>
@@ -390,7 +408,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
@@ -406,17 +424,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Skapa objekt med studiemedel för respektive år</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>studiemedel2024 <span class="ot">&lt;-</span> <span class="dv">13156</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>studiemedel2025 <span class="ot">&lt;-</span><span class="dv">13500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Skapa objekt med studiemedel för respektive år</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>studiemedel2024 <span class="ot">&lt;-</span> <span class="dv">13156</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>studiemedel2025 <span class="ot">&lt;-</span><span class="dv">13500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Du måste först köra de raderna, så att R vet vad objekten <code>studiemedel2024</code> och <code>studiemedel2025</code> innehåller. Sedan kan du köra raden <code>studiemedel2025 - studiemedel2024</code> på nytt. Då skall det fungera!</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beräkna höjningen i kronor</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>studiemedel2025 <span class="sc">-</span> studiemedel2024</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beräkna höjningen i kronor</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>studiemedel2025 <span class="sc">-</span> studiemedel2024</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 344</code></pre>
@@ -436,17 +454,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ett skript för att räkna ut hur många år en person fyller</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ange vilket år det är i år</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>year_now <span class="ot">&lt;-</span> <span class="dv">2026</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ange när personen är född</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>year_born <span class="ot">&lt;-</span> <span class="dv">1998</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Beräkna hur många år personen fyller i år</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>year_now <span class="sc">-</span> year_born</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ett skript för att räkna ut hur många år en person fyller</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ange vilket år det är i år</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>year_now <span class="ot">&lt;-</span> <span class="dv">2026</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ange när personen är född</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>year_born <span class="ot">&lt;-</span> <span class="dv">1998</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Beräkna hur många år personen fyller i år</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>year_now <span class="sc">-</span> year_born</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 28</code></pre>

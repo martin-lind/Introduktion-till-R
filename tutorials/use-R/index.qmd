@@ -94,6 +94,21 @@ Undersök vad objektet `percent_EUcountries_visited` innehåller genom att skriv
 percent_EUcountries_visited
 ```
 
+### Funktioner i R
+
+Tycker du att R visar onödigt många decimaler? Om du använder funtionen `round()` kan du bestämma hur många decimaler R skall visa. Lås oss uttrycka procentsatsen i objektet `percent_EUcountries_visited` med en decimal
+
+```{r}
+round(percent_EUcountries_visited, digits = 1)
+```
+
+En funktion är en operation som är inbyggd i R. Funktionen har ett namn (i det här fallet `round`) och följs alltid av en parentes. I parentesen anger du objektet R skall göra något med, samt eventuella andra parametrar som måste anges. om du använder dig av round() måste du ange hur många decimaler R skall avrunda till `, digits = 1`
+
+Om du inte vet hur en funktion fungerar kan du alltid nå R's hjälpfiler genom att skriva ett frågetecken följt av funktionens namn, och trycka Enter. Testa!
+
+`?round`
+
+När vi gör statistik så använder vi hela tiden R´s olika funktioner för att läsa in data, göra grafer, göra statistiska test och ge oss resultaten av testen. Det är alla inbyggda statistiska funktioner som gör R till ett ledande språk för statistiska beräkningar.
 
 ## Använda scriptfiler
 
