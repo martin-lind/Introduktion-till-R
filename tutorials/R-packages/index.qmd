@@ -45,9 +45,9 @@ Hur vet du då vilket paket som skall användas? Kommer du ihåg det? Eller har 
 
 Ett vanligt sätt är att börja sin scriptfil med att lista alla paket som används. Då kan du (eller den som du delar din scriptfil med) se vilka paket som används.
 
-`#Paket som används` `library(ggplot2)` `library(lme4)` `library(car)`
+![](images/packages_used.png){fig-align="left" width="140"}
 
-Det här är det absolut vanligaste sättet att dokumentera vilka paket man använder sig av.
+Det här är det absolut vanligaste sättet att dokumentera vilka paket man använder sig av, och det räcker troligtvis för dina behov.
 
 Nackdelen med att enbart använda sig av det här tillvägagångssättet är att du inte vet vilken funktion som hör till vilket paket. Det är inget praktiskt problem, men ett "ordningsproblem"
 
