@@ -177,6 +177,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#presentera-din-statistiska-analys" id="toc-presentera-din-statistiska-analys" class="nav-link" data-scroll-target="#presentera-din-statistiska-analys">Presentera din statistiska analys</a></li>
   <li><a href="#utvärdera-den-statistiska-modellen" id="toc-utvärdera-den-statistiska-modellen" class="nav-link" data-scroll-target="#utvärdera-den-statistiska-modellen">Utvärdera den statistiska modellen</a></li>
+  <li><a href="#publiceringsduglig-figur" id="toc-publiceringsduglig-figur" class="nav-link" data-scroll-target="#publiceringsduglig-figur">Publiceringsduglig figur</a>
+  <ul class="collapse">
+  <li><a href="#först---en-enkel-plot-med-ggplot2" id="toc-först---en-enkel-plot-med-ggplot2" class="nav-link" data-scroll-target="#först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</a></li>
+  <li><a href="#modifiera-din-plot-så-den-blir-publiceringsduglig" id="toc-modifiera-din-plot-så-den-blir-publiceringsduglig" class="nav-link" data-scroll-target="#modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -203,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Ett <strong>t-test</strong> (kallas även <em>Student´s t-test</em>) används när man är intresserad om huruvida två grupper av en faktor skiljer sig åt i medelvärde. Om man har fler än två grupper, eller har flera faktorer, använder man sig istället av Anova, vilket vi kommer använda oss av senare under kursen.</p>
 <p><strong>Ett t-test förutsätter följande</strong></p>
 <ul>
-<li>att datat är normalfördelade</li>
+<li>att datat är normalfördelat</li>
 <li>att varianserna är homogena</li>
 </ul>
 <section id="läs-in-data" class="level2">
@@ -334,8 +339,59 @@ mean in group High  mean in group Low
 </div>
 </div>
 <p><strong>Normal Q-Q</strong> visar om residualerna är normalfördelade. De bör följa en tänkt diagonal linje från nedre vänster hörn till övre höger hörn. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data eller använda ett annat typ av test.</p>
+</section>
+<section id="publiceringsduglig-figur" class="level2">
+<h2 class="anchored" data-anchor-id="publiceringsduglig-figur">Publiceringsduglig figur</h2>
+<p>Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet ggplot2. Om du inte sedan tidigare har paketet installerat så gör du det med koden <code>install.packages("ggplot2")</code>. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen <code>library()</code></p>
+<section id="först---en-enkel-plot-med-ggplot2" class="level3">
+<h3 class="anchored" data-anchor-id="först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plot.nutrient.simple <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nutrientdata,<span class="fu">aes</span>(<span class="at">x =</span> Nutrient_level, <span class="at">y =</span> Mass, <span class="at">fill =</span> Nutrient_level))<span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>,<span class="at">fun =</span> mean,<span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>,<span class="at">fun.data =</span> mean_se,<span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plot.nutrient.simple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="modifiera-din-plot-så-den-blir-publiceringsduglig" class="level3">
+<h3 class="anchored" data-anchor-id="modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</h3>
+<p>Vår enkla figur där vi enbart anger dataset och våra variablar blev ju inte alls tokig, men vi kan förbättra den. Vi skulle vilja fixa till följande:</p>
+<ol type="1">
+<li><p>Vi vill att det skall stå Nutrient level och inte Nutrient_level på x-axeln, fixas med <code>xlab()</code></p></li>
+<li><p>Vi vill ange att massan är mätt i gram, fixas med <code>ylab()</code></p></li>
+<li><p>Vi vill välja andra färger, och dessutom skall det inte stå Nutrient_level i vår legend. Fixas med <code>scale_fill_manual()</code></p></li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plot.nutrient <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nutrientdata,<span class="fu">aes</span>(<span class="at">x =</span> Nutrient_level, <span class="at">y =</span> Mass, <span class="at">fill =</span> Nutrient_level))<span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>,<span class="at">fun =</span> mean,<span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>,<span class="at">fun.data =</span> mean_se,<span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Nutrient level"</span>)<span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mass (g)"</span>)<span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">"Nutrient level"</span>,<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"High"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>, <span class="st">"Low"</span> <span class="ot">=</span> <span class="st">"palegreen"</span>))<span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>plot.nutrient</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

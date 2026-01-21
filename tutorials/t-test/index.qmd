@@ -6,7 +6,7 @@ Ett **t-test** (kallas även *Student´s t-test*) används när man är intresse
 
 **Ett t-test förutsätter följande**
 
--   att datat är normalfördelade
+-   att datat är normalfördelat
 -   att varianserna är homogena
 
 ## Läs in data
@@ -111,3 +111,45 @@ qqnorm (nutrientdata$Mass)
 ```
 
 **Normal Q-Q** visar om residualerna är normalfördelade. De bör följa en tänkt diagonal linje från nedre vänster hörn till övre höger hörn. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data eller använda ett annat typ av test.
+
+## Publiceringsduglig figur
+
+Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet ggplot2. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("ggplot2")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
+
+### Först - en enkel plot med ggplot2
+
+```{r}
+library(ggplot2)
+
+plot.nutrient.simple <- ggplot(nutrientdata,aes(x = Nutrient_level, y = Mass, fill = Nutrient_level))+
+  stat_summary(geom = "bar",fun = mean,width = 0.4) +
+  stat_summary(geom = "errorbar",fun.data = mean_se,width = 0.1) +
+  theme_classic()
+
+plot.nutrient.simple
+```
+
+### Modifiera din plot så den blir publiceringsduglig
+
+Vår enkla figur där vi enbart anger dataset och våra variablar blev ju inte alls tokig, men vi kan förbättra den. Vi skulle vilja fixa till följande:
+
+1.  Vi vill att det skall stå Nutrient level och inte Nutrient_level på x-axeln, fixas med `xlab()`
+
+2.  Vi vill ange att massan är mätt i gram, fixas med `ylab()`
+
+3.  Vi vill välja andra färger, och dessutom skall det inte stå Nutrient_level i vår legend. Fixas med `scale_fill_manual()`
+
+
+```{r}
+library(ggplot2)
+
+plot.nutrient <- ggplot(nutrientdata,aes(x = Nutrient_level, y = Mass, fill = Nutrient_level))+
+  stat_summary(geom = "bar",fun = mean,width = 0.4) +
+  stat_summary(geom = "errorbar",fun.data = mean_se,width = 0.1) +
+  xlab("Nutrient level")+
+  ylab("Mass (g)")+
+  scale_fill_manual(name = "Nutrient level",values = c("High" = "darkgreen", "Low" = "palegreen"))+
+  theme_classic()
+
+plot.nutrient
+```
