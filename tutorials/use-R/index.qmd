@@ -8,7 +8,7 @@ Vi skall nu öppna R (eller RStudio), bekanta oss med hur man skriver in och kö
 
 Utseendet på **R** ser olika ut beroende på operativsystem, vid uppstart ser man endast en konsol, och man öppnar ett nytt fönster när man öppnar en skriptfil. Figurer hamnar i ytterligare ett fönster.
 
-\[Infoga bild på R för Windows med öppen scriptfil och en graf\]
+![](images/R_outline.png){width="1000"}
 
 ## Utseende RStudio
 
@@ -18,7 +18,7 @@ Utseendet på **R** ser olika ut beroende på operativsystem, vid uppstart ser m
 
 ## Skriv din första kod
 
-Vi skall nu börja ineragera med R, och vi gör det till en början *interaktivt*, det vill säga vi skriver direkt i konsolen.
+Vi skall nu börja interagera med R, och vi gör det till en början *interaktivt*, det vill säga vi skriver kommandon direkt i konsolen.
 
 Klicka i konsolen, så att din markör hamnar på den nedersta raden, efter `>` - tecknet. Skriv `1+1` och tryck på Enter. När du trycker på Enter så kör du koden, dvs det du skrivit på raden läses av R, och R genomför ditt kommando. I det här fallet ber du R att addera 1 med 1, och R ger dig svaret på nästa rad, dvs `2`.
 
@@ -48,7 +48,9 @@ pi
 
 ### Objekt i R
 
-R kan spara information i något som kallas **objekt**. Ett objekt kan innehålla olika saker, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller många andra saker. Vi väljer ofta att spara olika resultat som objekt för att kunna återanvända dem, men också för att göra vår kod tydligare.
+R kan spara information i något som kallas **objekt**. Ett objekt kan innehålla olika typer av information, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller mycket annat. Vi väljer ofta att spara olika resultat som objekt för att kunna återanvända dem, men också för att göra vår kod tydligare.
+
+Vi skall nu göra en övning i att använda objekt. Övningen är väldigt enkel och skulle enkelt kunna genomföras utan att gå vägen via objekt, men den illustrerar väl tankesättet och logiken med objekt.
 
 Låt oss beräkna hur stor del av EUs länder du har besökt. Fundera på hur många det är. Vi skapar sedan ett objekt som vi kallar `visited_countries` och det objektet skall innehålla ett tal som motsvarar det antal länder du besökt.
 
@@ -102,7 +104,7 @@ Tycker du att R visar onödigt många decimaler? Om du använder funktionen `rou
 round(percent_EUcountries_visited, digits = 1)
 ```
 
-En **funktion** är en operation som är inbyggd i R. Funktionen har ett namn (i det här fallet `round`) och följs alltid av en parentes. I parentesen anger du objektet R skall göra något med, samt eventuella andra parametrar som måste anges. om du använder dig av round() måste du ange hur många decimaler R skall avrunda till `, digits = 1`
+En **funktion** är en operation som är inbyggd i R. Funktionen har ett namn (i det här fallet `round`) och följs alltid av en parentes. I parentesen anger du objektet R skall göra något med, samt eventuella andra parametrar som måste anges. Om du använder dig av round() måste du ange hur många decimaler R skall avrunda till `, digits = 1`
 
 Om du inte vet hur en funktion fungerar kan du alltid nå R's hjälpfiler genom att skriva ett frågetecken följt av funktionens namn, och trycka Enter. Testa!
 
@@ -112,9 +114,9 @@ När vi gör statistik så använder vi hela tiden R´s olika funktioner för at
 
 ## Använda scriptfiler
 
-Hittils har du interagerat med R interaktivt, det vill säga du har bett R att göra något, R har gjort det, du har bett R att göra något nytt, R har gjort det också osv. Det påminner om ett samtal med en annan person.
+Hittils har du interagerat med R interaktivt, det vill säga vi har bett R att göra något, R har gjort det, vi har bett R att göra något nytt, R har gjort det också osv. Det påminner om ett samtal med en annan person.
 
-Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när du tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör.
+Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när vi tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör.
 
 Hur gör vi för att minnas vårt samtal med R, vad vi har gjort och vad vi har kommit fram till? Vi använder oss av scriptfiler!
 
@@ -122,13 +124,13 @@ Hur gör vi för att minnas vårt samtal med R, vad vi har gjort och vad vi har 
 
 En scriptfil är ett dokument med ändelsen `*.R` där du dokumenterar de kommandon du ger till R i en logisk ordning. Du kan dessutom lägga till kommentarer till ditt script där du förklarar vad du gjort (det kallas att *annotera* scriptet).
 
-Eftersom R alltid ger samma svar på dina kommandon (såvida du inte ber R att göra något som involveras slumptal) räcker det att du dokumenterar de kommandon du ger till R. Sedan kan du köra dina kommandon på nytt, och får då reda på svaret på nytt.
+Eftersom R alltid ger samma svar på dina kommandon (såvida du inte ber R att göra något som involveras slumptal) så räcker det att du dokumenterar de kommandon du ger till R. Sedan kan du köra dina kommandon på nytt, och får då reda på svaret på nytt.
 
 ### Fördelar med scriptfiler
 
 -   Du dokumenterar vad du gör, och kan återupprepa din analys i framtiden
 
--   Om du skall göra en ny analys i ett nytt dataset, men med metoder du tidigare använt och dokumenterat i ett script så kan du kopiera ditt befintliga script och enbart förändra det som behövs för ditt nya data. Du behöver inte börja om från början
+-   Om du skall göra en ny analys i ett nytt dataset, men med metoder du tidigare använt och dokumenterat i ett script, så kan du kopiera ditt befintliga script och enbart förändra det som behövs för ditt nya data. Du behöver inte börja om från början. Dina gamla script är därmed en guldgruva när du skall analysera nya data.
 
 -   Du kan enklare felsöka kod och utveckla analyser som sker i flera steg
 
@@ -209,7 +211,7 @@ Nu skall vi testa att skriva ett eget script! Vi börjar med att skapa en script
 
 -   RStudio: välj **File \> New file \> R Script**
 
-*Din uppgift är följande:* Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Använd vårt script om studiemedelshöjningen ovan som inspirationskälla och kommentera scriptet väl. 
+*Din uppgift är följande:* Skapa ett script som räknar ut hur många år en person fyller i år (till exempel hur många år du fyller i år). Använd vårt script om studiemedelshöjningen ovan som inspirationskälla och kommentera scriptet väl.
 
 Försök själv, men kör du fast kan du tjuvkika på en möjlig lösning nedan (under Code).
 

@@ -7,7 +7,7 @@ title: "Tutorials"
 ### Att installera och arbeta i R
 
 -   [Installera R](install-R/)
--   [Använda R, en introduktion](use-R) \[Under utveckling\]
+-   [Använda R, en introduktion](use-R)
 -   [Installera paket](R-packages)
 -   [Läsa in data i R](read-data/)
 

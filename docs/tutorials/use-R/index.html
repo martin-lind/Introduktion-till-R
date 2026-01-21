@@ -214,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="utseende-r-programmet" class="level2">
 <h2 class="anchored" data-anchor-id="utseende-r-programmet">Utseende R (programmet)</h2>
 <p>Utseendet på <strong>R</strong> ser olika ut beroende på operativsystem, vid uppstart ser man endast en konsol, och man öppnar ett nytt fönster när man öppnar en skriptfil. Figurer hamnar i ytterligare ett fönster.</p>
-<p>[Infoga bild på R för Windows med öppen scriptfil och en graf]</p>
+<p><img src="images/R_outline.png" class="img-fluid" width="1000"></p>
 </section>
 <section id="utseende-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="utseende-rstudio">Utseende RStudio</h2>
@@ -227,7 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="skriv-din-första-kod" class="level2">
 <h2 class="anchored" data-anchor-id="skriv-din-första-kod">Skriv din första kod</h2>
-<p>Vi skall nu börja ineragera med R, och vi gör det till en början <em>interaktivt</em>, det vill säga vi skriver direkt i konsolen.</p>
+<p>Vi skall nu börja interagera med R, och vi gör det till en början <em>interaktivt</em>, det vill säga vi skriver kommandon direkt i konsolen.</p>
 <p>Klicka i konsolen, så att din markör hamnar på den nedersta raden, efter <code>&gt;</code> - tecknet. Skriv <code>1+1</code> och tryck på Enter. När du trycker på Enter så kör du koden, dvs det du skrivit på raden läses av R, och R genomför ditt kommando. I det här fallet ber du R att addera 1 med 1, och R ger dig svaret på nästa rad, dvs <code>2</code>.</p>
 <p>R är en excellent miniräknare, och eftersom du ser din formel kan du lätt dubbelkolla att du gjorde rätt. Mycket bättre än att använda mobiltelefonens kalkylator.</p>
 <p>R kan även med enkelhet hantera potenstal. Testa att skriva följande:</p>
@@ -271,7 +271,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="objekt-i-r" class="level3">
 <h3 class="anchored" data-anchor-id="objekt-i-r">Objekt i R</h3>
-<p>R kan spara information i något som kallas <strong>objekt</strong>. Ett objekt kan innehålla olika saker, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller många andra saker. Vi väljer ofta att spara olika resultat som objekt för att kunna återanvända dem, men också för att göra vår kod tydligare.</p>
+<p>R kan spara information i något som kallas <strong>objekt</strong>. Ett objekt kan innehålla olika typer av information, det kan vara ett tal, en nummerserie, ett namn, ett dataset, resultatet av en statistisk analys, en funktion eller mycket annat. Vi väljer ofta att spara olika resultat som objekt för att kunna återanvända dem, men också för att göra vår kod tydligare.</p>
+<p>Vi skall nu göra en övning i att använda objekt. Övningen är väldigt enkel och skulle enkelt kunna genomföras utan att gå vägen via objekt, men den illustrerar väl tankesättet och logiken med objekt.</p>
 <p>Låt oss beräkna hur stor del av EUs länder du har besökt. Fundera på hur många det är. Vi skapar sedan ett objekt som vi kallar <code>visited_countries</code> och det objektet skall innehålla ett tal som motsvarar det antal länder du besökt.</p>
 <div class="cell">
 <details>
@@ -347,7 +348,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] 44.4</code></pre>
 </div>
 </div>
-<p>En <strong>funktion</strong> är en operation som är inbyggd i R. Funktionen har ett namn (i det här fallet <code>round</code>) och följs alltid av en parentes. I parentesen anger du objektet R skall göra något med, samt eventuella andra parametrar som måste anges. om du använder dig av round() måste du ange hur många decimaler R skall avrunda till <code>, digits = 1</code></p>
+<p>En <strong>funktion</strong> är en operation som är inbyggd i R. Funktionen har ett namn (i det här fallet <code>round</code>) och följs alltid av en parentes. I parentesen anger du objektet R skall göra något med, samt eventuella andra parametrar som måste anges. Om du använder dig av round() måste du ange hur många decimaler R skall avrunda till <code>, digits = 1</code></p>
 <p>Om du inte vet hur en funktion fungerar kan du alltid nå R’s hjälpfiler genom att skriva ett frågetecken följt av funktionens namn, och trycka Enter. Testa!</p>
 <p><code>?round</code></p>
 <p>När vi gör statistik så använder vi hela tiden R´s olika funktioner för att läsa in data, göra grafer, göra statistiska test och ge oss resultaten av testen. Det är alla inbyggda statistiska funktioner som gör R till ett ledande språk för statistiska beräkningar.</p>
@@ -355,19 +356,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="använda-scriptfiler" class="level2">
 <h2 class="anchored" data-anchor-id="använda-scriptfiler">Använda scriptfiler</h2>
-<p>Hittils har du interagerat med R interaktivt, det vill säga du har bett R att göra något, R har gjort det, du har bett R att göra något nytt, R har gjort det också osv. Det påminner om ett samtal med en annan person.</p>
-<p>Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när du tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör.</p>
+<p>Hittils har du interagerat med R interaktivt, det vill säga vi har bett R att göra något, R har gjort det, vi har bett R att göra något nytt, R har gjort det också osv. Det påminner om ett samtal med en annan person.</p>
+<p>Nackdelen med att arbeta interaktivt är samma som nackdelen med ett muntligt samtal. Dels är det svårt att minnas vad som sades när vi tänker tillbaka på det senare, och dessutom är det svårt att göra komplicerade uppgifter om man inte börjar skriva ned vad man gör.</p>
 <p>Hur gör vi för att minnas vårt samtal med R, vad vi har gjort och vad vi har kommit fram till? Vi använder oss av scriptfiler!</p>
 <section id="vad-är-en-scriptfil" class="level3">
 <h3 class="anchored" data-anchor-id="vad-är-en-scriptfil">Vad är en scriptfil?</h3>
 <p>En scriptfil är ett dokument med ändelsen <code>*.R</code> där du dokumenterar de kommandon du ger till R i en logisk ordning. Du kan dessutom lägga till kommentarer till ditt script där du förklarar vad du gjort (det kallas att <em>annotera</em> scriptet).</p>
-<p>Eftersom R alltid ger samma svar på dina kommandon (såvida du inte ber R att göra något som involveras slumptal) räcker det att du dokumenterar de kommandon du ger till R. Sedan kan du köra dina kommandon på nytt, och får då reda på svaret på nytt.</p>
+<p>Eftersom R alltid ger samma svar på dina kommandon (såvida du inte ber R att göra något som involveras slumptal) så räcker det att du dokumenterar de kommandon du ger till R. Sedan kan du köra dina kommandon på nytt, och får då reda på svaret på nytt.</p>
 </section>
 <section id="fördelar-med-scriptfiler" class="level3">
 <h3 class="anchored" data-anchor-id="fördelar-med-scriptfiler">Fördelar med scriptfiler</h3>
 <ul>
 <li><p>Du dokumenterar vad du gör, och kan återupprepa din analys i framtiden</p></li>
-<li><p>Om du skall göra en ny analys i ett nytt dataset, men med metoder du tidigare använt och dokumenterat i ett script så kan du kopiera ditt befintliga script och enbart förändra det som behövs för ditt nya data. Du behöver inte börja om från början</p></li>
+<li><p>Om du skall göra en ny analys i ett nytt dataset, men med metoder du tidigare använt och dokumenterat i ett script, så kan du kopiera ditt befintliga script och enbart förändra det som behövs för ditt nya data. Du behöver inte börja om från början. Dina gamla script är därmed en guldgruva när du skall analysera nya data.</p></li>
 <li><p>Du kan enklare felsöka kod och utveckla analyser som sker i flera steg</p></li>
 <li><p>Du kan enkelt gå tillbaka och förändra något steg i en analys</p></li>
 </ul>
