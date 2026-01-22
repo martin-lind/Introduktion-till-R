@@ -133,11 +133,11 @@ Vi går nu igenom koden för vår plot. Den är utspridd över flera rader, där
 
 `ggplot(nutrientdata,aes(x = Nutrient_level, y = Mass, fill = Nutrient_level)) +` betyder att vi använder oss av funktionen `ggplot()`, och det första vi anger är namnet på vårt dataset, som vi kallade `nutrientdata`.
 
-`aes()` är en funktion inom ggplot, här anger vi estetiken (aes står för *aestetics*). Vi anger namnet på de variabler som skall vara på x-axeln respektive y-axeln med `x = Nutrient_level, y = Mass` och eftersom vi vill att de olika nivåerna av vår faktor på x-axeln skall få olika färg lägger vi till `fill = Nutrient_level`.
+`aes()` är en funktion inom ggplot, här anger vi estetiken (`aes` står för *aestetics*). Vi anger namnet på de variabler som skall vara på x-axeln respektive y-axeln med `x = Nutrient_level, y = Mass` och eftersom vi vill att de olika nivåerna av vår faktor på x-axeln skall få olika färg lägger vi till `fill = Nutrient_level`.
 
-`stat_summary(geom = "bar",fun = mean,width = 0.4) +` betuder att vi vill beräkna nogon statistik från vårt dataset och visa det med hjälp av funktionen `stat_summary()`. `geom = "bar"` betyder att vi vill göra ett stapeldiagram (bar står för *barplot*). `fun = mean` betyder att staplarna skall baseras på medelvärdet, och `width = 0.4` betyder att de skall ha en relativ bredd på 0.4 (testa att ändra, men för breda staplar ser ofta fult ut)
+`stat_summary(geom = "bar",fun = mean,width = 0.4) +` betuder att vi vill beräkna summarisk statistik från vårt dataset och visa det med hjälp av funktionen `stat_summary()`. `geom = "bar"` betyder att vi vill göra ett stapeldiagram (`"bar"` står för *barplot*). `fun = mean` betyder att staplarna skall baseras på medelvärdet, och `width = 0.4` betyder att de skall ha en relativ bredd på 0.4 (testa att ändra, men för breda staplar ser ofta fult ut)
 
-`stat_summary(geom = "errorbar",fun.data = mean_se,width = 0.1) +` Den här raden är också en `stat_summary()`, men här lägger vi till ett annat element till grafen. `geom = "errorbar"` betyder att vi nu vill lägga till felstaplar,`fun.data = mean_se` betyder att felstaplarna skall representera *standard error* och vi anger deras bredd med `width = 0.1`, Felstaplar bör vara smalare än staplarna.
+`stat_summary(geom = "errorbar",fun.data = mean_se,width = 0.1) +` Den här raden är också en `stat_summary()`, men här lägger vi till ett annat element till grafen. `geom = "errorbar"` betyder att vi nu vill lägga till felstaplar (*errorbars*),`fun.data = mean_se` betyder att felstaplarna skall representera *standard error* och vi anger deras bredd med `width = 0.1`, Felstaplar bör vara smalare än staplarna. 
 
 `theme_classic()` är ett tema för grafer. Det är det temat som gör att graferna ser ut så som vi förväntar oss i naturvetenskapliga publikationer (vit bakgrund, inga stödlinjer, ren design). Notera att det är sista raden i vårt script, så den skall inte avslutas med plustecken.
 
