@@ -13,11 +13,14 @@ title: "Tutorials"
 
 ### Statistiska test
 
--   [t-test](t-test/) \[Under utveckling\]
+-   [t-test](t-test/)
 -   [Linjär regression](linear-regression/) \[Under utveckling\]
 -   [Anova](anova/) \[Ej påbörjad\]
 -   [Korrelation](correlation/) \[Ej påbörjad\]
 -   [Chi2](chi2/) \[Ej påbörjad\]
+-   Faktoriell design \[Ej påbörjad\]
+-   Ancova \[Ej påbörjad\]
+-   Icke-parametriska tester \[Ej påbörjad\]
 
 ### Övrigt
 
