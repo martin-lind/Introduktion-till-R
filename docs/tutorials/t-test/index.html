@@ -280,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Den grå boxen innehåller de mittersta 50% av värderna i gruppen, och den horisontella linjen i mitten visar medianvärdet. Felstaplarna visar området som de 25% lägsta och 25% högsta värderna ligger i.</p>
-<p><strong>Observera</strong>: en boxplot är INTE ett statistiskt test, och det motsvarar inte medelvärden och varians/standard error. Använd det enbart för snabb inspektion av data, inte för publicering.</p>
+<p><strong>Observera</strong>: en boxplot är INTE ett statistiskt test, och det motsvarar inte medelvärden och varians/standard error. Använd det enbart för snabb inspektion av data, inte för publicering. Vi går igenom hur man gör en publiceringsduglig graf i den avslutande delen av vår tutorial, under <a href="#publiceringsduglig-figur">Publiceringsduglig figur</a></p>
 <p>Hur tolkar du grafen? Ser det ut som att växtbiomassan skiljer sig åt beroende på näring?</p>
 </section>
 <section id="statistisk-modellering" class="level2">
@@ -361,6 +361,12 @@ mean in group High  mean in group Low
 <p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Vi går nu igenom koden för vår plot. Den är utspridd över flera rader, där varje rad avslutas med ett <code>+</code> för att R skall förstå att koden fortsätter på nästa rad.</p>
+<p><code>ggplot(nutrientdata,aes(x = Nutrient_level, y = Mass, fill = Nutrient_level))+</code> betyder att vi använder oss av funktionen <code>ggplot()</code>, och det första vi anger är namnet på vårt dataset, som vi kallade <code>nutrientdata</code>.</p>
+<p>aes() är en funktion inom ggplot, här anger vi estetiken (aes står för <em>aestetics</em>). Vi anger namnet på de variabler som skall vara på x-axeln respektive y-axeln med x = Nutrient_level, y = Mass och eftersom vi vill att de olika nivåerna av vår faktor på x-axeln skall få olika färg lägger vi till <code>fill = Nutrient_level</code>.</p>
+<p><code>stat_summary(geom = "bar",fun = mean,width = 0.4)</code> betuder att vi vill beräkna nogon statistik från vårt dataset och visa det med hjälp av funktionen <code>stat_summary()</code>. geom = “bar” betyder att vi vill göra ett stapeldiagram (bar står för <em>barplot</em>). <code>fun = mean</code> betyder att staplarna skall baseras på medelvärdet, och <code>width = 0.4</code> betyder att de skall ha en relativ bredd på 0.4 (testa att ändra, men för breda staplar ser ofta fult ut)</p>
+<p><code>stat_summary(geom = "errorbar",fun.data = mean_se,width = 0.1)</code> Den här raden är också en <code>stat_summary()</code>, men här lägger vi till ett annat element till grafen. <code>geom = "errorbar"</code> betyder att vi nu vill lägga till felstaplar,<code>fun.data = mean_se</code> betyder att felstaplarna skall representera <em>standard error</em> och vi anger deras bredd med <code>width = 0.1</code>, Felstaplar bör vara smalare än staplarna.</p>
+<p><code>theme_classic()</code> är ett tema för grafer. Det är det temat som gör att graferna ser ut så som vi förväntar oss i naturvetenskapliga publikationer (vit bakgrund, inga stödlinjer, ren design)</p>
 </section>
 <section id="modifiera-din-plot-så-den-blir-publiceringsduglig" class="level3">
 <h3 class="anchored" data-anchor-id="modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</h3>
@@ -389,6 +395,7 @@ mean in group High  mean in group Low
 <p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Om du vill se en lista med namn på alla färger som R innehåller så kör du koden <code>colors()</code>. Om du vill ha en specifik färg (och vet vad du gör) så kan du även ta fram färgens hexidecimala kod i ett bildbehandlingsprogram och ange den istället.</p>
 
 
 </section>

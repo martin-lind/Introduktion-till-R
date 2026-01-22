@@ -67,7 +67,7 @@ boxplot(Mass~Nutrient_level,
 
 Den grå boxen innehåller de mittersta 50% av värderna i gruppen, och den horisontella linjen i mitten visar medianvärdet. Felstaplarna visar området som de 25% lägsta och 25% högsta värderna ligger i.
 
-**Observera**: en boxplot är INTE ett statistiskt test, och det motsvarar inte medelvärden och varians/standard error. Använd det enbart för snabb inspektion av data, inte för publicering.
+**Observera**: en boxplot är INTE ett statistiskt test, och det motsvarar inte medelvärden och varians/standard error. Använd det enbart för snabb inspektion av data, inte för publicering. Vi går igenom hur man gör en publiceringsduglig graf i den avslutande delen av vår tutorial, under [Publiceringsduglig figur]
 
 Hur tolkar du grafen? Ser det ut som att växtbiomassan skiljer sig åt beroende på näring?
 
@@ -129,6 +129,18 @@ plot.nutrient.simple <- ggplot(nutrientdata,aes(x = Nutrient_level, y = Mass, fi
 plot.nutrient.simple
 ```
 
+Vi går nu igenom koden för vår plot. Den är utspridd över flera rader, där varje rad avslutas med ett `+` för att R skall förstå att koden fortsätter på nästa rad.
+
+`ggplot(nutrientdata,aes(x = Nutrient_level, y = Mass, fill = Nutrient_level))+` betyder att vi använder oss av funktionen `ggplot()`, och det första vi anger är namnet på vårt dataset, som vi kallade `nutrientdata`.
+
+aes() är en funktion inom ggplot, här anger vi estetiken (aes står för *aestetics*). Vi anger namnet på de variabler som skall vara på x-axeln respektive y-axeln med x = Nutrient_level, y = Mass och eftersom vi vill att de olika nivåerna av vår faktor på x-axeln skall få olika färg lägger vi till `fill = Nutrient_level`.
+
+`stat_summary(geom = "bar",fun = mean,width = 0.4)` betuder att vi vill beräkna nogon statistik från vårt dataset och visa det med hjälp av funktionen `stat_summary()`. geom = "bar" betyder att vi vill göra ett stapeldiagram (bar står för *barplot*). `fun = mean` betyder att staplarna skall baseras på medelvärdet, och `width = 0.4` betyder att de skall ha en relativ bredd på 0.4 (testa att ändra, men för breda staplar ser ofta fult ut)
+
+`stat_summary(geom = "errorbar",fun.data = mean_se,width = 0.1)` Den här raden är också en `stat_summary()`, men här lägger vi till ett annat element till grafen. `geom = "errorbar"` betyder att vi nu vill lägga till felstaplar,`fun.data = mean_se` betyder att felstaplarna skall representera *standard error* och vi anger deras bredd med `width = 0.1`, Felstaplar bör vara smalare än staplarna.
+
+`theme_classic()` är ett tema för grafer. Det är det temat som gör att graferna ser ut så som vi förväntar oss i naturvetenskapliga publikationer (vit bakgrund, inga stödlinjer, ren design)
+
 ### Modifiera din plot så den blir publiceringsduglig
 
 Vår enkla figur där vi enbart anger dataset och våra variablar blev ju inte alls tokig, men vi kan förbättra den. Vi skulle vilja fixa till följande:
@@ -138,7 +150,6 @@ Vår enkla figur där vi enbart anger dataset och våra variablar blev ju inte a
 2.  Vi vill ange att massan är mätt i gram, fixas med `ylab()`
 
 3.  Vi vill välja andra färger, och dessutom skall det inte stå Nutrient_level i vår legend. Fixas med `scale_fill_manual()`
-
 
 ```{r}
 library(ggplot2)
@@ -153,3 +164,5 @@ plot.nutrient <- ggplot(nutrientdata,aes(x = Nutrient_level, y = Mass, fill = Nu
 
 plot.nutrient
 ```
+
+Om du vill se en lista med namn på alla färger som R innehåller så kör du koden `colors()`. Om du vill ha en specifik färg (och vet vad du gör) så kan du även ta fram färgens hexidecimala kod i ett bildbehandlingsprogram och ange den istället.
