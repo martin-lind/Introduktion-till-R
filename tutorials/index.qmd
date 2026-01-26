@@ -14,7 +14,7 @@ title: "Tutorials"
 ### Statistiska test
 
 -   [t-test](t-test/)
--   [Linjär regression](linear-regression/) \[Under utveckling\]
+-   [Linjär regression](linear-regression/)
 -   [Anova](anova/) \[Ej påbörjad\]
 -   [Korrelation](correlation/) \[Ej påbörjad\]
 -   [Chi2](chi2/) \[Ej påbörjad\]
