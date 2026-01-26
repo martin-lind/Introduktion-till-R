@@ -73,11 +73,11 @@ B.  Antalet frön en växt har påverkar dess storlek
 
 Alternativ A är det som är mest logiskt. Alltså är det antalet frön som beror av växtens storlek. Därför skall vi ha *antalet frön* (`Seeds`) på y-axeln, och växtens storlek (`Plants_height`) på x-axeln.
 
-Vi gör en enkel graf med funktionen `plot()` och lägger sedan till en regressionslinje med funktionen `abline()`. Grafen är inte publikationsduglig men ger en snabb överblick av våra data.
+Vi gör en enkel graf med funktionen `plot()` och lägger sedan till en regressionslinje med funktionen `abline()`. Grafen är inte publikationsduglig men ger en snabb överblick av våra data. Vi går igenom hur man gör en publiceringsduglig graf i den avslutande delen av vår tutorial, under [Publiceringsduglig figur].
 
 ```{r}
-plot(Seeds~Plant_height,data=plant_reproduction_data)
-abline(lm(Seeds~Plant_height,data=plant_reproduction_data))
+plot(Seeds ~ Plant_height, data = plant_reproduction_data)
+abline(lm(Seeds ~ Plant_height, data = plant_reproduction_data))
 ```
 
 Hur tolkar du grafen? Verkar det som att plantans höjd påverkar antalet frön den har?
@@ -142,3 +142,56 @@ Vi får fyra grafer att utvärdera, de två första är viktigast. Du kan behöv
 **Scale-Location** illustrerar om variationen i datat är lika över alla värden. Om variationen ökar mycket åt höger (ett vanligt fall) så har vi större variation vid högre värden. Kan lösas genom att transformera data.
 
 **Residuals vs Leverage** används för att hitta extremvärden som har onormalt stor påverkan på regressionslinjen. Mönstret i grafen är inte intressant, vi letar efter värden som ligger utanför de grå linjerna, speciellt linjerna för **1**. Man bör dubbelkolla sådana värden (outliers) och fundera på om de skall vara med i datasetet. Kanske analysera såväl med som utan extremvärderna?
+
+## Publiceringsduglig figur
+
+Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet **ggplot2**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("ggplot2")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
+
+### Först - en enkel plot med ggplot2
+
+```{r}
+library(ggplot2)
+
+plot.plant_reproduction.simple <- ggplot(plant_reproduction_data, aes(x = Plant_height, y = Seeds)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_classic()
+
+plot.plant_reproduction.simple
+```
+Vi går nu igenom koden för vår plot. Den är utspridd över flera rader, där varje rad avslutas med ett `+` för att R skall förstå att koden fortsätter på nästa rad.
+
+`ggplot(plant_reproduction_data, aes(x = Plant_height, y = Seeds)) +` betyder att vi använder oss av funktionen `ggplot()`, och det första vi anger är namnet på vårt dataset, som vi kallade `plant_reproduction_data`.
+
+`aes()` är en funktion inom ggplot, här anger vi estetiken (`aes` står för *aestetics*). Vi anger namnet på de variabler som skall vara på x-axeln respektive y-axeln med `x = Plant_height, y = Seeds`.
+
+`geom_point() +` betuder att vi vill att varje datapunkt skall bli en punkt
+
+`geom_smooth(method = "lm", se = FALSE) +` betyder att vi lägger till en linjär regressionslinje med `method = "lm"` och vi vill inte ha standardavvikelser, vilket vi anger med `se = FALSE`. Man brukar inte ha med det i grafer med regressioner. Vill du ändå ha osäkerheten i grafen kan du ersätta FALSE med TRUE.
+
+`theme_classic()` är ett tema för grafer. Det är det temat som gör att graferna ser ut så som vi förväntar oss i naturvetenskapliga publikationer (vit bakgrund, inga stödlinjer, ren design). Notera att det är sista raden i vårt script, så den skall inte avslutas med plustecken.
+
+### Publiceringsbar figur
+
+Den blev helt ok, men vi kan förbättra den.
+
+1.  Vi vill att det skall stå "Plant height (cm)" på x-axeln, fixas med `xlab()`
+
+2.  Vi vill att det skall stå "Number of seeds" på y-axeln, fixas med `ylab()`
+
+3.  Vi vill välja blå punkter, och vi vill att de skall vara lite större,fixas med `cex` och `color` inom `geom_point()`
+
+4.  Vi vill att regressionslinjen skall vara svart och som punkter, fixas med `color` och `lty` (står för line type) i `geom_smooth()`
+
+```{r}
+library(ggplot2)
+
+plot.plant_reproduction <- ggplot(plant_reproduction_data, aes(x = Plant_height, y = Seeds)) +
+  geom_point(cex = 3, colour = "blue") +
+  geom_smooth(method = "lm", se = FALSE, lty = 3, color = "black") +
+  xlab("Plant height (cm)")+
+  ylab("Number of seeds")+
+  theme_classic()
+
+plot.plant_reproduction
+```

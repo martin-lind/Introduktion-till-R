@@ -179,6 +179,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#presentera-din-statistiska-analys" id="toc-presentera-din-statistiska-analys" class="nav-link" data-scroll-target="#presentera-din-statistiska-analys">Presentera din statistiska analys</a></li>
   <li><a href="#utvärdera-den-statistiska-modellen" id="toc-utvärdera-den-statistiska-modellen" class="nav-link" data-scroll-target="#utvärdera-den-statistiska-modellen">Utvärdera den statistiska modellen</a></li>
+  <li><a href="#publiceringsduglig-figur" id="toc-publiceringsduglig-figur" class="nav-link" data-scroll-target="#publiceringsduglig-figur">Publiceringsduglig figur</a>
+  <ul class="collapse">
+  <li><a href="#först---en-enkel-plot-med-ggplot2" id="toc-först---en-enkel-plot-med-ggplot2" class="nav-link" data-scroll-target="#först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</a></li>
+  <li><a href="#publiceringsbar-figur" id="toc-publiceringsbar-figur" class="nav-link" data-scroll-target="#publiceringsbar-figur">Publiceringsbar figur</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -278,12 +283,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Antalet frön en växt har påverkar dess storlek</p></li>
 </ol>
 <p>Alternativ A är det som är mest logiskt. Alltså är det antalet frön som beror av växtens storlek. Därför skall vi ha <em>antalet frön</em> (<code>Seeds</code>) på y-axeln, och växtens storlek (<code>Plants_height</code>) på x-axeln.</p>
-<p>Vi gör en enkel graf med funktionen <code>plot()</code> och lägger sedan till en regressionslinje med funktionen <code>abline()</code>. Grafen är inte publikationsduglig men ger en snabb överblick av våra data.</p>
+<p>Vi gör en enkel graf med funktionen <code>plot()</code> och lägger sedan till en regressionslinje med funktionen <code>abline()</code>. Grafen är inte publikationsduglig men ger en snabb överblick av våra data. Vi går igenom hur man gör en publiceringsduglig graf i den avslutande delen av vår tutorial, under <a href="#publiceringsduglig-figur">Publiceringsduglig figur</a>.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Seeds<span class="sc">~</span>Plant_height,<span class="at">data=</span>plant_reproduction_data)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Seeds<span class="sc">~</span>Plant_height,<span class="at">data=</span>plant_reproduction_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Seeds <span class="sc">~</span> Plant_height, <span class="at">data =</span> plant_reproduction_data)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Seeds <span class="sc">~</span> Plant_height, <span class="at">data =</span> plant_reproduction_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
@@ -388,8 +393,71 @@ F-statistic: 68.68 on 1 and 18 DF,  p-value: 1.477e-07</code></pre>
 <p><strong>Normal Q-Q</strong> visar om residualerna är normalfördelade. De bör följa den diagonala streckade linjen. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data.</p>
 <p><strong>Scale-Location</strong> illustrerar om variationen i datat är lika över alla värden. Om variationen ökar mycket åt höger (ett vanligt fall) så har vi större variation vid högre värden. Kan lösas genom att transformera data.</p>
 <p><strong>Residuals vs Leverage</strong> används för att hitta extremvärden som har onormalt stor påverkan på regressionslinjen. Mönstret i grafen är inte intressant, vi letar efter värden som ligger utanför de grå linjerna, speciellt linjerna för <strong>1</strong>. Man bör dubbelkolla sådana värden (outliers) och fundera på om de skall vara med i datasetet. Kanske analysera såväl med som utan extremvärderna?</p>
+</section>
+<section id="publiceringsduglig-figur" class="level2">
+<h2 class="anchored" data-anchor-id="publiceringsduglig-figur">Publiceringsduglig figur</h2>
+<p>Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet <strong>ggplot2</strong>. Om du inte sedan tidigare har paketet installerat så gör du det med koden <code>install.packages("ggplot2")</code>. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen <code>library()</code></p>
+<section id="först---en-enkel-plot-med-ggplot2" class="level3">
+<h3 class="anchored" data-anchor-id="först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction.simple <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(plant_reproduction_data, <span class="fu">aes</span>(<span class="at">x =</span> Plant_height, <span class="at">y =</span> Seeds)) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction.simple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Vi går nu igenom koden för vår plot. Den är utspridd över flera rader, där varje rad avslutas med ett <code>+</code> för att R skall förstå att koden fortsätter på nästa rad.</p>
+<p><code>ggplot(plant_reproduction_data, aes(x = Plant_height, y = Seeds)) +</code> betyder att vi använder oss av funktionen <code>ggplot()</code>, och det första vi anger är namnet på vårt dataset, som vi kallade <code>plant_reproduction_data</code>.</p>
+<p><code>aes()</code> är en funktion inom ggplot, här anger vi estetiken (<code>aes</code> står för <em>aestetics</em>). Vi anger namnet på de variabler som skall vara på x-axeln respektive y-axeln med <code>x = Plant_height, y = Seeds</code>.</p>
+<p><code>geom_point() +</code> betuder att vi vill att varje datapunkt skall bli en punkt</p>
+<p><code>geom_smooth(method = "lm", se = FALSE) +</code> betyder att vi lägger till en linjär regressionslinje med <code>method = "lm"</code> och vi vill inte ha standardavvikelser, vilket vi anger med <code>se = FALSE</code>. Man brukar inte ha med det i grafer med regressioner. Vill du ändå ha osäkerheten i grafen kan du ersätta FALSE med TRUE.</p>
+<p><code>theme_classic()</code> är ett tema för grafer. Det är det temat som gör att graferna ser ut så som vi förväntar oss i naturvetenskapliga publikationer (vit bakgrund, inga stödlinjer, ren design). Notera att det är sista raden i vårt script, så den skall inte avslutas med plustecken.</p>
+</section>
+<section id="publiceringsbar-figur" class="level3">
+<h3 class="anchored" data-anchor-id="publiceringsbar-figur">Publiceringsbar figur</h3>
+<p>Den blev helt ok, men vi kan förbättra den.</p>
+<ol type="1">
+<li><p>Vi vill att det skall stå “Plant height (cm)” på x-axeln, fixas med <code>xlab()</code></p></li>
+<li><p>Vi vill att det skall stå “Number of seeds” på y-axeln, fixas med <code>ylab()</code></p></li>
+<li><p>Vi vill välja blå punkter, och vi vill att de skall vara lite större,fixas med <code>cex</code> och <code>color</code> inom <code>geom_point()</code></p></li>
+<li><p>Vi vill att regressionslinjen skall vara svart och som punkter, fixas med <code>color</code> och <code>lty</code> (står för line type) i <code>geom_smooth()</code></p></li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(plant_reproduction_data, <span class="fu">aes</span>(<span class="at">x =</span> Plant_height, <span class="at">y =</span> Seeds)) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">cex =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Plant height (cm)"</span>)<span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Number of seeds"</span>)<span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
