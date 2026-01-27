@@ -1,3 +1,72 @@
 ---
 title: "Korrelationer"
 ---
+
+En korrelationsanalys används om man vill undersöka om två kontinuerliga variabler samvarierar, men till skillnad från vid regressionsanalys så har man nu ingen hypotes om att det finns ett orsakssamband mellan dem. Det spelar alltså ingen roll vilken variabel som är på y-axeln och vilken som är på x-axeln. 
+
+Korrelationer används ofta om man vill undersöka mönster snarare än att testa hypoteser.
+
+## Läs in data
+
+Vi vill undersöka om det finns en korrelation mellan diametern och höjden på ett antal trädindivider av samma art.
+
+Ladda ner följande fil [trees.txt](data/trees.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
+
+Fortsätt med att läsa in ett dataset och ge det ett namn, i det här fallet kallar vi det *tree.data*. En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
+
+```{r}
+tree.data<-read.table("data/trees.txt",
+                      header = T, sep = "\t", dec = ",") 
+```
+
+## Inspektera data
+
+Börja med att titta på datans struktur med `str()`.
+
+```{r}
+str(tree.data)
+```
+
+`$ diameter: num` betyder att värderna i kolumnen `diameter` är *decimaltal* (numeric)
+
+`$ height: num` betyder att värderna i kolumnen `height` är *decimaltal* (numeric)
+
+Visa sedan de fem första raderna av ditt dataset med `head()` för att se att allt ser korrekt ut
+
+```{r}
+head(tree.data)
+```
+
+## Visualisera datat med en enkel graf
+
+Vi gör en graf med `plot()`. Eftersom vi inte har någon hypotes om ett orsakssamband mellan våra variabler spelar det ingen roll vilken vi har på vilken axel (hade vi haft en hypotes om ett orsakssamband så hade vi gjort en regression istället).
+
+```{r}
+plot(height ~ diameter, data = tree.data)
+```
+Ser det ut som att `diameter` och `height` är korrelerade med varandra? Är det i så fall en positiv eller negativ korrelation?
+
+## Statistisk modellering
+
+Vi vill nu göra en korrelationsanalys mellan våra två variablar. 
+
+Vi använder oss av funktionen `cor.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.trees`. 
+
+```{r}
+m.trees <- cor.test(tree.data$diameter, tree.data$height, method = "p")
+```
+Notera att korrelationstesten kräver att man anger modellen på ett annat sätt än i andra metoder. Istället för att ange våra variablar och sedan datasetet, måste vi ange dataset och variabel tillsammans, genom koden `dataset$variabel`. Till vänster om dollartecknet är datasetets namn, till höger är variabelnamnet.
+
+`method="p"`specificerar metoden vi skall använda oss av för att göra korrelationen. **`p` står för Pearson** och används om data är normalfördelade. 
+
+Vi skriver modellnamnet och kör koden
+```{r}
+m.trees
+```
+
+Vi kan inspektera resultatet. Vi ser att p-värdet är mindre än 0.05, dvs vi har en signifikant korrelation. Vi får även teststatistika i form av t-värde och frihetsgrader (df).
+
+Vi får även ett värde på korrelations-coefficienten `cor` (vanligtvis kallad **r
+**), som är 0.36. r kan gå mellan -1 och +1, där -1 representerar en perfekt negativ korrelation, +1 representerar en perfekt positiv korrelation och 0 betyder att en korrelation saknas. Vi har en positiv korrelation. Stämmer det när du inspekterar grafen ovan?
+
+Notera att **r** (i korrelationsanalyser) och **r2** (i regressioner) inte är samma sak. r skall inte heller tolkas som en regressionskoefficient (som ju kan anta hur positiva eller negativa värden som helst, medan r alltid ligger mellan -1 och +1).

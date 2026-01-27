@@ -53,7 +53,7 @@ str(plant_reproduction_data)
 
 `$ Seeds: int` betyder att värderna i kolumnen `Seeds` är *heltal* (integers)
 
-`$ Plant_height: int` betyder att värderna i kolumnen `Mass` är *heltall* (integers)
+`$ Plant_height: int` betyder att värderna i kolumnen `Mass` är *heltal* (integers)
 
 Om du har en kolumn som innehåller decimaltal skall det stå `num`. Om det istället står `chr` betyder det att datat har punkt som decimalavgränsare, medan du läste in det med komma som avgränsare (eller tvärtom) och R tror att det är text. Justera koden och läs in datat på nytt (se vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen) för justerad kod).
 

@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -101,7 +164,16 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#läs-in-data" id="toc-läs-in-data" class="nav-link active" data-scroll-target="#läs-in-data">Läs in data</a></li>
+  <li><a href="#inspektera-data" id="toc-inspektera-data" class="nav-link" data-scroll-target="#inspektera-data">Inspektera data</a></li>
+  <li><a href="#visualisera-datat-med-en-enkel-graf" id="toc-visualisera-datat-med-en-enkel-graf" class="nav-link" data-scroll-target="#visualisera-datat-med-en-enkel-graf">Visualisera datat med en enkel graf</a></li>
+  <li><a href="#statistisk-modellering" id="toc-statistisk-modellering" class="nav-link" data-scroll-target="#statistisk-modellering">Statistisk modellering</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -123,8 +195,106 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>En korrelationsanalys används om man vill undersöka om två kontinuerliga variabler samvarierar, men till skillnad från vid regressionsanalys så har man nu ingen hypotes om att det finns ett orsakssamband mellan dem. Det spelar alltså ingen roll vilken variabel som är på y-axeln och vilken som är på x-axeln.</p>
+<p>Korrelationer används ofta om man vill undersöka mönster snarare än att testa hypoteser.</p>
+<section id="läs-in-data" class="level2">
+<h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
+<p>Vi vill undersöka om det finns en korrelation mellan diametern och höjden på ett antal trädindivider av samma art.</p>
+<p>Ladda ner följande fil <a href="data/trees.txt">trees.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
+<p>Fortsätt med att läsa in ett dataset och ge det ett namn, i det här fallet kallar vi det <em>tree.data</em>. En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tree.data<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">"data/trees.txt"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">","</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="inspektera-data" class="level2">
+<h2 class="anchored" data-anchor-id="inspektera-data">Inspektera data</h2>
+<p>Börja med att titta på datans struktur med <code>str()</code>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tree.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   50 obs. of  2 variables:
+ $ diameter: num  1.49 1.64 1.06 1.77 1.01 ...
+ $ height  : num  14.5 20.9 16.1 22.4 14.7 ...</code></pre>
+</div>
+</div>
+<p><code>$ diameter: num</code> betyder att värderna i kolumnen <code>diameter</code> är <em>decimaltal</em> (numeric)</p>
+<p><code>$ height: num</code> betyder att värderna i kolumnen <code>height</code> är <em>decimaltal</em> (numeric)</p>
+<p>Visa sedan de fem första raderna av ditt dataset med <code>head()</code> för att se att allt ser korrekt ut</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tree.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  diameter   height
+1 1.485763 14.53057
+2 1.635011 20.94121
+3 1.059496 16.10711
+4 1.773606 22.39200
+5 1.012026 14.73974
+6 1.905565 17.44242</code></pre>
+</div>
+</div>
+</section>
+<section id="visualisera-datat-med-en-enkel-graf" class="level2">
+<h2 class="anchored" data-anchor-id="visualisera-datat-med-en-enkel-graf">Visualisera datat med en enkel graf</h2>
+<p>Vi gör en graf med <code>plot()</code>. Eftersom vi inte har någon hypotes om ett orsakssamband mellan våra variabler spelar det ingen roll vilken vi har på vilken axel (hade vi haft en hypotes om ett orsakssamband så hade vi gjort en regression istället).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(height <span class="sc">~</span> diameter, <span class="at">data =</span> tree.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Ser det ut som att <code>diameter</code> och <code>height</code> är korrelerade med varandra? Är det i så fall en positiv eller negativ korrelation?</p>
+</section>
+<section id="statistisk-modellering" class="level2">
+<h2 class="anchored" data-anchor-id="statistisk-modellering">Statistisk modellering</h2>
+<p>Vi vill nu göra en korrelationsanalys mellan våra två variablar.</p>
+<p>Vi använder oss av funktionen <code>cor.test()</code> och väljer att spara resultatet i ett objekt som vi kallar <code>m.trees</code>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m.trees <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(tree.data<span class="sc">$</span>diameter, tree.data<span class="sc">$</span>height, <span class="at">method =</span> <span class="st">"p"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Notera att korrelationstesten kräver att man anger modellen på ett annat sätt än i andra metoder. Istället för att ange våra variablar och sedan datasetet, måste vi ange dataset och variabel tillsammans, genom koden <code>dataset$variabel</code>. Till vänster om dollartecknet är datasetets namn, till höger är variabelnamnet.</p>
+<p><code>method="p"</code>specificerar metoden vi skall använda oss av för att göra korrelationen. <strong><code>p</code> står för Pearson</strong> och används om data är normalfördelade.</p>
+<p>Vi skriver modellnamnet och kör koden</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m.trees</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  tree.data$diameter and tree.data$height
+t = 2.6562, df = 48, p-value = 0.0107
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.08844295 0.57866607
+sample estimates:
+     cor 
+0.357978 </code></pre>
+</div>
+</div>
+<p>Vi kan inspektera resultatet. Vi ser att p-värdet är mindre än 0.05, dvs vi har en signifikant korrelation. Vi får även teststatistika i form av t-värde och frihetsgrader (df).</p>
+<p>Vi får även ett värde på korrelations-coefficienten <code>cor</code> (vanligtvis kallad <strong>r </strong>), som är 0.36. r kan gå mellan -1 och +1, där -1 representerar en perfekt negativ korrelation, +1 representerar en perfekt positiv korrelation och 0 betyder att en korrelation saknas. Vi har en positiv korrelation. Stämmer det när du inspekterar grafen ovan?</p>
+<p>Notera att <strong>r</strong> (i korrelationsanalyser) och <strong>r2</strong> (i regressioner) inte är samma sak. r skall inte heller tolkas som en regressionskoefficient (som ju kan anta hur positiva eller negativa värden som helst, medan r alltid ligger mellan -1 och +1).</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
