@@ -12,7 +12,7 @@ Vi vill undersöka om det finns en korrelation mellan diametern och höjden på 
 
 Ladda ner följande fil [trees.txt](data/trees.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
 
-Fortsätt med att läsa in ett dataset och ge det ett namn, i det här fallet kallar vi det *tree.data*. En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
+Fortsätt med att läsa in ett dataset och ge det ett namn, i det här fallet kallar vi det *tree.data*. En detaljerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
 
 ```{r}
 tree.data<-read.table("data/trees.txt",
@@ -39,7 +39,7 @@ head(tree.data)
 
 ## Visualisera datat med en enkel graf
 
-Vi gör en graf med `plot()`. Eftersom vi inte har någon hypotes om ett orsakssamband mellan våra variabler spelar det ingen roll vilken vi har på vilken axel (hade vi haft en hypotes om ett orsakssamband så hade vi gjort en regression istället).
+Vi gör en graf med `plot()`. Eftersom vi inte har någon hypotes om ett orsakssamband mellan våra variabler spelar det ingen roll vilken vi har på vilken axel (hade vi haft en hypotes om ett orsakssamband så hade vi gjort en regression istället). Av samma anledning har vi inte heller någon regressionslinje i grafen när vi vill undersöka en korrelation.
 
 ```{r}
 plot(height ~ diameter, data = tree.data)

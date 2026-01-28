@@ -110,7 +110,37 @@ Om du inte vet hur en funktion fungerar kan du alltid nå R's hjälpfiler genom 
 
 `?round`
 
-När vi gör statistik så använder vi hela tiden R´s olika funktioner för att läsa in data, göra grafer, göra statistiska test och ge oss resultaten av testen. Det är alla inbyggda statistiska funktioner som gör R till ett ledande språk för statistiska beräkningar.
+Vi stestar några funktioner för att få summarisk statistik på ett antal värden, som vi sparar i ett objekt som vi kallar `counts`
+
+```{r}
+counts <- c(3,6,5,8,4,6,2,4,6,4,5,3,9,10,2,5,7,6)
+```
+
+Lås oss beräkna medelvärdet av `counts`, det gör vi med funktionen `mean()`
+
+```{r}
+mean(counts)
+```
+
+Vad är standardavvikelsen? Vi använder funktionen `sd()`
+
+```{r}
+sd(counts)
+```
+
+Hur många värden har vi i vår variabel `counts`? Använd funktionen `length()`
+
+```{r}
+length(counts)
+```
+
+Vad är standardfelet (standard error, SE)? Standard error är standardavvikelsen delat med kvadratroten av antalet mätvärden. Vi har använt alla de funktionerna, så testa att själv skriva en kod för att beräkna standard error. Kör du fast finns koden nedan.
+
+```{r}
+sd(counts) / sqrt(length(counts))
+```
+
+När vi gör statistik så använder vi hela tiden R´s olika funktioner för att läsa in data, göra grafer, göra statistiska test och ge oss resultaten av testen. Det är alla inbyggda statistiska funktioner som gör R till ett ledande språk för statistiska beräkningar, och ytterligare funktioner finns i de tusentals paket som man kan installera i R.
 
 ## Använda scriptfiler
 
