@@ -70,3 +70,45 @@ Vi får även ett värde på korrelations-coefficienten `cor` (vanligtvis kallad
 **), som är 0.36. r kan gå mellan -1 och +1, där -1 representerar en perfekt negativ korrelation, +1 representerar en perfekt positiv korrelation och 0 betyder att en korrelation saknas. Vi har en positiv korrelation. Stämmer det när du inspekterar grafen ovan?
 
 Notera att **r** (i korrelationsanalyser) och **r2** (i regressioner) inte är samma sak. r skall inte heller tolkas som en regressionskoefficient (som ju kan anta hur positiva eller negativa värden som helst, medan r alltid ligger mellan -1 och +1).
+
+## Presentera din statistiska analys
+
+Trädens höjd är positivt korrelerad med diametern (t = 2,66, df = 48, p = 0,011, r = 0,38).
+
+*Eftersom vi inte har någon hypotes om orsakssamband (det är därför vi gör en korrelation och inte en regression) kan man även uttrycka samma mening med variablarna omkastade:*
+
+Trädens diameter är positivt korrelerad med höjden (t = 2,66, df = 48, p = 0,011, r = 0,38).
+
+## Utvärdera modellen
+
+Det finns ingen implementering av `plot(modellnamn)`för korrelationstest, så vi får istället undersöka om våra data var normalfördelade. Det kan göras grafiskt eller med ett test. Om data inte verkar vara normalfördelade använder du `method = "s"` i modellen (det är en mindre kraftfull metod som dock kan hantera icke-normalfördelade data).
+
+### Grafiskt - histogram
+Histogram har värdet hos din variabel på x-axeln, och frekvens (antalet observationer) på y-axeln. En normalfördelning har flest observationer av värden runt medelvärdet, och antalet observationer minskar sedan symmetriskt om man går mot extremare värden.
+
+```{r}
+hist(tree.data$diameter)
+```
+
+```{r}
+hist(tree.data$height)
+```
+
+Det ser normalfördelat ut. Om det blir för få staplar kan man ange antal staplar med koden `breaks =`. Man får testa sig fram till ett lämpligt antal breaks.
+
+```{r}
+hist(tree.data$height, breaks = 14)
+```
+
+### Test för normalfördelning
+Jag **rekommenderar inte** att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du nödvändigtvis vill ha ett test så använd följande:
+
+```{r}
+shapiro.test(tree.data$height)
+```
+
+```{r}
+shapiro.test(tree.data$diameter)
+```
+
+Om testet är *icke-signifikant* betyder det att data *inte avviker från normalfördelning* (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.

@@ -172,6 +172,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#inspektera-data" id="toc-inspektera-data" class="nav-link" data-scroll-target="#inspektera-data">Inspektera data</a></li>
   <li><a href="#visualisera-datat-med-en-enkel-graf" id="toc-visualisera-datat-med-en-enkel-graf" class="nav-link" data-scroll-target="#visualisera-datat-med-en-enkel-graf">Visualisera datat med en enkel graf</a></li>
   <li><a href="#statistisk-modellering" id="toc-statistisk-modellering" class="nav-link" data-scroll-target="#statistisk-modellering">Statistisk modellering</a></li>
+  <li><a href="#presentera-din-statistiska-analys" id="toc-presentera-din-statistiska-analys" class="nav-link" data-scroll-target="#presentera-din-statistiska-analys">Presentera din statistiska analys</a></li>
+  <li><a href="#utvärdera-modellen" id="toc-utvärdera-modellen" class="nav-link" data-scroll-target="#utvärdera-modellen">Utvärdera modellen</a>
+  <ul class="collapse">
+  <li><a href="#grafiskt---histogram" id="toc-grafiskt---histogram" class="nav-link" data-scroll-target="#grafiskt---histogram">Grafiskt - histogram</a></li>
+  <li><a href="#test-för-normalfördelning" id="toc-test-för-normalfördelning" class="nav-link" data-scroll-target="#test-för-normalfördelning">Test för normalfördelning</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -292,8 +298,81 @@ sample estimates:
 <p>Vi kan inspektera resultatet. Vi ser att p-värdet är mindre än 0.05, dvs vi har en signifikant korrelation. Vi får även teststatistika i form av t-värde och frihetsgrader (df).</p>
 <p>Vi får även ett värde på korrelations-coefficienten <code>cor</code> (vanligtvis kallad <strong>r </strong>), som är 0.36. r kan gå mellan -1 och +1, där -1 representerar en perfekt negativ korrelation, +1 representerar en perfekt positiv korrelation och 0 betyder att en korrelation saknas. Vi har en positiv korrelation. Stämmer det när du inspekterar grafen ovan?</p>
 <p>Notera att <strong>r</strong> (i korrelationsanalyser) och <strong>r2</strong> (i regressioner) inte är samma sak. r skall inte heller tolkas som en regressionskoefficient (som ju kan anta hur positiva eller negativa värden som helst, medan r alltid ligger mellan -1 och +1).</p>
+</section>
+<section id="presentera-din-statistiska-analys" class="level2">
+<h2 class="anchored" data-anchor-id="presentera-din-statistiska-analys">Presentera din statistiska analys</h2>
+<p>Trädens höjd är positivt korrelerad med diametern (t = 2,66, df = 48, p = 0,011, r = 0,38).</p>
+<p><em>Eftersom vi inte har någon hypotes om orsakssamband (det är därför vi gör en korrelation och inte en regression) kan man även uttrycka samma mening med variablarna omkastade:</em></p>
+<p>Trädens diameter är positivt korrelerad med höjden (t = 2,66, df = 48, p = 0,011, r = 0,38).</p>
+</section>
+<section id="utvärdera-modellen" class="level2">
+<h2 class="anchored" data-anchor-id="utvärdera-modellen">Utvärdera modellen</h2>
+<p>Det finns ingen implementering av <code>plot(modellnamn)</code>för korrelationstest, så vi får istället undersöka om våra data var normalfördelade. Det kan göras grafiskt eller med ett test. Om data inte verkar vara normalfördelade använder du <code>method = "s"</code> i modellen (det är en mindre kraftfull metod som dock kan hantera icke-normalfördelade data).</p>
+<section id="grafiskt---histogram" class="level3">
+<h3 class="anchored" data-anchor-id="grafiskt---histogram">Grafiskt - histogram</h3>
+<p>Histogram har värdet hos din variabel på x-axeln, och frekvens (antalet observationer) på y-axeln. En normalfördelning har flest observationer av värden runt medelvärdet, och antalet observationer minskar sedan symmetriskt om man går mot extremare värden.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(tree.data<span class="sc">$</span>diameter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(tree.data<span class="sc">$</span>height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Det ser normalfördelat ut. Om det blir för få staplar kan man ange antal staplar med koden <code>breaks =</code>. Man får testa sig fram till ett lämpligt antal breaks.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(tree.data<span class="sc">$</span>height, <span class="at">breaks =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="test-för-normalfördelning" class="level3">
+<h3 class="anchored" data-anchor-id="test-för-normalfördelning">Test för normalfördelning</h3>
+<p>Jag <strong>rekommenderar inte</strong> att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du nödvändigtvis vill ha ett test så använd följande:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(tree.data<span class="sc">$</span>height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  tree.data$height
+W = 0.98877, p-value = 0.9133</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(tree.data<span class="sc">$</span>diameter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  tree.data$diameter
+W = 0.97815, p-value = 0.4769</code></pre>
+</div>
+</div>
+<p>Om testet är <em>icke-signifikant</em> betyder det att data <em>inte avviker från normalfördelning</em> (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
