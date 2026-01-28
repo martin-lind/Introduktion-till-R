@@ -46,7 +46,7 @@
     "href": "tutorials/index.html",
     "title": "Tutorials",
     "section": "",
-    "text": "Installera R\nAnvända R, en introduktion\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test\nLinjär regression\nAnova [Ej påbörjad]\nKorrelation [Under utveckling]\nChi2 [Ej påbörjad]\nFaktoriell design [Ej påbörjad]\nAncova [Ej påbörjad]\nIcke-parametriska tester [Ej påbörjad]"
+    "text": "Installera R\nAnvända R, en introduktion\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test\nLinjär regression\nAnova [Ej påbörjad]\nKorrelation [Under utveckling]\nChi2 [Under utveckling]\nFaktoriell design [Ej påbörjad]\nAncova [Ej påbörjad]\nIcke-parametriska tester [Ej påbörjad]"
   },
   {
     "objectID": "tutorials/index.html#lista-över-tutorials",
@@ -403,7 +403,7 @@
     "href": "tutorials/correlation/index.html#läs-in-data",
     "title": "Korrelationer",
     "section": "Läs in data",
-    "text": "Läs in data\nVi vill undersöka om det finns en korrelation mellan diametern och höjden på ett antal trädindivider av samma art.\nLadda ner följande fil trees.txt (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.\nFortsätt med att läsa in ett dataset och ge det ett namn, i det här fallet kallar vi det tree.data. En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial Läsa in data i R.\n\n\nCode\ntree.data<-read.table(\"data/trees.txt\",\n                      header = T, sep = \"\\t\", dec = \",\")"
+    "text": "Läs in data\nVi vill undersöka om det finns en korrelation mellan diametern och höjden på ett antal trädindivider av samma art.\nLadda ner följande fil trees.txt (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.\nFortsätt med att läsa in ett dataset och ge det ett namn, i det här fallet kallar vi det tree.data. En detaljerad beskrivning i hur man läser in filer finns i vår tidigare tutorial Läsa in data i R.\n\n\nCode\ntree.data<-read.table(\"data/trees.txt\",\n                      header = T, sep = \"\\t\", dec = \",\")"
   },
   {
     "objectID": "tutorials/correlation/index.html#inspektera-data",
@@ -417,7 +417,7 @@
     "href": "tutorials/correlation/index.html#visualisera-datat-med-en-enkel-graf",
     "title": "Korrelationer",
     "section": "Visualisera datat med en enkel graf",
-    "text": "Visualisera datat med en enkel graf\nVi gör en graf med plot(). Eftersom vi inte har någon hypotes om ett orsakssamband mellan våra variabler spelar det ingen roll vilken vi har på vilken axel (hade vi haft en hypotes om ett orsakssamband så hade vi gjort en regression istället).\n\n\nCode\nplot(height ~ diameter, data = tree.data)\n\n\n\n\n\nSer det ut som att diameter och height är korrelerade med varandra? Är det i så fall en positiv eller negativ korrelation?"
+    "text": "Visualisera datat med en enkel graf\nVi gör en graf med plot(). Eftersom vi inte har någon hypotes om ett orsakssamband mellan våra variabler spelar det ingen roll vilken vi har på vilken axel (hade vi haft en hypotes om ett orsakssamband så hade vi gjort en regression istället). Av samma anledning har vi inte heller någon regressionslinje i grafen när vi vill undersöka en korrelation.\n\n\nCode\nplot(height ~ diameter, data = tree.data)\n\n\n\n\n\nSer det ut som att diameter och height är korrelerade med varandra? Är det i så fall en positiv eller negativ korrelation?"
   },
   {
     "objectID": "tutorials/correlation/index.html#statistisk-modellering",
@@ -439,5 +439,26 @@
     "title": "Korrelationer",
     "section": "Utvärdera modellen",
     "text": "Utvärdera modellen\nDet finns ingen implementering av plot(modellnamn)för korrelationstest, så vi får istället undersöka om våra data var normalfördelade. Det kan göras grafiskt eller med ett test. Om data inte verkar vara normalfördelade använder du method = \"s\" i modellen (det är en mindre kraftfull metod som dock kan hantera icke-normalfördelade data).\n\nGrafiskt - histogram\nHistogram har värdet hos din variabel på x-axeln, och frekvens (antalet observationer) på y-axeln. En normalfördelning har flest observationer av värden runt medelvärdet, och antalet observationer minskar sedan symmetriskt om man går mot extremare värden.\n\n\nCode\nhist(tree.data$diameter)\n\n\n\n\n\n\n\nCode\nhist(tree.data$height)\n\n\n\n\n\nDet ser normalfördelat ut. Om det blir för få staplar kan man ange antal staplar med koden breaks =. Man får testa sig fram till ett lämpligt antal breaks.\n\n\nCode\nhist(tree.data$height, breaks = 14)\n\n\n\n\n\n\n\nTest för normalfördelning\nJag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du nödvändigtvis vill ha ett test så använd följande:\n\n\nCode\nshapiro.test(tree.data$height)\n\n\n\n    Shapiro-Wilk normality test\n\ndata:  tree.data$height\nW = 0.98877, p-value = 0.9133\n\n\n\n\nCode\nshapiro.test(tree.data$diameter)\n\n\n\n    Shapiro-Wilk normality test\n\ndata:  tree.data$diameter\nW = 0.97815, p-value = 0.4769\n\n\nOm testet är icke-signifikant betyder det att data inte avviker från normalfördelning (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen."
+  },
+  {
+    "objectID": "tutorials/chi2/index.html",
+    "href": "tutorials/chi2/index.html",
+    "title": "chi2",
+    "section": "",
+    "text": "chi2-testet (eller \\(\\chi\\) 2 som det egentligen skall skrivas med grekiska bokstäver) är ett test för räknedata (count data),. där du räknat någonting snarare än att du mätt det. Det kan exemelvis vara antalet individer eller antalet arter.\n\\(\\chi\\) 2 testet används för att undersöka om två kategoriska variabler påverkar antalet i de olika kategorierna. De kategoriska variablerna kan till exempel vara kön (hona/hane), stadium (juvenil/adult), art eller någon behandling eller annat som kan kategorisera din data."
+  },
+  {
+    "objectID": "tutorials/chi2/index.html#läs-in-data",
+    "href": "tutorials/chi2/index.html#läs-in-data",
+    "title": "chi2",
+    "section": "Läs in data",
+    "text": "Läs in data\nVi har inventerat sanddyner i två succesionsstadier (unga eller gamla) och räknat antal individer av de två gräsarterna sandrör (Ammophila arenaria) och borsttåtel (Corynephorus canescens). Vi vill veta om antalet gräs av de två arterna skiljer sig från en slumpmässig fördelning mellan de två successionsstadierna.\nLadda ner följande fil dunegrass.txt (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.\nFortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det dunegrass_data. En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial Läsa in data i R.\n\n\nCode\ndunegrass_data <- read.table(\"data/dunegrass.txt\",\n                           header=T,\n                           sep=\"\\t\",\n                           dec=\",\")"
+  },
+  {
+    "objectID": "tutorials/chi2/index.html#inspektera-data",
+    "href": "tutorials/chi2/index.html#inspektera-data",
+    "title": "chi2",
+    "section": "Inspektera data",
+    "text": "Inspektera data\nBörja med att titta på datans struktur med str().\n\n\nCode\nstr(dunegrass_data)\n\n\n'data.frame':   4 obs. of  3 variables:\n $ Species : chr  \"Ammophila.arenaria\" \"Ammophila.arenaria\" \"Corynephorus.canescens\" \"Corynephorus.canescens\"\n $ Dune.age: chr  \"young\" \"young\" \"old\" \"old\"\n $ Counts  : int  57 12 17 43\n\n\n$ Species: chr betyder att värderna i kolumnen Species är bokstäver (characters)\n$ Dune.age: chr betyder att värderna i kolumnen Dune.age är bokstäver (characters)\n$ Counts: int betyder att värderna i kolumnen Counts är heltal (integers)\nVisa sedan de fem första raderna av ditt dataset med head() för att se att allt ser korrekt ut\n\n\nCode\nhead(dunegrass_data)\n\n\n                 Species Dune.age Counts\n1     Ammophila.arenaria    young     57\n2     Ammophila.arenaria    young     12\n3 Corynephorus.canescens      old     17\n4 Corynephorus.canescens      old     43"
   }
 ]

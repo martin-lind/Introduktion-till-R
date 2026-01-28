@@ -17,7 +17,7 @@ title: "Tutorials"
 -   [Linjär regression](linear-regression/)
 -   [Anova](anova/) \[Ej påbörjad\]
 -   [Korrelation](correlation/) \[Under utveckling\]
--   [Chi2](chi2/) \[Ej påbörjad\]
+-   [Chi2](chi2/) \[Under utveckling\]
 -   Faktoriell design \[Ej påbörjad\]
 -   Ancova \[Ej påbörjad\]
 -   Icke-parametriska tester \[Ej påbörjad\]
