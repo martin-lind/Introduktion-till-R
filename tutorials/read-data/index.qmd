@@ -66,13 +66,13 @@ Det är dock bra att dokumentera din Working Directory i ditt script, så att du
 
 **Efter att du ställt in rätt Working Directory i menyerna, gör följande:**
 
-1.  Ta du reda på den absoluta sökvägen till din Working Directory med `getwd()`
+1.  Ta du reda på den absoluta sökvägen till din Working Directory med `getwd()` . Markera och kopiera sökvägen.
 
 ```{r}
 getwd()
 ```
 
-2.  Skriv in den absoluta sökvägen i ditt script, inuti funktionen `setwd()`
+2.  Skriv in (eller klistra in) den absoluta sökvägen i ditt script, inuti funktionen `setwd()`
 
 `setwd("/Users/martin/git_projects/Introduktion-till-R")`
 

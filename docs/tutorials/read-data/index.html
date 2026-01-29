@@ -277,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Det är dock bra att dokumentera din Working Directory i ditt script, så att du inte behöver sätta den manuellt i menyerna nästa gång du skall arbeta med samma data. Det gör också att du minns var filerna ligger.</p>
 <p><strong>Efter att du ställt in rätt Working Directory i menyerna, gör följande:</strong></p>
 <ol type="1">
-<li>Ta du reda på den absoluta sökvägen till din Working Directory med <code>getwd()</code></li>
+<li>Ta du reda på den absoluta sökvägen till din Working Directory med <code>getwd()</code> . Markera och kopiera sökvägen.</li>
 </ol>
 <div class="cell">
 <details>
@@ -289,7 +289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <ol start="2" type="1">
-<li>Skriv in den absoluta sökvägen i ditt script, inuti funktionen <code>setwd()</code></li>
+<li>Skriv in (eller klistra in) den absoluta sökvägen i ditt script, inuti funktionen <code>setwd()</code></li>
 </ol>
 <p><code>setwd("/Users/martin/git_projects/Introduktion-till-R")</code></p>
 <p>Nästa gång du öppnar R och ditt script så räcker det att köra raden med <code>setwd()</code> där du just fyllt i din sökväg till din Working Directory, så hamnar du direkt i din mapp och kan läsa in dina filer!</p>

@@ -104,13 +104,13 @@ Tycker du att R visar onödigt många decimaler? Om du använder funktionen `rou
 round(percent_EUcountries_visited, digits = 1)
 ```
 
-En **funktion** är en operation som är inbyggd i R. Funktionen har ett namn (i det här fallet `round`) och följs alltid av en parentes. I parentesen anger du objektet R skall göra något med, samt eventuella andra parametrar som måste anges. Om du använder dig av round() måste du ange hur många decimaler R skall avrunda till `, digits = 1`
+En **funktion** är en operation som är inbyggd i R. Funktionen har ett namn (i det här fallet `round`) och följs alltid av en parentes. I parentesen anger du objektet R skall göra något med, samt eventuella andra parametrar som måste anges. Om du använder dig av `round()` måste du ange hur många decimaler R skall avrunda till `, digits = 1`. Testa att ändra värdet föra tt få ett annat antal decimaler!
 
 Om du inte vet hur en funktion fungerar kan du alltid nå R's hjälpfiler genom att skriva ett frågetecken följt av funktionens namn, och trycka Enter. Testa!
 
 `?round`
 
-Vi stestar några funktioner för att få summarisk statistik på ett antal värden, som vi sparar i ett objekt som vi kallar `counts`
+Vi testar några funktioner för att få summarisk statistik på ett antal värden, som vi sparar i ett objekt som vi kallar `counts`
 
 ```{r}
 counts <- c(3,6,5,8,4,6,2,4,6,4,5,3,9,10,2,5,7,6)
@@ -134,7 +134,7 @@ Hur många värden har vi i vår variabel `counts`? Använd funktionen `length()
 length(counts)
 ```
 
-Vad är standardfelet (standard error, SE)? Standard error är standardavvikelsen delat med kvadratroten av antalet mätvärden. Vi har använt alla de funktionerna, så testa att själv skriva en kod för att beräkna standard error. Kör du fast finns koden nedan.
+Vad är standardfelet (*standard error*, SE)? Standard error är standardavvikelsen delat med kvadratroten av antalet mätvärden. Vi har använt alla de funktionerna, så testa att själv skriva en kod för att beräkna standard error. Kör du fast finns koden nedan.
 
 ```{r}
 sd(counts) / sqrt(length(counts))
