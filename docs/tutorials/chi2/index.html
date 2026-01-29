@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduktion till R - chi2</title>
+<title>Introduktion till R - \(\chi\) 2 test (chi-2)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -171,6 +171,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#läs-in-data" id="toc-läs-in-data" class="nav-link active" data-scroll-target="#läs-in-data">Läs in data</a></li>
   <li><a href="#inspektera-data" id="toc-inspektera-data" class="nav-link" data-scroll-target="#inspektera-data">Inspektera data</a></li>
+  <li><a href="#statistisk-modell" id="toc-statistisk-modell" class="nav-link" data-scroll-target="#statistisk-modell">Statistisk modell</a>
+  <ul class="collapse">
+  <li><a href="#skapa-en-korstabell" id="toc-skapa-en-korstabell" class="nav-link" data-scroll-target="#skapa-en-korstabell">Skapa en korstabell</a></li>
+  <li><a href="#gör-ett-chi-2-test" id="toc-gör-ett-chi-2-test" class="nav-link" data-scroll-target="#gör-ett-chi-2-test">Gör ett <span class="math inline">\(\chi\)</span> <sup>2</sup> test</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -179,7 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">chi2</h1>
+<h1 class="title"><span class="math inline">\(\chi\)</span> <sup>2</sup> test (chi-2)</h1>
 </div>
 
 
@@ -194,7 +199,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>chi2-testet (eller <span class="math inline">\(\chi\)</span> <sup>2</sup> som det egentligen skall skrivas med grekiska bokstäver) är ett test för räknedata (<em>count data</em>),. där du räknat någonting snarare än att du mätt det. Det kan exemelvis vara antalet individer eller antalet arter.</p>
+<p>chi2-testet (eller <span class="math inline">\(\chi\)</span> <sup>2</sup> som det egentligen skall skrivas med grekiska bokstäver) är ett test för räknedata (<em>count data</em>), där du räknat någonting snarare än att du mätt det. Det kan exemelvis vara antalet individer eller antalet arter.</p>
 <p><span class="math inline">\(\chi\)</span> <sup>2</sup> testet används för att undersöka om två kategoriska variabler påverkar antalet i de olika kategorierna. De kategoriska variablerna kan till exempel vara kön (hona/hane), stadium (juvenil/adult), art eller någon behandling eller annat som kan kategorisera din data.</p>
 <section id="läs-in-data" class="level2">
 <h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
@@ -222,7 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   4 obs. of  3 variables:
  $ Species : chr  "Ammophila.arenaria" "Ammophila.arenaria" "Corynephorus.canescens" "Corynephorus.canescens"
- $ Dune.age: chr  "young" "young" "old" "old"
+ $ Dune.age: chr  "young" "old" "young" "old"
  $ Counts  : int  57 12 17 43</code></pre>
 </div>
 </div>
@@ -238,13 +243,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output cell-output-stdout">
 <pre><code>                 Species Dune.age Counts
 1     Ammophila.arenaria    young     57
-2     Ammophila.arenaria    young     12
-3 Corynephorus.canescens      old     17
+2     Ammophila.arenaria      old     12
+3 Corynephorus.canescens    young     17
 4 Corynephorus.canescens      old     43</code></pre>
 </div>
 </div>
+</section>
+<section id="statistisk-modell" class="level2">
+<h2 class="anchored" data-anchor-id="statistisk-modell">Statistisk modell</h2>
+<section id="skapa-en-korstabell" class="level3">
+<h3 class="anchored" data-anchor-id="skapa-en-korstabell">Skapa en korstabell</h3>
+<p>För att kunna analysera data med ett <span class="math inline">\(\chi\)</span> <sup>2</sup> test måste datat vara i form av en <strong>korstabell</strong> (<em>contingency table</em>) vilket är en <em>matris</em> med två rader och två kolumner. Vi kan göra om vårt dataset <code>dunegrass_data</code> till en korstabell med funktionen <code>xtabs()</code>. Vi sparar vår korstabell i ett nytt objekt som vi kallar <code>dunegrass_cont_table</code></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dunegrass_cont_table <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Counts <span class="sc">~</span> Species <span class="sc">+</span> Dune.age, <span class="at">data =</span> dunegrass_data)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dunegrass_cont_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        Dune.age
+Species                  old young
+  Ammophila.arenaria      12    57
+  Corynephorus.canescens  43    17</code></pre>
+</div>
+</div>
+</section>
+<section id="gör-ett-chi-2-test" class="level3">
+<h3 class="anchored" data-anchor-id="gör-ett-chi-2-test">Gör ett <span class="math inline">\(\chi\)</span> <sup>2</sup> test</h3>
+<p>Nu har vi en korstabell och kan göra ett <span class="math inline">\(\chi\)</span> <sup>2</sup> test. Vi använder oss av funktionen <code>chisq.test()</code> och sparar resultatet i ett objekt vi kallar <code>m.dunegrass</code></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m.dunegrass <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(dunegrass_cont_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Vi tittar på resultatet genom att skriva in <code>m.dunegrass</code> och köra det</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m.dunegrass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  dunegrass_cont_table
+X-squared = 36.467, df = 1, p-value = 1.553e-09</code></pre>
+</div>
+</div>
+<p>Vi får nu vår teststatistika med <span class="math inline">\(\chi\)</span> <sup>2</sup> -värde (X-squared), frihetsgrader (df) och vårt p-värde (p-value). Vi ser att p-värdet är mindre än 0.05, vilket betyder att fördelningen av antal individer av de två arterna inte är slumpmässigt fördelat mellan habitaten.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

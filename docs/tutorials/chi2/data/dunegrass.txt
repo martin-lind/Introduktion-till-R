@@ -1,5 +1,5 @@
 Species	Dune.age	Counts
 Ammophila.arenaria	young	57
-Ammophila.arenaria	young	12
-Corynephorus.canescens	old	17
+Ammophila.arenaria	old	12
+Corynephorus.canescens	young	17
 Corynephorus.canescens	old	43

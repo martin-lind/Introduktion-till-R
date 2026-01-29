@@ -46,7 +46,7 @@
     "href": "tutorials/index.html",
     "title": "Tutorials",
     "section": "",
-    "text": "Installera R\nAnvända R, en introduktion\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test\nLinjär regression\nAnova [Ej påbörjad]\nKorrelation [Under utveckling]\nChi2 [Under utveckling]\nFaktoriell design [Ej påbörjad]\nAncova [Ej påbörjad]\nIcke-parametriska tester [Ej påbörjad]"
+    "text": "Installera R\nAnvända R, en introduktion\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test\nLinjär regression\nAnova [Ej påbörjad]\nKorrelation [Under utveckling]\n\\(\\chi\\) 2 test (Chi-2) [Under utveckling]\nFaktoriell design [Ej påbörjad]\nAncova [Ej påbörjad]\nIcke-parametriska tester [Ej påbörjad]"
   },
   {
     "objectID": "tutorials/index.html#lista-över-tutorials",
@@ -443,22 +443,29 @@
   {
     "objectID": "tutorials/chi2/index.html",
     "href": "tutorials/chi2/index.html",
-    "title": "chi2",
+    "title": "\\(\\chi\\) 2 test (chi-2)",
     "section": "",
-    "text": "chi2-testet (eller \\(\\chi\\) 2 som det egentligen skall skrivas med grekiska bokstäver) är ett test för räknedata (count data),. där du räknat någonting snarare än att du mätt det. Det kan exemelvis vara antalet individer eller antalet arter.\n\\(\\chi\\) 2 testet används för att undersöka om två kategoriska variabler påverkar antalet i de olika kategorierna. De kategoriska variablerna kan till exempel vara kön (hona/hane), stadium (juvenil/adult), art eller någon behandling eller annat som kan kategorisera din data."
+    "text": "chi2-testet (eller \\(\\chi\\) 2 som det egentligen skall skrivas med grekiska bokstäver) är ett test för räknedata (count data), där du räknat någonting snarare än att du mätt det. Det kan exemelvis vara antalet individer eller antalet arter.\n\\(\\chi\\) 2 testet används för att undersöka om två kategoriska variabler påverkar antalet i de olika kategorierna. De kategoriska variablerna kan till exempel vara kön (hona/hane), stadium (juvenil/adult), art eller någon behandling eller annat som kan kategorisera din data."
   },
   {
     "objectID": "tutorials/chi2/index.html#läs-in-data",
     "href": "tutorials/chi2/index.html#läs-in-data",
-    "title": "chi2",
+    "title": "\\(\\chi\\) 2 test (chi-2)",
     "section": "Läs in data",
     "text": "Läs in data\nVi har inventerat sanddyner i två succesionsstadier (unga eller gamla) och räknat antal individer av de två gräsarterna sandrör (Ammophila arenaria) och borsttåtel (Corynephorus canescens). Vi vill veta om antalet gräs av de två arterna skiljer sig från en slumpmässig fördelning mellan de två successionsstadierna.\nLadda ner följande fil dunegrass.txt (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.\nFortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det dunegrass_data. En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial Läsa in data i R.\n\n\nCode\ndunegrass_data <- read.table(\"data/dunegrass.txt\",\n                           header=T,\n                           sep=\"\\t\",\n                           dec=\",\")"
   },
   {
     "objectID": "tutorials/chi2/index.html#inspektera-data",
     "href": "tutorials/chi2/index.html#inspektera-data",
-    "title": "chi2",
+    "title": "\\(\\chi\\) 2 test (chi-2)",
     "section": "Inspektera data",
-    "text": "Inspektera data\nBörja med att titta på datans struktur med str().\n\n\nCode\nstr(dunegrass_data)\n\n\n'data.frame':   4 obs. of  3 variables:\n $ Species : chr  \"Ammophila.arenaria\" \"Ammophila.arenaria\" \"Corynephorus.canescens\" \"Corynephorus.canescens\"\n $ Dune.age: chr  \"young\" \"young\" \"old\" \"old\"\n $ Counts  : int  57 12 17 43\n\n\n$ Species: chr betyder att värderna i kolumnen Species är bokstäver (characters)\n$ Dune.age: chr betyder att värderna i kolumnen Dune.age är bokstäver (characters)\n$ Counts: int betyder att värderna i kolumnen Counts är heltal (integers)\nVisa sedan de fem första raderna av ditt dataset med head() för att se att allt ser korrekt ut\n\n\nCode\nhead(dunegrass_data)\n\n\n                 Species Dune.age Counts\n1     Ammophila.arenaria    young     57\n2     Ammophila.arenaria    young     12\n3 Corynephorus.canescens      old     17\n4 Corynephorus.canescens      old     43"
+    "text": "Inspektera data\nBörja med att titta på datans struktur med str().\n\n\nCode\nstr(dunegrass_data)\n\n\n'data.frame':   4 obs. of  3 variables:\n $ Species : chr  \"Ammophila.arenaria\" \"Ammophila.arenaria\" \"Corynephorus.canescens\" \"Corynephorus.canescens\"\n $ Dune.age: chr  \"young\" \"old\" \"young\" \"old\"\n $ Counts  : int  57 12 17 43\n\n\n$ Species: chr betyder att värderna i kolumnen Species är bokstäver (characters)\n$ Dune.age: chr betyder att värderna i kolumnen Dune.age är bokstäver (characters)\n$ Counts: int betyder att värderna i kolumnen Counts är heltal (integers)\nVisa sedan de fem första raderna av ditt dataset med head() för att se att allt ser korrekt ut\n\n\nCode\nhead(dunegrass_data)\n\n\n                 Species Dune.age Counts\n1     Ammophila.arenaria    young     57\n2     Ammophila.arenaria      old     12\n3 Corynephorus.canescens    young     17\n4 Corynephorus.canescens      old     43"
+  },
+  {
+    "objectID": "tutorials/chi2/index.html#statistisk-modell",
+    "href": "tutorials/chi2/index.html#statistisk-modell",
+    "title": "\\(\\chi\\) 2 test (chi-2)",
+    "section": "Statistisk modell",
+    "text": "Statistisk modell\n\nSkapa en korstabell\nFör att kunna analysera data med ett \\(\\chi\\) 2 test måste datat vara i form av en korstabell (contingency table) vilket är en matris med två rader och två kolumner. Vi kan göra om vårt dataset dunegrass_data till en korstabell med funktionen xtabs(). Vi sparar vår korstabell i ett nytt objekt som vi kallar dunegrass_cont_table\n\n\nCode\ndunegrass_cont_table <- xtabs(Counts ~ Species + Dune.age, data = dunegrass_data)\n\ndunegrass_cont_table\n\n\n                        Dune.age\nSpecies                  old young\n  Ammophila.arenaria      12    57\n  Corynephorus.canescens  43    17\n\n\n\n\nGör ett \\(\\chi\\) 2 test\nNu har vi en korstabell och kan göra ett \\(\\chi\\) 2 test. Vi använder oss av funktionen chisq.test() och sparar resultatet i ett objekt vi kallar m.dunegrass\n\n\nCode\nm.dunegrass <- chisq.test(dunegrass_cont_table)\n\n\nVi tittar på resultatet genom att skriva in m.dunegrass och köra det\n\n\nCode\nm.dunegrass\n\n\n\n    Pearson's Chi-squared test with Yates' continuity correction\n\ndata:  dunegrass_cont_table\nX-squared = 36.467, df = 1, p-value = 1.553e-09\n\n\nVi får nu vår teststatistika med \\(\\chi\\) 2 -värde (X-squared), frihetsgrader (df) och vårt p-värde (p-value). Vi ser att p-värdet är mindre än 0.05, vilket betyder att fördelningen av antal individer av de två arterna inte är slumpmässigt fördelat mellan habitaten."
   }
 ]

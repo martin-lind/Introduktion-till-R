@@ -1,8 +1,8 @@
 ---
-title: "chi2"
+title: $\chi$ ^2^ test (chi-2)
 ---
 
-chi2-testet (eller $\chi$ ^2^ som det egentligen skall skrivas med grekiska bokstäver) är ett test för räknedata (*count data*),. där du räknat någonting snarare än att du mätt det. Det kan exemelvis vara antalet individer eller antalet arter.
+chi2-testet (eller $\chi$ ^2^ som det egentligen skall skrivas med grekiska bokstäver) är ett test för räknedata (*count data*), där du räknat någonting snarare än att du mätt det. Det kan exemelvis vara antalet individer eller antalet arter.
 
 $\chi$ ^2^ testet används för att undersöka om två kategoriska variabler påverkar antalet i de olika kategorierna. De kategoriska variablerna kan till exempel vara kön (hona/hane), stadium (juvenil/adult), art eller någon behandling eller annat som kan kategorisera din data.
 
@@ -42,4 +42,28 @@ Visa sedan de fem första raderna av ditt dataset med `head()` för att se att a
 head(dunegrass_data)
 ```
 
+## Statistisk modell
 
+### Skapa en korstabell
+
+För att kunna analysera data med ett $\chi$ ^2^ test måste datat vara i form av en **korstabell** (*contingency table*) vilket är en *matris* med två rader och två kolumner. Vi kan göra om vårt dataset `dunegrass_data` till en korstabell med funktionen `xtabs()`. Vi sparar vår korstabell i ett nytt objekt som vi kallar `dunegrass_cont_table`
+
+```{r}
+dunegrass_cont_table <- xtabs(Counts ~ Species + Dune.age, data = dunegrass_data)
+
+dunegrass_cont_table
+```
+### Gör ett $\chi$ ^2^ test
+
+Nu har vi en korstabell och kan göra ett $\chi$ ^2^ test. Vi använder oss av funktionen `chisq.test()` och sparar resultatet i ett objekt vi kallar `m.dunegrass`
+
+```{r}
+m.dunegrass <- chisq.test(dunegrass_cont_table)
+````
+
+Vi tittar på resultatet genom att skriva in `m.dunegrass` och köra det
+
+```{r}
+m.dunegrass
+````
+Vi får nu vår teststatistika med $\chi$ ^2^ -värde (X-squared), frihetsgrader (df) och vårt p-värde (p-value). Vi ser att p-värdet är mindre än 0.05, vilket betyder att fördelningen av antal individer av de två arterna inte är slumpmässigt fördelat mellan habitaten.
