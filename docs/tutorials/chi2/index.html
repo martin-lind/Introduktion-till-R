@@ -171,11 +171,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#läs-in-data" id="toc-läs-in-data" class="nav-link active" data-scroll-target="#läs-in-data">Läs in data</a></li>
   <li><a href="#inspektera-data" id="toc-inspektera-data" class="nav-link" data-scroll-target="#inspektera-data">Inspektera data</a></li>
+  <li><a href="#visualisera-data" id="toc-visualisera-data" class="nav-link" data-scroll-target="#visualisera-data">Visualisera data</a></li>
   <li><a href="#statistisk-modell" id="toc-statistisk-modell" class="nav-link" data-scroll-target="#statistisk-modell">Statistisk modell</a>
   <ul class="collapse">
   <li><a href="#skapa-en-korstabell" id="toc-skapa-en-korstabell" class="nav-link" data-scroll-target="#skapa-en-korstabell">Skapa en korstabell</a></li>
   <li><a href="#gör-ett-chi-2-test" id="toc-gör-ett-chi-2-test" class="nav-link" data-scroll-target="#gör-ett-chi-2-test">Gör ett <span class="math inline">\(\chi\)</span> <sup>2</sup> test</a></li>
   </ul></li>
+  <li><a href="#presentera-dina-statistiska-resultat" id="toc-presentera-dina-statistiska-resultat" class="nav-link" data-scroll-target="#presentera-dina-statistiska-resultat">Presentera dina statistiska resultat</a></li>
+  <li><a href="#utvärdera-din-modell" id="toc-utvärdera-din-modell" class="nav-link" data-scroll-target="#utvärdera-din-modell">Utvärdera din modell</a></li>
+  <li><a href="#modifiera-din-plot-så-den-blir-publiceringsduglig" id="toc-modifiera-din-plot-så-den-blir-publiceringsduglig" class="nav-link" data-scroll-target="#modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</a></li>
   </ul>
 </nav>
     </div>
@@ -249,6 +253,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
+<section id="visualisera-data" class="level2">
+<h2 class="anchored" data-anchor-id="visualisera-data">Visualisera data</h2>
+<p>Vi visualiserar data med ett stapeldiagram, och använder oss paketet <strong>ggplot2</strong>. Om du inte sedan tidigare har paketet installerat så gör du det med koden <code>install.packages("ggplot2")</code>. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen <code>library()</code></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plot.dunegrass <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dunegrass_data, <span class="fu">aes</span>(<span class="at">x =</span> Dune.age, <span class="at">y =</span> Counts, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plot.dunegrass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Grafen påminner om den vi gjort för t-test, så vi fokuserar på skillnaderna.</p>
+<p>I första raden under <code>aes()</code> anger namnet på de variabler som skall vara på x-axeln respektive y-axeln med <code>x = Dune.age, y = Counts</code>. Vi vill att de olika nivåerna av vår faktor Species skall ha olika färg, därför lägger vi till <code>fill = Species</code>.</p>
+<p>Raden <code>stat_summary(geom = "bar", fun = "identity", position = "dodge", width = 0.4) +</code> har några förändringar från när vi gjorde en graf baserat på medelvärden. Nu skall vi inte beräkna ett medelvärde för höjden på staplarna, utan vi vill använda de värden som finns i <code>Counts.</code> Därför anger vi <code>fun = "identity"</code>. Vi vill också att de två arterna skall ligga bredvid varandra (parade staplar) och inte ovanpå varandra, därför anger vi <code>position = "dodge"</code>.</p>
+<p>Vi kan senare modifiera vår plot så den blir färdig för publikation, se avsnittet <a href="#modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</a>.</p>
+</section>
 <section id="statistisk-modell" class="level2">
 <h2 class="anchored" data-anchor-id="statistisk-modell">Statistisk modell</h2>
 <section id="skapa-en-korstabell" class="level3">
@@ -257,9 +284,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dunegrass_cont_table <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Counts <span class="sc">~</span> Species <span class="sc">+</span> Dune.age, <span class="at">data =</span> dunegrass_data)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dunegrass_cont_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dunegrass_cont_table <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Counts <span class="sc">~</span> Species <span class="sc">+</span> Dune.age, <span class="at">data =</span> dunegrass_data)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dunegrass_cont_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                        Dune.age
@@ -275,14 +302,14 @@ Species                  old young
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m.dunegrass <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(dunegrass_cont_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m.dunegrass <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(dunegrass_cont_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Vi tittar på resultatet genom att skriva in <code>m.dunegrass</code> och köra det</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m.dunegrass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m.dunegrass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -293,9 +320,64 @@ X-squared = 36.467, df = 1, p-value = 1.553e-09</code></pre>
 </div>
 </div>
 <p>Vi får nu vår teststatistika med <span class="math inline">\(\chi\)</span> <sup>2</sup> -värde (X-squared), frihetsgrader (df) och vårt p-värde (p-value). Vi ser att p-värdet är mindre än 0.05, vilket betyder att fördelningen av antal individer av de två arterna inte är slumpmässigt fördelat mellan habitaten.</p>
-
-
 </section>
+</section>
+<section id="presentera-dina-statistiska-resultat" class="level2">
+<h2 class="anchored" data-anchor-id="presentera-dina-statistiska-resultat">Presentera dina statistiska resultat</h2>
+<p>De två gräsarterna är inte slumpmässigt fördelade mellan sanddynor av olika ålder, utan <em>Ammophila arenaria</em> förekommer i högst antal i unga sanddyner, medan <em>Corynephorus canescens</em> är vanligast i gamla sanddyner (<span class="math inline">\(\chi\)</span> <sup>2</sup> test, <span class="math inline">\(\chi\)</span> <sup>2</sup> = 36.47, df = 1, p &lt; 0.001).</p>
+</section>
+<section id="utvärdera-din-modell" class="level2">
+<h2 class="anchored" data-anchor-id="utvärdera-din-modell">Utvärdera din modell</h2>
+</section>
+<section id="modifiera-din-plot-så-den-blir-publiceringsduglig" class="level2">
+<h2 class="anchored" data-anchor-id="modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</h2>
+<p>Vår enkla figur där vi enbart anger dataset och våra variablar blev ok, men vi kan förbättra den. Vi skulle vilja fixa till följande:</p>
+<ol type="1">
+<li><p>Vi vill att det skall stå “Dune age” och inte Dune.age på x-axeln, fixas med <code>xlab()</code></p></li>
+<li><p>Vi vill ange att responsvariabeln är “Number of plants”, fixas med <code>ylab()</code></p></li>
+<li><p>Vi vill välja andra färger (gärna färger som motsvarar de två gräsens färg när man ser dem i fält), och vi vill att artnamnen skall vara kursiverade och utan punkt i vår legend. Fixas med <code>scale_fill_manual()</code></p></li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plot.dunegrass.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dunegrass_data, <span class="fu">aes</span>(<span class="at">x =</span> Dune.age, <span class="at">y =</span> Counts, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Dune age"</span>)<span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Number of plants"</span>)<span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Ammophila.arenaria"</span> <span class="ot">=</span> <span class="st">"beige"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Corynephorus.canescens"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expression</span>(<span class="fu">italic</span>(<span class="st">"Ammophila arenaria"</span>)),</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expression</span>(<span class="fu">italic</span>(<span class="st">"Corynephorus canescens"</span>))</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>plot.dunegrass.final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Våra justeringar i <code>xlab()</code> och <code>ylab()</code> är självförklarande, och vi har tidigare gått igeom dem under vår tutorial om t-test.</p>
+<p>Vi gör en hel del justeringar i <code>scale_fill_manual()</code>. På samma sätt som tidigare anger vi vilka nivåer av vår grupperande faktor (se vilken det är i <code>aes()</code>) som skall ha vilken färg. Det anger vi med koden</p>
+<p><code>values = c(       "Ammophila.arenaria" = "beige",       "Corynephorus.canescens" = "darkgreen"     ),</code></p>
+<p>För att få artnamnen kursiverade är det en ny kod vi får lära oss (vi är fortfarande inom funktionen <code>scale_fill_manual()</code>). Vi använder oss av <code>expression()</code> för att modifiera texten Det är väldigt vanligt att behöva göra det, vi biologer vill ofta ha med latinska artnamn i våra grafer, och de skall vara kursiverade!</p>
+<p><code>labels = c(       expression(italic("Ammophila arenaria")),       expression(italic("Corynephorus canescens"))     )</code></p>
+<p><code>italic()</code> står för kursiv text, och eftersom vi inte vill ha någon punkt mellan släkte och artepitet (dvs <em>Ammophila arenaria</em> och inte <em>Ammophila.arenaria</em>) så skriver vi manuellt in vad som skall stå i vår legend.</p>
+<p>Nu borde grafens kod vara klar, men om du kör den så upptäcker du att våra latinska artnamn blir centrerade och inte vänsterjusterade! Det är <code>expression()</code> som är boven i dramat, den har som grundinställning att centrera allt den gör. För att fixa det måste vi ställa in vårat tema så att det ignorerar andra textjusteringar och alltid har vänsterjusterad text i legenderna. Vi gör det genom att lägga till en sista rad kod med funktionen <code>theme()</code></p>
+<p><code>theme(     legend.text = element_text(hjust = 0)   )</code></p>
+<p><code>hjust = 0</code> betyder vänsterjustering. Notera att eftersom vår tidigare sista rad i scriptet <code>theme_classic()</code> inte längre är sista rad behöver vi lägga till ett plustecken <code>+</code> sist i den raden så att R förstår att scriptet fortsätter nedanför.</p>
+
+
 </section>
 
 </main> <!-- /main -->
