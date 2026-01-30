@@ -205,6 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <p>chi2-testet (eller <span class="math inline">\(\chi\)</span> <sup>2</sup> som det egentligen skall skrivas med grekiska bokstäver) är ett test för räknedata (<em>count data</em>), där du räknat någonting snarare än att du mätt det. Det kan exemelvis vara antalet individer eller antalet arter.</p>
 <p><span class="math inline">\(\chi\)</span> <sup>2</sup> testet används för att undersöka om två kategoriska variabler påverkar antalet i de olika kategorierna. De kategoriska variablerna kan till exempel vara kön (hona/hane), stadium (juvenil/adult), art eller någon behandling eller annat som kan kategorisera din data.</p>
+<p>En förutsättning för <span class="math inline">\(\chi\)</span> <sup>2</sup> - testet är att dataseten skall vara relativt stora. Om du har mindre än fem som den förväntade frekvensen i någon av dina kategorier bör du istället använda dig av Fishers exakta test (se beskrivning nedan).</p>
 <section id="läs-in-data" class="level2">
 <h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
 <p>Vi har inventerat sanddyner i två succesionsstadier (unga eller gamla) och räknat antal individer av de två gräsarterna sandrör (<em>Ammophila arenaria</em>) och borsttåtel (<em>Corynephorus canescens</em>). Vi vill veta om antalet gräs av de två arterna skiljer sig från en slumpmässig fördelning mellan de två successionsstadierna.</p>
@@ -320,11 +321,39 @@ X-squared = 36.467, df = 1, p-value = 1.553e-09</code></pre>
 </div>
 </div>
 <p>Vi får nu vår teststatistika med <span class="math inline">\(\chi\)</span> <sup>2</sup> -värde (X-squared), frihetsgrader (df) och vårt p-värde (p-value). Vi ser att p-värdet är mindre än 0.05, vilket betyder att fördelningen av antal individer av de två arterna inte är slumpmässigt fördelat mellan habitaten.</p>
+<p>Viktigt att notera är att <span class="math inline">\(\chi\)</span> <sup>2</sup> testet testar om de observerande frekvenserna skiljs från de förväntade frekvenserna. Notera att de förväntade frekvenserna inte behöver vara att det är 25% i varje kategori, det kan ju vara så att en av arterna generellt är mycket vanligare än den andra, och/eller att en av miljöerna innehåller totalt sett fler individer.</p>
+<p>Vi kan se det <strong>förväntade antalet</strong> i varje kategori genom att ange <code>$expected</code> efter modellnamnet.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>m.dunegrass<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        Dune.age
+Species                      old   young
+  Ammophila.arenaria     29.4186 39.5814
+  Corynephorus.canescens 25.5814 34.4186</code></pre>
+</div>
+</div>
+<p>Vi kan jämföra det med våra <strong>observerade frekvenser</strong>, som vi får fram genom att ange <code>$observed</code> efter modellnamnet.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m.dunegrass<span class="sc">$</span>observed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        Dune.age
+Species                  old young
+  Ammophila.arenaria      12    57
+  Corynephorus.canescens  43    17</code></pre>
+</div>
+</div>
+<p>Vi ser att det är fler observerade <code>Corynephorus.canescens</code> i gamla dyner är förväntat, och fler <code>Ammophila.arenaria</code> i unga dyner än förväntat.</p>
 </section>
 </section>
 <section id="presentera-dina-statistiska-resultat" class="level2">
 <h2 class="anchored" data-anchor-id="presentera-dina-statistiska-resultat">Presentera dina statistiska resultat</h2>
-<p>De två gräsarterna är inte slumpmässigt fördelade mellan sanddynor av olika ålder, utan <em>Ammophila arenaria</em> förekommer i högst antal i unga sanddyner, medan <em>Corynephorus canescens</em> är vanligast i gamla sanddyner (<span class="math inline">\(\chi\)</span> <sup>2</sup> test, <span class="math inline">\(\chi\)</span> <sup>2</sup> = 36.47, df = 1, p &lt; 0.001).</p>
+<p>De två gräsarterna är inte slumpmässigt fördelade mellan sanddyner av olika ålder, utan <em>Ammophila arenaria</em> förekommer i högst antal i unga sanddyner, medan <em>Corynephorus canescens</em> är vanligast i gamla sanddyner (<span class="math inline">\(\chi\)</span> <sup>2</sup> test, <span class="math inline">\(\chi\)</span> <sup>2</sup> = 36.47, df = 1, p &lt; 0.001).</p>
 </section>
 <section id="utvärdera-din-modell" class="level2">
 <h2 class="anchored" data-anchor-id="utvärdera-din-modell">Utvärdera din modell</h2>
@@ -340,31 +369,31 @@ X-squared = 36.467, df = 1, p-value = 1.553e-09</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plot.dunegrass.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dunegrass_data, <span class="fu">aes</span>(<span class="at">x =</span> Dune.age, <span class="at">y =</span> Counts, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Dune age"</span>)<span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Number of plants"</span>)<span class="sc">+</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Ammophila.arenaria"</span> <span class="ot">=</span> <span class="st">"beige"</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Corynephorus.canescens"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expression</span>(<span class="fu">italic</span>(<span class="st">"Ammophila arenaria"</span>)),</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expression</span>(<span class="fu">italic</span>(<span class="st">"Corynephorus canescens"</span>))</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>)</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>plot.dunegrass.final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plot.dunegrass.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dunegrass_data, <span class="fu">aes</span>(<span class="at">x =</span> Dune.age, <span class="at">y =</span> Counts, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Dune age"</span>)<span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Number of plants"</span>)<span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Ammophila.arenaria"</span> <span class="ot">=</span> <span class="st">"beige"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Corynephorus.canescens"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expression</span>(<span class="fu">italic</span>(<span class="st">"Ammophila arenaria"</span>)),</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expression</span>(<span class="fu">italic</span>(<span class="st">"Corynephorus canescens"</span>))</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>plot.dunegrass.final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Våra justeringar i <code>xlab()</code> och <code>ylab()</code> är självförklarande, och vi har tidigare gått igeom dem under vår tutorial om t-test.</p>

@@ -6,6 +6,8 @@ chi2-testet (eller $\chi$ ^2^ som det egentligen skall skrivas med grekiska boks
 
 $\chi$ ^2^ testet används för att undersöka om två kategoriska variabler påverkar antalet i de olika kategorierna. De kategoriska variablerna kan till exempel vara kön (hona/hane), stadium (juvenil/adult), art eller någon behandling eller annat som kan kategorisera din data.
 
+En förutsättning för $\chi$ ^2^ - testet är att dataseten skall vara relativt stora. Om du har mindre än fem som den förväntade frekvensen i någon av dina kategorier bör du istället använda dig av Fishers exakta test (se beskrivning nedan).
+
 ## Läs in data
 
 Vi har inventerat sanddyner i två succesionsstadier (unga eller gamla) och räknat antal individer av de två gräsarterna sandrör (*Ammophila arenaria*) och borsttåtel (*Corynephorus canescens*). Vi vill veta om antalet gräs av de två arterna skiljer sig från en slumpmässig fördelning mellan de två successionsstadierna.
@@ -91,9 +93,23 @@ m.dunegrass
 
 Vi får nu vår teststatistika med $\chi$ ^2^ -värde (X-squared), frihetsgrader (df) och vårt p-värde (p-value). Vi ser att p-värdet är mindre än 0.05, vilket betyder att fördelningen av antal individer av de två arterna inte är slumpmässigt fördelat mellan habitaten.
 
+Viktigt att notera är att $\chi$ ^2^ testet testar om de observerande frekvenserna skiljs från de förväntade frekvenserna. Notera att de förväntade frekvenserna inte behöver vara att det är 25% i varje kategori, det kan ju vara så att en av arterna generellt är mycket vanligare än den andra, och/eller att en av miljöerna innehåller totalt sett fler individer.
+
+Vi kan se det **förväntade antalet** i varje kategori genom att ange `$expected` efter modellnamnet.
+
+```{r}
+m.dunegrass$expected
+```
+Vi kan jämföra det med våra **observerade frekvenser**, som vi får fram genom att ange `$observed` efter modellnamnet.
+
+```{r}
+m.dunegrass$observed
+```
+Vi ser att det är fler observerade `Corynephorus.canescens` i gamla dyner är förväntat, och fler `Ammophila.arenaria` i unga dyner än förväntat.
+
 ## Presentera dina statistiska resultat
 
-De två gräsarterna är inte slumpmässigt fördelade mellan sanddynor av olika ålder, utan *Ammophila arenaria* förekommer i högst antal i unga sanddyner, medan *Corynephorus canescens* är vanligast i gamla sanddyner ($\chi$ ^2^ test, $\chi$ ^2^ = 36.47, df = 1, p \< 0.001).
+De två gräsarterna är inte slumpmässigt fördelade mellan sanddyner av olika ålder, utan *Ammophila arenaria* förekommer i högst antal i unga sanddyner, medan *Corynephorus canescens* är vanligast i gamla sanddyner ($\chi$ ^2^ test, $\chi$ ^2^ = 36.47, df = 1, p \< 0.001).
 
 ## Utvärdera din modell
 
