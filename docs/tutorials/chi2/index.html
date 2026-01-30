@@ -370,8 +370,8 @@ Species                      old   young
   Corynephorus.canescens 25.5814 34.4186</code></pre>
 </div>
 </div>
-<p>Om någon av dina frekvenser är lägre en fem kan man inte lita på de p-värden som ett <span class="math inline">\(\chi\)</span> <sup>2</sup> test presenterar. Istället måste vi använda oss av Fisher’s exakta test, genomm att använda funktionen <code>fisher.test()</code> istället för<code>chisq.test()</code>. Man har i övrigt samma arbetsgång.</p>
-<p>Vi testar det genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell i R, du läser oftast in dina data från en fil.</p>
+<p>Om någon av dina frekvenser är lägre än fem kan man inte lita på de p-värden som ett <span class="math inline">\(\chi\)</span> <sup>2</sup> test presenterar. Istället måste vi använda oss av Fisher’s exakta test, genom att använda funktionen <code>fisher.test()</code> istället för<code>chisq.test()</code>. Man har i övrigt samma arbetsgång.</p>
+<p>Vi testar det genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell i R, du läser oftast in dina data från en fil. Kopiera koden och kör den.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -391,7 +391,7 @@ Shallow    7      2
 Deep       0      5</code></pre>
 </div>
 </div>
-<p>Om vi använder chisq.test() får vi en varning:</p>
+<p>Om vi använder <code>chisq.test()</code> får vi en varning:</p>
 <div class="cell">
 <details>
 <summary>Code</summary>

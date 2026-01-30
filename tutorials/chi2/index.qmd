@@ -119,9 +119,9 @@ Det viktiga för att få göra ett $\chi$ ^2^ test är att ingen av de förvänt
 m.dunegrass$expected
 ```
 
-Om någon av dina frekvenser är lägre en fem kan man inte lita på de p-värden som ett $\chi$ ^2^ test presenterar. Istället måste vi använda oss av Fisher's exakta test, genomm att använda funktionen `fisher.test()` istället för` chisq.test()`. Man har i övrigt samma arbetsgång.
+Om någon av dina frekvenser är lägre än fem kan man inte lita på de p-värden som ett $\chi$ ^2^ test presenterar. Istället måste vi använda oss av Fisher's exakta test, genom att använda funktionen `fisher.test()` istället för` chisq.test()`. Man har i övrigt samma arbetsgång.
 
-Vi testar det genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell i R, du läser oftast in dina data från en fil.
+Vi testar det genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell i R, du läser oftast in dina data från en fil. Kopiera koden och kör den.
 
 ```{r}
 depth.data <- data.frame(
@@ -134,7 +134,7 @@ colnames(depth.data) <- c("Male", "Female")
 
 depth.data
 ```
-Om vi använder chisq.test() får vi en varning:
+Om vi använder `chisq.test()` får vi en varning:
 
 ```{r}
 m.depth <- chisq.test(depth.data)
