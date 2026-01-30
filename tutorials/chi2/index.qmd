@@ -113,6 +113,47 @@ De två gräsarterna är inte slumpmässigt fördelade mellan sanddyner av olika
 
 ## Utvärdera din modell
 
+Det viktiga för att få göra ett $\chi$ ^2^ test är att ingen av de förväntade frekvenserna är lägre än 5. Du ser de förväntade frekvenserna genom att ange `$expected` efter modellnamnet.
+
+```{r}
+m.dunegrass$expected
+```
+
+Om någon av dina frekvenser är lägre en fem kan man inte lita på de p-värden som ett $\chi$ ^2^ test presenterar. Istället måste vi använda oss av Fisher's exakta test, genomm att använda funktionen `fisher.test()` istället för` chisq.test()`. Man har i övrigt samma arbetsgång.
+
+Vi testar det genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell i R, du läser oftast in dina data från en fil.
+
+```{r}
+depth.data <- data.frame(
+  "male" = c(7, 0),
+  "female" = c(2, 5),
+  row.names = c("Shallow", "Deep"),
+  stringsAsFactors = FALSE
+)
+colnames(depth.data) <- c("Male", "Female")
+
+depth.data
+```
+Om vi använder chisq.test() får vi en varning:
+
+```{r}
+m.depth <- chisq.test(depth.data)
+```
+
+Vi ser på våra förväntade frekvenser att alla är lägre än 5.
+
+```{r}
+m.depth$expected
+```
+
+Vi använder oss därför av Fisher´s exakta test.
+
+```{r}
+m.depth.fisher <- fisher.test(depth.data)
+m.depth.fisher
+```
+Vi anger endast ett p-värde om vi använder Fisher´s exakta test.
+
 ## Modifiera din plot så den blir publiceringsduglig
 
 Vår enkla figur där vi enbart anger dataset och våra variablar blev ok, men vi kan förbättra den. Vi skulle vilja fixa till följande:
