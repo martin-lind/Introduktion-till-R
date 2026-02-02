@@ -15,8 +15,8 @@ title: "Tutorials"
 
 -   [t-test](t-test/)
 -   [Linjär regression](linear-regression/)
--   [Anova](anova/) \[Ej påbörjad\]
 -   [Korrelation](correlation/) \[Under utveckling\]
+-   [Envägs ANOVA](anova/) \[Under utveckling\]
 -   [$\chi$ ^2^ test (Chi-2)](chi2/) \[Under utveckling\]
 -   Faktoriell design \[Ej påbörjad\]
 -   Ancova \[Ej påbörjad\]
