@@ -112,3 +112,43 @@ shapiro.test(tree.data$diameter)
 ```
 
 Om testet är *icke-signifikant* betyder det att data *inte avviker från normalfördelning* (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.
+
+## Publiceringsduglig figur
+
+Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet **ggplot2**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("ggplot2")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
+
+### Först - en enkel plot med ggplot2
+
+```{r}
+library(ggplot2)
+
+plot.trees.simple <- ggplot(tree.data, aes(x = diameter, y = height)) +
+  geom_point() +
+  theme_classic()
+
+plot.trees.simple
+```
+Koden är densamma som för regressioner, förutom att vi tagit bort regressionslinjen eftersom vi gör en korrelation. Se vår tidigare beskrivning för en förklarad kod.
+
+### Publiceringsbar figur
+
+Den blev helt ok, men vi kan förbättra den.
+
+1.  Vi vill att det skall stå "Tree diameter (m)" på x-axeln, fixas med `xlab()`
+
+2.  Vi vill att det skall stå "Tree height (m)" på y-axeln, fixas med `ylab()`
+
+3.  Vi vill välja gröna punkter, och vi vill att de skall vara lite större,fixas med `cex` och `color` inom `geom_point()`
+
+
+```{r}
+library(ggplot2)
+
+plot.trees.final <- ggplot(tree.data, aes(x = diameter, y = height)) +
+  geom_point(cex = 3, colour = "darkgreen") +
+  xlab("Tree diameter (m)")+
+  ylab("Tree height (m)")+
+  theme_classic()
+
+plot.trees.final
+````

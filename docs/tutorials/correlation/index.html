@@ -178,6 +178,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#grafiskt---histogram" id="toc-grafiskt---histogram" class="nav-link" data-scroll-target="#grafiskt---histogram">Grafiskt - histogram</a></li>
   <li><a href="#test-för-normalfördelning" id="toc-test-för-normalfördelning" class="nav-link" data-scroll-target="#test-för-normalfördelning">Test för normalfördelning</a></li>
   </ul></li>
+  <li><a href="#publiceringsduglig-figur" id="toc-publiceringsduglig-figur" class="nav-link" data-scroll-target="#publiceringsduglig-figur">Publiceringsduglig figur</a>
+  <ul class="collapse">
+  <li><a href="#först---en-enkel-plot-med-ggplot2" id="toc-först---en-enkel-plot-med-ggplot2" class="nav-link" data-scroll-target="#först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</a></li>
+  <li><a href="#publiceringsbar-figur" id="toc-publiceringsbar-figur" class="nav-link" data-scroll-target="#publiceringsbar-figur">Publiceringsbar figur</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -370,6 +375,55 @@ W = 0.97815, p-value = 0.4769</code></pre>
 </div>
 </div>
 <p>Om testet är <em>icke-signifikant</em> betyder det att data <em>inte avviker från normalfördelning</em> (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.</p>
+</section>
+</section>
+<section id="publiceringsduglig-figur" class="level2">
+<h2 class="anchored" data-anchor-id="publiceringsduglig-figur">Publiceringsduglig figur</h2>
+<p>Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet <strong>ggplot2</strong>. Om du inte sedan tidigare har paketet installerat så gör du det med koden <code>install.packages("ggplot2")</code>. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen <code>library()</code></p>
+<section id="först---en-enkel-plot-med-ggplot2" class="level3">
+<h3 class="anchored" data-anchor-id="först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plot.trees.simple <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(tree.data, <span class="fu">aes</span>(<span class="at">x =</span> diameter, <span class="at">y =</span> height)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plot.trees.simple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Koden är densamma som för regressioner, förutom att vi tagit bort regressionslinjen eftersom vi gör en korrelation. Se vår tidigare beskrivning för en förklarad kod.</p>
+</section>
+<section id="publiceringsbar-figur" class="level3">
+<h3 class="anchored" data-anchor-id="publiceringsbar-figur">Publiceringsbar figur</h3>
+<p>Den blev helt ok, men vi kan förbättra den.</p>
+<ol type="1">
+<li><p>Vi vill att det skall stå “Tree diameter (m)” på x-axeln, fixas med <code>xlab()</code></p></li>
+<li><p>Vi vill att det skall stå “Tree height (m)” på y-axeln, fixas med <code>ylab()</code></p></li>
+<li><p>Vi vill välja gröna punkter, och vi vill att de skall vara lite större,fixas med <code>cex</code> och <code>color</code> inom <code>geom_point()</code></p></li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plot.trees.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(tree.data, <span class="fu">aes</span>(<span class="at">x =</span> diameter, <span class="at">y =</span> height)) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">cex =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"darkgreen"</span>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Tree diameter (m)"</span>)<span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Tree height (m)"</span>)<span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plot.trees.final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
 </section>

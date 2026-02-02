@@ -140,7 +140,7 @@ plot(m.trout)
 
 Vi får fyra grafer att utvärdera, de två första är viktigast. Du kan behöva trycka upprepade gånger på ENTER för att se alla graferna (i R kommer de en och en).
 
-**Residuals vs Fitted** bör visa en hyfsat rak linje. Den visar hur mycket *residualerna* (skillnaden i y-led mellan varje värde av din response och regressionslinjen) avviker från regressionslinjen. Residualerna motsvaras av cirklar i grafen. Om du har ett mönster i avvikelserna så betyder det att en rak regressionslinje inte var en lämplig statistisk modell.
+**Residuals vs Fitted** bör visa en hyfsat rak linje. Den visar hur mycket *residualerna* (skillnaden mellan dina data och de predikterade värderna) förändras med ökat värde på y-axeln. Residualerna motsvaras av cirklar i grafen. Om du har ett mönster i avvikelserna så betyder det att modellen inta är optimal för dina data.
 
 **Normal Q-Q** visar om residualerna är normalfördelade. De bör följa den diagonala streckade linjen. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data.
 
