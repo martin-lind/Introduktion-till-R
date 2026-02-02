@@ -22,6 +22,8 @@ Ladda ner följande fil [trout_stream.txt](data/trout_stream.txt) (högerklicka,
 
 Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `trout_data` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
 
+**Glöm inte att dokumentera din kod i ett script,** med kommentarer som förklarar vad du gör! [Se vår tutorial om script](https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler) om du behöver påminnelse om hur man skapar och använder script.
+
 ```{r}
 trout_data <- read.table("data/trout_stream.txt",
                            header=T,
