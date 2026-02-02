@@ -167,6 +167,8 @@ plot.trout.simple <- ggplot(trout_data, aes(x = Stream, y = Trout.length, fill =
 plot.trout.simple
 ```
 
+### Modifiera din plot så den blir publiceringsduglig
+
 Det blev en bra start, men vi kan fixa ytterligare med den.
 
 1.  Vi vill ha bättre namn på vår y-axel, fixas med `ylab()`
