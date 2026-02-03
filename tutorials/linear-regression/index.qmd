@@ -119,11 +119,11 @@ summary(m.plant_reproduction)
 
 ## Presentera din statistiska analys
 
-Antalet frön ökad med ökad höjd hos växten (linjär regression, F<sub>1,18</sub> = 68.681, p \< 0.001, R<sup>2</sup> = 0.78).
+Antalet frön ökad med ökad höjd hos växten (linjär regression, F = 68.681, d.f. = 1 och 18, p \< 0.001, R<sup>2</sup> = 0.78).
 
 Man kan uttrycka den meningen på många sätt, ett alternativ är:
 
-Ju högre växten är, desto fler frön har den (linjär regression, F<sub>1,18</sub> = 68.681, p \< 0.001, R<sup>2</sup> = 0.78).
+Ju högre växten är, desto fler frön har den (linjär regression, F = 68.681, d.f. = 1 och 18, p \< 0.001, R<sup>2</sup> = 0.78).
 
 ## Utvärdera den statistiska modellen
 

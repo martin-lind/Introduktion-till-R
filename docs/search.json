@@ -354,7 +354,7 @@
     "href": "tutorials/linear-regression/index.html#presentera-din-statistiska-analys",
     "title": "Linjär regression",
     "section": "Presentera din statistiska analys",
-    "text": "Presentera din statistiska analys\nAntalet frön ökad med ökad höjd hos växten (linjär regression, F1,18 = 68.681, p < 0.001, R2 = 0.78).\nMan kan uttrycka den meningen på många sätt, ett alternativ är:\nJu högre växten är, desto fler frön har den (linjär regression, F1,18 = 68.681, p < 0.001, R2 = 0.78)."
+    "text": "Presentera din statistiska analys\nAntalet frön ökad med ökad höjd hos växten (linjär regression, F = 68.681, d.f. = 1 och 18, p < 0.001, R2 = 0.78).\nMan kan uttrycka den meningen på många sätt, ett alternativ är:\nJu högre växten är, desto fler frön har den (linjär regression, F = 68.681, d.f. = 1 och 18, p < 0.001, R2 = 0.78)."
   },
   {
     "objectID": "tutorials/linear-regression/index.html#utvärdera-den-statistiska-modellen",
