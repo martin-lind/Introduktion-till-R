@@ -10,7 +10,13 @@ Faktoriella designer är designer med två eller fler faktorer, där alla kombin
 
 ## Läs in data
 
-Börja med att läsa in ett dataset och ge det ett namn, i det här fallet kallar vi det *nutrients*.
+Vi har undersökt två arter av växter, och låtit dem växa i låg och hög näringsnivå. Efter fem veckor har vi vägt dem. Påverkar näringsnivån deras storlek?
+
+Ladda ner följande fil [size_nutrient.txt](data/size_nutrient.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
+
+Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `size_nutrient_data` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
+
+**Glöm inte att dokumentera din kod i ett script,** med kommentarer som förklarar vad du gör! [Se vår tutorial om script](https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler) om du behöver påminnelse om hur man skapar och använder script.
 
 ```{r}
 size_nutrient_data<-read.table("data/size_nutrient.txt",header=T,sep="\t",dec=",") 
@@ -28,7 +34,7 @@ str(size_nutrient_data)
 
 `$ Species: chr` betyder att värderna i kolumnen `Species` är *karaktärer* dvs text och inte siffror.
 
-`$ Weight: int` betyder att värderna i kolumnen `Weight` är *decimaltal*
+`$ Weight: int` betyder att värderna i kolumnen `Weight` är *heltal*
 
 Visa sedan de fem första raderna av ditt dataset med `head()` för att se att allt ser korrekt ut
 

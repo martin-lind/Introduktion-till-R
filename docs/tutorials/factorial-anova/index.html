@@ -207,7 +207,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Faktoriella designer är designer med två eller fler faktorer, där alla kombinationer av faktorerna finns.</p>
 <section id="läs-in-data" class="level2">
 <h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
-<p>Börja med att läsa in ett dataset och ge det ett namn, i det här fallet kallar vi det <em>nutrients</em>.</p>
+<p>Vi har undersökt två arter av växter, och låtit dem växa i låg och hög näringsnivå. Efter fem veckor har vi vägt dem. Påverkar näringsnivån deras storlek?</p>
+<p>Ladda ner följande fil <a href="data/size_nutrient.txt">size_nutrient.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
+<p>Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det <code>size_nutrient_data</code> En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a>.</p>
+<p><strong>Glöm inte att dokumentera din kod i ett script,</strong> med kommentarer som förklarar vad du gör! <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler">Se vår tutorial om script</a> om du behöver påminnelse om hur man skapar och använder script.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -231,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><code>$ Nutrient_level: chr</code> betyder att värderna i kolumnen <code>Nutrient_level</code> är <em>karaktärer</em> dvs text och inte siffror.</p>
 <p><code>$ Species: chr</code> betyder att värderna i kolumnen <code>Species</code> är <em>karaktärer</em> dvs text och inte siffror.</p>
-<p><code>$ Weight: int</code> betyder att värderna i kolumnen <code>Weight</code> är <em>decimaltal</em></p>
+<p><code>$ Weight: int</code> betyder att värderna i kolumnen <code>Weight</code> är <em>heltal</em></p>
 <p>Visa sedan de fem första raderna av ditt dataset med <code>head()</code> för att se att allt ser korrekt ut</p>
 <div class="cell">
 <details>
