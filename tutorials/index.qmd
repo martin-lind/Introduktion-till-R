@@ -18,7 +18,7 @@ title: "Tutorials"
 -   [Korrelation](correlation/)
 -   [Envägs ANOVA](anova/)
 -   [$\chi$ ^2^ test (Chi-2)](chi2/) \[Under utveckling\]
--   Faktoriell (flervägs) ANOVA \[Ej påbörjad\]
+-   [Faktoriell (flervägs) ANOVA](factorial-anova/) \[Under utveckling\]
 -   Ancova \[Ej påbörjad\]
 -   Icke-parametriska tester \[Ej påbörjad\]
 

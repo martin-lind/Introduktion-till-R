@@ -1,0 +1,95 @@
+---
+title: "Faktoriell ANOVA"
+---
+
+I alla tidigare analyser har vi enbart haft en oberoende variabel (predictor). Ofta har vi dock mer än en oberoende variabel, det kan vara att vi vill undersöka effekten av såväl temperatur (hög, låg) som ursprung (nordlig, sydlig) på grodornas utveckling.
+
+Om man har två eller fler faktorer har man möjligheten till en **interaktion** dvs att responsvariabeln beror på hur de oberoende variablarna interagerar. Exempelvis kanske effekten av temperatur på grodornas utveckling beror på vilket ursprung grodorna har. Interaktioner är oftast mycket intressanta rent biologiskt!
+
+Faktoriella designer är designer med två eller fler faktorer, där alla kombinationer av faktorerna finns.
+
+## Läs in data
+
+Börja med att läsa in ett dataset och ge det ett namn, i det här fallet kallar vi det *nutrients*.
+
+```{r}
+size_nutrient_data<-read.table("data/size_nutrient.txt",header=T,sep="\t",dec=",") 
+```
+
+### Inspektera data
+
+Börja med att titta på datans struktur med `str()`.
+
+```{r}
+str(size_nutrient_data)
+```
+
+`$ Nutrient_level: chr` betyder att värderna i kolumnen `Nutrient_level` är *karaktärer* dvs text och inte siffror.
+
+`$ Species: chr` betyder att värderna i kolumnen `Species` är *karaktärer* dvs text och inte siffror.
+
+`$ Weight: int` betyder att värderna i kolumnen `Weight` är *decimaltal*
+
+Visa sedan de fem första raderna av ditt dataset med `head()` för att se att allt ser korrekt ut
+
+```{r}
+head(size_nutrient_data)
+```
+
+## Visualisera datat med en enkel graf
+
+Vi gör en enkel graf med `boxplot()` Eftersom vi har två faktorer behöver vi specificera båda i vår kod, till höger om tilde-tecknet `~`.
+
+```{r}
+boxplot(Weight ~ Nutrient_level + Species, data = size_nutrient_data)
+````
+Hur tolkar du datat? Har arterna olika vikt? Blir de tyngre eller lättare vid hög näring? Eller beror effekten av näring på vilken art det är? Det vill säga, verkar det som vi kan ha en *interaktion* mellan Näring och Art?
+
+## Statistisk modellering
+
+Vi vill nu göra en faktoriell ANOVA för att undersöka om vår responsvariabel (beroende variabel) *Weight* beror av våra förklarande variabelar (oberoende variabelar) *Nutrient_level* och *Species*.
+
+På samma sätt som när vi gjorde regression och envägs-ANOVA specificerar en modell med hjälp av funktionen `lm()` som står för *linjär modell*. Vi väljer att spara resultatet i ett objekt som vi kallar `m.size_nutrient`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
+
+```{r}
+m.size_nutrient <- lm (Weight ~ Nutrient_level * Species,
+                    data = size_nutrient_data)
+```
+
+I vår modell har vi vår responsvariabel (det vi har på y-axeln) till vänster om tilde-tecknet `~` och våra förklarande faktorer till höger. Eftersom vi har två faktorer behöver vi lägga till båda till höger om tilde-tecknet `~`. 
+
+Notera att vi har ett multiplikationstecken i vår modell `~ Nutrient_level * Species`. Multiplikationstecknet är en genväg som talar om för R att vi vill undersöka effekten av `Nutrient_level`, effekten av `Species`, samt interaktionen mellan dem (`Nutrient_level: Species`). Ett alternativt och mer explicit sätt att skriva modellen är därmed `Weight ~ Nutrient_level + Species + Nutrient_level: Species`. Det sättet att skriva blir dock väldigt komplicerat om man har fler än två faktorer (dvs det är stor risk för fel i koden).
+
+### Statistiska resultat
+
+Vi börjar med en ANOVA-tabell
+
+```{r}
+anova(m.size_nutrient)
+```
+
+Vi får en ANOVA-tabell och kan inspektera resultatet. Nu kommer en otroligt viktig detalj för att tolka den. **Om modellen innehåller interaktioner skall Anova-tabellen läsas nedifrån och uppåt!**
+
+Vi börjar nedifrån och ovanför `Residuals`kommer vår interaktion `Nutrient_level:Species ... 1.083e-14 ***`. Vi ser att p-värdet är mindre än 0.05, dvs interaktionen är signifikant. Det betyder att **Effekten av näring på storleken beror på art**. Vi kan alltså inte säga huruvida näring påverkar storleken utan att specificera vilken art vi pratar om. Studera figuren ovan så ser du att det stämmer.
+
+Om interaktionen är signifikant är det inte meningsfullt att tolka varje faktor för sig (oavsett om de är signifikanta eller inte). Man kan ha en situation där det är en signifikant interaktion men ingen av faktorerna har en signifikant effekt i sig själv. 
+
+**Enbart om interaktionen inte är signifikant** går man uppåt i tabellen och kan tolka de enskilda effekterna av faktorerna på vanligt sätt, är de signifikanta så har de effekt på responsvariabeln.
+
+### Post-hoc på interaktionen
+
+Vi har nu en signifikant interaktion, som tyder på att de olika arterna svarar olika på ökad näring. I grafen ser det ut som om art B definitivt väger mer om näringen ökar, medan art A kanske minskar i vikt. Eller är den oförändrad? Den spontana tanken vore att göra separata t-test för de båda arterna, men man bör genomföra allt i samma analys. Däremot kan vi gå vidare och göra ett post-hoc-test på vår interaktion i paketet `emmeans()` som vi tidigare använde i vår envägs-ANOVA.
+
+Om interaktionen däremot **inte är signifikant**, skall du **inte** göra en post-hoc analys av interaktionen.
+
+```{r}
+library(emmeans)
+emmeans(m.size_nutrient, pairwise ~ Nutrient_level | Species)
+```
+Som vi ser har vi modifierat vår formel jämfört med när vi gjorde ett posthoc-test i en envägs-ANOVA, eftersom vi nu har två faktorer. `pairwise ~ Nutrient_level | Species` betyder att vi gör parvisa jämförelser över nivåerna i faktorn `Nutrient_level`, och att vi gör det separat för de olika nivåerna i faktorn `Species.` 
+
+I våra resultat under `$emmeans` ser vi medelvärden och standard error för de olika nivåerna av våra faktorer, medan resultaten av post-hoc analysen finns under `$contrasts`. För art A får vi ett p-värde på `0.0619`, dvs vikten hos art A påverkas inte signifikant av näringstillgången (men väldigt nära signifikans...). Om vi tittar på art B så ser vi dock ett p-värde på `<.0001`, det vill säga art B's vikt påverkas av näringstillgången.
+
+## Presentera din statistiska analys
+
+Vi har en signifikant interaktion mellan näring och art (faktoriell ANOVA, F = 108,2, f.g. = 1 och 56, p < 0.001) vilket betyder att hur vikten påverkas av näring skiljer sig åt för de två arterna. Medan art B väger mer vid hög näring (post-hoc, t = 12.803, df = 56, p < 0.001) har näring ingen effekt på vikten hos art A (post-hoc, t = -1.905, df = 56, p = 0.062). I tillägg till interaktionen är huvudeffekten av såväl näring (F = 59.4, f.g. = 1 och 56, p < 0.001) som art (F = 347,6, f.g. = 1 och 56, p < 0.001) signifikanta. 
