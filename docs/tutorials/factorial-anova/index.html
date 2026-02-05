@@ -179,6 +179,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#post-hoc-på-interaktionen" id="toc-post-hoc-på-interaktionen" class="nav-link" data-scroll-target="#post-hoc-på-interaktionen">Post-hoc på interaktionen</a></li>
   </ul></li>
   <li><a href="#presentera-din-statistiska-analys" id="toc-presentera-din-statistiska-analys" class="nav-link" data-scroll-target="#presentera-din-statistiska-analys">Presentera din statistiska analys</a></li>
+  <li><a href="#utvärdera-den-statistiska-modellen" id="toc-utvärdera-den-statistiska-modellen" class="nav-link" data-scroll-target="#utvärdera-den-statistiska-modellen">Utvärdera den statistiska modellen</a></li>
+  <li><a href="#publiceringsduglig-figur" id="toc-publiceringsduglig-figur" class="nav-link" data-scroll-target="#publiceringsduglig-figur">Publiceringsduglig figur</a>
+  <ul class="collapse">
+  <li><a href="#först---en-enkel-plot-med-ggplot2" id="toc-först---en-enkel-plot-med-ggplot2" class="nav-link" data-scroll-target="#först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</a></li>
+  <li><a href="#modifiera-din-plot-så-den-blir-publiceringsduglig" id="toc-modifiera-din-plot-så-den-blir-publiceringsduglig" class="nav-link" data-scroll-target="#modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -204,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <p>I alla tidigare analyser har vi enbart haft en oberoende variabel (predictor). Ofta har vi dock mer än en oberoende variabel, det kan vara att vi vill undersöka effekten av såväl temperatur (hög, låg) som ursprung (nordlig, sydlig) på grodornas utveckling.</p>
 <p>Om man har två eller fler faktorer har man möjligheten till en <strong>interaktion</strong> dvs att responsvariabeln beror på hur de oberoende variablarna interagerar. Exempelvis kanske effekten av temperatur på grodornas utveckling beror på vilket ursprung grodorna har. Interaktioner är oftast mycket intressanta rent biologiskt!</p>
-<p>Faktoriella designer är designer med två eller fler faktorer, där alla kombinationer av faktorerna finns.</p>
+<p>Faktoriella designer är designer med två eller fler faktorer, där alla kombinationer av faktorerna finns. Vi kommer enbart arbeta med exempel där vi bara har två nivåer av varje faktor, eftersom det är enklast att tolka. Metoden klarar dock fler än två nivåer per faktor.</p>
 <section id="läs-in-data" class="level2">
 <h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
 <p>Vi har undersökt två arter av växter, och låtit dem växa i låg och hög näringsnivå. Efter fem veckor har vi vägt dem. Påverkar näringsnivån deras storlek?</p>
@@ -355,8 +361,98 @@ Species = B:
 <section id="presentera-din-statistiska-analys" class="level2">
 <h2 class="anchored" data-anchor-id="presentera-din-statistiska-analys">Presentera din statistiska analys</h2>
 <p>Vi har en signifikant interaktion mellan näring och art (faktoriell ANOVA, F = 108,2, f.g. = 1 och 56, p &lt; 0.001) vilket betyder att hur vikten påverkas av näring skiljer sig åt för de två arterna. Medan art B väger mer vid hög näring (post-hoc, t = 12.803, df = 56, p &lt; 0.001) har näring ingen effekt på vikten hos art A (post-hoc, t = -1.905, df = 56, p = 0.062). I tillägg till interaktionen är huvudeffekten av såväl näring (F = 59.4, f.g. = 1 och 56, p &lt; 0.001) som art (F = 347,6, f.g. = 1 och 56, p &lt; 0.001) signifikanta.</p>
+</section>
+<section id="utvärdera-den-statistiska-modellen" class="level2">
+<h2 class="anchored" data-anchor-id="utvärdera-den-statistiska-modellen">Utvärdera den statistiska modellen</h2>
+<p>Var modellen lämplig att använda för ditt dataset?</p>
+<p>Vi utvärderar modellen genom <em>diagnostiska grafer</em> genom att använda funktionen <code>plot()</code> på vår statistiska modell.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m.size_nutrient)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-8-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Vi får fyra grafer att utvärdera, de två första är viktigast. Du kan behöva trycka upprepade gånger på ENTER för att se alla graferna (i R kommer de en och en).</p>
+<p><strong>Residuals vs Fitted</strong> bör visa en hyfsat rak linje. Den visar hur mycket <em>residualerna</em> (skillnaden mellan dina data och de predikterade värderna) förändras med ökat värde på y-axeln. Residualerna motsvaras av cirklar i grafen. Om du har ett mönster i avvikelserna så betyder det att modellen inta är optimal för dina data.</p>
+<p><strong>Normal Q-Q</strong> visar om residualerna är normalfördelade. De bör följa den diagonala streckade linjen. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data.</p>
+<p><strong>Scale-Location</strong> illustrerar om variationen i datat är lika över alla värden. Om variationen ökar mycket åt höger (ett vanligt fall) så har vi större variation vid högre värden. Kan lösas genom att transformera data.</p>
+<p><strong>Residuals vs Leverage</strong> används för att hitta extremvärden som har onormalt stor påverkan på regressionslinjen. Mönstret i grafen är inte intressant, vi letar efter värden som ligger utanför de grå linjerna, speciellt linjerna för <strong>1</strong>. Man bör dubbelkolla sådana värden (outliers) och fundera på om de skall vara med i datasetet. Kanske analysera såväl med som utan extremvärderna?</p>
+</section>
+<section id="publiceringsduglig-figur" class="level2">
+<h2 class="anchored" data-anchor-id="publiceringsduglig-figur">Publiceringsduglig figur</h2>
+<p>Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet <strong>ggplot2</strong>. Om du inte sedan tidigare har paketet installerat så gör du det med koden <code>install.packages("ggplot2")</code>. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen <code>library()</code></p>
+<section id="först---en-enkel-plot-med-ggplot2" class="level3">
+<h3 class="anchored" data-anchor-id="först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</h3>
+<p>Koden bygger på den vi lärde oss under vår <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/t-test/#publiceringsduglig-figur">tutorial för t-test</a>, och dess huvuddrag förklaras inte närmare här.</p>
+<p>De få förändringen är att vi under <code>aes()</code> anger olika faktorer under<code>x =</code>och <code>fill =</code>. x<code>= Species</code> betyder att vi har art på x-axeln, medan<code>fill = Nutrient_level</code> betyder att för varje Art skapar vi två staplar, en för varje nivå på <code>Nutrient_level</code>, och dessa får också olika färg.</p>
+<p>Under <code>stat_summary()</code> lägger vi även till <code>position = "dodge"</code>, det betyder att de två staplarna (och felstaplarna) skall ligga bredvid varandra och inte ovanpå varandra.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.simple <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(size_nutrient_data, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Weight, <span class="at">fill =</span> Nutrient_level)) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> mean, <span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">fun.data =</span> mean_se, <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.simple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="modifiera-din-plot-så-den-blir-publiceringsduglig" class="level3">
+<h3 class="anchored" data-anchor-id="modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</h3>
+<p>Ok, halvbra start men inte mer. Vi måste jobba vidare med den.</p>
+<ol type="1">
+<li><p>När vi använde position = “dodge” så hamnar staplar och felstaplar bredvid varandra. Men eftersom felstaplarna är kodade som smalare (width = 0.1) än staplarna (width = 0.4) så är de inte centrerade över staplarna.</p></li>
+<li><p>Vi vill välja andra färger, och det skall inte stå Nutrient_level på legenden. Fixas med <code>scale_fill_manual()</code></p></li>
+<li><p>Vi vill ha med enhet på y-axel, fixas med <code>ylab()</code></p></li>
+<li><p>Det känns mest logiskt att staplarna för Low är till vänster om staplarna för High (man är van att det skall öka när man går åt höger på x-axeln)</p></li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>manual_dodge <span class="ot">&lt;-</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.4</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(size_nutrient_data, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Weight, <span class="at">fill =</span> <span class="fu">factor</span>(Nutrient_level, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>)))) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> mean, <span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">position =</span> manual_dodge) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">fun.data =</span> mean_se, <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">position =</span>  manual_dodge) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Weight (g)"</span>)<span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Nutrient level"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Low"</span> <span class="ot">=</span> <span class="st">"lightgreen"</span>, <span class="st">"High"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>),</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>))<span class="sc">+</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Lösningen på problemet med de icke centrerade felstaplarna är att skapa en manuell dodge som är frikopplad från den faktiska bredden på staplar och felstaplar, det gör vi genom att lägga till en rad innan grafen</p>
+<p><code>manual_dodge &lt;- position_dodge(width = 0.4)</code></p>
+<p>Sorteringen av staplarna så att Low är till vänster om High kan antingen göras direkt i datasetet med koden <code>size_nutrient_data$Nutrient_level &lt;- factor(size_nutrient_data$Nutrient_level,levels = c("Low", "High"))</code>, då kommer de i rätt ordning. För att illustrera ett alternativ så ändrar jag det enbart i grafen istället, sker under <code>aes()</code> med koden <code>fill = factor(Nutrient_level, levels = c("Low", "High"))</code>.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

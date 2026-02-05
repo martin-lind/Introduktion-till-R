@@ -6,7 +6,7 @@ I alla tidigare analyser har vi enbart haft en oberoende variabel (predictor). O
 
 Om man har två eller fler faktorer har man möjligheten till en **interaktion** dvs att responsvariabeln beror på hur de oberoende variablarna interagerar. Exempelvis kanske effekten av temperatur på grodornas utveckling beror på vilket ursprung grodorna har. Interaktioner är oftast mycket intressanta rent biologiskt!
 
-Faktoriella designer är designer med två eller fler faktorer, där alla kombinationer av faktorerna finns.
+Faktoriella designer är designer med två eller fler faktorer, där alla kombinationer av faktorerna finns. Vi kommer enbart arbeta med exempel där vi bara har två nivåer av varje faktor, eftersom det är enklast att tolka. Metoden klarar dock fler än två nivåer per faktor. 
 
 ## Läs in data
 
@@ -98,4 +98,84 @@ I våra resultat under `$emmeans` ser vi medelvärden och standard error för de
 
 ## Presentera din statistiska analys
 
-Vi har en signifikant interaktion mellan näring och art (faktoriell ANOVA, F = 108,2, f.g. = 1 och 56, p < 0.001) vilket betyder att hur vikten påverkas av näring skiljer sig åt för de två arterna. Medan art B väger mer vid hög näring (post-hoc, t = 12.803, df = 56, p < 0.001) har näring ingen effekt på vikten hos art A (post-hoc, t = -1.905, df = 56, p = 0.062). I tillägg till interaktionen är huvudeffekten av såväl näring (F = 59.4, f.g. = 1 och 56, p < 0.001) som art (F = 347,6, f.g. = 1 och 56, p < 0.001) signifikanta. 
+Vi har en signifikant interaktion mellan näring och art (faktoriell ANOVA, F = 108,2, f.g. = 1 och 56, p < 0.001) vilket betyder att hur vikten påverkas av näring skiljer sig åt för de två arterna. Medan art B väger mer vid hög näring (post-hoc, t = 12.803, df = 56, p < 0.001) har näring ingen effekt på vikten hos art A (post-hoc, t = -1.905, df = 56, p = 0.062). I tillägg till interaktionen är huvudeffekten av såväl näring (F = 59.4, f.g. = 1 och 56, p < 0.001) som art (F = 347,6, f.g. = 1 och 56, p < 0.001) signifikanta.
+
+## Utvärdera den statistiska modellen
+
+Var modellen lämplig att använda för ditt dataset?
+
+Vi utvärderar modellen genom *diagnostiska grafer* genom att använda funktionen `plot()` på vår statistiska modell.
+
+```{r}
+plot(m.size_nutrient)
+```
+
+Vi får fyra grafer att utvärdera, de två första är viktigast. Du kan behöva trycka upprepade gånger på ENTER för att se alla graferna (i R kommer de en och en).
+
+**Residuals vs Fitted** bör visa en hyfsat rak linje. Den visar hur mycket *residualerna* (skillnaden mellan dina data och de predikterade värderna) förändras med ökat värde på y-axeln. Residualerna motsvaras av cirklar i grafen. Om du har ett mönster i avvikelserna så betyder det att modellen inta är optimal för dina data.
+
+**Normal Q-Q** visar om residualerna är normalfördelade. De bör följa den diagonala streckade linjen. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data.
+
+**Scale-Location** illustrerar om variationen i datat är lika över alla värden. Om variationen ökar mycket åt höger (ett vanligt fall) så har vi större variation vid högre värden. Kan lösas genom att transformera data.
+
+**Residuals vs Leverage** används för att hitta extremvärden som har onormalt stor påverkan på regressionslinjen. Mönstret i grafen är inte intressant, vi letar efter värden som ligger utanför de grå linjerna, speciellt linjerna för **1**. Man bör dubbelkolla sådana värden (outliers) och fundera på om de skall vara med i datasetet. Kanske analysera såväl med som utan extremvärderna?
+
+## Publiceringsduglig figur
+
+Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet **ggplot2**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("ggplot2")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
+
+### Först - en enkel plot med ggplot2
+
+Koden bygger  på den vi lärde oss under vår [tutorial för t-test](https://martin-lind.github.io/Introduktion-till-R/tutorials/t-test/#publiceringsduglig-figur), och dess huvuddrag förklaras inte närmare här.
+
+De få förändringen är att vi under `aes()` anger olika faktorer under` x = `och `fill = `. x` = Species` betyder att vi har art på x-axeln, medan` fill = Nutrient_level` betyder att för varje Art skapar vi två staplar, en för varje nivå på `Nutrient_level`, och dessa får också olika färg.
+
+Under `stat_summary()` lägger vi även till `position = "dodge"`, det betyder att de två staplarna (och felstaplarna) skall ligga bredvid varandra och inte ovanpå varandra.
+
+
+```{r}
+library(ggplot2)
+
+plot.size_nutrient.simple <- ggplot(size_nutrient_data, aes(x = Species, y = Weight, fill = Nutrient_level)) +
+  stat_summary(geom = "bar", fun = mean, width = 0.4, position = "dodge") +
+  stat_summary(geom = "errorbar", fun.data = mean_se, width = 0.1, position = "dodge") +
+  theme_classic()
+
+plot.size_nutrient.simple
+```
+
+### Modifiera din plot så den blir publiceringsduglig
+
+Ok, halvbra start men inte mer. Vi måste jobba vidare med den. 
+
+1.  När vi använde position = "dodge" så hamnar staplar och felstaplar bredvid varandra. Men eftersom felstaplarna är kodade som smalare (width = 0.1) än staplarna (width = 0.4) så är de inte centrerade över staplarna.
+
+2.  Vi vill välja andra färger, och det skall inte stå Nutrient_level på legenden. Fixas med `scale_fill_manual()`
+
+3.  Vi vill ha med enhet på y-axel, fixas med `ylab()`
+
+4.  Det känns mest logiskt att staplarna för Low är till vänster om staplarna för High (man är van att det skall öka när man går åt höger på x-axeln)
+
+```{r}
+library(ggplot2)
+
+manual_dodge <- position_dodge(width = 0.4)
+
+plot.size_nutrient.final <- ggplot(size_nutrient_data, aes(x = Species, y = Weight, fill = factor(Nutrient_level, levels = c("Low", "High")))) +
+  stat_summary(geom = "bar", fun = mean, width = 0.4, position = manual_dodge) +
+  stat_summary(geom = "errorbar", fun.data = mean_se, width = 0.1, position =  manual_dodge) +
+  ylab("Weight (g)")+
+  scale_fill_manual(
+  name = "Nutrient level",
+  values = c("Low" = "lightgreen", "High" = "darkgreen"),
+  limits = c("Low", "High"))+
+  theme_classic()
+
+plot.size_nutrient.final
+```
+
+Lösningen på problemet med de icke centrerade felstaplarna är att skapa en manuell dodge som är frikopplad från den faktiska bredden på staplar och felstaplar, det gör vi genom att lägga till en rad innan grafen 
+
+`manual_dodge <- position_dodge(width = 0.4)`
+
+Sorteringen av staplarna så att Low är till vänster om High kan antingen göras direkt i datasetet med koden `size_nutrient_data$Nutrient_level <- factor(size_nutrient_data$Nutrient_level,levels = c("Low", "High"))`, då kommer de i rätt ordning. För att illustrera ett alternativ så ändrar jag det enbart i grafen istället, sker under `aes()` med koden `fill = factor(Nutrient_level, levels = c("Low", "High"))`. 

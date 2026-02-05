@@ -175,7 +175,7 @@ Det blev en bra start, men vi kan fixa ytterligare med den.
 
 1.  Vi vill ha bättre namn på vår y-axel, fixas med `ylab()`
 
-3.  Vi vill välja andra färger, och dessutom vill vi ha savenska namn med å, ä och ö för våra bäckar. Fixas med `scale_fill_manual()`
+2.  Vi vill välja andra färger, och dessutom vill vi ha savenska namn med å, ä och ö för våra bäckar. Fixas med `scale_fill_manual()`
 
 ```{r}
 library(ggplot2)

@@ -125,7 +125,7 @@ m.dunegrass$expected
 
 Om någon av dina förväntade frekvenser är lägre än fem kan man inte lita på de p-värden som ett $\chi$ ^2^ test presenterar. Istället måste vi använda oss av Fisher's exakta test, genom att använda funktionen `fisher.test()` istället för` chisq.test()`. Man har i övrigt samma arbetsgång.
 
-Vi provar Fisher's exakta test genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell i R, du läser oftast in dina data från en fil. Kopiera koden och kör den.
+Vi provar Fisher's exakta test genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell från grunden i R, du läser oftast in dina data från en fil. Kopiera bara koden och kör den.
 
 ```{r}
 depth.data <- data.frame(
