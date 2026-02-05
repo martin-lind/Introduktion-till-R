@@ -179,6 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#presentera-dina-statistiska-resultat" id="toc-presentera-dina-statistiska-resultat" class="nav-link" data-scroll-target="#presentera-dina-statistiska-resultat">Presentera dina statistiska resultat</a></li>
   <li><a href="#utvärdera-din-modell" id="toc-utvärdera-din-modell" class="nav-link" data-scroll-target="#utvärdera-din-modell">Utvärdera din modell</a></li>
+  <li><a href="#fishers-exakta-test" id="toc-fishers-exakta-test" class="nav-link" data-scroll-target="#fishers-exakta-test">Fisher’s exakta test</a></li>
   <li><a href="#modifiera-din-plot-så-den-blir-publiceringsduglig" id="toc-modifiera-din-plot-så-den-blir-publiceringsduglig" class="nav-link" data-scroll-target="#modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</a></li>
   </ul>
 </nav>
@@ -371,8 +372,11 @@ Species                      old   young
   Corynephorus.canescens 25.5814 34.4186</code></pre>
 </div>
 </div>
+</section>
+<section id="fishers-exakta-test" class="level2">
+<h2 class="anchored" data-anchor-id="fishers-exakta-test">Fisher’s exakta test</h2>
 <p>Om någon av dina frekvenser är lägre än fem kan man inte lita på de p-värden som ett <span class="math inline">\(\chi\)</span> <sup>2</sup> test presenterar. Istället måste vi använda oss av Fisher’s exakta test, genom att använda funktionen <code>fisher.test()</code> istället för<code>chisq.test()</code>. Man har i övrigt samma arbetsgång.</p>
-<p>Vi testar det genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell i R, du läser oftast in dina data från en fil. Kopiera koden och kör den.</p>
+<p>Vi provar Fisher’s exakta test genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell i R, du läser oftast in dina data från en fil. Kopiera koden och kör den.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
