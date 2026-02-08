@@ -1,0 +1,117 @@
+---
+title: "Icke-parametriska tester"
+---
+
+De statistiska test vi behandlat nu är parametriska test, dvs de förutsätter att datan eller residualerna följer vissa fördelningar (exempelvis normalfördelning). Simuleringar visar också att parametriska modeller är väldigt robusta även mot avvikelser i normalförderade residualer (se exempelvis [Knief & Forstmeier 2021](https://link.springer.com/article/10.3758/s13428-021-01587-5)). Om residualerna dessutom avviker från normalfördelning kan det i många fall lösas genom transformeringar (se tidigare tutoriel) elelr genom att använda generaliserade linjära modeller som kan specificera en annan errorstruktur.
+
+Ibland har man dock väldigt "konstiga" data, och speciellt om de samtidigt kommer från små dataset så kan man ibland behöva överväga icke-parametriska metoder.
+
+Icke-parametriska metoder bygger på att värderna rankas, dvs är ett visst värde generellt högre eller lägre än de andra värderna. Testen använder sig därmed inte av de exakta mätvärderna och tappar därmed mycket information (de är svaga test), de har svårare att upptäcka mönster som faktiskt finns och skall därmed bara användas i nödfall.
+
+***Man kan överväga ickeparametriska metoder om:***
+
+-   Responsvariabeln är på *ordinalskala* (ex arters täthet är skattad som ovanlig, vanlig, mycket vanlig), kategorierna är ordnade men går inte att översätta till mätvärden.
+
+-   Responsvariabeln innehåller väldigt många nollvärden
+
+-   Datasetet innehåller några kraftigt avvikande värden (*outliers*) som du litar på och behöver inkludera i datasetet
+
+-   Datasetet är litet och residualerna är långt ifrån normalfördelade
+
+Icke-parametriska test skall ses som ett svagt test som används som en nödlösning i små och avvikande dataset. Många av punkterna ovan kan analyseras med parametriska test om datasetet är stort nog.
+
+## Icke-paramatriska test
+
+De icke-parametriska testen som oftast används är:
+
+-   **Wilcoxons test**: ersätter t-test
+
+-   **Kruskal-Wallis test**: ersätter envägs-anova
+
+-   **Spearman korrelation**: ersätter Pearson-korrelation
+
+## Mann-Whitney-U test
+
+Wilcoxons test (kallas ibland Mann-Whitney U-test) används som ett icke-parametriskt alternativ till t-test
+
+Vi vill undersöka om den sydliga kärrsnäppans häckningsframgång kan förbättras om man har predatorkontroll. VI har därför inventerat antalet ungar hos honor i slumpvis utvalda bon i områden där man haft predatorkontroll, och områden där inga åtgärder gjorts.
+
+### Läs in data
+Ladda ner följande fil [dunlin.txt](data/dunlin.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
+
+Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `dunlin_data.` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
+
+**Glöm inte att dokumentera din kod i ett script,** med kommentarer som förklarar vad du gör! [Se vår tutorial om script](https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler) om du behöver påminnelse om hur man skapar och använder script.
+
+```{r}
+dunlin_data <- read.table("data/dunlin.txt",
+                           header=T,
+                           sep="\t",
+                           dec=",") 
+```
+
+
+### Inspektera data
+
+Börja med att titta på datans struktur med `str()`.
+
+```{r}
+str(dunlin_data)
+```
+
+
+```{r}
+head(dunlin_data)
+```
+
+Det ser ut som om vi har många nollor i datasetet. Låt oss se på ett histogram:
+
+```{r}
+hist(dunlin_data$offspring)
+```
+De flesta honor verkar inte ha fått några ungar. Låt oss se på en QQ-plot som vi även använde i vår tutorial om t-test
+
+```{r}
+qqnorm(dunlin_data$offspring)
+```
+Vi vill att våra värden skall följa en diagonal, men det gör de inte. Vi har ett dataset som inte uppfyller t-testets krav på normalfördelade data, och vi kan inte transformera pg.a. att datasetet mest består av nollvärden som kommer fortsätta att vara nollvärden.
+
+
+### Visualisera datat med en enkel graf
+
+Vi gör en enkel graf med `boxplot()`
+
+```{r}
+boxplot(offspring~treatment, 
+        data = dunlin_data)
+```
+
+Hur tolkar du grafen? Ser det ut som att antalet avkomma skiljer sig åt beroende på om det är predatorkontroll eller ej?
+
+## Statistisk modellering
+
+Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel (beroende variabel) *offspring* beror av vår förklarande variabel (oberoende variabel) *treatment*, med andra ord om antalet avkomma beror av huruvida området haft predatorkontroll eller ej
+
+Vi specificerar en modell med hjälp av funktionen `t.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.garden`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
+
+```{r}
+m.dunlin<-wilcox.test(offspring~treatment,
+                    data=dunlin_data)
+```
+Vi får en varning `Warning: cannot compute exact p-value with ties`. Det betyder att testet upptäcker att vissa värden är samma (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga proble.
+
+### Statistiska resultat
+
+Vi tittar på resultatet genom att skriva in modellens namn och köra den
+
+```{r}
+m.dunlin
+```
+
+Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt  ett p-värde. Vi får inga frigetsgrader i icke-parametriska test
+
+Eftersom vårt p-värde är mindre än 0.05 säger vi att antalet avkommor skiljer sig åt beroende på behandling. Stämmer det om du tittar på din boxplot?
+
+## Presentera din statistiska analys
+
+Den sydliga kärrsnäppan fårt fler avkommor om man tillämpar predatorkontroll än i områden utan predatorkontroll (Wilcoxons test, W = 9.5, p = 0.047).
