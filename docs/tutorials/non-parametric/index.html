@@ -169,7 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#icke-paramatriska-test" id="toc-icke-paramatriska-test" class="nav-link active" data-scroll-target="#icke-paramatriska-test">Icke-paramatriska test</a></li>
-  <li><a href="#mann-whitney-u-test" id="toc-mann-whitney-u-test" class="nav-link" data-scroll-target="#mann-whitney-u-test">Mann-Whitney-U test</a>
+  <li><a href="#wilcoxons-test" id="toc-wilcoxons-test" class="nav-link" data-scroll-target="#wilcoxons-test">Wilcoxons test</a>
   <ul class="collapse">
   <li><a href="#läs-in-data" id="toc-läs-in-data" class="nav-link" data-scroll-target="#läs-in-data">Läs in data</a></li>
   <li><a href="#inspektera-data" id="toc-inspektera-data" class="nav-link" data-scroll-target="#inspektera-data">Inspektera data</a></li>
@@ -205,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <p>De statistiska test vi behandlat nu är parametriska test, dvs de förutsätter att datan eller residualerna följer vissa fördelningar (exempelvis normalfördelning). Simuleringar visar också att parametriska modeller är väldigt robusta även mot avvikelser i normalförderade residualer (se exempelvis <a href="https://link.springer.com/article/10.3758/s13428-021-01587-5">Knief &amp; Forstmeier 2021</a>). Om residualerna dessutom avviker från normalfördelning kan det i många fall lösas genom transformeringar (se tidigare tutoriel) elelr genom att använda generaliserade linjära modeller som kan specificera en annan errorstruktur.</p>
 <p>Ibland har man dock väldigt “konstiga” data, och speciellt om de samtidigt kommer från små dataset så kan man ibland behöva överväga icke-parametriska metoder.</p>
-<p>Icke-parametriska metoder bygger på att värderna rankas, dvs är ett visst värde generellt högre eller lägre än de andra värderna. Testen använder sig därmed inte av de exakta mätvärderna och tappar därmed mycket information (de är svaga test), de har svårare att upptäcka mönster som faktiskt finns och skall därmed bara användas i nödfall.</p>
+<p>Icke-parametriska metoder bygger på att värderna rankas, dvs är ett visst värde generellt högre eller lägre än de andra värderna. Testen använder sig inte av de exakta mätvärderna och tappar därmed mycket information (de är svaga test). Testen har svårare att upptäcka mönster som faktiskt finns och skall därmed bara användas i nödfall.</p>
 <p><strong><em>Man kan överväga ickeparametriska metoder om:</em></strong></p>
 <ul>
 <li><p>Responsvariabeln är på <em>ordinalskala</em> (ex arters täthet är skattad som ovanlig, vanlig, mycket vanlig), kategorierna är ordnade men går inte att översätta till mätvärden.</p></li>
@@ -223,8 +223,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Spearman korrelation</strong>: ersätter Pearson-korrelation</p></li>
 </ul>
 </section>
-<section id="mann-whitney-u-test" class="level2">
-<h2 class="anchored" data-anchor-id="mann-whitney-u-test">Mann-Whitney-U test</h2>
+<section id="wilcoxons-test" class="level2">
+<h2 class="anchored" data-anchor-id="wilcoxons-test">Wilcoxons test</h2>
 <p>Wilcoxons test (kallas ibland Mann-Whitney U-test) används som ett icke-parametriskt alternativ till t-test</p>
 <p>Vi vill undersöka om den sydliga kärrsnäppans häckningsframgång kan förbättras om man har predatorkontroll. VI har därför inventerat antalet ungar hos honor i slumpvis utvalda bon i områden där man haft predatorkontroll, och områden där inga åtgärder gjorts.</p>
 <section id="läs-in-data" class="level3">
@@ -312,7 +312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="statistisk-modellering" class="level2">
 <h2 class="anchored" data-anchor-id="statistisk-modellering">Statistisk modellering</h2>
 <p>Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel (beroende variabel) <em>offspring</em> beror av vår förklarande variabel (oberoende variabel) <em>treatment</em>, med andra ord om antalet avkomma beror av huruvida området haft predatorkontroll eller ej</p>
-<p>Vi specificerar en modell med hjälp av funktionen <code>t.test()</code> och väljer att spara resultatet i ett objekt som vi kallar <code>m.garden</code>. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med <code>m.</code> för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.</p>
+<p>Vi specificerar en modell med hjälp av funktionen <code>wilcox.test()</code> och väljer att spara resultatet i ett objekt som vi kallar <code>m.dunlin</code>.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>

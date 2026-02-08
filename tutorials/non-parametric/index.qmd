@@ -6,7 +6,7 @@ De statistiska test vi behandlat nu är parametriska test, dvs de förutsätter 
 
 Ibland har man dock väldigt "konstiga" data, och speciellt om de samtidigt kommer från små dataset så kan man ibland behöva överväga icke-parametriska metoder.
 
-Icke-parametriska metoder bygger på att värderna rankas, dvs är ett visst värde generellt högre eller lägre än de andra värderna. Testen använder sig därmed inte av de exakta mätvärderna och tappar därmed mycket information (de är svaga test), de har svårare att upptäcka mönster som faktiskt finns och skall därmed bara användas i nödfall.
+Icke-parametriska metoder bygger på att värderna rankas, dvs är ett visst värde generellt högre eller lägre än de andra värderna. Testen använder sig inte av de exakta mätvärderna och tappar därmed mycket information (de är svaga test). Testen har svårare att upptäcka mönster som faktiskt finns och skall därmed bara användas i nödfall.
 
 ***Man kan överväga ickeparametriska metoder om:***
 
@@ -30,7 +30,7 @@ De icke-parametriska testen som oftast används är:
 
 -   **Spearman korrelation**: ersätter Pearson-korrelation
 
-## Mann-Whitney-U test
+## Wilcoxons test
 
 Wilcoxons test (kallas ibland Mann-Whitney U-test) används som ett icke-parametriskt alternativ till t-test
 
@@ -92,7 +92,7 @@ Hur tolkar du grafen? Ser det ut som att antalet avkomma skiljer sig åt beroend
 
 Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel (beroende variabel) *offspring* beror av vår förklarande variabel (oberoende variabel) *treatment*, med andra ord om antalet avkomma beror av huruvida området haft predatorkontroll eller ej
 
-Vi specificerar en modell med hjälp av funktionen `t.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.garden`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
+Vi specificerar en modell med hjälp av funktionen `wilcox.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.dunlin`. 
 
 ```{r}
 m.dunlin<-wilcox.test(offspring~treatment,
