@@ -88,7 +88,7 @@ boxplot(offspring~treatment,
 
 Hur tolkar du grafen? Ser det ut som att antalet avkomma skiljer sig åt beroende på om det är predatorkontroll eller ej?
 
-## Statistisk modellering
+### Statistisk modellering
 
 Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel (beroende variabel) *offspring* beror av vår förklarande variabel (oberoende variabel) *treatment*, med andra ord om antalet avkomma beror av huruvida området haft predatorkontroll eller ej
 
@@ -112,6 +112,73 @@ Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt  ett p-v
 
 Eftersom vårt p-värde är mindre än 0.05 säger vi att antalet avkommor skiljer sig åt beroende på behandling. Stämmer det om du tittar på din boxplot?
 
-## Presentera din statistiska analys
+### Presentera din statistiska analys
 
 Den sydliga kärrsnäppan fårt fler avkommor om man tillämpar predatorkontroll än i områden utan predatorkontroll (Wilcoxons test, W = 9.5, p = 0.047).
+
+## Kruskal Wallis test
+
+Kruskal Wallis test är en ickeparametrisk ersättning till envägs ANOVA. Det är ett svagare och mindre flexibelt test än en vanlig envägs ANOVA och skall bara användas i nödfall.
+
+Vi vill undersöka om täckningsgraden av blåbär skiljer sig åt i tre skogar. Täckningsgraden har skattats enligt Braun-Blanquet-skalan med fem nivåer (1-5) där täckningsgraden ökar från 1 -> 5. Data är därmed ordnade (1 är lägre än 5) men på ordinalskala (kategorierna är inga mätvärden). 
+
+### Läs in data
+
+Ladda ner följande fil [cover.txt](data/cover.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
+
+```{r}
+cover_data <- read.table("data/cover.txt",
+                           header=T,
+                           sep="\t",
+                           dec=",") 
+```
+
+### Inspektera data
+
+Börja med att titta på datans struktur med `str()`.
+
+```{r}
+str(cover_data)
+```
+
+
+```{r}
+head(cover_data)
+```
+### Visualisera datat med en enkel graf
+
+Vi gör en enkel graf med `boxplot()`
+
+```{r}
+boxplot(Cover.cathegory~Forest, 
+        data = cover_data)
+```
+
+Hur tolkar du grafen? Ser det ut som att blåbärens täckningsgrad skiljer sig åt mellan skogarna?
+
+### Statistisk modellering
+
+Vi vill nu göra ett Kruskal Wallis test  för att undersöka om vår responsvariabel (beroende variabel) *Cover.cathegory* beror av vår förklarande variabel (oberoende variabel) *Forest*
+
+Vi specificerar en modell med hjälp av funktionen `kruskal.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.cover`. 
+
+
+```{r}
+m.cover<-kruskal.test(Cover.cathegory~Forest,
+                    data=cover_data)
+```
+
+```{r}
+m.cover
+```
+
+### Post-hoc test
+Vi ahr en signifikant efekt av Forest, d.v.s. täckningsgraden för blåbär skiljer sig åt mellan de olika skogarna. Men vilka skogar skiljer sig åt? Vi behöver göra ett post-hoc test!
+
+```{r}
+library(dunn.test)
+
+dunn.test(cover_data$Cover.cathegory,cover_data$Forest,method="holm")
+```
+
+
