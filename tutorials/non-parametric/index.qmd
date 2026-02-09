@@ -145,6 +145,12 @@ str(cover_data)
 ```{r}
 head(cover_data)
 ```
+Låt oss se på ett histogram
+```{r}
+hist(cover_data$Cover.cathegory)
+```
+Vi ser att våra data inte ser ut att följa någon normalfördelning, och dessutom vet vi att det är *ordinaldata*, dvs vår responsvariabel är inte mätvärden utan i ordnade kategorier. Bara det senare faktumet gör att vi inte skall använda oss av en vanlig envägs-ANOVA. Icke-normalfördelat data är mindre viktigt, eftersom en envägs ANOVA kräver att det är *residualerna* som skall vara normalfördelade.
+
 ### Visualisera datat med en enkel graf
 
 Vi gör en enkel graf med `boxplot()`
@@ -173,7 +179,11 @@ m.cover
 ```
 
 ### Post-hoc test
-Vi ahr en signifikant efekt av Forest, d.v.s. täckningsgraden för blåbär skiljer sig åt mellan de olika skogarna. Men vilka skogar skiljer sig åt? Vi behöver göra ett post-hoc test!
+Vi har en signifikant efekt av Forest, d.v.s. täckningsgraden för blåbär skiljer sig åt mellan de olika skogarna. Men vilka skogar skiljer sig åt? Vi behöver göra ett post-hoc test! Om vi inte hade haft en signifikant effekt skall vi däremot inte göra ett post-hoc test.
+
+När man gör ett posthoc-test på en icke-parametrisk envägs-ANOVA använder man sig av *Dunnets Test*, vilket finns tillgängligt i paketet **dunn.test**.  Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("dunn.test")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
+
+När vi läst in paketet använder vi oss av funktionen `dunn.test()`. Först anger vi vår responsvariabel, och det gör vi enligt formeln **`Datatset$Variabel`**, vilket i vårat fall blir `cover_data$Cover.cathegory`. Efter det anger vi vår förklarande faktor på samma sätt, vilket blir `cover_data$Forest`, och slutligen anger vi metoden för att korrigera p-värden för multipla test. Vanligt är att använda sig av *Holm's metod*, anges med `method="holm"`.
 
 ```{r}
 library(dunn.test)
@@ -181,4 +191,12 @@ library(dunn.test)
 dunn.test(cover_data$Cover.cathegory,cover_data$Forest,method="holm")
 ```
 
+Vi får en tabell med jämförelser. Om vi börjar med *Kolumn A* och *Rad B* får vi p-värdet `0.0010.` Det betyder att täckningsgraden för blåber skiljer sig åt mellan skogarna A och B. 
 
+*Kolumn A* och *rad C* ger ett p-värde på `0.0971.` Täckningsgradenb skiljer sig alltså **inte** åt mellan skogarna A och C.
+
+*Kolumn B* och *rad C* ger ett p-värde på `0.0343.` Täckningsgraden av blåbär skiljer soig åt mellan skogarna B och C.
+
+### Presentera din statistiska analys
+
+Täckningsgraden av blåbär skiljer sig åt mellan de olika skogarna (Kruskal Wallis test, $\chi$ ^2^ = 11.883,d.f. = 2, p = 0.003). Pst-hoc analys visar att täckningsgraden är högre i skog B än i skog A (Dunnet's test, p = 0.001) och C (Dunnet's test, p = 0.034). Täckningsgraden skiljer sig inte åt mellan skog A och C (Dunnet's test, p = 0.097).

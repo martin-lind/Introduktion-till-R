@@ -102,11 +102,13 @@ Vi kan se det **förväntade antalet** i varje kategori genom att ange `$expecte
 ```{r}
 m.dunegrass$expected
 ```
+
 Vi kan jämföra det med våra **observerade frekvenser**, som vi får fram genom att ange `$observed` efter modellnamnet.
 
 ```{r}
 m.dunegrass$observed
 ```
+
 Vi ser att det är fler observerade `Corynephorus.canescens` i gamla dyner är förväntat, och fler `Ammophila.arenaria` i unga dyner än förväntat.
 
 ## Presentera dina statistiska resultat
@@ -123,7 +125,7 @@ m.dunegrass$expected
 
 ## Fisher's exakta test
 
-Om någon av dina förväntade frekvenser är lägre än fem kan man inte lita på de p-värden som ett $\chi$ ^2^ test presenterar. Istället måste vi använda oss av Fisher's exakta test, genom att använda funktionen `fisher.test()` istället för` chisq.test()`. Man har i övrigt samma arbetsgång.
+Om någon av dina förväntade frekvenser är lägre än fem kan man inte lita på de p-värden som ett $\chi$ ^2^ test presenterar. Istället måste vi använda oss av Fisher's exakta test, genom att använda funktionen `fisher.test()` istället för`chisq.test()`. Man har i övrigt samma arbetsgång.
 
 Vi provar Fisher's exakta test genom att först skapa en korstabell med hanars och honors förekomst på olika djup. Du behöver inte lära dig koden för att skapa en korstabell från grunden i R, du läser oftast in dina data från en fil. Kopiera bara koden och kör den.
 
@@ -138,6 +140,7 @@ colnames(depth.data) <- c("Male", "Female")
 
 depth.data
 ```
+
 Om vi använder `chisq.test()` får vi en varning:
 
 ```{r}
@@ -156,6 +159,7 @@ Vi använder oss därför av Fisher´s exakta test.
 m.depth.fisher <- fisher.test(depth.data)
 m.depth.fisher
 ```
+
 Vi anger endast ett p-värde om vi använder Fisher´s exakta test.
 
 ## Modifiera din plot så den blir publiceringsduglig
