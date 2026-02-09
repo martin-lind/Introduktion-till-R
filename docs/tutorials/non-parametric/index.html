@@ -188,6 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#post-hoc-test" id="toc-post-hoc-test" class="nav-link" data-scroll-target="#post-hoc-test">Post-hoc test</a></li>
   <li><a href="#presentera-din-statistiska-analys-1" id="toc-presentera-din-statistiska-analys-1" class="nav-link" data-scroll-target="#presentera-din-statistiska-analys-1">Presentera din statistiska analys</a></li>
   </ul></li>
+  <li><a href="#test-för-normalfördelning" id="toc-test-för-normalfördelning" class="nav-link" data-scroll-target="#test-för-normalfördelning">Test för normalfördelning</a></li>
   </ul>
 </nav>
     </div>
@@ -216,12 +217,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Icke-parametriska metoder bygger på att värderna rankas, dvs är ett visst värde generellt högre eller lägre än de andra värderna. Testen använder sig inte av de exakta mätvärderna och tappar därmed mycket information (de är svaga test). Testen har svårare att upptäcka mönster som faktiskt finns och skall därmed bara användas i nödfall.</p>
 <p><strong><em>Man kan överväga ickeparametriska metoder om:</em></strong></p>
 <ul>
-<li><p>Responsvariabeln är på <em>ordinalskala</em> (ex arters täthet är skattad som ovanlig, vanlig, mycket vanlig), kategorierna är ordnade men går inte att översätta till mätvärden.</p></li>
+<li><p>Responsvariabeln är på <em>ordinalskala</em> (till exempel att arters täthet är skattad som ovanlig, vanlig, mycket vanlig), kategorierna är därmed ordnade men går inte att översätta till mätvärden</p></li>
 <li><p>Responsvariabeln innehåller väldigt många nollvärden</p></li>
 <li><p>Datasetet innehåller några kraftigt avvikande värden (<em>outliers</em>) som du litar på och behöver inkludera i datasetet</p></li>
 <li><p>Datasetet är litet och residualerna är långt ifrån normalfördelade</p></li>
 </ul>
-<p>Icke-parametriska test skall ses som ett svagt test som används som en nödlösning i små och avvikande dataset. Många av punkterna ovan kan analyseras med parametriska test om datasetet är stort nog.</p>
+<p>Icke-parametriska test skall ses som ett svagt test som används som en nödlösning i små och avvikande dataset. Data som uppfyller många av punkterna ovan kan analyseras med parametriska test om datasetet är stort nog.</p>
 <section id="icke-paramatriska-test" class="level2">
 <h2 class="anchored" data-anchor-id="icke-paramatriska-test">Icke-paramatriska test</h2>
 <p>De icke-parametriska testen som oftast används är:</p>
@@ -234,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="wilcoxons-test" class="level2">
 <h2 class="anchored" data-anchor-id="wilcoxons-test">Wilcoxons test</h2>
 <p>Wilcoxons test (kallas ibland Mann-Whitney U-test) används som ett icke-parametriskt alternativ till t-test</p>
-<p>Vi vill undersöka om den sydliga kärrsnäppans häckningsframgång kan förbättras om man har predatorkontroll. VI har därför inventerat antalet ungar hos honor i slumpvis utvalda bon i områden där man haft predatorkontroll, och områden där inga åtgärder gjorts.</p>
+<p>Vi vill undersöka om den sydliga kärrsnäppans häckningsframgång kan förbättras om man har predatorkontroll. Vi har därför inventerat antalet ungar hos honor i slumpvis utvalda bon i områden där man haft predatorkontroll, och områden där inga åtgärder gjorts.</p>
 <section id="läs-in-data" class="level3">
 <h3 class="anchored" data-anchor-id="läs-in-data">Läs in data</h3>
 <p>Ladda ner följande fil <a href="data/dunlin.txt">dunlin.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
@@ -331,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 compute exact p-value with ties</code></pre>
 </div>
 </div>
-<p>Vi får en varning <code>Warning: cannot compute exact p-value with ties</code>. Det betyder att testet upptäcker att vissa värden är samma (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga proble.</p>
+<p>Vi får en varning <code>Warning: cannot compute exact p-value with ties</code>. Det betyder att testet upptäcker att vissa värden är samma (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga problem.</p>
 </section>
 <section id="statistiska-resultat" class="level3">
 <h3 class="anchored" data-anchor-id="statistiska-resultat">Statistiska resultat</h3>
@@ -350,7 +351,7 @@ W = 9.5, p-value = 0.04704
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
-<p>Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt ett p-värde. Vi får inga frigetsgrader i icke-parametriska test</p>
+<p>Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt ett p-värde. Vi får inga frigetsgrader i det här testet.</p>
 <p>Eftersom vårt p-värde är mindre än 0.05 säger vi att antalet avkommor skiljer sig åt beroende på behandling. Stämmer det om du tittar på din boxplot?</p>
 </section>
 <section id="presentera-din-statistiska-analys" class="level3">
@@ -489,16 +490,19 @@ alpha = 0.05
 Reject Ho if p &lt;= alpha/2</code></pre>
 </div>
 </div>
-<p>Vi får en tabell med jämförelser. Om vi börjar med <em>Kolumn A</em> och <em>Rad B</em> får vi p-värdet <code>0.0010.</code> Det betyder att täckningsgraden för blåber skiljer sig åt mellan skogarna A och B.</p>
-<p><em>Kolumn A</em> och <em>rad C</em> ger ett p-värde på <code>0.0971.</code> Täckningsgradenb skiljer sig alltså <strong>inte</strong> åt mellan skogarna A och C.</p>
-<p><em>Kolumn B</em> och <em>rad C</em> ger ett p-värde på <code>0.0343.</code> Täckningsgraden av blåbär skiljer soig åt mellan skogarna B och C.</p>
+<p>Vi får en tabell med jämförelser. Om vi börjar med <em>Kolumn A</em> och <em>Rad B</em> får vi p-värdet <code>0.0010.</code> Det betyder att täckningsgraden för blåbär skiljer sig åt mellan skogarna A och B.</p>
+<p><em>Kolumn A</em> och <em>rad C</em> ger ett p-värde på <code>0.0971.</code> Täckningsgraden skiljer sig alltså <strong>inte</strong> åt mellan skogarna A och C.</p>
+<p><em>Kolumn B</em> och <em>rad C</em> ger ett p-värde på <code>0.0343.</code> Täckningsgraden av blåbär skiljer sig åt mellan skogarna B och C.</p>
 </section>
 <section id="presentera-din-statistiska-analys-1" class="level3">
 <h3 class="anchored" data-anchor-id="presentera-din-statistiska-analys-1">Presentera din statistiska analys</h3>
 <p>Täckningsgraden av blåbär skiljer sig åt mellan de olika skogarna (Kruskal Wallis test, <span class="math inline">\(\chi\)</span> <sup>2</sup> = 11.883,d.f. = 2, p = 0.003). Pst-hoc analys visar att täckningsgraden är högre i skog B än i skog A (Dunnet’s test, p = 0.001) och C (Dunnet’s test, p = 0.034). Täckningsgraden skiljer sig inte åt mellan skog A och C (Dunnet’s test, p = 0.097).</p>
-
-
 </section>
+</section>
+<section id="test-för-normalfördelning" class="level2">
+<h2 class="anchored" data-anchor-id="test-för-normalfördelning">Test för normalfördelning</h2>
+
+
 </section>
 
 </main> <!-- /main -->

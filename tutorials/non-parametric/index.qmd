@@ -10,7 +10,7 @@ Icke-parametriska metoder bygger på att värderna rankas, dvs är ett visst vä
 
 ***Man kan överväga ickeparametriska metoder om:***
 
--   Responsvariabeln är på *ordinalskala* (ex arters täthet är skattad som ovanlig, vanlig, mycket vanlig), kategorierna är ordnade men går inte att översätta till mätvärden.
+-   Responsvariabeln är på *ordinalskala* (till exempel att arters täthet är skattad som ovanlig, vanlig, mycket vanlig), kategorierna är därmed ordnade men går inte att översätta till mätvärden
 
 -   Responsvariabeln innehåller väldigt många nollvärden
 
@@ -18,7 +18,7 @@ Icke-parametriska metoder bygger på att värderna rankas, dvs är ett visst vä
 
 -   Datasetet är litet och residualerna är långt ifrån normalfördelade
 
-Icke-parametriska test skall ses som ett svagt test som används som en nödlösning i små och avvikande dataset. Många av punkterna ovan kan analyseras med parametriska test om datasetet är stort nog.
+Icke-parametriska test skall ses som ett svagt test som används som en nödlösning i små och avvikande dataset. Data som uppfyller många av punkterna ovan kan analyseras med parametriska test om datasetet är stort nog.
 
 ## Icke-paramatriska test
 
@@ -34,7 +34,7 @@ De icke-parametriska testen som oftast används är:
 
 Wilcoxons test (kallas ibland Mann-Whitney U-test) används som ett icke-parametriskt alternativ till t-test
 
-Vi vill undersöka om den sydliga kärrsnäppans häckningsframgång kan förbättras om man har predatorkontroll. VI har därför inventerat antalet ungar hos honor i slumpvis utvalda bon i områden där man haft predatorkontroll, och områden där inga åtgärder gjorts.
+Vi vill undersöka om den sydliga kärrsnäppans häckningsframgång kan förbättras om man har predatorkontroll. Vi har därför inventerat antalet ungar hos honor i slumpvis utvalda bon i områden där man haft predatorkontroll, och områden där inga åtgärder gjorts.
 
 ### Läs in data
 Ladda ner följande fil [dunlin.txt](data/dunlin.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
@@ -98,7 +98,7 @@ Vi specificerar en modell med hjälp av funktionen `wilcox.test()` och väljer a
 m.dunlin<-wilcox.test(offspring~treatment,
                     data=dunlin_data)
 ```
-Vi får en varning `Warning: cannot compute exact p-value with ties`. Det betyder att testet upptäcker att vissa värden är samma (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga proble.
+Vi får en varning `Warning: cannot compute exact p-value with ties`. Det betyder att testet upptäcker att vissa värden är samma (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga problem.
 
 ### Statistiska resultat
 
@@ -108,7 +108,7 @@ Vi tittar på resultatet genom att skriva in modellens namn och köra den
 m.dunlin
 ```
 
-Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt  ett p-värde. Vi får inga frigetsgrader i icke-parametriska test
+Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt  ett p-värde. Vi får inga frigetsgrader i det här testet.
 
 Eftersom vårt p-värde är mindre än 0.05 säger vi att antalet avkommor skiljer sig åt beroende på behandling. Stämmer det om du tittar på din boxplot?
 
@@ -191,12 +191,15 @@ library(dunn.test)
 dunn.test(cover_data$Cover.cathegory,cover_data$Forest,method="holm")
 ```
 
-Vi får en tabell med jämförelser. Om vi börjar med *Kolumn A* och *Rad B* får vi p-värdet `0.0010.` Det betyder att täckningsgraden för blåber skiljer sig åt mellan skogarna A och B. 
+Vi får en tabell med jämförelser. Om vi börjar med *Kolumn A* och *Rad B* får vi p-värdet `0.0010.` Det betyder att täckningsgraden för blåbär skiljer sig åt mellan skogarna A och B. 
 
-*Kolumn A* och *rad C* ger ett p-värde på `0.0971.` Täckningsgradenb skiljer sig alltså **inte** åt mellan skogarna A och C.
+*Kolumn A* och *rad C* ger ett p-värde på `0.0971.` Täckningsgraden skiljer sig alltså **inte** åt mellan skogarna A och C.
 
-*Kolumn B* och *rad C* ger ett p-värde på `0.0343.` Täckningsgraden av blåbär skiljer soig åt mellan skogarna B och C.
+*Kolumn B* och *rad C* ger ett p-värde på `0.0343.` Täckningsgraden av blåbär skiljer sig åt mellan skogarna B och C.
 
 ### Presentera din statistiska analys
 
 Täckningsgraden av blåbär skiljer sig åt mellan de olika skogarna (Kruskal Wallis test, $\chi$ ^2^ = 11.883,d.f. = 2, p = 0.003). Pst-hoc analys visar att täckningsgraden är högre i skog B än i skog A (Dunnet's test, p = 0.001) och C (Dunnet's test, p = 0.034). Täckningsgraden skiljer sig inte åt mellan skog A och C (Dunnet's test, p = 0.097).
+
+## Test för normalfördelning
+
