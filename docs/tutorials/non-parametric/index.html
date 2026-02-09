@@ -174,12 +174,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#läs-in-data" id="toc-läs-in-data" class="nav-link" data-scroll-target="#läs-in-data">Läs in data</a></li>
   <li><a href="#inspektera-data" id="toc-inspektera-data" class="nav-link" data-scroll-target="#inspektera-data">Inspektera data</a></li>
   <li><a href="#visualisera-datat-med-en-enkel-graf" id="toc-visualisera-datat-med-en-enkel-graf" class="nav-link" data-scroll-target="#visualisera-datat-med-en-enkel-graf">Visualisera datat med en enkel graf</a></li>
-  </ul></li>
-  <li><a href="#statistisk-modellering" id="toc-statistisk-modellering" class="nav-link" data-scroll-target="#statistisk-modellering">Statistisk modellering</a>
-  <ul class="collapse">
+  <li><a href="#statistisk-modellering" id="toc-statistisk-modellering" class="nav-link" data-scroll-target="#statistisk-modellering">Statistisk modellering</a></li>
   <li><a href="#statistiska-resultat" id="toc-statistiska-resultat" class="nav-link" data-scroll-target="#statistiska-resultat">Statistiska resultat</a></li>
-  </ul></li>
   <li><a href="#presentera-din-statistiska-analys" id="toc-presentera-din-statistiska-analys" class="nav-link" data-scroll-target="#presentera-din-statistiska-analys">Presentera din statistiska analys</a></li>
+  </ul></li>
+  <li><a href="#kruskal-wallis-test" id="toc-kruskal-wallis-test" class="nav-link" data-scroll-target="#kruskal-wallis-test">Kruskal Wallis test</a>
+  <ul class="collapse">
+  <li><a href="#läs-in-data-1" id="toc-läs-in-data-1" class="nav-link" data-scroll-target="#läs-in-data-1">Läs in data</a></li>
+  <li><a href="#inspektera-data-1" id="toc-inspektera-data-1" class="nav-link" data-scroll-target="#inspektera-data-1">Inspektera data</a></li>
+  <li><a href="#visualisera-datat-med-en-enkel-graf-1" id="toc-visualisera-datat-med-en-enkel-graf-1" class="nav-link" data-scroll-target="#visualisera-datat-med-en-enkel-graf-1">Visualisera datat med en enkel graf</a></li>
+  <li><a href="#statistisk-modellering-1" id="toc-statistisk-modellering-1" class="nav-link" data-scroll-target="#statistisk-modellering-1">Statistisk modellering</a></li>
+  <li><a href="#post-hoc-test" id="toc-post-hoc-test" class="nav-link" data-scroll-target="#post-hoc-test">Post-hoc test</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -308,9 +314,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Hur tolkar du grafen? Ser det ut som att antalet avkomma skiljer sig åt beroende på om det är predatorkontroll eller ej?</p>
 </section>
-</section>
-<section id="statistisk-modellering" class="level2">
-<h2 class="anchored" data-anchor-id="statistisk-modellering">Statistisk modellering</h2>
+<section id="statistisk-modellering" class="level3">
+<h3 class="anchored" data-anchor-id="statistisk-modellering">Statistisk modellering</h3>
 <p>Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel (beroende variabel) <em>offspring</em> beror av vår förklarande variabel (oberoende variabel) <em>treatment</em>, med andra ord om antalet avkomma beror av huruvida området haft predatorkontroll eller ej</p>
 <p>Vi specificerar en modell med hjälp av funktionen <code>wilcox.test()</code> och väljer att spara resultatet i ett objekt som vi kallar <code>m.dunlin</code>.</p>
 <div class="cell">
@@ -325,6 +330,7 @@ compute exact p-value with ties</code></pre>
 </div>
 </div>
 <p>Vi får en varning <code>Warning: cannot compute exact p-value with ties</code>. Det betyder att testet upptäcker att vissa värden är samma (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga proble.</p>
+</section>
 <section id="statistiska-resultat" class="level3">
 <h3 class="anchored" data-anchor-id="statistiska-resultat">Statistiska resultat</h3>
 <p>Vi tittar på resultatet genom att skriva in modellens namn och köra den</p>
@@ -345,12 +351,132 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p>Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt ett p-värde. Vi får inga frigetsgrader i icke-parametriska test</p>
 <p>Eftersom vårt p-värde är mindre än 0.05 säger vi att antalet avkommor skiljer sig åt beroende på behandling. Stämmer det om du tittar på din boxplot?</p>
 </section>
-</section>
-<section id="presentera-din-statistiska-analys" class="level2">
-<h2 class="anchored" data-anchor-id="presentera-din-statistiska-analys">Presentera din statistiska analys</h2>
+<section id="presentera-din-statistiska-analys" class="level3">
+<h3 class="anchored" data-anchor-id="presentera-din-statistiska-analys">Presentera din statistiska analys</h3>
 <p>Den sydliga kärrsnäppan fårt fler avkommor om man tillämpar predatorkontroll än i områden utan predatorkontroll (Wilcoxons test, W = 9.5, p = 0.047).</p>
+</section>
+</section>
+<section id="kruskal-wallis-test" class="level2">
+<h2 class="anchored" data-anchor-id="kruskal-wallis-test">Kruskal Wallis test</h2>
+<p>Kruskal Wallis test är en ickeparametrisk ersättning till envägs ANOVA. Det är ett svagare och mindre flexibelt test än en vanlig envägs ANOVA och skall bara användas i nödfall.</p>
+<p>Vi vill undersöka om täckningsgraden av blåbär skiljer sig åt i tre skogar. Täckningsgraden har skattats enligt Braun-Blanquet-skalan med fem nivåer (1-5) där täckningsgraden ökar från 1 -&gt; 5. Data är därmed ordnade (1 är lägre än 5) men på ordinalskala (kategorierna är inga mätvärden).</p>
+<section id="läs-in-data-1" class="level3">
+<h3 class="anchored" data-anchor-id="läs-in-data-1">Läs in data</h3>
+<p>Ladda ner följande fil <a href="data/cover.txt">cover.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cover_data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/cover.txt"</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">header=</span>T,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dec=</span><span class="st">","</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="inspektera-data-1" class="level3">
+<h3 class="anchored" data-anchor-id="inspektera-data-1">Inspektera data</h3>
+<p>Börja med att titta på datans struktur med <code>str()</code>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cover_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   30 obs. of  2 variables:
+ $ Cover.cathegory: int  1 2 1 4 3 2 3 1 1 2 ...
+ $ Forest         : chr  "A" "A" "A" "A" ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cover_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Cover.cathegory Forest
+1               1      A
+2               2      A
+3               1      A
+4               4      A
+5               3      A
+6               2      A</code></pre>
+</div>
+</div>
+</section>
+<section id="visualisera-datat-med-en-enkel-graf-1" class="level3">
+<h3 class="anchored" data-anchor-id="visualisera-datat-med-en-enkel-graf-1">Visualisera datat med en enkel graf</h3>
+<p>Vi gör en enkel graf med <code>boxplot()</code></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Cover.cathegory<span class="sc">~</span>Forest, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> cover_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Hur tolkar du grafen? Ser det ut som att blåbärens täckningsgrad skiljer sig åt mellan skogarna?</p>
+</section>
+<section id="statistisk-modellering-1" class="level3">
+<h3 class="anchored" data-anchor-id="statistisk-modellering-1">Statistisk modellering</h3>
+<p>Vi vill nu göra ett Kruskal Wallis test för att undersöka om vår responsvariabel (beroende variabel) <em>Cover.cathegory</em> beror av vår förklarande variabel (oberoende variabel) <em>Forest</em></p>
+<p>Vi specificerar en modell med hjälp av funktionen <code>kruskal.test()</code> och väljer att spara resultatet i ett objekt som vi kallar <code>m.cover</code>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m.cover<span class="ot">&lt;-</span><span class="fu">kruskal.test</span>(Cover.cathegory<span class="sc">~</span>Forest,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data=</span>cover_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m.cover</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  Cover.cathegory by Forest
+Kruskal-Wallis chi-squared = 11.883, df = 2, p-value = 0.002629</code></pre>
+</div>
+</div>
+</section>
+<section id="post-hoc-test" class="level3">
+<h3 class="anchored" data-anchor-id="post-hoc-test">Post-hoc test</h3>
+<p>Vi ahr en signifikant efekt av Forest, d.v.s. täckningsgraden för blåbär skiljer sig åt mellan de olika skogarna. Men vilka skogar skiljer sig åt? Vi behöver göra ett post-hoc test!</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dunn.test</span>(cover_data<span class="sc">$</span>Cover.cathegory,cover_data<span class="sc">$</span>Forest,<span class="at">method=</span><span class="st">"holm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Kruskal-Wallis rank sum test
+
+data: x and group
+Kruskal-Wallis chi-squared = 11.8825, df = 2, p-value = 0
+
+                           Comparison of x by group                            
+                                    (Holm)                                     
+Col Mean-|
+Row Mean |          A          B
+---------+----------------------
+       B |  -3.414601
+         |    0.0010*
+         |
+       C |  -1.298327   2.116273
+         |     0.0971     0.0343
+
+alpha = 0.05
+Reject Ho if p &lt;= alpha/2</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
