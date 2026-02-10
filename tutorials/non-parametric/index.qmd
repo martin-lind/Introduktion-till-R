@@ -239,8 +239,16 @@ hist(spearman_data$B)
 ```
 Variabel B ser lite bättre ut, men det är som helhet ett dataset som avviker kraftigt från normalfördelningen. Att analysera det med en parametrisk korrelation bryter mot dess antagande om normalfördelning, och då kan vi inte lite på en sådan korrelations resultat.
 
+### Visualisera datat
+Som vanligt gör vi en graf innan vi börjar med vår statistiska modellering
+
+```{r}
+plot(B ~A, data = spearman_data)
+```
+Vi ser i grafen att det eventuellt är en positiv korrelation mellan A och B, men också att speciellt variabel A har en underlig fördelning med mest låga eller höga värden, vilket vi också såg i vårt histogram.
+
 ### Statistisk modellering
-Vi gör nu en icke-parametrisk korrelation, och den har stora likheter med correlationen vi tidigare gjort. Vi använder oss fortfarande av funktionen `cor.test()`, den enda skillnaden är att vi anger `method = "s"` (står för Spearman) där vi tidigare angett `"p"`
+Vi gör nu en icke-parametrisk korrelation, och den har stora likheter med korrelationen vi tidigare gjort. Vi använder oss fortfarande av funktionen `cor.test()`, den enda skillnaden är att vi anger `method = "s"` (står för Spearman) där vi tidigare angett `"p"`
 ```{r}
 m.spearman <-cor.test(spearman_data$A, spearman_data$B, method = "s")
 ```
