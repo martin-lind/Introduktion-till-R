@@ -496,11 +496,60 @@ Reject Ho if p &lt;= alpha/2</code></pre>
 </section>
 <section id="presentera-din-statistiska-analys-1" class="level3">
 <h3 class="anchored" data-anchor-id="presentera-din-statistiska-analys-1">Presentera din statistiska analys</h3>
-<p>Täckningsgraden av blåbär skiljer sig åt mellan de olika skogarna (Kruskal Wallis test, <span class="math inline">\(\chi\)</span> <sup>2</sup> = 11.883,d.f. = 2, p = 0.003). Pst-hoc analys visar att täckningsgraden är högre i skog B än i skog A (Dunnet’s test, p = 0.001) och C (Dunnet’s test, p = 0.034). Täckningsgraden skiljer sig inte åt mellan skog A och C (Dunnet’s test, p = 0.097).</p>
+<p>Täckningsgraden av blåbär skiljer sig åt mellan de olika skogarna (Kruskal Wallis test, <span class="math inline">\(\chi\)</span> <sup>2</sup> = 11.883,d.f. = 2, p = 0.003). Post-hoc analys visar att täckningsgraden är högre i skog B än i skog A (Dunnet’s test, p = 0.001) och C (Dunnet’s test, p = 0.034). Täckningsgraden skiljer sig inte åt mellan skog A och C (Dunnet’s test, p = 0.097).</p>
 </section>
 </section>
 <section id="test-för-normalfördelning" class="level2">
 <h2 class="anchored" data-anchor-id="test-för-normalfördelning">Test för normalfördelning</h2>
+<p>Test för normalfördelning</p>
+<p>Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du nödvändigtvis vill ha ett test så använd Shapiro Wilk’s test:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(dunlin_data<span class="sc">$</span>offspring)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  dunlin_data$offspring
+W = 0.79047, p-value = 0.003814</code></pre>
+</div>
+</div>
+<p>Om testet är icke-signifikant betyder det att data inte avviker från normalfördelning (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.</p>
+<p>Som ett exempel på problemen med test för normalfördelning så simulerar jag 2000 värden från en normalfördelning:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">62874</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">50</span>, <span class="at">n =</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Vi gör sedan ett histogram - det ser extremt normalfördelat ut!</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(simdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Men tack vare att vi har så många värden så tycker Shapiro Wilk’s test att våra data (som kommer från en normalfördelning) signifikant avviker från normalfördelningen.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(simdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  simdata
+W = 0.99833, p-value = 0.04167</code></pre>
+</div>
+</div>
 
 
 </section>

@@ -199,7 +199,36 @@ Vi får en tabell med jämförelser. Om vi börjar med *Kolumn A* och *Rad B* f�
 
 ### Presentera din statistiska analys
 
-Täckningsgraden av blåbär skiljer sig åt mellan de olika skogarna (Kruskal Wallis test, $\chi$ ^2^ = 11.883,d.f. = 2, p = 0.003). Pst-hoc analys visar att täckningsgraden är högre i skog B än i skog A (Dunnet's test, p = 0.001) och C (Dunnet's test, p = 0.034). Täckningsgraden skiljer sig inte åt mellan skog A och C (Dunnet's test, p = 0.097).
+Täckningsgraden av blåbär skiljer sig åt mellan de olika skogarna (Kruskal Wallis test, $\chi$ ^2^ = 11.883,d.f. = 2, p = 0.003). Post-hoc analys visar att täckningsgraden är högre i skog B än i skog A (Dunnet's test, p = 0.001) och C (Dunnet's test, p = 0.034). Täckningsgraden skiljer sig inte åt mellan skog A och C (Dunnet's test, p = 0.097).
 
 ## Test för normalfördelning
+Test för normalfördelning
+
+Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du nödvändigtvis vill ha ett test så använd Shapiro Wilk's test:
+
+```{r}
+shapiro.test(dunlin_data$offspring)
+```
+
+Om testet är icke-signifikant betyder det att data inte avviker från normalfördelning (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.
+
+Som ett exempel på problemen med test för normalfördelning så simulerar jag 2000 värden från en normalfördelning:
+
+```{r}
+set.seed(62874)
+
+simdata <- rnorm(mean = 100, sd = 50, n = 2000)
+
+```
+Vi gör sedan ett histogram - det ser extremt normalfördelat ut!
+
+```{r}
+hist(simdata)
+```
+
+Men tack vare att vi har så många värden så tycker Shapiro Wilk's test att våra data (som kommer från en normalfördelning) signifikant avviker från normalfördelningen.
+```{r}
+shapiro.test(simdata)
+```
+
 
