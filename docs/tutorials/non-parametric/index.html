@@ -188,6 +188,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#post-hoc-test" id="toc-post-hoc-test" class="nav-link" data-scroll-target="#post-hoc-test">Post-hoc test</a></li>
   <li><a href="#presentera-din-statistiska-analys-1" id="toc-presentera-din-statistiska-analys-1" class="nav-link" data-scroll-target="#presentera-din-statistiska-analys-1">Presentera din statistiska analys</a></li>
   </ul></li>
+  <li><a href="#spearman-korrelation" id="toc-spearman-korrelation" class="nav-link" data-scroll-target="#spearman-korrelation">Spearman-korrelation</a>
+  <ul class="collapse">
+  <li><a href="#läs-in-data-2" id="toc-läs-in-data-2" class="nav-link" data-scroll-target="#läs-in-data-2">Läs in data</a></li>
+  <li><a href="#inspektera-data-2" id="toc-inspektera-data-2" class="nav-link" data-scroll-target="#inspektera-data-2">Inspektera data</a></li>
+  <li><a href="#statistisk-modellering-2" id="toc-statistisk-modellering-2" class="nav-link" data-scroll-target="#statistisk-modellering-2">Statistisk modellering</a></li>
+  <li><a href="#resultat" id="toc-resultat" class="nav-link" data-scroll-target="#resultat">Resultat</a></li>
+  <li><a href="#skillnad-i-resultat-mot-parametrisk-korelation" id="toc-skillnad-i-resultat-mot-parametrisk-korelation" class="nav-link" data-scroll-target="#skillnad-i-resultat-mot-parametrisk-korelation">Skillnad i resultat mot parametrisk korelation</a></li>
+  </ul></li>
   <li><a href="#test-för-normalfördelning" id="toc-test-för-normalfördelning" class="nav-link" data-scroll-target="#test-för-normalfördelning">Test för normalfördelning</a></li>
   </ul>
 </nav>
@@ -499,14 +507,138 @@ Reject Ho if p &lt;= alpha/2</code></pre>
 <p>Täckningsgraden av blåbär skiljer sig åt mellan de olika skogarna (Kruskal Wallis test, <span class="math inline">\(\chi\)</span> <sup>2</sup> = 11.883,d.f. = 2, p = 0.003). Post-hoc analys visar att täckningsgraden är högre i skog B än i skog A (Dunnet’s test, p = 0.001) och C (Dunnet’s test, p = 0.034). Täckningsgraden skiljer sig inte åt mellan skog A och C (Dunnet’s test, p = 0.097).</p>
 </section>
 </section>
+<section id="spearman-korrelation" class="level2">
+<h2 class="anchored" data-anchor-id="spearman-korrelation">Spearman-korrelation</h2>
+<p>En vanlig korrelationsanalys som vi tidigare gjort kräver att datat är normalfördelat, och även om det kan hantera mindre avvikelser från det så har man ibland data som inte alls är normalfördelat. Då använder man sig av Spearman-korrelation, som är en icke-parametrisk korrelationsanalys som baserar sig på datats rank och inte på de faktiska värderna. Därmed är det mindre kraftfullt än en parametrisk korrelation, men kan hantera avvikande data.</p>
+<section id="läs-in-data-2" class="level3">
+<h3 class="anchored" data-anchor-id="läs-in-data-2">Läs in data</h3>
+<p>Ladda ner följande fil <a href="data/spearman.txt">spearman.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>spearman_data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/spearman.txt"</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">header=</span>T,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dec=</span><span class="st">","</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="inspektera-data-2" class="level3">
+<h3 class="anchored" data-anchor-id="inspektera-data-2">Inspektera data</h3>
+<p>Börja med att titta på datans struktur med <code>str()</code>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(spearman_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   20 obs. of  2 variables:
+ $ A: num  0.664 0.941 0.768 0.912 0.925 ...
+ $ B: num  0.778 0.61 0.578 0.974 0.656 ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spearman_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          A         B
+1 0.6640666 0.7782157
+2 0.9413902 0.6104316
+3 0.7678628 0.5783860
+4 0.9118415 0.9743616
+5 0.9249759 0.6561892
+6 0.7146678 0.9645745</code></pre>
+</div>
+</div>
+<p>Låt oss se på ett histogram över variabel <code>A</code></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(spearman_data<span class="sc">$</span>A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Det ser verkligen inte ut som en normalfördelning. Hur ser variabel <code>B</code> ut?</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(spearman_data<span class="sc">$</span>B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Variabel B ser lite bättre ut, men det är som helhet ett dataset som avviker kraftigt från normalfördelningen. Att analysera det med en parametrisk korrelation bryter mot dess antagande om normalfördelning, och då kan vi inte lite på en sådan korrelations resultat.</p>
+</section>
+<section id="statistisk-modellering-2" class="level3">
+<h3 class="anchored" data-anchor-id="statistisk-modellering-2">Statistisk modellering</h3>
+<p>Vi gör nu en icke-parametrisk korrelation, och den har stora likheter med correlationen vi tidigare gjort. Vi använder oss fortfarande av funktionen <code>cor.test()</code>, den enda skillnaden är att vi anger <code>method = "s"</code> (står för Spearman) där vi tidigare angett <code>"p"</code></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>m.spearman <span class="ot">&lt;-</span><span class="fu">cor.test</span>(spearman_data<span class="sc">$</span>A, spearman_data<span class="sc">$</span>B, <span class="at">method =</span> <span class="st">"s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="resultat" class="level3">
+<h3 class="anchored" data-anchor-id="resultat">Resultat</h3>
+<p>Vi skriver in modellens namn och tittar på resultatet</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>m.spearman</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  spearman_data$A and spearman_data$B
+S = 782, p-value = 0.07226
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.4120301 </code></pre>
+</div>
+</div>
+<p>Vi ser att A och B inte är signifikant korrelerade eftersom p-värdet är <code>0.07226</code>. Vi får också en korrelationskoefficient (kallas <code>rho</code>) på 0.412.</p>
+</section>
+<section id="skillnad-i-resultat-mot-parametrisk-korelation" class="level3">
+<h3 class="anchored" data-anchor-id="skillnad-i-resultat-mot-parametrisk-korelation">Skillnad i resultat mot parametrisk korelation</h3>
+<p>Vad hade hänt om vi analyserat datat med en parametrisk korrelation? Vi testar!</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>m.pearson <span class="ot">&lt;-</span><span class="fu">cor.test</span>(spearman_data<span class="sc">$</span>A, spearman_data<span class="sc">$</span>B, <span class="at">method =</span> <span class="st">"p"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>m.pearson</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  spearman_data$A and spearman_data$B
+t = 2.6376, df = 18, p-value = 0.01672
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.1115075 0.7866933
+sample estimates:
+      cor 
+0.5279756 </code></pre>
+</div>
+</div>
+<p>Vi får nu ett signmifikant p-värde, och om vi inte hade vetat att våra data inte var normalfördelade hade vi dragit den felaktiga slutsatsen att A och B var positivt korrelerade. Men eftersom datat inte uppfyller kraven för att få göra en parametrisk korrelation så kan vi inte lite på o-värderna från en sådan korrelation.</p>
+</section>
+</section>
 <section id="test-för-normalfördelning" class="level2">
 <h2 class="anchored" data-anchor-id="test-för-normalfördelning">Test för normalfördelning</h2>
-<p>Test för normalfördelning</p>
 <p>Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du nödvändigtvis vill ha ett test så använd Shapiro Wilk’s test:</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(dunlin_data<span class="sc">$</span>offspring)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(dunlin_data<span class="sc">$</span>offspring)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -521,26 +653,26 @@ W = 0.79047, p-value = 0.003814</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">62874</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">50</span>, <span class="at">n =</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">62874</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">50</span>, <span class="at">n =</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Vi gör sedan ett histogram - det ser extremt normalfördelat ut!</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(simdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(simdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Men tack vare att vi har så många värden så tycker Shapiro Wilk’s test att våra data (som kommer från en normalfördelning) signifikant avviker från normalfördelningen.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(simdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(simdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>

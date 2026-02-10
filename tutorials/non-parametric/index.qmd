@@ -201,8 +201,68 @@ Vi får en tabell med jämförelser. Om vi börjar med *Kolumn A* och *Rad B* f�
 
 Täckningsgraden av blåbär skiljer sig åt mellan de olika skogarna (Kruskal Wallis test, $\chi$ ^2^ = 11.883,d.f. = 2, p = 0.003). Post-hoc analys visar att täckningsgraden är högre i skog B än i skog A (Dunnet's test, p = 0.001) och C (Dunnet's test, p = 0.034). Täckningsgraden skiljer sig inte åt mellan skog A och C (Dunnet's test, p = 0.097).
 
+## Spearman-korrelation
+
+En vanlig korrelationsanalys som vi tidigare gjort kräver att datat är normalfördelat, och även om det kan hantera mindre avvikelser från det så har man ibland data som inte alls är normalfördelat. Då använder man sig av Spearman-korrelation, som är en icke-parametrisk korrelationsanalys som baserar sig på datats rank och inte på de faktiska värderna. Därmed är det mindre kraftfullt än en parametrisk korrelation, men kan hantera avvikande data.
+
+### Läs in data
+
+Ladda ner följande fil [spearman.txt](data/spearman.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
+
+```{r}
+spearman_data <- read.table("data/spearman.txt",
+                           header=T,
+                           sep="\t",
+                           dec=",") 
+```
+
+### Inspektera data
+
+Börja med att titta på datans struktur med `str()`.
+
+```{r}
+str(spearman_data)
+```
+
+
+```{r}
+head(spearman_data)
+```
+Låt oss se på ett histogram över variabel `A`
+```{r}
+hist(spearman_data$A)
+```
+Det ser verkligen inte ut som en normalfördelning. Hur ser variabel `B` ut?
+
+```{r}
+hist(spearman_data$B)
+```
+Variabel B ser lite bättre ut, men det är som helhet ett dataset som avviker kraftigt från normalfördelningen. Att analysera det med en parametrisk korrelation bryter mot dess antagande om normalfördelning, och då kan vi inte lite på en sådan korrelations resultat.
+
+### Statistisk modellering
+Vi gör nu en icke-parametrisk korrelation, och den har stora likheter med correlationen vi tidigare gjort. Vi använder oss fortfarande av funktionen `cor.test()`, den enda skillnaden är att vi anger `method = "s"` (står för Spearman) där vi tidigare angett `"p"`
+```{r}
+m.spearman <-cor.test(spearman_data$A, spearman_data$B, method = "s")
+```
+
+### Resultat
+
+Vi skriver in modellens namn och tittar på resultatet
+```{r}
+m.spearman
+```
+Vi ser att A och B inte är signifikant korrelerade eftersom p-värdet är `0.07226`. Vi får också en korrelationskoefficient (kallas `rho`) på 0.412.
+
+### Skillnad i resultat mot parametrisk korelation
+Vad hade hänt om vi analyserat datat med en parametrisk korrelation? Vi testar!
+
+```{r}
+m.pearson <-cor.test(spearman_data$A, spearman_data$B, method = "p")
+m.pearson
+```
+Vi får nu ett signmifikant p-värde, och om vi inte hade vetat att våra data inte var normalfördelade hade vi dragit den felaktiga slutsatsen att A och B var positivt korrelerade. Men eftersom datat inte uppfyller kraven för att få göra en parametrisk korrelation så kan vi inte lite på o-värderna från en sådan korrelation.
+
 ## Test för normalfördelning
-Test för normalfördelning
 
 Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du nödvändigtvis vill ha ett test så använd Shapiro Wilk's test:
 
