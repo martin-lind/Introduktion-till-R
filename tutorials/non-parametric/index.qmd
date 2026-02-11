@@ -98,7 +98,7 @@ Vi specificerar en modell med hjälp av funktionen `wilcox.test()` och väljer a
 m.dunlin<-wilcox.test(offspring~treatment,
                     data=dunlin_data)
 ```
-Vi får en varning `Warning: cannot compute exact p-value with ties`. Det betyder att testet upptäcker att vissa värden är samma (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga problem.
+Vi får en varning `Warning: cannot compute exact p-value with ties`. Det betyder att testet upptäcker att vissa värden är identiska (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga problem.
 
 ### Statistiska resultat
 
@@ -243,7 +243,7 @@ Variabel B ser lite bättre ut, men det är som helhet ett dataset som avviker k
 Som vanligt gör vi en graf innan vi börjar med vår statistiska modellering
 
 ```{r}
-plot(B ~A, data = spearman_data)
+plot(B ~ A, data = spearman_data)
 ```
 Vi ser i grafen att det eventuellt är en positiv korrelation mellan A och B, men också att speciellt variabel A har en underlig fördelning med mest låga eller höga värden, vilket vi också såg i vårt histogram.
 
@@ -268,17 +268,17 @@ Vad hade hänt om vi analyserat datat med en parametrisk korrelation? Vi testar!
 m.pearson <-cor.test(spearman_data$A, spearman_data$B, method = "p")
 m.pearson
 ```
-Vi får nu ett signmifikant p-värde, och om vi inte hade vetat att våra data inte var normalfördelade hade vi dragit den felaktiga slutsatsen att A och B var positivt korrelerade. Men eftersom datat inte uppfyller kraven för att få göra en parametrisk korrelation så kan vi inte lite på o-värderna från en sådan korrelation.
+Vi får nu ett signifikant p-värde, och om vi inte hade vetat att våra data inte var normalfördelade hade vi dragit den felaktiga slutsatsen att A och B var positivt korrelerade. Men eftersom datat inte uppfyller kraven för att få göra en parametrisk korrelation så kan vi inte lite på p-värderna från en sådan korrelation.
 
 ## Test för normalfördelning
 
-Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du nödvändigtvis vill ha ett test så använd Shapiro Wilk's test:
+Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du ändå vill ha ett test så använd Shapiro Wilk's test, i funktionen `shapiro.test()`:
 
 ```{r}
 shapiro.test(dunlin_data$offspring)
 ```
 
-Om testet är icke-signifikant betyder det att data inte avviker från normalfördelning (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.
+Om testet är *icke-signifikant* betyder det att data *inte avviker från normalfördelning* (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.
 
 Som ett exempel på problemen med test för normalfördelning så simulerar jag 2000 värden från en normalfördelning:
 
