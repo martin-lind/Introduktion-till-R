@@ -12,21 +12,32 @@ hist(norm.data)
 
 ## Kvadratrots-transformering
 
-En vanlig typ av data är räknedata, vi kan ha räknat antalet indivied, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en **poisson-fördelning** och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi ser att variationen är stööre för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).
+En vanlig typ av data är räknedata, vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en **poisson-fördelning** och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi ser att variationen är stööre för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).
+
 ```{r}
 set.seed (12768)
 poisson.data<-rpois(n = 2000, lambda = 4)
 hist(poisson.data)
 
 ```
+
 Eftersom våra statistiska test förutsätter att antingen data eller residualerna är normalfördelade kommer de att få problem med den här typen av data. Vi kommer att få p-värden, men vi kan inte lita på dem eftersom förutsättningarna för modellen inte uppfylls. Som tur är kan vi uppfylla kraven på normalfördelat data/residualer genom att transformera vår responsvariabel!
 
 Den transformationen man använder sig av om man har räknadata med låga medelvärden och ett histogram som är höger-skevt är *kvadratrots-transformering*.
 
-Transformeringen är enkel, vi drar kvadratroten ur alla tal i vår responsvariabel. Det gör att alla tal blir mindre, men ju större talet är desto större förminskning får det, och vi blir av med höger-skevheten. Vi använder oss av funktionen `sqrt()` för att kvadratrots-transformera responsvariabeln. Låt oss se på ett histogram när vi transformerat vår data!
+Transformeringen är enkel, vi drar kvadratroten ur alla tal i vår responsvariabel. Det gör att alla tal blir mindre, men ju större talet är desto större förminskning får det, och vi blir av med höger-skevheten. Vi kan illustrera det genom att se hur mycket ett visst tal minskar om vi drar roten ur det.
+
+|         |                    |                              |
+|---------|--------------------|------------------------------|
+| **Tal** | **Roten ur talet** | **Hur mycket minskar talet** |
+| 2       | 1.41               | 0.59                         |
+| 10      | 3.16               | 6.84                         |
+
+Som vi ser minskar stora tal mer än små tal, vilket gör att höger-skevheten minskar. Vi använder oss av funktionen `sqrt()` för att kvadratrots-transformera responsvariabeln. Låt oss se på ett histogram när vi transformerat vår data!
+
 ```{r}
 hist(sqrt(poisson.data))
 
 ```
 
-Som du ser ovan blev histogrammet mycket mer lik en normalfördelning.
+Som du ser ovan blev histogrammet mycket mer lik en normalfördelning. Det innebär att om vi kvadratrot-transformerar vår responsvariabel så kan vi använda våra vanliga statistiska tester (t-test, regression, anova etc) trots att vår data inte var normalfördelad innan transformeringen.
