@@ -1,0 +1,32 @@
+---
+title: "Transformeringar"
+---
+
+De dataset vi jobbat med hittils har haft responsvariablar som varit normalfördelade, och om vi gjort ett histogram över dem har de sett ut mer eller mindre på följande sätt:
+
+```{r}
+set.seed (12768)
+norm.data<-rnorm(n = 2000, mean = 100, sd = 20)
+hist(norm.data)
+```
+
+## Kvadratrots-transformering
+
+En vanlig typ av data är räknedata, vi kan ha räknat antalet indivied, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en **poisson-fördelning** och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi ser att variationen är stööre för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).
+```{r}
+set.seed (12768)
+poisson.data<-rpois(n = 2000, lambda = 4)
+hist(poisson.data)
+
+```
+Eftersom våra statistiska test förutsätter att antingen data eller residualerna är normalfördelade kommer de att få problem med den här typen av data. Vi kommer att få p-värden, men vi kan inte lita på dem eftersom förutsättningarna för modellen inte uppfylls. Som tur är kan vi uppfylla kraven på normalfördelat data/residualer genom att transformera vår responsvariabel!
+
+Den transformationen man använder sig av om man har räknadata med låga medelvärden och ett histogram som är höger-skevt är *kvadratrots-transformering*.
+
+Transformeringen är enkel, vi drar kvadratroten ur alla tal i vår responsvariabel. Det gör att alla tal blir mindre, men ju större talet är desto större förminskning får det, och vi blir av med höger-skevheten. Vi använder oss av funktionen `sqrt()` för att kvadratrots-transformera responsvariabeln. Låt oss se på ett histogram när vi transformerat vår data!
+```{r}
+hist(sqrt(poisson.data))
+
+```
+
+Som du ser ovan blev histogrammet mycket mer lik en normalfördelning.
