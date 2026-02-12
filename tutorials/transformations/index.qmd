@@ -97,11 +97,20 @@ hist(log(exp.data),col="blue", main="Histogram of exponential data after log tra
 Som vi ser så gör log-transformeringen att vårt kraftigt höger-skeva data antar något som mer liknar en normalfördelning. Notera åter igen att vi inte skall log-transformera data som redan är normalfördelat, då förstör vi en bra fördelning.
 
 ## QQ-Plot - Grafisk inspektion av normalfördelning
-Förutom att titta på histogram så är en mycket vanlig metod för att inspektera om data följer en normalfördelning att göra en QQ-Plot
+Förutom att titta på histogram så är en mycket vanlig metod för att inspektera om data följer en normalfördelning att göra en QQ-Plot.
+
+Nedan följer en QQ plot på normalfördelat data.
+```{r}
+qqnorm(norm.data)
+qqline(norm.data)
+```
+Vi ser att alla datapunkter faller mer eller mindre på den diagonala linjen, dvs våra mätvärden (på y-axeln) motsvarar nästan perfekt våra förväntade mätvärden om de skulle komma från en normalfördelning (x-axeln). Så här bra ser sällan en QQ plot ut, speciellt låga och höga värden brukar avvika lite, men vi vill inte se en systematisk avvikelse.
+
+Låt oss titta på en QQ-plot för våra exponentiella data
 
 ```{r}
 #| code-fold: false
-qqnorm(exp.data)
+qqnorm(exp.data,col="blue")
 qqline(exp.data)
 ```
 
@@ -110,8 +119,7 @@ qqline(exp.data)
 Vi testar det på log-transformerat data:
 
 ```{r}
-#| code-fold: false
-qqnorm(log(exp.data))
+qqnorm(log(exp.data),col="blue")
 qqline(log(exp.data))
 ```
 
@@ -122,6 +130,7 @@ Jag **rekommenderar inte** att du testar för normalfördelning om du har stora 
 Först gör vi ett Shapiro test på vår exponentiella fördelning:
 
 ```{r}
+#| code-fold: false
 shapiro.test(exp.data)
 ```
 

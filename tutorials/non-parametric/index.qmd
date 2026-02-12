@@ -96,6 +96,7 @@ Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel 
 Vi specificerar en modell med hjälp av funktionen `wilcox.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.dunlin`.
 
 ```{r}
+#| code-fold: false
 m.dunlin<-wilcox.test(offspring~treatment,
                     data=dunlin_data)
 ```
@@ -153,7 +154,7 @@ Låt oss se på ett histogram
 hist(cover_data$Cover.cathegory)
 ```
 
-Vi ser att våra data inte ser ut att följa någon normalfördelning, och dessutom vet vi att det är *ordinaldata*, dvs vår responsvariabel är inte mätvärden utan i ordnade kategorier. Bara det senare faktumet gör att vi inte skall använda oss av en vanlig envägs-ANOVA. Icke-normalfördelat data är mindre viktigt, eftersom en envägs ANOVA kräver att det är *residualerna* som skall vara normalfördelade.
+Vi ser att våra data ser väldigt jämna ut, och kanske inte är normalfördelade. **Dessutom vet vi att det är *ordinaldata***, dvs vår responsvariabel är inte mätvärden utan i ordnade kategorier. Bara det senare faktumet gör att vi inte skall använda oss av en vanlig envägs-ANOVA.
 
 ### Visualisera datat med en enkel graf
 
@@ -173,6 +174,7 @@ Vi vill nu göra ett Kruskal Wallis test för att undersöka om vår responsvari
 Vi specificerar en modell med hjälp av funktionen `kruskal.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.cover`.
 
 ```{r}
+#| code-fold: false
 m.cover<-kruskal.test(Cover.cathegory~Forest,
                     data=cover_data)
 ```
@@ -190,6 +192,7 @@ När man gör ett posthoc-test på en icke-parametrisk envägs-ANOVA använder m
 När vi läst in paketet använder vi oss av funktionen `dunn.test()`. Först anger vi vår responsvariabel, och det gör vi enligt formeln **`Datatset$Variabel`**, vilket i vårat fall blir `cover_data$Cover.cathegory`. Efter det anger vi vår förklarande faktor på samma sätt, vilket blir `cover_data$Forest`, och slutligen anger vi metoden för att korrigera p-värden för multipla test. Vanligt är att använda sig av *Holm's metod*, anges med `method="holm"`.
 
 ```{r}
+#| code-fold: false
 library(dunn.test)
 
 dunn.test(cover_data$Cover.cathegory,cover_data$Forest,method="holm")
@@ -261,6 +264,7 @@ Vi ser i grafen att det eventuellt är en positiv korrelation mellan A och B, me
 Vi gör nu en icke-parametrisk korrelation, och den har stora likheter med korrelationen vi tidigare gjort. Vi använder oss fortfarande av funktionen `cor.test()`, den enda skillnaden är att vi anger `method = "s"` (står för Spearman) där vi tidigare angett `"p"`
 
 ```{r}
+#| code-fold: false
 m.spearman <-cor.test(spearman_data$A, spearman_data$B, method = "s")
 ```
 
@@ -274,11 +278,12 @@ m.spearman
 
 Vi ser att A och B inte är signifikant korrelerade eftersom p-värdet är `0.07226`. Vi får också en korrelationskoefficient (kallas `rho`) på 0.412.
 
-### Skillnad i resultat mot parametrisk korelation
+### Skillnad i resultat mot parametrisk korrelation
 
-Vad hade hänt om vi analyserat datat med en parametrisk korrelation? Vi testar!
+Vad hade hänt om vi analyserat datat med en parametrisk korrelation? Vi testar, genom att använda `method = "p"`
 
 ```{r}
+#| code-fold: false
 m.pearson <-cor.test(spearman_data$A, spearman_data$B, method = "p")
 m.pearson
 ```

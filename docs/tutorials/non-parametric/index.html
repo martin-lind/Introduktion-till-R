@@ -331,11 +331,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel (beroende variabel) <em>offspring</em> beror av vår förklarande variabel (oberoende variabel) <em>treatment</em>, med andra ord om antalet avkomma beror av huruvida området haft predatorkontroll eller ej</p>
 <p>Vi specificerar en modell med hjälp av funktionen <code>wilcox.test()</code> och väljer att spara resultatet i ett objekt som vi kallar <code>m.dunlin</code>.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m.dunlin<span class="ot">&lt;-</span><span class="fu">wilcox.test</span>(offspring<span class="sc">~</span>treatment,</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data=</span>dunlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
 compute exact p-value with ties</code></pre>
@@ -424,7 +421,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Vi ser att våra data inte ser ut att följa någon normalfördelning, och dessutom vet vi att det är <em>ordinaldata</em>, dvs vår responsvariabel är inte mätvärden utan i ordnade kategorier. Bara det senare faktumet gör att vi inte skall använda oss av en vanlig envägs-ANOVA. Icke-normalfördelat data är mindre viktigt, eftersom en envägs ANOVA kräver att det är <em>residualerna</em> som skall vara normalfördelade.</p>
+<p>Vi ser att våra data ser väldigt jämna ut, och kanske inte är normalfördelade. <strong>Dessutom vet vi att det är <em>ordinaldata</em></strong>, dvs vår responsvariabel är inte mätvärden utan i ordnade kategorier. Bara det senare faktumet gör att vi inte skall använda oss av en vanlig envägs-ANOVA.</p>
 </section>
 <section id="visualisera-datat-med-en-enkel-graf-1" class="level3">
 <h3 class="anchored" data-anchor-id="visualisera-datat-med-en-enkel-graf-1">Visualisera datat med en enkel graf</h3>
@@ -446,11 +443,8 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p>Vi vill nu göra ett Kruskal Wallis test för att undersöka om vår responsvariabel (beroende variabel) <em>Cover.cathegory</em> beror av vår förklarande variabel (oberoende variabel) <em>Forest</em></p>
 <p>Vi specificerar en modell med hjälp av funktionen <code>kruskal.test()</code> och väljer att spara resultatet i ett objekt som vi kallar <code>m.cover</code>.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m.cover<span class="ot">&lt;-</span><span class="fu">kruskal.test</span>(Cover.cathegory<span class="sc">~</span>Forest,</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data=</span>cover_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
 <details>
@@ -472,12 +466,9 @@ Kruskal-Wallis chi-squared = 11.883, df = 2, p-value = 0.002629</code></pre>
 <p>När man gör ett posthoc-test på en icke-parametrisk envägs-ANOVA använder man sig av <em>Dunnets Test</em>, vilket finns tillgängligt i paketet <strong>dunn.test</strong>. Om du inte sedan tidigare har paketet installerat så gör du det med koden <code>install.packages("dunn.test")</code>. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen <code>library()</code></p>
 <p>När vi läst in paketet använder vi oss av funktionen <code>dunn.test()</code>. Först anger vi vår responsvariabel, och det gör vi enligt formeln <strong><code>Datatset$Variabel</code></strong>, vilket i vårat fall blir <code>cover_data$Cover.cathegory</code>. Efter det anger vi vår förklarande faktor på samma sätt, vilket blir <code>cover_data$Forest</code>, och slutligen anger vi metoden för att korrigera p-värden för multipla test. Vanligt är att använda sig av <em>Holm’s metod</em>, anges med <code>method="holm"</code>.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dunn.test</span>(cover_data<span class="sc">$</span>Cover.cathegory,cover_data<span class="sc">$</span>Forest,<span class="at">method=</span><span class="st">"holm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Kruskal-Wallis rank sum test
 
@@ -593,10 +584,7 @@ Reject Ho if p &lt;= alpha/2</code></pre>
 <h3 class="anchored" data-anchor-id="statistisk-modellering-2">Statistisk modellering</h3>
 <p>Vi gör nu en icke-parametrisk korrelation, och den har stora likheter med korrelationen vi tidigare gjort. Vi använder oss fortfarande av funktionen <code>cor.test()</code>, den enda skillnaden är att vi anger <code>method = "s"</code> (står för Spearman) där vi tidigare angett <code>"p"</code></p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>m.spearman <span class="ot">&lt;-</span><span class="fu">cor.test</span>(spearman_data<span class="sc">$</span>A, spearman_data<span class="sc">$</span>B, <span class="at">method =</span> <span class="st">"s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="resultat" class="level3">
