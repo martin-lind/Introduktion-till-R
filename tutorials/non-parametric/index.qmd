@@ -2,7 +2,7 @@
 title: "Icke-parametriska tester"
 ---
 
-De statistiska test vi behandlat nu är parametriska test, dvs de förutsätter att datan eller residualerna följer vissa fördelningar (exempelvis normalfördelning). Simuleringar visar också att parametriska modeller är väldigt robusta även mot avvikelser i normalförderade residualer (se exempelvis [Knief & Forstmeier 2021](https://link.springer.com/article/10.3758/s13428-021-01587-5)). Om residualerna dessutom avviker från normalfördelning kan det i många fall lösas genom transformeringar (se tidigare tutoriel) elelr genom att använda generaliserade linjära modeller som kan specificera en annan errorstruktur.
+De statistiska test vi behandlat nu är parametriska test, dvs de förutsätter att datan eller residualerna följer vissa fördelningar (exempelvis normalfördelning). Simuleringar visar också att parametriska modeller är väldigt robusta även mot avvikelser i normalförderade residualer (se exempelvis [Knief & Forstmeier 2021](https://link.springer.com/article/10.3758/s13428-021-01587-5)). Om residualerna dessutom avviker från normalfördelning kan det i många fall lösas genom transformeringar (se tidigare tutoriel) eller genom att använda generaliserade linjära modeller som kan specificera en annan errorstruktur (kommer presenteras i en framtida tutorial).
 
 Ibland har man dock väldigt "konstiga" data, och speciellt om de samtidigt kommer från små dataset så kan man ibland behöva överväga icke-parametriska metoder.
 
@@ -24,11 +24,11 @@ Icke-parametriska test skall ses som ett svagt test som används som en nödlös
 
 De icke-parametriska testen som oftast används är:
 
--   **Wilcoxons test**: ersätter t-test
+-   [**Wilcoxons test**]: ersätter t-test
 
--   **Kruskal-Wallis test**: ersätter envägs-anova
+-   [Kruskal Wallis test]: ersätter envägs-anova
 
--   **Spearman korrelation**: ersätter Pearson-korrelation
+-   [Spearman-korrelation]: ersätter Pearson-korrelation
 
 ## Wilcoxons test
 
@@ -73,6 +73,7 @@ De flesta honor verkar inte ha fått några ungar. Låt oss se på en QQ-plot so
 
 ```{r}
 qqnorm(dunlin_data$offspring)
+qqline(dunlin_data$offspring)
 ```
 
 Vi vill att våra värden skall följa en diagonal, men det gör de inte. Vi har ett dataset som inte uppfyller t-testets krav på normalfördelade data, och vi kan inte transformera pg.a. att datasetet mest består av nollvärden som kommer fortsätta att vara nollvärden.
@@ -283,4 +284,3 @@ m.pearson
 ```
 
 Vi får nu ett signifikant p-värde, och om vi inte hade vetat att våra data inte var normalfördelade hade vi dragit den felaktiga slutsatsen att A och B var positivt korrelerade. Men eftersom datat inte uppfyller kraven för att få göra en parametrisk korrelation så kan vi inte lite på p-värderna från en sådan korrelation.
-
