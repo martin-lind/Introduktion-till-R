@@ -7,21 +7,28 @@ De dataset vi jobbat med hittils har haft responsvariablar som varit normalförd
 ```{r}
 set.seed (12768)
 norm.data<-rnorm(n = 2000, mean = 100, sd = 20)
-hist(norm.data)
+hist(norm.data, main = "Normal distribution")
 ```
 
 ## Kvadratrots-transformering
 
-En vanlig typ av data är räknedata, vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en **poisson-fördelning** och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi ser att variationen är stööre för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).
+En vanlig typ av transformering är kvadratrots-transformering, vilket man kan överväga i följande fall
+
+-   Data är höger-skevt (se beskrivning nedan). Vid extremt höger-skevt data kan man överväga log-transformering
+
+-   Man har räknedata med ett medelvärde mindre än ca 20
+
+-   Variansen ökar med medelvärdet (vanligt om man har räknedata)
+
+En vanlig typ av data är **räknedata** (\*count data\*), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en **poisson-fördelning** och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en posiion-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).
 
 ```{r}
 set.seed (12768)
 poisson.data<-rpois(n = 2000, lambda = 4)
-hist(poisson.data)
-
+hist(poisson.data, col = "red",main = "Histogram of Poisson data with mean of 4")
 ```
 
-Eftersom våra statistiska test förutsätter att antingen data eller residualerna är normalfördelade kommer de att få problem med den här typen av data. Vi kommer att få p-värden, men vi kan inte lita på dem eftersom förutsättningarna för modellen inte uppfylls. Som tur är kan vi uppfylla kraven på normalfördelat data/residualer genom att transformera vår responsvariabel!
+Eftersom våra statistiska test förutsätter att antingen data eller residualerna är normalfördelade kommer testen att få problem med den här typen av data. Vi kommer att få p-värden, men vi kan inte lita på dem eftersom förutsättningarna för modellen inte uppfylls. Som tur är kan vi uppfylla kraven på normalfördelat data/residualer genom att transformera vår responsvariabel!
 
 Den transformationen man använder sig av om man har räknadata med låga medelvärden och ett histogram som är höger-skevt är *kvadratrots-transformering*.
 
@@ -36,8 +43,55 @@ Transformeringen är enkel, vi drar kvadratroten ur alla tal i vår responsvaria
 Som vi ser minskar stora tal mer än små tal, vilket gör att höger-skevheten minskar. Vi använder oss av funktionen `sqrt()` för att kvadratrots-transformera responsvariabeln. Låt oss se på ett histogram när vi transformerat vår data!
 
 ```{r}
-hist(sqrt(poisson.data))
+hist(sqrt(poisson.data),col = "red", main = "Histogram of poisson data after square root transformation")
 
 ```
 
-Som du ser ovan blev histogrammet mycket mer lik en normalfördelning. Det innebär att om vi kvadratrot-transformerar vår responsvariabel så kan vi använda våra vanliga statistiska tester (t-test, regression, anova etc) trots att vår data inte var normalfördelad innan transformeringen.
+Nu blev histogrammet mycket mer lik en normalfördelning. Det innebär att om vi kvadratrot-transformerar vår responsvariabel så kan vi använda våra vanliga statistiska tester (t-test, regression, anova etc) trots att vår data inte var normalfördelad innan transformeringen.
+
+Observera att om vårt data redan är normalfördelat så förstör en kvadratrots-transformering den fördelningen. Vi skall alltså bara använda den om vi behöver det.
+
+Problemet med höger-skevhet är vanligast om man har låga medelvärden. Är medelvärdet högre än ca 20 antar fördelningen något som kan approximeras till en normalfördeln. Då behövs ingen transformering. Vi kan illustrera det nedan, nu har vi räknedata med ett medelvärde på 35.
+
+```{r}
+set.seed (12768)
+poisson.data.larger.mean<-rpois(n = 2000, lambda = 35)
+hist(poisson.data.larger.mean, col = "red", main = "Histogram of Poisson data with mean of 35")
+```
+
+Som vi ser så är det knappt någon skevhet. Testa själv att sätta medelvärdet (kallas `lambda`) till 100 så ser det väldigt bra ut.
+
+## log-transformering
+
+En annan vanlig typ av transformering är log-transformering, vilket man kan överväga i följande fall
+
+-   Data är extremt höger-skevt (se plot nedan).
+
+-   Data beskriver en multiplikativ eller exponentiell process, till exempel tillväxt eller ibland vikt
+
+-   Variansen ökar kraftigt med medelvärdet
+
+Vi börjar med att simulera data från en exponentiell fördelning och se på histogrammet. Som du ser är datat kraftigt höger-skevt med några extrema värden som är mycket större än de övriga.
+
+```{r}
+set.seed (12768)
+exp.data<-rlnorm(n = 50, 3,1)
+hist(exp.data, main="Histogram of exponential data",col="blue")
+```
+
+För att analysera den här typen av data och kunna lite på de p-värden vi får i vår analys behöver vi **log-transformera** vår responsvariabel. Vi gör det med funktionen `log()`.
+
+På samma sätt som kvadrat-rots-transformering så minskar log-transformeringen höga tal mer än låga tal, vilket ger en jämnare fördelning. Log-transformeringen är dock ännu kraftigare, vilket vi kan se i tabellen nedan.
+
+| Tal | Logaritmen av talet | Hur mycket minskar talet |
+|-----|---------------------|--------------------------|
+| 2   | 0.69                | 1.31                     |
+| 10  | 2.30                | 7.70                     |
+
+Vi tittar på ett histogram när vi log-transformerat vår data.
+
+```{r}
+hist(log(exp.data),col="blue", main="Histogram of exponential data after log transformation")
+```
+
+Som vi ser så gör log-transformeringen att vårt kraftigt höger-skeva data antar en normalfördelning. Notera åter igen att vi inte skall log-transformera data som redan är normalfördelat, då förstör vi en bra fördelning.

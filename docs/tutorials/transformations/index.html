@@ -169,6 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#kvadratrots-transformering" id="toc-kvadratrots-transformering" class="nav-link active" data-scroll-target="#kvadratrots-transformering">Kvadratrots-transformering</a></li>
+  <li><a href="#log-transformering" id="toc-log-transformering" class="nav-link" data-scroll-target="#log-transformering">log-transformering</a></li>
   </ul>
 </nav>
     </div>
@@ -198,7 +199,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">12768</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>norm.data<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">2000</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">20</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(norm.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(norm.data, <span class="at">main =</span> <span class="st">"Normal distribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
@@ -206,19 +207,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="kvadratrots-transformering" class="level2">
 <h2 class="anchored" data-anchor-id="kvadratrots-transformering">Kvadratrots-transformering</h2>
-<p>En vanlig typ av data är räknedata, vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en <strong>poisson-fördelning</strong> och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi ser att variationen är stööre för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).</p>
+<p>En vanlig typ av transformering är kvadratrots-transformering, vilket man kan överväga i följande fall</p>
+<ul>
+<li><p>Data är höger-skevt (se beskrivning nedan). Vid extremt höger-skevt data kan man överväga log-transformering</p></li>
+<li><p>Man har räknedata med ett medelvärde mindre än ca 20</p></li>
+<li><p>Variansen ökar med medelvärdet (vanligt om man har räknedata)</p></li>
+</ul>
+<p>En vanlig typ av data är <strong>räknedata</strong> (*count data*), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en <strong>poisson-fördelning</strong> och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en posiion-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">12768</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>poisson.data<span class="ot">&lt;-</span><span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">2000</span>, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(poisson.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(poisson.data, <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">main =</span> <span class="st">"Histogram of Poisson data with mean of 4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Eftersom våra statistiska test förutsätter att antingen data eller residualerna är normalfördelade kommer de att få problem med den här typen av data. Vi kommer att få p-värden, men vi kan inte lita på dem eftersom förutsättningarna för modellen inte uppfylls. Som tur är kan vi uppfylla kraven på normalfördelat data/residualer genom att transformera vår responsvariabel!</p>
+<p>Eftersom våra statistiska test förutsätter att antingen data eller residualerna är normalfördelade kommer testen att få problem med den här typen av data. Vi kommer att få p-värden, men vi kan inte lita på dem eftersom förutsättningarna för modellen inte uppfylls. Som tur är kan vi uppfylla kraven på normalfördelat data/residualer genom att transformera vår responsvariabel!</p>
 <p>Den transformationen man använder sig av om man har räknadata med låga medelvärden och ett histogram som är höger-skevt är <em>kvadratrots-transformering</em>.</p>
 <p>Transformeringen är enkel, vi drar kvadratroten ur alla tal i vår responsvariabel. Det gör att alla tal blir mindre, men ju större talet är desto större förminskning får det, och vi blir av med höger-skevheten. Vi kan illustrera det genom att se hur mycket ett visst tal minskar om vi drar roten ur det.</p>
 <table class="table">
@@ -244,13 +251,82 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">sqrt</span>(poisson.data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">sqrt</span>(poisson.data),<span class="at">col =</span> <span class="st">"red"</span>, <span class="at">main =</span> <span class="st">"Histogram of poisson data after square root transformation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Som du ser ovan blev histogrammet mycket mer lik en normalfördelning. Det innebär att om vi kvadratrot-transformerar vår responsvariabel så kan vi använda våra vanliga statistiska tester (t-test, regression, anova etc) trots att vår data inte var normalfördelad innan transformeringen.</p>
+<p>Nu blev histogrammet mycket mer lik en normalfördelning. Det innebär att om vi kvadratrot-transformerar vår responsvariabel så kan vi använda våra vanliga statistiska tester (t-test, regression, anova etc) trots att vår data inte var normalfördelad innan transformeringen.</p>
+<p>Observera att om vårt data redan är normalfördelat så förstör en kvadratrots-transformering den fördelningen. Vi skall alltså bara använda den om vi behöver det.</p>
+<p>Problemet med höger-skevhet är vanligast om man har låga medelvärden. Är medelvärdet högre än ca 20 antar fördelningen något som kan approximeras till en normalfördeln. Då behövs ingen transformering. Vi kan illustrera det nedan, nu har vi räknedata med ett medelvärde på 35.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">12768</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>poisson.data.larger.mean<span class="ot">&lt;-</span><span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">2000</span>, <span class="at">lambda =</span> <span class="dv">35</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(poisson.data.larger.mean, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">main =</span> <span class="st">"Histogram of Poisson data with mean of 35"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Som vi ser så är det knappt någon skevhet. Testa själv att sätta medelvärdet (kallas <code>lambda</code>) till 100 så ser det väldigt bra ut.</p>
+</section>
+<section id="log-transformering" class="level2">
+<h2 class="anchored" data-anchor-id="log-transformering">log-transformering</h2>
+<p>En annan vanlig typ av transformering är log-transformering, vilket man kan överväga i följande fall</p>
+<ul>
+<li><p>Data är extremt höger-skevt (se plot nedan).</p></li>
+<li><p>Data beskriver en multiplikativ eller exponentiell process, till exempel tillväxt eller ibland vikt</p></li>
+<li><p>Variansen ökar kraftigt med medelvärdet</p></li>
+</ul>
+<p>Vi börjar med att simulera data från en exponentiell fördelning och se på histogrammet. Som du ser är datat kraftigt höger-skevt med några extrema värden som är mycket större än de övriga.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">12768</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>exp.data<span class="ot">&lt;-</span><span class="fu">rlnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="dv">3</span>,<span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(exp.data, <span class="at">main=</span><span class="st">"Histogram of exponential data"</span>,<span class="at">col=</span><span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>För att analysera den här typen av data och kunna lite på de p-värden vi får i vår analys behöver vi <strong>log-transformera</strong> vår responsvariabel. Vi gör det med funktionen <code>log()</code>.</p>
+<p>På samma sätt som kvadrat-rots-transformering så minskar log-transformeringen höga tal mer än låga tal, vilket ger en jämnare fördelning. Log-transformeringen är dock ännu kraftigare, vilket vi kan se i tabellen nedan.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Tal</th>
+<th>Logaritmen av talet</th>
+<th>Hur mycket minskar talet</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>0.69</td>
+<td>1.31</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>2.30</td>
+<td>7.70</td>
+</tr>
+</tbody>
+</table>
+<p>Vi tittar på ett histogram när vi log-transformerat vår data.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(exp.data),<span class="at">col=</span><span class="st">"blue"</span>, <span class="at">main=</span><span class="st">"Histogram of exponential data after log transformation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Som vi ser så gör log-transformeringen att vårt kraftigt höger-skeva data antar en normalfördelning. Notera åter igen att vi inte skall log-transformera data som redan är normalfördelat, då förstör vi en bra fördelning.</p>
 
 
 </section>
