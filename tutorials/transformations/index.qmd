@@ -20,7 +20,7 @@ En vanlig typ av transformering är kvadratrots-transformering, vilket man kan �
 
 -   Variansen ökar med medelvärdet (vanligt om man har räknedata)
 
-En vanlig typ av data är **räknedata** (\*count data\*), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en **poisson-fördelning** och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en poisson-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).
+En vanlig typ av data är **räknedata** (*count data*), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en **poisson-fördelning** och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en poisson-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).
 
 ```{r}
 set.seed (12768)
@@ -51,7 +51,7 @@ Nu blev histogrammet mycket mer lik en normalfördelning. Det innebär att om vi
 
 Observera att om vårt data redan är normalfördelat så förstör en kvadratrots-transformering den fördelningen. Vi skall alltså bara använda den om vi behöver det.
 
-Problemet med höger-skevhet är vanligast om man har låga medelvärden. Är medelvärdet högre än ca 20 antar fördelningen något som kan approximeras till en normalfördeln. Då behövs ingen transformering. Vi kan illustrera det nedan, nu har vi räknedata med ett medelvärde på 35.
+Problemet med höger-skevhet är vanligast om man har låga medelvärden. Är medelvärdet *av räknetal* högre än ca 20 antar fördelningen något som kan approximeras till en normalfördeln. Då behövs ingen transformering. Vi kan illustrera det nedan, nu har vi räknedata med ett medelvärde på 35.
 
 ```{r}
 set.seed (12768)
@@ -71,7 +71,7 @@ En annan vanlig typ av transformering är log-transformering, vilket man kan öv
 
 -   Variansen ökar kraftigt med medelvärdet
 
-Vi börjar med att simulera data från en exponentiell fördelning och se på histogrammet. Som du ser är datat kraftigt höger-skevt med några extrema värden som är mycket större än de övriga.
+Vi börjar med att simulera data från en exponentiell fördelning och studerar histogrammet. Som du ser är datat kraftigt höger-skevt med några extrema värden som är mycket större än de övriga.
 
 ```{r}
 set.seed (12768)
@@ -105,7 +105,7 @@ qqnorm(exp.data)
 qqline(exp.data)
 ```
 
-Även om man sällan ser att alla punkterna faller precis på linjen (speciellt punkterna i ändarna av fördelningen kan ofta ligga en liten bit från linjen) så skall vi inte se ett tydligt mönster så som vi ser här. Det här tyder på att datat inte är normalfördelat.
+Även om man sällan ser att alla punkterna faller precis på linjen (speciellt punkterna i ändarna av fördelningen kan ofta ligga en liten bit från linjen) så skall vi inte se ett tydligt mönster så som vi ser här, och vi ser att framför allt de höga värderna avviker kraftigt från den förväntade fördelningen. Det här tyder på att datat inte är normalfördelat.
 
 Vi testar det på log-transformerat data:
 
@@ -117,7 +117,7 @@ qqline(log(exp.data))
 
 ## Test för normalfördelning
 
-Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du ändå vill ha ett test så använd Shapiro Wilk's test, i funktionen `shapiro.test()`
+Jag **rekommenderar inte** att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du ändå vill ha ett test så använd Shapiro Wilk's test, i funktionen `shapiro.test()`
 
 Först gör vi ett Shapiro test på vår exponentiella fördelning:
 
@@ -134,7 +134,11 @@ shapiro.test(log(exp.data))
 ```
 
 
-Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.
+Testet är inte signifikant, dvs data avviker inte från normalfördelning (dvs är normalfördelat) efter att vi transformerat det med `log()`. 
+
+### Problemet med test för normalfördelning
+
+Om histogram och QQplot ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag lita på histogramen och QQ plot. Eftersom alla statistiska test blir kraftfullare ju mer data du har så kan Shapiro-Wilks test säga att data avviker från normalfördelning fast det i alla praktiska bemärkelser kan räknas som normalfördelat data.
 
 Som ett exempel på problemen med test för normalfördelning så simulerar jag 2000 värden från en normalfördelning:
 
@@ -151,17 +155,17 @@ Vi gör sedan ett histogram - det ser extremt normalfördelat ut!
 hist(simdata)
 ```
 
-En QQ-plot ser även den väldigt bra ut
+En QQ-plot ser även den väldigt bra ut, så här bra har jag nog aldrig sett en QQ plot som varit baserad på riktiga data.
 
 ```{r}
 qqnorm(simdata)
 qqline(simdata)
 ```
 
-Men tack vare att vi har så många värden så tycker Shapiro Wilk's test att våra data (som kommer från en normalfördelning) signifikant avviker från normalfördelningen.
+Men tack vare att vi har så många värden så tycker Shapiro Wilk's test att våra data (som vi vet kommer från en normalfördelning) signifikant avviker från normalfördelningen.
 
 ```{r}
 shapiro.test(simdata)
 ```
  
- Därför skall du inte lita blint på Shapiro´s test, det är mycket bättre att titta på histogram.
+Därför skall du inte lita blint på Shapiro´s test, det är mycket bättre att titta på histogram och QQ plot.

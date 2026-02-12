@@ -171,7 +171,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#kvadratrots-transformering" id="toc-kvadratrots-transformering" class="nav-link active" data-scroll-target="#kvadratrots-transformering">Kvadratrots-transformering</a></li>
   <li><a href="#log-transformering" id="toc-log-transformering" class="nav-link" data-scroll-target="#log-transformering">log-transformering</a></li>
   <li><a href="#qq-plot---grafisk-inspektion-av-normalfördelning" id="toc-qq-plot---grafisk-inspektion-av-normalfördelning" class="nav-link" data-scroll-target="#qq-plot---grafisk-inspektion-av-normalfördelning">QQ-Plot - Grafisk inspektion av normalfördelning</a></li>
-  <li><a href="#test-för-normalfördelning" id="toc-test-för-normalfördelning" class="nav-link" data-scroll-target="#test-för-normalfördelning">Test för normalfördelning</a></li>
+  <li><a href="#test-för-normalfördelning" id="toc-test-för-normalfördelning" class="nav-link" data-scroll-target="#test-för-normalfördelning">Test för normalfördelning</a>
+  <ul class="collapse">
+  <li><a href="#problemet-med-test-för-normalfördelning" id="toc-problemet-med-test-för-normalfördelning" class="nav-link" data-scroll-target="#problemet-med-test-för-normalfördelning">Problemet med test för normalfördelning</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -215,7 +218,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Man har räknedata med ett medelvärde mindre än ca 20</p></li>
 <li><p>Variansen ökar med medelvärdet (vanligt om man har räknedata)</p></li>
 </ul>
-<p>En vanlig typ av data är <strong>räknedata</strong> (*count data*), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en <strong>poisson-fördelning</strong> och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en poisson-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).</p>
+<p>En vanlig typ av data är <strong>räknedata</strong> (<em>count data</em>), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en <strong>poisson-fördelning</strong> och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en poisson-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -261,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Nu blev histogrammet mycket mer lik en normalfördelning. Det innebär att om vi kvadratrot-transformerar vår responsvariabel så kan vi använda våra vanliga statistiska tester (t-test, regression, anova etc) trots att vår data inte var normalfördelad innan transformeringen.</p>
 <p>Observera att om vårt data redan är normalfördelat så förstör en kvadratrots-transformering den fördelningen. Vi skall alltså bara använda den om vi behöver det.</p>
-<p>Problemet med höger-skevhet är vanligast om man har låga medelvärden. Är medelvärdet högre än ca 20 antar fördelningen något som kan approximeras till en normalfördeln. Då behövs ingen transformering. Vi kan illustrera det nedan, nu har vi räknedata med ett medelvärde på 35.</p>
+<p>Problemet med höger-skevhet är vanligast om man har låga medelvärden. Är medelvärdet <em>av räknetal</em> högre än ca 20 antar fördelningen något som kan approximeras till en normalfördeln. Då behövs ingen transformering. Vi kan illustrera det nedan, nu har vi räknedata med ett medelvärde på 35.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -283,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Data beskriver en multiplikativ eller exponentiell process, till exempel tillväxt eller ibland vikt</p></li>
 <li><p>Variansen ökar kraftigt med medelvärdet</p></li>
 </ul>
-<p>Vi börjar med att simulera data från en exponentiell fördelning och se på histogrammet. Som du ser är datat kraftigt höger-skevt med några extrema värden som är mycket större än de övriga.</p>
+<p>Vi börjar med att simulera data från en exponentiell fördelning och studerar histogrammet. Som du ser är datat kraftigt höger-skevt med några extrema värden som är mycket större än de övriga.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -340,7 +343,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Även om man sällan ser att alla punkterna faller precis på linjen (speciellt punkterna i ändarna av fördelningen kan ofta ligga en liten bit från linjen) så skall vi inte se ett tydligt mönster så som vi ser här. Det här tyder på att datat inte är normalfördelat.</p>
+<p>Även om man sällan ser att alla punkterna faller precis på linjen (speciellt punkterna i ändarna av fördelningen kan ofta ligga en liten bit från linjen) så skall vi inte se ett tydligt mönster så som vi ser här, och vi ser att framför allt de höga värderna avviker kraftigt från den förväntade fördelningen. Det här tyder på att datat inte är normalfördelat.</p>
 <p>Vi testar det på log-transformerat data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">log</span>(exp.data))</span>
@@ -352,7 +355,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="test-för-normalfördelning" class="level2">
 <h2 class="anchored" data-anchor-id="test-för-normalfördelning">Test för normalfördelning</h2>
-<p>Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du ändå vill ha ett test så använd Shapiro Wilk’s test, i funktionen <code>shapiro.test()</code></p>
+<p>Jag <strong>rekommenderar inte</strong> att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du ändå vill ha ett test så använd Shapiro Wilk’s test, i funktionen <code>shapiro.test()</code></p>
 <p>Först gör vi ett Shapiro test på vår exponentiella fördelning:</p>
 <div class="cell">
 <details>
@@ -382,7 +385,10 @@ data:  log(exp.data)
 W = 0.97929, p-value = 0.5224</code></pre>
 </div>
 </div>
-<p>Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.</p>
+<p>Testet är inte signifikant, dvs data avviker inte från normalfördelning (dvs är normalfördelat) efter att vi transformerat det med <code>log()</code>.</p>
+<section id="problemet-med-test-för-normalfördelning" class="level3">
+<h3 class="anchored" data-anchor-id="problemet-med-test-för-normalfördelning">Problemet med test för normalfördelning</h3>
+<p>Om histogram och QQplot ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag lita på histogramen och QQ plot. Eftersom alla statistiska test blir kraftfullare ju mer data du har så kan Shapiro-Wilks test säga att data avviker från normalfördelning fast det i alla praktiska bemärkelser kan räknas som normalfördelat data.</p>
 <p>Som ett exempel på problemen med test för normalfördelning så simulerar jag 2000 värden från en normalfördelning:</p>
 <div class="cell">
 <details>
@@ -402,7 +408,7 @@ W = 0.97929, p-value = 0.5224</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>En QQ-plot ser även den väldigt bra ut</p>
+<p>En QQ-plot ser även den väldigt bra ut, så här bra har jag nog aldrig sett en QQ plot som varit baserad på riktiga data.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -413,7 +419,7 @@ W = 0.97929, p-value = 0.5224</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Men tack vare att vi har så många värden så tycker Shapiro Wilk’s test att våra data (som kommer från en normalfördelning) signifikant avviker från normalfördelningen.</p>
+<p>Men tack vare att vi har så många värden så tycker Shapiro Wilk’s test att våra data (som vi vet kommer från en normalfördelning) signifikant avviker från normalfördelningen.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -427,9 +433,10 @@ data:  simdata
 W = 0.99833, p-value = 0.04167</code></pre>
 </div>
 </div>
-<p>Därför skall du inte lita blint på Shapiro´s test, det är mycket bättre att titta på histogram.</p>
+<p>Därför skall du inte lita blint på Shapiro´s test, det är mycket bättre att titta på histogram och QQ plot.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

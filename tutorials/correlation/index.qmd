@@ -105,19 +105,6 @@ Det ser normalfördelat ut. Om det blir för få staplar kan man ange antal stap
 hist(tree.data$height, breaks = 14)
 ```
 
-### Test för normalfördelning
-
-Jag **rekommenderar inte** att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du nödvändigtvis vill ha ett test så använd följande:
-
-```{r}
-shapiro.test(tree.data$height)
-```
-
-```{r}
-shapiro.test(tree.data$diameter)
-```
-
-Om testet är *icke-signifikant* betyder det att data *inte avviker från normalfördelning* (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.
 
 ## Publiceringsduglig figur
 
