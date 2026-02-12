@@ -37,6 +37,7 @@ Wilcoxons test (kallas ibland Mann-Whitney U-test) används som ett icke-paramet
 Vi vill undersöka om den sydliga kärrsnäppans häckningsframgång kan förbättras om man har predatorkontroll. Vi har därför inventerat antalet ungar hos honor i slumpvis utvalda bon i områden där man haft predatorkontroll, och områden där inga åtgärder gjorts.
 
 ### Läs in data
+
 Ladda ner följande fil [dunlin.txt](data/dunlin.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
 
 Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `dunlin_data.` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
@@ -50,7 +51,6 @@ dunlin_data <- read.table("data/dunlin.txt",
                            dec=",") 
 ```
 
-
 ### Inspektera data
 
 Börja med att titta på datans struktur med `str()`.
@@ -58,7 +58,6 @@ Börja med att titta på datans struktur med `str()`.
 ```{r}
 str(dunlin_data)
 ```
-
 
 ```{r}
 head(dunlin_data)
@@ -69,13 +68,14 @@ Det ser ut som om vi har många nollor i datasetet. Låt oss se på ett histogra
 ```{r}
 hist(dunlin_data$offspring)
 ```
+
 De flesta honor verkar inte ha fått några ungar. Låt oss se på en QQ-plot som vi även använde i vår tutorial om t-test
 
 ```{r}
 qqnorm(dunlin_data$offspring)
 ```
-Vi vill att våra värden skall följa en diagonal, men det gör de inte. Vi har ett dataset som inte uppfyller t-testets krav på normalfördelade data, och vi kan inte transformera pg.a. att datasetet mest består av nollvärden som kommer fortsätta att vara nollvärden.
 
+Vi vill att våra värden skall följa en diagonal, men det gör de inte. Vi har ett dataset som inte uppfyller t-testets krav på normalfördelade data, och vi kan inte transformera pg.a. att datasetet mest består av nollvärden som kommer fortsätta att vara nollvärden.
 
 ### Visualisera datat med en enkel graf
 
@@ -92,12 +92,13 @@ Hur tolkar du grafen? Ser det ut som att antalet avkomma skiljer sig åt beroend
 
 Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel (beroende variabel) *offspring* beror av vår förklarande variabel (oberoende variabel) *treatment*, med andra ord om antalet avkomma beror av huruvida området haft predatorkontroll eller ej
 
-Vi specificerar en modell med hjälp av funktionen `wilcox.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.dunlin`. 
+Vi specificerar en modell med hjälp av funktionen `wilcox.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.dunlin`.
 
 ```{r}
 m.dunlin<-wilcox.test(offspring~treatment,
                     data=dunlin_data)
 ```
+
 Vi får en varning `Warning: cannot compute exact p-value with ties`. Det betyder att testet upptäcker att vissa värden är identiska (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga problem.
 
 ### Statistiska resultat
@@ -108,7 +109,7 @@ Vi tittar på resultatet genom att skriva in modellens namn och köra den
 m.dunlin
 ```
 
-Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt  ett p-värde. Vi får inga frigetsgrader i det här testet.
+Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt ett p-värde. Vi får inga frigetsgrader i det här testet.
 
 Eftersom vårt p-värde är mindre än 0.05 säger vi att antalet avkommor skiljer sig åt beroende på behandling. Stämmer det om du tittar på din boxplot?
 
@@ -120,7 +121,7 @@ Den sydliga kärrsnäppan fårt fler avkommor om man tillämpar predatorkontroll
 
 Kruskal Wallis test är en ickeparametrisk ersättning till envägs ANOVA. Det är ett svagare och mindre flexibelt test än en vanlig envägs ANOVA och skall bara användas i nödfall.
 
-Vi vill undersöka om täckningsgraden av blåbär skiljer sig åt i tre skogar. Täckningsgraden har skattats enligt Braun-Blanquet-skalan med fem nivåer (1-5) där täckningsgraden ökar från 1 -> 5. Data är därmed ordnade (1 är lägre än 5) men på ordinalskala (kategorierna är inga mätvärden). 
+Vi vill undersöka om täckningsgraden av blåbär skiljer sig åt i tre skogar. Täckningsgraden har skattats enligt Braun-Blanquet-skalan med fem nivåer (1-5) där täckningsgraden ökar från 1 -\> 5. Data är därmed ordnade (1 är lägre än 5) men på ordinalskala (kategorierna är inga mätvärden).
 
 ### Läs in data
 
@@ -141,14 +142,16 @@ Börja med att titta på datans struktur med `str()`.
 str(cover_data)
 ```
 
-
 ```{r}
 head(cover_data)
 ```
+
 Låt oss se på ett histogram
+
 ```{r}
 hist(cover_data$Cover.cathegory)
 ```
+
 Vi ser att våra data inte ser ut att följa någon normalfördelning, och dessutom vet vi att det är *ordinaldata*, dvs vår responsvariabel är inte mätvärden utan i ordnade kategorier. Bara det senare faktumet gör att vi inte skall använda oss av en vanlig envägs-ANOVA. Icke-normalfördelat data är mindre viktigt, eftersom en envägs ANOVA kräver att det är *residualerna* som skall vara normalfördelade.
 
 ### Visualisera datat med en enkel graf
@@ -164,10 +167,9 @@ Hur tolkar du grafen? Ser det ut som att blåbärens täckningsgrad skiljer sig 
 
 ### Statistisk modellering
 
-Vi vill nu göra ett Kruskal Wallis test  för att undersöka om vår responsvariabel (beroende variabel) *Cover.cathegory* beror av vår förklarande variabel (oberoende variabel) *Forest*
+Vi vill nu göra ett Kruskal Wallis test för att undersöka om vår responsvariabel (beroende variabel) *Cover.cathegory* beror av vår förklarande variabel (oberoende variabel) *Forest*
 
-Vi specificerar en modell med hjälp av funktionen `kruskal.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.cover`. 
-
+Vi specificerar en modell med hjälp av funktionen `kruskal.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.cover`.
 
 ```{r}
 m.cover<-kruskal.test(Cover.cathegory~Forest,
@@ -179,9 +181,10 @@ m.cover
 ```
 
 ### Post-hoc test
+
 Vi har en signifikant efekt av Forest, d.v.s. täckningsgraden för blåbär skiljer sig åt mellan de olika skogarna. Men vilka skogar skiljer sig åt? Vi behöver göra ett post-hoc test! Om vi inte hade haft en signifikant effekt skall vi däremot inte göra ett post-hoc test.
 
-När man gör ett posthoc-test på en icke-parametrisk envägs-ANOVA använder man sig av *Dunnets Test*, vilket finns tillgängligt i paketet **dunn.test**.  Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("dunn.test")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
+När man gör ett posthoc-test på en icke-parametrisk envägs-ANOVA använder man sig av *Dunnets Test*, vilket finns tillgängligt i paketet **dunn.test**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("dunn.test")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
 
 När vi läst in paketet använder vi oss av funktionen `dunn.test()`. Först anger vi vår responsvariabel, och det gör vi enligt formeln **`Datatset$Variabel`**, vilket i vårat fall blir `cover_data$Cover.cathegory`. Efter det anger vi vår förklarande faktor på samma sätt, vilket blir `cover_data$Forest`, och slutligen anger vi metoden för att korrigera p-värden för multipla test. Vanligt är att använda sig av *Holm's metod*, anges med `method="holm"`.
 
@@ -191,7 +194,7 @@ library(dunn.test)
 dunn.test(cover_data$Cover.cathegory,cover_data$Forest,method="holm")
 ```
 
-Vi får en tabell med jämförelser. Om vi börjar med *Kolumn A* och *Rad B* får vi p-värdet `0.0010.` Det betyder att täckningsgraden för blåbär skiljer sig åt mellan skogarna A och B. 
+Vi får en tabell med jämförelser. Om vi börjar med *Kolumn A* och *Rad B* får vi p-värdet `0.0010.` Det betyder att täckningsgraden för blåbär skiljer sig åt mellan skogarna A och B.
 
 *Kolumn A* och *rad C* ger ett p-värde på `0.0971.` Täckningsgraden skiljer sig alltså **inte** åt mellan skogarna A och C.
 
@@ -224,31 +227,38 @@ Börja med att titta på datans struktur med `str()`.
 str(spearman_data)
 ```
 
-
 ```{r}
 head(spearman_data)
 ```
+
 Låt oss se på ett histogram över variabel `A`
+
 ```{r}
 hist(spearman_data$A)
 ```
+
 Det ser verkligen inte ut som en normalfördelning. Hur ser variabel `B` ut?
 
 ```{r}
 hist(spearman_data$B)
 ```
+
 Variabel B ser lite bättre ut, men det är som helhet ett dataset som avviker kraftigt från normalfördelningen. Att analysera det med en parametrisk korrelation bryter mot dess antagande om normalfördelning, och då kan vi inte lite på en sådan korrelations resultat.
 
 ### Visualisera datat
+
 Som vanligt gör vi en graf innan vi börjar med vår statistiska modellering
 
 ```{r}
 plot(B ~ A, data = spearman_data)
 ```
+
 Vi ser i grafen att det eventuellt är en positiv korrelation mellan A och B, men också att speciellt variabel A har en underlig fördelning med mest låga eller höga värden, vilket vi också såg i vårt histogram.
 
 ### Statistisk modellering
+
 Vi gör nu en icke-parametrisk korrelation, och den har stora likheter med korrelationen vi tidigare gjort. Vi använder oss fortfarande av funktionen `cor.test()`, den enda skillnaden är att vi anger `method = "s"` (står för Spearman) där vi tidigare angett `"p"`
+
 ```{r}
 m.spearman <-cor.test(spearman_data$A, spearman_data$B, method = "s")
 ```
@@ -256,47 +266,21 @@ m.spearman <-cor.test(spearman_data$A, spearman_data$B, method = "s")
 ### Resultat
 
 Vi skriver in modellens namn och tittar på resultatet
+
 ```{r}
 m.spearman
 ```
+
 Vi ser att A och B inte är signifikant korrelerade eftersom p-värdet är `0.07226`. Vi får också en korrelationskoefficient (kallas `rho`) på 0.412.
 
 ### Skillnad i resultat mot parametrisk korelation
+
 Vad hade hänt om vi analyserat datat med en parametrisk korrelation? Vi testar!
 
 ```{r}
 m.pearson <-cor.test(spearman_data$A, spearman_data$B, method = "p")
 m.pearson
 ```
+
 Vi får nu ett signifikant p-värde, och om vi inte hade vetat att våra data inte var normalfördelade hade vi dragit den felaktiga slutsatsen att A och B var positivt korrelerade. Men eftersom datat inte uppfyller kraven för att få göra en parametrisk korrelation så kan vi inte lite på p-värderna från en sådan korrelation.
-
-## Test för normalfördelning
-
-Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du ändå vill ha ett test så använd Shapiro Wilk's test, i funktionen `shapiro.test()`:
-
-```{r}
-shapiro.test(dunlin_data$offspring)
-```
-
-Om testet är *icke-signifikant* betyder det att data *inte avviker från normalfördelning* (dvs data är normalfördelat). Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.
-
-Som ett exempel på problemen med test för normalfördelning så simulerar jag 2000 värden från en normalfördelning:
-
-```{r}
-set.seed(62874)
-
-simdata <- rnorm(mean = 100, sd = 50, n = 2000)
-
-```
-Vi gör sedan ett histogram - det ser extremt normalfördelat ut!
-
-```{r}
-hist(simdata)
-```
-
-Men tack vare att vi har så många värden så tycker Shapiro Wilk's test att våra data (som kommer från en normalfördelning) signifikant avviker från normalfördelningen.
-```{r}
-shapiro.test(simdata)
-```
-
 

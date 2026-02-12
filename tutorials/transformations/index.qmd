@@ -20,7 +20,7 @@ En vanlig typ av transformering är kvadratrots-transformering, vilket man kan �
 
 -   Variansen ökar med medelvärdet (vanligt om man har räknedata)
 
-En vanlig typ av data är **räknedata** (\*count data\*), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en **poisson-fördelning** och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en posiion-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).
+En vanlig typ av data är **räknedata** (\*count data\*), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en **poisson-fördelning** och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en poisson-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).
 
 ```{r}
 set.seed (12768)
@@ -94,4 +94,74 @@ Vi tittar på ett histogram när vi log-transformerat vår data.
 hist(log(exp.data),col="blue", main="Histogram of exponential data after log transformation")
 ```
 
-Som vi ser så gör log-transformeringen att vårt kraftigt höger-skeva data antar en normalfördelning. Notera åter igen att vi inte skall log-transformera data som redan är normalfördelat, då förstör vi en bra fördelning.
+Som vi ser så gör log-transformeringen att vårt kraftigt höger-skeva data antar något som mer liknar en normalfördelning. Notera åter igen att vi inte skall log-transformera data som redan är normalfördelat, då förstör vi en bra fördelning.
+
+## QQ-Plot - Grafisk inspektion av normalfördelning
+Förutom att titta på histogram så är en mycket vanlig metod för att inspektera om data följer en normalfördelning att göra en QQ-Plot
+
+```{r}
+#| code-fold: false
+qqnorm(exp.data)
+qqline(exp.data)
+```
+
+Även om man sällan ser att alla punkterna faller precis på linjen (speciellt punkterna i ändarna av fördelningen kan ofta ligga en liten bit från linjen) så skall vi inte se ett tydligt mönster så som vi ser här. Det här tyder på att datat inte är normalfördelat.
+
+Vi testar det på log-transformerat data:
+
+```{r}
+#| code-fold: false
+qqnorm(log(exp.data))
+qqline(log(exp.data))
+```
+
+## Test för normalfördelning
+
+Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du ändå vill ha ett test så använd Shapiro Wilk's test, i funktionen `shapiro.test()`
+
+Först gör vi ett Shapiro test på vår exponentiella fördelning:
+
+```{r}
+shapiro.test(exp.data)
+```
+
+Testet är signifikant, dvs data avviker signifikant från normalfördelning.
+
+Om testet är *icke-signifikant* betyder det att data *inte avviker från normalfördelning* (dvs data är normalfördelat). Vi testar på vårt log-transformerade data:
+
+```{r}
+shapiro.test(log(exp.data))
+```
+
+
+Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.
+
+Som ett exempel på problemen med test för normalfördelning så simulerar jag 2000 värden från en normalfördelning:
+
+```{r}
+set.seed(62874)
+
+simdata <- rnorm(mean = 100, sd = 50, n = 2000)
+
+```
+
+Vi gör sedan ett histogram - det ser extremt normalfördelat ut!
+
+```{r}
+hist(simdata)
+```
+
+En QQ-plot ser även den väldigt bra ut
+
+```{r}
+qqnorm(simdata)
+qqline(simdata)
+```
+
+Men tack vare att vi har så många värden så tycker Shapiro Wilk's test att våra data (som kommer från en normalfördelning) signifikant avviker från normalfördelningen.
+
+```{r}
+shapiro.test(simdata)
+```
+ 
+ Därför skall du inte lita blint på Shapiro´s test, det är mycket bättre att titta på histogram.

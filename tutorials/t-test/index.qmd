@@ -110,6 +110,8 @@ Vi utvärderar modellen genom *diagnostiska grafer*
 
 ```{r}
 qqnorm (nutrientdata$Mass)
+qqline(nutrientdata$Mass)
+
 ```
 
 **Normal Q-Q** visar om residualerna är normalfördelade. De bör följa en tänkt diagonal linje från nedre vänster hörn till övre höger hörn. Om de avviker på ett systematiskt sätt är residualerna inte perfekt normalfördelade, och vi kan behöva förändra modellen, exempelvis genom att transformera data eller använda ett annat typ av test.

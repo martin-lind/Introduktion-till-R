@@ -170,6 +170,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#kvadratrots-transformering" id="toc-kvadratrots-transformering" class="nav-link active" data-scroll-target="#kvadratrots-transformering">Kvadratrots-transformering</a></li>
   <li><a href="#log-transformering" id="toc-log-transformering" class="nav-link" data-scroll-target="#log-transformering">log-transformering</a></li>
+  <li><a href="#qq-plot---grafisk-inspektion-av-normalfördelning" id="toc-qq-plot---grafisk-inspektion-av-normalfördelning" class="nav-link" data-scroll-target="#qq-plot---grafisk-inspektion-av-normalfördelning">QQ-Plot - Grafisk inspektion av normalfördelning</a></li>
+  <li><a href="#test-för-normalfördelning" id="toc-test-för-normalfördelning" class="nav-link" data-scroll-target="#test-för-normalfördelning">Test för normalfördelning</a></li>
   </ul>
 </nav>
     </div>
@@ -213,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Man har räknedata med ett medelvärde mindre än ca 20</p></li>
 <li><p>Variansen ökar med medelvärdet (vanligt om man har räknedata)</p></li>
 </ul>
-<p>En vanlig typ av data är <strong>räknedata</strong> (*count data*), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en <strong>poisson-fördelning</strong> och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en posiion-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).</p>
+<p>En vanlig typ av data är <strong>räknedata</strong> (*count data*), vi kan ha räknat antalet individer, antalet frön eller avkommor. Det är en datatyp som enbart innehåller heltal, och som inte kan vara negativ (man säger att den följer en <strong>poisson-fördelning</strong> och inte en normalfördelning). Om man har ett lågt medelvärde (lägre än 20) så kommer man få en skev fördelning (se exemplet nedan). Vi simulerar räknedata från en poisson-fördelning och gör ett histogram nedan. Vi ser att variationen är störe för höga än för låga värden (vi säger att förelningen är höger-skev, eller right-skewed).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -326,7 +328,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Som vi ser så gör log-transformeringen att vårt kraftigt höger-skeva data antar en normalfördelning. Notera åter igen att vi inte skall log-transformera data som redan är normalfördelat, då förstör vi en bra fördelning.</p>
+<p>Som vi ser så gör log-transformeringen att vårt kraftigt höger-skeva data antar något som mer liknar en normalfördelning. Notera åter igen att vi inte skall log-transformera data som redan är normalfördelat, då förstör vi en bra fördelning.</p>
+</section>
+<section id="qq-plot---grafisk-inspektion-av-normalfördelning" class="level2">
+<h2 class="anchored" data-anchor-id="qq-plot---grafisk-inspektion-av-normalfördelning">QQ-Plot - Grafisk inspektion av normalfördelning</h2>
+<p>Förutom att titta på histogram så är en mycket vanlig metod för att inspektera om data följer en normalfördelning att göra en QQ-Plot</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(exp.data)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(exp.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Även om man sällan ser att alla punkterna faller precis på linjen (speciellt punkterna i ändarna av fördelningen kan ofta ligga en liten bit från linjen) så skall vi inte se ett tydligt mönster så som vi ser här. Det här tyder på att datat inte är normalfördelat.</p>
+<p>Vi testar det på log-transformerat data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">log</span>(exp.data))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">log</span>(exp.data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="test-för-normalfördelning" class="level2">
+<h2 class="anchored" data-anchor-id="test-för-normalfördelning">Test för normalfördelning</h2>
+<p>Jag rekommenderar inte att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du ändå vill ha ett test så använd Shapiro Wilk’s test, i funktionen <code>shapiro.test()</code></p>
+<p>Först gör vi ett Shapiro test på vår exponentiella fördelning:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(exp.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  exp.data
+W = 0.82092, p-value = 2.756e-06</code></pre>
+</div>
+</div>
+<p>Testet är signifikant, dvs data avviker signifikant från normalfördelning.</p>
+<p>Om testet är <em>icke-signifikant</em> betyder det att data <em>inte avviker från normalfördelning</em> (dvs data är normalfördelat). Vi testar på vårt log-transformerade data:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">log</span>(exp.data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  log(exp.data)
+W = 0.97929, p-value = 0.5224</code></pre>
+</div>
+</div>
+<p>Om histogramen ser bra ut, men du ändå får en signifikant avvikelse från normalfördelning (speciellt vid större dataset) skulle jag gå på histogramen.</p>
+<p>Som ett exempel på problemen med test för normalfördelning så simulerar jag 2000 värden från en normalfördelning:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">62874</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">50</span>, <span class="at">n =</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Vi gör sedan ett histogram - det ser extremt normalfördelat ut!</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(simdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>En QQ-plot ser även den väldigt bra ut</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(simdata)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(simdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Men tack vare att vi har så många värden så tycker Shapiro Wilk’s test att våra data (som kommer från en normalfördelning) signifikant avviker från normalfördelningen.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(simdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  simdata
+W = 0.99833, p-value = 0.04167</code></pre>
+</div>
+</div>
+<p>Därför skall du inte lita blint på Shapiro´s test, det är mycket bättre att titta på histogram.</p>
 
 
 </section>
