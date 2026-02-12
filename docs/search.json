@@ -669,7 +669,7 @@
     "href": "tutorials/non-parametric/index.html#icke-paramatriska-test",
     "title": "Icke-parametriska tester",
     "section": "Icke-paramatriska test",
-    "text": "Icke-paramatriska test\nDe icke-parametriska testen som oftast används är:"
+    "text": "Icke-paramatriska test\nDe icke-parametriska testen som oftast används är:\n\nWilcoxons test - alternativ till t-test\nKruskal Wallis test - alternativ till envägs-ANOVA\nSpearman-korrelation - alternativ till parametrisk korrelation"
   },
   {
     "objectID": "tutorials/non-parametric/index.html#mann-whitney-u-test",

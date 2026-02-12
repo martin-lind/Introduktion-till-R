@@ -24,11 +24,11 @@ Icke-parametriska test skall ses som ett svagt test som används som en nödlös
 
 De icke-parametriska testen som oftast används är:
 
--   [**Wilcoxons test**]: ersätter t-test
+-   [Wilcoxons test] - alternativ till t-test
 
--   [Kruskal Wallis test]: ersätter envägs-anova
+-   [Kruskal Wallis test] - alternativ till envägs-ANOVA
 
--   [Spearman-korrelation]: ersätter Pearson-korrelation
+-   [Spearman-korrelation] - alternativ till parametrisk korrelation
 
 ## Wilcoxons test
 
