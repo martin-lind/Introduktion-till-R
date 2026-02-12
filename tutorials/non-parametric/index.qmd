@@ -2,7 +2,7 @@
 title: "Icke-parametriska tester"
 ---
 
-De statistiska test vi behandlat nu är parametriska test, dvs de förutsätter att datan eller residualerna följer vissa fördelningar (exempelvis normalfördelning). Simuleringar visar också att parametriska modeller är väldigt robusta även mot avvikelser i normalförderade residualer (se exempelvis [Knief & Forstmeier 2021](https://link.springer.com/article/10.3758/s13428-021-01587-5)). Om residualerna dessutom avviker från normalfördelning kan det i många fall lösas genom transformeringar (se tidigare tutoriel) eller genom att använda generaliserade linjära modeller som kan specificera en annan errorstruktur (kommer presenteras i en framtida tutorial).
+De statistiska test vi behandlat nu är parametriska test, dvs de förutsätter att datan eller residualerna följer vissa fördelningar (exempelvis normalfördelning). Simuleringar visar också att parametriska modeller är väldigt robusta även mot avvikelser i normalförderade residualer (se exempelvis [Knief & Forstmeier 2021](https://link.springer.com/article/10.3758/s13428-021-01587-5)). Om residualerna dessutom avviker från normalfördelning kan det i många fall lösas genom transformeringar (se [tidigare tutorial](https://martin-lind.github.io/Introduktion-till-R/tutorials/transformations/)) eller genom att använda generaliserade linjära modeller som kan specificera en annan errorstruktur (kommer presenteras i en framtida tutorial).
 
 Ibland har man dock väldigt "konstiga" data, och speciellt om de samtidigt kommer från små dataset så kan man ibland behöva överväga icke-parametriska metoder.
 
