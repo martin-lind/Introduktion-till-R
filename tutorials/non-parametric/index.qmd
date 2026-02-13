@@ -102,7 +102,7 @@ library(coin)
 m.dunlin <- wilcox_test(offspring ~ as.factor(treatment),
                     data = dunlin_data)
 ```
-*En sidonotering*: många textböcker förelår att man använder funktionen `wilcox.test()` (jag vet, snarlikt namn) som inte kräver att man laddar ner några paket. Den implementeringen av testet är dock begränsad och har exempelvis problem om man har många siffron med samma värde (som vi har med många nollor). Att som vi gjort alltid använda funktionen `wilcox_test()` i paketet "`coin`" är därmed ett bättre val.
+*En sidonotering*: många textböcker förelår att man använder funktionen `wilcox.test()` (jag vet, snarlikt namn) som inte kräver att man laddar ner några paket. Den implementeringen av testet är dock begränsad och har exempelvis problem om man har många siffror med samma värde (som vi har med många nollor). Att som vi gjort alltid använda funktionen `wilcox_test()` i paketet "`coin`" är därmed ett bättre val.
 
 ### Statistiska resultat
 

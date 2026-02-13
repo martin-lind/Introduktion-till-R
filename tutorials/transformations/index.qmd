@@ -142,6 +142,10 @@ qqnorm(log(exp.data),col="blue")
 qqline(log(exp.data))
 ```
 
+En viktig aspekt att minnas är att för regressioner och ANOVA så är det residualerna som skall vara normalfördelade. Man avgör det genom att titta på en QQplot på residualerna, det är den andra grafen man får fram när man kör plot(modellens.namn) efter en regression/ANOVA. Ett exempel på en sådan graf ser vi nedan.
+
+![](images/QQ_residuals.png){fig-align="left"}
+
 ## Test för normalfördelning
 
 Jag **rekommenderar inte** att du testar för normalfördelning om du har stora dataset. Testen undersöker avvikelse från normalfördelning, och ju mer data du har, desto kraftfullare blir testen och kan upptäcka minimala avvikelser som inte spelar någon praktisk roll för de statistiska testen. Men om du ändå vill ha ett test så använd Shapiro Wilk's test, i funktionen `shapiro.test()`
@@ -241,13 +245,16 @@ str(bluetit_data)
 ```{r}
 head(bluetit_data)
 ```
+
 ### En enkel plot
+
 Vi gör en enkel boxplot för att förstå vårt dataset
 
 ```{r}
 boxplot(Offspring ~ Forest, 
         data = bluetit_data)
 ```
+
 Det verkar kanske finnas fler avkommor i skog A än i skog B, men vi har låga medelvärden och räknedata, så vi kan misstänka att vi bör göra en kvadratrots-transformering av vår responsvariabel `Offspring.`
 
 ### Undersök om vi bör transformera
@@ -283,22 +290,26 @@ hist(sqrt(bluetit_data $Offspring))
 Det ser ju bättre ut!
 
 Vi gör samma sak med vår QQplot
+
 ```{r}
 #| code-fold: false
 qqnorm(sqrt(bluetit_data $Offspring))
 qqline(sqrt(bluetit_data $Offspring))
 ```
+
 Återigen så verkar en kvadratrots-transformering vara ett bra val.
 
 ### Statistisk analys
 
 Vi gör nu vårt t-test, och omsluter vår responsvariabel med funktionen `sqrt()`
+
 ```{r}
 #| code-fold: false
 m.bluetit <- t.test (sqrt(Offspring) ~ Forest,
                        data = bluetit_data)
 m.bluetit
 ```
+
 Blåmesen har fler avkommor i skog A än i skog B (t-test, t = 2.16, d.f. = 37.44, p = 0.037)
 
 ### Ny variabel med transformerat data
