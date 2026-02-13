@@ -97,27 +97,34 @@ Vi specificerar en modell med hjälp av funktionen `wilcox.test()` och väljer a
 
 ```{r}
 #| code-fold: false
-m.dunlin<-wilcox.test(offspring~treatment,
-                    data=dunlin_data)
+m.dunlin <- wilcox.test(offspring ~ treatment,
+                    data = dunlin_data)
 ```
 
-Vi får en varning `Warning: cannot compute exact p-value with ties`. Det betyder att testet upptäcker att vissa värden är identiska (vi har många nollor) och att p-värderna därmed inte går att lita på fullt ut. Det är dock oftast inga problem.
+Vi får en varning `Warning: cannot compute exact p-value with ties`. Det betyder att testet upptäcker att vissa värden är identiska (vi har många nollor i vårt dataset) och att p-värderna därmed inte går att lita på fullt ut. 
+
+Vi kan lösa det problemet genom att göra analysen i funktionen `wilcox_test()` (jag vet, snarlikt namn) i paketet `coin`. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("coin")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
+
+```{r}
+#| code-fold: false
+library(coin)
+
+m.dunlin.2 <- wilcox_test(offspring ~ as.factor(treatment),
+                    data = dunlin_data)
+m.dunlin.2
+```
 
 ### Statistiska resultat
 
-Vi tittar på resultatet genom att skriva in modellens namn och köra den
+Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde i första analysen, Z-värde i andra analysen) samt ett p-värde. Vi får inga frihetsgrader i det här testet.
 
-```{r}
-m.dunlin
-```
-
-Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde) samt ett p-värde. Vi får inga frigetsgrader i det här testet.
+Eftersom vi fick en varning när vi körde den första analysen så väljer vi att presentera resultatet från vår andra analys.
 
 Eftersom vårt p-värde är mindre än 0.05 säger vi att antalet avkommor skiljer sig åt beroende på behandling. Stämmer det om du tittar på din boxplot?
 
 ### Presentera din statistiska analys
 
-Den sydliga kärrsnäppan fårt fler avkommor om man tillämpar predatorkontroll än i områden utan predatorkontroll (Wilcoxons test, W = 9.5, p = 0.047).
+Den sydliga kärrsnäppan fårt fler avkommor om man tillämpar predatorkontroll än i områden utan predatorkontroll (Wilcoxons test, Z = -2.05, p = 0.040).
 
 ## Kruskal Wallis test
 
@@ -161,7 +168,7 @@ Vi ser att våra data ser väldigt jämna ut, och kanske inte är normalfördela
 Vi gör en enkel graf med `boxplot()`
 
 ```{r}
-boxplot(Cover.cathegory~Forest, 
+boxplot(Cover.cathegory ~ Forest, 
         data = cover_data)
 ```
 
@@ -175,8 +182,8 @@ Vi specificerar en modell med hjälp av funktionen `kruskal.test()` och väljer 
 
 ```{r}
 #| code-fold: false
-m.cover<-kruskal.test(Cover.cathegory~Forest,
-                    data=cover_data)
+m.cover <- kruskal.test(Cover.cathegory ~ Forest,
+                    data = cover_data)
 ```
 
 ```{r}
@@ -189,13 +196,13 @@ Vi har en signifikant efekt av Forest, d.v.s. täckningsgraden för blåbär ski
 
 När man gör ett posthoc-test på en icke-parametrisk envägs-ANOVA använder man sig av *Dunn Test*, vilket finns tillgängligt i paketet **dunn.test**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("dunn.test")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
 
-När vi läst in paketet använder vi oss av funktionen `dunn.test()`. Först anger vi vår responsvariabel, och det gör vi enligt formeln **`Datatset$Variabel`**, vilket i vårat fall blir `cover_data$Cover.cathegory`. Efter det anger vi vår förklarande faktor på samma sätt, vilket blir `cover_data$Forest`, och slutligen anger vi metoden för att korrigera p-värden för multipla test. Vanligt är att använda sig av *Holm's metod*, anges med `method="holm"`.
+När vi läst in paketet använder vi oss av funktionen `dunn.test()`. Först anger vi vår responsvariabel, och det gör vi enligt formeln **`Datatset$Variabel`**, vilket i vårat fall blir `cover_data$Cover.cathegory`. Efter det anger vi vår förklarande faktor på samma sätt, vilket blir `cover_data$Forest`, och slutligen anger vi metoden för att korrigera p-värden för multipla test. Vanligt är att använda sig av *Holm's metod*, anges med `method = "holm"`.
 
 ```{r}
 #| code-fold: false
 library(dunn.test)
 
-dunn.test(cover_data$Cover.cathegory,cover_data$Forest,method="holm")
+dunn.test(cover_data$Cover.cathegory, cover_data$Forest, method = "holm")
 ```
 
 Vi får en tabell med jämförelser. Om vi börjar med *Kolumn A* och *Rad B* får vi p-värdet `0.0010.` Det betyder att täckningsgraden för blåbär skiljer sig åt mellan skogarna A och B.

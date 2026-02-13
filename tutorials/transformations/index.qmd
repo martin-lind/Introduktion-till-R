@@ -10,6 +10,22 @@ norm.data<-rnorm(n = 2000, mean = 100, sd = 20)
 hist(norm.data, main = "Normal distribution")
 ```
 
+**Ett histogram** visar frekvensfördelningen av dina data i en vald variabel. Data delas in i intervall, och höjden på staplarna visar hur många datavärden som ligger inom det intervallet. Som vi ser i exemplet så ligger de flesta data mellan 75 och 125, medan mindre eller större värden blir succesivt ovanligare.
+
+Om data är normalfördelade följer deras histogram ungefär den formen som visas i figuren, men ju mindre datamängd man har desto kantigare och ojämnare blir givetvis histogrammet.
+
+### Varför förutsätter parametriska test normalfördelning?
+
+De test vi hittills arbetat med kallas parametriska test, de arbetar utifrån att vissa parametrar kan skattas ur datat, såsom medelvärde och varians. För att säkert kunna skatta sådana parametrar krävs dock att datat uppfyller vissa krav, ofta stt det är normalfördelat.
+
+Om datat inte är normalfördelat betyder det dock inte att man inte kan använda parametriska test. Ofta kan man förändra (transformera) datat så att det antar en normalfördelning, genom något som kallas transformationer.
+
+**Vi kommer att titta på två vanliga transformationer:**
+
+-   [Kvadratrots-transformering]
+
+-   [log-transformering]
+
 ## Kvadratrots-transformering
 
 En vanlig typ av transformering är kvadratrots-transformering, vilket man kan överväga i följande fall
@@ -97,13 +113,16 @@ hist(log(exp.data),col="blue", main="Histogram of exponential data after log tra
 Som vi ser så gör log-transformeringen att vårt kraftigt höger-skeva data antar något som mer liknar en normalfördelning. Notera åter igen att vi inte skall log-transformera data som redan är normalfördelat, då förstör vi en bra fördelning.
 
 ## QQ-Plot - Grafisk inspektion av normalfördelning
+
 Förutom att titta på histogram så är en mycket vanlig metod för att inspektera om data följer en normalfördelning att göra en QQ-Plot.
 
 Nedan följer en QQ plot på normalfördelat data.
+
 ```{r}
 qqnorm(norm.data)
 qqline(norm.data)
 ```
+
 Vi ser att alla datapunkter faller mer eller mindre på den diagonala linjen, dvs våra mätvärden (på y-axeln) motsvarar nästan perfekt våra förväntade mätvärden om de skulle komma från en normalfördelning (x-axeln). Så här bra ser sällan en QQ plot ut, speciellt låga och höga värden brukar avvika lite, men vi vill inte se en systematisk avvikelse.
 
 Låt oss titta på en QQ-plot för våra exponentiella data
@@ -142,8 +161,7 @@ Om testet är *icke-signifikant* betyder det att data *inte avviker från normal
 shapiro.test(log(exp.data))
 ```
 
-
-Testet är inte signifikant, dvs data avviker inte från normalfördelning (dvs är normalfördelat) efter att vi transformerat det med `log()`. 
+Testet är inte signifikant, dvs data avviker inte från normalfördelning (dvs är normalfördelat) efter att vi transformerat det med `log()`.
 
 ### Problemet med test för normalfördelning
 
@@ -176,5 +194,133 @@ Men tack vare att vi har så många värden så tycker Shapiro Wilk's test att v
 ```{r}
 shapiro.test(simdata)
 ```
- 
+
 Därför skall du inte lita blint på Shapiro´s test, det är mycket bättre att titta på histogram och QQ plot.
+
+Problemet är detsamma fast omvänt vid små dataset, då kan Shapiro Test säga att data inte avviker från normalfördelning fastän vi vet att det gör det, pga att testet är svagt vid lite data.
+
+## Transformera din responsvariabel
+
+Hur gör man då rent praktiskt för att transponera sin responsvariabel? Det är mycket enkelt! Exemplet nedan använder kvadratrots-transformering, men om du hellre vill göra log-transformering ersätter du `sqrt()` med `log()`.
+
+### Alternativ 1 - direkt i analysen
+
+Det enklaste är att transponera direkt i din analys. Istället för att skriva `responsvariabel ~ ...` så skriver du `sqrt(responsvariablel) ~ ...`, det vill säga du omsluter din responsvariabel med `sqrt()` i formeln för din statistiska analys. Sedan fortsätter du som vanligt med analysen.
+
+### Alternativ 2 - skapa en ny transformerad variabel
+
+Om du hellre vill ha en variabel i ditt dataset som är transformerad, så att du slipper tänka på att lägga till transformeringen i din modell så kan du enkelt skapa en sådan variabel. Du använder sedan din nya variabel som responsvariabel i dina statistiska modeller.
+
+Om ditt dataset heter `MyData` och din responsvariabel heter `Response`, så kan du skapa en ny variabel i ditt dataset, vi kan kalla den `sqrt.transformed.Response`
+
+`MyData$sqrt.transformed.Response <- sqrt(MyData$Response)`
+
+Koden `sqrt(MyData$Response)` betyder att vi tar kvadratroten ur alla tal i variablen `Response` som ligger i datasetet `MyData`.
+
+Koden `MyData$sqrt.transformed.Response <-`betyder att vi sparar resultatet i en variabel vi kallar `sqrt.transformed.Response` som vi lägger till i datat `MyData`
+
+### Läs in data
+
+Ladda ner följande fil [bluetit.txt](data/bluetit.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
+
+```{r}
+bluetit_data <- read.table("data/bluetit.txt",
+                           header=T,
+                           sep="\t",
+                           dec=",") 
+```
+
+### Inspektera data
+
+Börja med att titta på datans struktur med `str()`.
+
+```{r}
+str(bluetit_data)
+```
+
+```{r}
+head(bluetit_data)
+```
+### En enkel plot
+Vi gör en enkel boxplot för att förstå vårt dataset
+
+```{r}
+boxplot(Offspring ~ Forest, 
+        data = bluetit_data)
+```
+Det verkar kanske finnas fler avkommor i skog A än i skog B, men vi har låga medelvärden och räknedata, så vi kan misstänka att vi bör göra en kvadratrots-transformering av vår responsvariabel `Offspring.`
+
+### Undersök om vi bör transformera
+
+Hur ser vår responsvariabel ut? Vi gör ett histogram:
+
+```{r}
+hist(bluetit_data $Offspring)
+```
+
+Vi ser att histogrammet är högerskevt, och eftersom vi har räknedata och medelvärdet är under 20 (vi ser i histogrammet att det är runt åtta) så misstänker vi att en kvadratrots-transformering behövs.
+
+Vi kan även göra en QQplot
+
+```{r}
+#| code-fold: false
+qqnorm(bluetit_data $Offspring)
+qqline(bluetit_data $Offspring)
+```
+
+Vår QQ-plot ser inte så dålig ut, men vi ser en systematisk avvikelse vid låga och höga värden.
+
+### Transformera data
+
+Vi kan nu antingen använda oss av metod 1 och transformera direkt i alla analyser, eller skapa en ny variabel med transformerat data. Jag visar här hur man gör med transformeringen direkt i varje analys, om du hellre vill göra en ny variabel med transformerat data går du längre ned till [Ny variabel med transformerat data]
+
+Vi tittar på ett histogram med transponerat data, vi använder samma kod som tidigare men omsluter vår responsvariabel i funktionen sqrt()
+
+```{r}
+hist(sqrt(bluetit_data $Offspring))
+```
+
+Det ser ju bättre ut!
+
+Vi gör samma sak med vår QQplot
+```{r}
+#| code-fold: false
+qqnorm(sqrt(bluetit_data $Offspring))
+qqline(sqrt(bluetit_data $Offspring))
+```
+Återigen så verkar en kvadratrots-transformering vara ett bra val.
+
+### Statistisk analys
+
+Vi gör nu vårt t-test, och omsluter vår responsvariabel med funktionen `sqrt()`
+```{r}
+#| code-fold: false
+m.bluetit <- t.test (sqrt(Offspring) ~ Forest,
+                       data = bluetit_data)
+m.bluetit
+```
+Blåmesen har fler avkommor i skog A än i skog B (t-test, t = 2.16, d.f. = 37.44, p = 0.037)
+
+### Ny variabel med transformerat data
+
+Ett alternativt sätt är att skapa en ny varianbel med transponerade data. Vi kallar den `sqrt.trans.Offspring` Det är viktigt att du ger den ett nytt namn och inte sparar över din gamla variabel med nytt innehåll.
+
+```{r}
+#| code-fold: false
+bluetit_data$sqrt.trans.Offspring <- sqrt(bluetit_data$Offspring)
+```
+
+Vi tittar på vårt dataset med str() och ser att vi har en ny variabel.
+
+```{r}
+str(bluetit_data)
+```
+
+Vi kan nu genomföra t-testet med den nya variabeln som vår responsvariabel
+
+```{r}
+#| code-fold: false
+m.bluetit.2 <- t.test (sqrt.trans.Offspring ~ Forest,
+                       data = bluetit_data)
+m.bluetit.2
+```
