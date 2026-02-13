@@ -93,32 +93,26 @@ Hur tolkar du grafen? Ser det ut som att antalet avkomma skiljer sig åt beroend
 
 Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel (beroende variabel) *offspring* beror av vår förklarande variabel (oberoende variabel) *treatment*, med andra ord om antalet avkomma beror av huruvida området haft predatorkontroll eller ej
 
-Vi specificerar en modell med hjälp av funktionen `wilcox.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.dunlin`.
-
-```{r}
-#| code-fold: false
-m.dunlin <- wilcox.test(offspring ~ treatment,
-                    data = dunlin_data)
-```
-
-Vi får en varning `Warning: cannot compute exact p-value with ties`. Det betyder att testet upptäcker att vissa värden är identiska (vi har många nollor i vårt dataset) och att p-värderna därmed inte går att lita på fullt ut. 
-
-Vi kan lösa det problemet genom att göra analysen i funktionen `wilcox_test()` (jag vet, snarlikt namn) i paketet `coin`. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("coin")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
+Vi specificerar en modell med hjälp av funktionen `wilcox_test()`  i paketet `coin`. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("coin")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()` Vi väljer att spara resultatet i ett objekt som vi kallar `m.dunlin`.
 
 ```{r}
 #| code-fold: false
 library(coin)
 
-m.dunlin.2 <- wilcox_test(offspring ~ as.factor(treatment),
+m.dunlin <- wilcox_test(offspring ~ as.factor(treatment),
                     data = dunlin_data)
-m.dunlin.2
 ```
+*En sidonotering*: många textböcker förelår att man använder funktionen `wilcox.test()` (jag vet, snarlikt namn) som inte kräver att man laddar ner några paket. Den implementeringen av testet är dock begränsad och har exempelvis problem om man har många siffron med samma värde (som vi har med många nolor). Att som vi gjort alltid använda funktionen `wilcox_test()` i paketet "`coin`" är därmed ett bättre val.
 
 ### Statistiska resultat
 
-Vi kan nu inspektera resultatet. Vi får teststatistika (W-värde i första analysen, Z-värde i andra analysen) samt ett p-värde. Vi får inga frihetsgrader i det här testet.
+Vi skriver in modellens namn i konsolen och får våra resultat
 
-Eftersom vi fick en varning när vi körde den första analysen så väljer vi att presentera resultatet från vår andra analys.
+```{r}
+m.dunlin
+```
+
+Vi kan nu inspektera resultatet. Vi får teststatistika (Z) samt ett p-värde. Vi får inga frihetsgrader i det här testet.
 
 Eftersom vårt p-värde är mindre än 0.05 säger vi att antalet avkommor skiljer sig åt beroende på behandling. Stämmer det om du tittar på din boxplot?
 
