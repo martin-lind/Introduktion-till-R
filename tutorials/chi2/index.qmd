@@ -50,6 +50,7 @@ head(dunegrass_data)
 Vi visualiserar data med ett stapeldiagram, och använder oss paketet **ggplot2**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("ggplot2")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
 
 ```{r}
+#| code-fold: false
 library(ggplot2)
 
 plot.dunegrass <- ggplot(dunegrass_data, aes(x = Dune.age, y = Counts, fill = Species)) +
@@ -74,6 +75,7 @@ Vi kan senare modifiera vår plot så den blir färdig för publikation, se avsn
 För att kunna analysera data med ett $\chi$ ^2^ test måste datat vara i form av en **korstabell** (*contingency table*) vilket är en *matris* med två rader och två kolumner. Vi kan göra om vårt dataset `dunegrass_data` till en korstabell med funktionen `xtabs()`. Vi sparar vår korstabell i ett nytt objekt som vi kallar `dunegrass_cont_table`
 
 ```{r}
+#| code-fold: false
 dunegrass_cont_table <- xtabs(Counts ~ Species + Dune.age, data = dunegrass_data)
 
 dunegrass_cont_table
@@ -84,6 +86,7 @@ dunegrass_cont_table
 Nu har vi en korstabell och kan göra ett $\chi$ ^2^ test. Vi använder oss av funktionen `chisq.test()` och sparar resultatet i ett objekt vi kallar `m.dunegrass`
 
 ```{r}
+#| code-fold: false
 m.dunegrass <- chisq.test(dunegrass_cont_table)
 ```
 
@@ -100,6 +103,7 @@ Viktigt att notera är att $\chi$ ^2^ testet testar om de observerande frekvense
 Vi kan se det **förväntade antalet** i varje kategori genom att ange `$expected` efter modellnamnet.
 
 ```{r}
+#| code-fold: false
 m.dunegrass$expected
 ```
 
@@ -150,12 +154,14 @@ m.depth <- chisq.test(depth.data)
 Vi ser på våra förväntade frekvenser att alla är lägre än 5.
 
 ```{r}
+#| code-fold: false
 m.depth$expected
 ```
 
 Vi använder oss därför av Fisher´s exakta test.
 
 ```{r}
+#| code-fold: false
 m.depth.fisher <- fisher.test(depth.data)
 m.depth.fisher
 ```
