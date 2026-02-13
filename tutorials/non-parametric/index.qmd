@@ -40,7 +40,7 @@ Vi vill undersöka om den sydliga kärrsnäppans häckningsframgång kan förbä
 
 Ladda ner följande fil [dunlin.txt](data/dunlin.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
 
-Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `dunlin_data.` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
+Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `dunlin_data.` En detaljerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
 
 **Glöm inte att dokumentera din kod i ett script,** med kommentarer som förklarar vad du gör! [Se vår tutorial om script](https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler) om du behöver påminnelse om hur man skapar och använder script.
 
@@ -76,7 +76,7 @@ qqnorm(dunlin_data$offspring)
 qqline(dunlin_data$offspring)
 ```
 
-Vi vill att våra värden skall följa en diagonal, men det gör de inte. Vi har ett dataset som inte uppfyller t-testets krav på normalfördelade data, och vi kan inte transformera pg.a. att datasetet mest består av nollvärden som kommer fortsätta att vara nollvärden.
+Vi vill att våra värden skall följa en diagonal, men det gör de inte. Vi har ett dataset som inte uppfyller t-testets krav på normalfördelade data, och vi kan inte få en bättre fördelning genom att transformera då datasetet mest består av nollvärden som kommer fortsätta att vara nollvärden.
 
 ### Visualisera datat med en enkel graf
 
@@ -187,7 +187,7 @@ m.cover
 
 Vi har en signifikant efekt av Forest, d.v.s. täckningsgraden för blåbär skiljer sig åt mellan de olika skogarna. Men vilka skogar skiljer sig åt? Vi behöver göra ett post-hoc test! Om vi inte hade haft en signifikant effekt skall vi däremot inte göra ett post-hoc test.
 
-När man gör ett posthoc-test på en icke-parametrisk envägs-ANOVA använder man sig av *Dunnets Test*, vilket finns tillgängligt i paketet **dunn.test**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("dunn.test")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
+När man gör ett posthoc-test på en icke-parametrisk envägs-ANOVA använder man sig av *Dunn Test*, vilket finns tillgängligt i paketet **dunn.test**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("dunn.test")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
 
 När vi läst in paketet använder vi oss av funktionen `dunn.test()`. Först anger vi vår responsvariabel, och det gör vi enligt formeln **`Datatset$Variabel`**, vilket i vårat fall blir `cover_data$Cover.cathegory`. Efter det anger vi vår förklarande faktor på samma sätt, vilket blir `cover_data$Forest`, och slutligen anger vi metoden för att korrigera p-värden för multipla test. Vanligt är att använda sig av *Holm's metod*, anges med `method="holm"`.
 
