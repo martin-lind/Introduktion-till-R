@@ -256,11 +256,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="visualisera-datat-med-en-enkel-graf">Visualisera datat med en enkel graf</h2>
 <p>Vi gör en enkel graf med <code>boxplot()</code></p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Trout.length<span class="sc">~</span>Stream, </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> trout_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -278,21 +275,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Vi vill nu göra en envägs ANOVA för att undersöka om vår responsvariabel (beroende variabel) <em>Trout.length</em> beror av vår förklarande variabel (oberoende variabel) <em>Stream</em>, med andra ord om öringarnas storlek är olika i de olika bäckarna.</p>
 <p>Vi specificerar en modell med hjälp av funktionen <code>lm()</code> som står för <em>linjär modell</em> och väljer att spara resultatet i ett objekt som vi kallar <code>m.trout</code>. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med <code>m.</code> för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m.trout <span class="ot">&lt;-</span> <span class="fu">lm</span> (Trout.length <span class="sc">~</span> Stream,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> trout_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>I vår modell har vi vår responsvariabel (det vi har på y-axeln) till vänster om tilde-tecknet <code>~</code> och vår förklarande variabel till höger. <code>data = trout_data</code> betyder att vi använder oss av datasetet vi tidigare döpt till <em>trout_data</em>.</p>
 <section id="statistiska-resultat---övergripande-modell" class="level3">
 <h3 class="anchored" data-anchor-id="statistiska-resultat---övergripande-modell">Statistiska resultat - övergripande modell</h3>
 <p>Vi tittar på resultatet genom att använda funktionen <code>anova()</code> med modellns namn.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m.trout)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -315,19 +306,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>För att kunna göra Tukey’s HSD använder vi oss av paketet <code>emmeans</code>. Om du inte sedan tidigare har paketet installerat så gör du det med koden <code>install.packages("emmeans")</code>. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen <code>library()</code></p>
 <p>Vi använder oss av funktionen <code>emmeans()</code> i paketet med samma namn.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Welcome to emmeans.
 Caution: You lose important information if you filter this package's results.
 See '? untidy'</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>post.hoc.trout <span class="ot">&lt;-</span> <span class="fu">emmeans</span> (m.trout, pairwise <span class="sc">~</span> Stream)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>Om vi inspekterar vår kod <code>emmeans (m.trout, pairwise ~ Stream)</code> så anger vi först namnet på den statistiska modell som vi gjort när vi genomförde vår ANOVA, dvs <code>m.trout</code>. Sedan anger vi att vi vill göra parvisa jämförelser mellan våra bäckar, genom att ange <code>pairwise ~ Stream</code>.</p>
 </section>
@@ -335,10 +320,7 @@ See '? untidy'</code></pre>
 <h3 class="anchored" data-anchor-id="statistiska-resultat---post-hoc">Statistiska resultat - post-hoc</h3>
 <p>Vi skriver in namnet på vår post-hoc analys och kör koden</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>post.hoc.trout</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>$emmeans
  Stream      emmean   SE df lower.CL upper.CL
@@ -373,10 +355,7 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <p>Var modellen lämplig att använda för ditt dataset?</p>
 <p>Vi utvärderar modellen genom <em>diagnostiska grafer</em> genom att använda funktionen <code>plot()</code> på vår statistiska modell.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m.trout)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -419,8 +398,6 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <h3 class="anchored" data-anchor-id="först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</h3>
 <p>Koden bygger helt på den vi lärde oss under vår <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/t-test/#publiceringsduglig-figur">tutorial för t-test</a>, och förklaras inte närmare här.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plot.trout.simple <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(trout_data, <span class="fu">aes</span>(<span class="at">x =</span> Stream, <span class="at">y =</span> Trout.length, <span class="at">fill =</span> Stream)) <span class="sc">+</span></span>
@@ -429,7 +406,6 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>plot.trout.simple</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -447,23 +423,18 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <li><p>Vi vill välja andra färger, och dessutom vill vi ha savenska namn med å, ä och ö för våra bäckar. Fixas med <code>scale_fill_manual()</code></p></li>
 </ol>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plot.trout.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(trout_data, <span class="fu">aes</span>(<span class="at">x =</span> Stream, <span class="at">y =</span> Trout.length, <span class="at">fill =</span> Stream)) <span class="sc">+</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> mean, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">fun.data =</span> mean_se, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Trout length (mm)"</span>)<span class="sc">+</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Bjurbacken"</span> <span class="ot">=</span> <span class="st">"darkblue"</span>, <span class="st">"Klevabacken"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="at">Surdraget =</span> <span class="st">"lightblue"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Bjurbäcken"</span>, <span class="st">"Klevabäcken"</span>, <span class="st">"Surdraget"</span>))<span class="sc">+</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_discrete</span>(</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Bjurbacken"</span> <span class="ot">=</span> <span class="st">"Bjurbäcken"</span>,</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Klevabacken"</span> <span class="ot">=</span> <span class="st">"Klevabäcken"</span>,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Surdraget"</span> <span class="ot">=</span> <span class="st">"Surdraget"</span>)) <span class="sc">+</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>plot.trout.final</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plot.trout.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(trout_data, <span class="fu">aes</span>(<span class="at">x =</span> Stream, <span class="at">y =</span> Trout.length, <span class="at">fill =</span> Stream)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> mean, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">fun.data =</span> mean_se, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Trout length (mm)"</span>)<span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Bjurbacken"</span> <span class="ot">=</span> <span class="st">"darkblue"</span>, <span class="st">"Klevabacken"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="at">Surdraget =</span> <span class="st">"lightblue"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Bjurbäcken"</span>, <span class="st">"Klevabäcken"</span>, <span class="st">"Surdraget"</span>))<span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_discrete</span>(</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Bjurbacken"</span> <span class="ot">=</span> <span class="st">"Bjurbäcken"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Klevabacken"</span> <span class="ot">=</span> <span class="st">"Klevabäcken"</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Surdraget"</span> <span class="ot">=</span> <span class="st">"Surdraget"</span>)) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plot.trout.final</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

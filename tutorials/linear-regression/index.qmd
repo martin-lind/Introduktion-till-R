@@ -27,6 +27,8 @@ Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kall
 **Glöm inte att dokumentera din kod i ett script,** med kommentarer som förklarar vad du gör! [Se vår tutorial om script](https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler) om du behöver påminnelse om hur man skapar och använder script.
 
 ```{r}
+#| code-fold: false
+
 plant_reproduction_data <- read.table("data/plant_reproduction.txt",
                            header=T,
                            sep="\t",
@@ -78,6 +80,8 @@ Alternativ A är det som är mest logiskt. Alltså är det antalet frön som ber
 Vi gör en enkel graf med funktionen `plot()` och lägger sedan till en regressionslinje med funktionen `abline()`. Grafen är inte publikationsduglig men ger en snabb överblick av våra data. Vi går igenom hur man gör en publiceringsduglig graf i den avslutande delen av vår tutorial, under [Publiceringsduglig figur].
 
 ```{r}
+#| code-fold: false
+
 plot(Seeds ~ Plant_height, data = plant_reproduction_data)
 abline(lm(Seeds ~ Plant_height, data = plant_reproduction_data))
 ```
@@ -91,6 +95,8 @@ Vi vill nu göra en regressionsanalys för att undersöka om vår responsvariabe
 Vi specificerar en linjär modell med hjälp av funktionen `lm()` och väljer att spara resultatet i ett objekt som vi kallar `m.plant_reproduction`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
 
 ```{r}
+#| code-fold: false
+
 m.plant_reproduction<-lm(Seeds~Plant_height,
                     data=plant_reproduction_data)
 ```
@@ -102,6 +108,8 @@ I vår modell har vi vår responsvariabel (det vi har på y-axeln) till vänster
 Vi börjar med en ANOVA-tabell, och använder funktionen `anova()`
 
 ```{r}
+#| code-fold: false
+
 anova(m.plant_reproduction)
 ```
 
@@ -110,6 +118,8 @@ Vi får en ANOVA-tabell och kan inspektera resultatet. Vi ser att p-värdet (hä
 Är det en positiv eller negativ effekt av `Plant_height` på`Seeds`? För att veta det behöver vi ta fram skattningen av alla parametrar i modellen, dvs var x-axeln skär y-axeln, och linjens lutning. För det användervi oss av funktionen `summary()`.
 
 ```{r}
+#| code-fold: false
+
 summary(m.plant_reproduction)
 ```
 
@@ -132,6 +142,8 @@ Var modellen lämplig att använda för ditt dataset?
 Vi utvärderar modellen genom *diagnostiska grafer* genom att använda funktionen `plot()` på vår statistiska modell.
 
 ```{r}
+#| code-fold: false
+
 plot(m.plant_reproduction)
 ```
 
@@ -152,6 +164,8 @@ Vi avslutar med att göra en publiceringsduglig figur, och använder oss av pake
 ### Först - en enkel plot med ggplot2
 
 ```{r}
+#| code-fold: false
+
 library(ggplot2)
 
 plot.plant_reproduction.simple <- ggplot(plant_reproduction_data, aes(x = Plant_height, y = Seeds)) +
@@ -161,6 +175,7 @@ plot.plant_reproduction.simple <- ggplot(plant_reproduction_data, aes(x = Plant_
 
 plot.plant_reproduction.simple
 ```
+
 Vi går nu igenom koden för vår plot. Den är utspridd över flera rader, där varje rad avslutas med ett `+` för att R skall förstå att koden fortsätter på nästa rad.
 
 `ggplot(plant_reproduction_data, aes(x = Plant_height, y = Seeds)) +` betyder att vi använder oss av funktionen `ggplot()`, och det första vi anger är namnet på vårt dataset, som vi kallade `plant_reproduction_data`.
@@ -186,7 +201,7 @@ Den blev helt ok, men vi kan förbättra den.
 4.  Vi vill att regressionslinjen skall vara svart och som punkter, fixas med `color` och `lty` (står för line type) i `geom_smooth()`
 
 ```{r}
-library(ggplot2)
+#| code-fold: false
 
 plot.plant_reproduction <- ggplot(plant_reproduction_data, aes(x = Plant_height, y = Seeds)) +
   geom_point(cex = 3, colour = "blue") +

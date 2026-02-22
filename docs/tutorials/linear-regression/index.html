@@ -216,13 +216,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det <code>plant_reproduction_data</code>. En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a>.</p>
 <p><strong>Glöm inte att dokumentera din kod i ett script,</strong> med kommentarer som förklarar vad du gör! <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler">Se vår tutorial om script</a> om du behöver påminnelse om hur man skapar och använder script.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>plant_reproduction_data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/plant_reproduction.txt"</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">header=</span>T,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dec=</span><span class="st">","</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p><code>&lt;-</code> betyder att vi sparar resultatet av funktionen (i det här fallet <code>read.table()</code> i ett objekt. Pilen pekar på objektet, och vi ger objektet ett namn, i det här fallet <code>plant_reproduction_data</code>.</p>
 <p><code>read.table</code> är kommandot för att läsa in textfiler med ändelsen <code>.txt</code></p>
@@ -274,11 +271,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Alternativ A är det som är mest logiskt. Alltså är det antalet frön som beror av växtens storlek. Därför skall vi ha <em>antalet frön</em> (<code>Seeds</code>) på y-axeln, och växtens storlek (<code>Plants_height</code>) på x-axeln.</p>
 <p>Vi gör en enkel graf med funktionen <code>plot()</code> och lägger sedan till en regressionslinje med funktionen <code>abline()</code>. Grafen är inte publikationsduglig men ger en snabb överblick av våra data. Vi går igenom hur man gör en publiceringsduglig graf i den avslutande delen av vår tutorial, under <a href="#publiceringsduglig-figur">Publiceringsduglig figur</a>.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Seeds <span class="sc">~</span> Plant_height, <span class="at">data =</span> plant_reproduction_data)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Seeds <span class="sc">~</span> Plant_height, <span class="at">data =</span> plant_reproduction_data))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -295,21 +289,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Vi vill nu göra en regressionsanalys för att undersöka om vår responsvariabel (beroende variabel) <code>Seeds</code> beror av vår förklarande variabel (oberoende variabel) <code>Plants_height</code>.</p>
 <p>Vi specificerar en linjär modell med hjälp av funktionen <code>lm()</code> och väljer att spara resultatet i ett objekt som vi kallar <code>m.plant_reproduction</code>. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med <code>m.</code> för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m.plant_reproduction<span class="ot">&lt;-</span><span class="fu">lm</span>(Seeds<span class="sc">~</span>Plant_height,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data=</span>plant_reproduction_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>I vår modell har vi vår responsvariabel (det vi har på y-axeln) till vänster om tilde-tecknet <code>~</code> och vår förklarande variabel till höger. <code>data=plant_reproduction_data</code> betyder att vi använder oss av datasetet vi tidigare döpt till <em>plant_reproduction_data</em>.</p>
 <section id="statistiska-resultat" class="level3">
 <h3 class="anchored" data-anchor-id="statistiska-resultat">Statistiska resultat</h3>
 <p>Vi börjar med en ANOVA-tabell, och använder funktionen <code>anova()</code></p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m.plant_reproduction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -324,10 +312,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Vi får en ANOVA-tabell och kan inspektera resultatet. Vi ser att p-värdet (här kallat <code>Pr(&gt;F)</code>) är mindre än 0.05, dvs <code>Plant_height</code> har en signifikant effekt på <code>Seeds</code>. R indikerar även att det är signifikant genom att lägga till en eller flera stjärnor <code>*</code>. När du rapporterar p-värden i skrift anger du p-värdet med tre decimaler, eller “p &lt; 0.001” vid väldigt låga p-värden.</p>
 <p>Är det en positiv eller negativ effekt av <code>Plant_height</code> på<code>Seeds</code>? För att veta det behöver vi ta fram skattningen av alla parametrar i modellen, dvs var x-axeln skär y-axeln, och linjens lutning. För det användervi oss av funktionen <code>summary()</code>.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m.plant_reproduction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -364,10 +349,7 @@ F-statistic: 68.68 on 1 and 18 DF,  p-value: 1.477e-07</code></pre>
 <p>Var modellen lämplig att använda för ditt dataset?</p>
 <p>Vi utvärderar modellen genom <em>diagnostiska grafer</em> genom att använda funktionen <code>plot()</code> på vår statistiska modell.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m.plant_reproduction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -409,8 +391,6 @@ F-statistic: 68.68 on 1 and 18 DF,  p-value: 1.477e-07</code></pre>
 <section id="först---en-enkel-plot-med-ggplot2" class="level3">
 <h3 class="anchored" data-anchor-id="först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</h3>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction.simple <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(plant_reproduction_data, <span class="fu">aes</span>(<span class="at">x =</span> Plant_height, <span class="at">y =</span> Seeds)) <span class="sc">+</span></span>
@@ -419,7 +399,6 @@ F-statistic: 68.68 on 1 and 18 DF,  p-value: 1.477e-07</code></pre>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction.simple</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -448,19 +427,14 @@ F-statistic: 68.68 on 1 and 18 DF,  p-value: 1.477e-07</code></pre>
 <li><p>Vi vill att regressionslinjen skall vara svart och som punkter, fixas med <code>color</code> och <code>lty</code> (står för line type) i <code>geom_smooth()</code></p></li>
 </ol>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(plant_reproduction_data, <span class="fu">aes</span>(<span class="at">x =</span> Plant_height, <span class="at">y =</span> Seeds)) <span class="sc">+</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">cex =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Plant height (cm)"</span>)<span class="sc">+</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Number of seeds"</span>)<span class="sc">+</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(plant_reproduction_data, <span class="fu">aes</span>(<span class="at">x =</span> Plant_height, <span class="at">y =</span> Seeds)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">cex =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Plant height (cm)"</span>)<span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Number of seeds"</span>)<span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plot.plant_reproduction</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>

@@ -54,6 +54,8 @@ head(trout_data)
 Vi gör en enkel graf med `boxplot()`
 
 ```{r}
+#| code-fold: false
+
 boxplot(Trout.length~Stream, 
         data = trout_data)
 ```
@@ -71,6 +73,8 @@ Vi vill nu göra en envägs ANOVA för att undersöka om vår responsvariabel (b
 Vi specificerar en modell med hjälp av funktionen `lm()` som står för *linjär modell* och väljer att spara resultatet i ett objekt som vi kallar `m.trout`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
 
 ```{r}
+#| code-fold: false
+
 m.trout <- lm (Trout.length ~ Stream,
                     data = trout_data)
 ```
@@ -82,6 +86,8 @@ I vår modell har vi vår responsvariabel (det vi har på y-axeln) till vänster
 Vi tittar på resultatet genom att använda funktionen `anova()` med modellns namn.
 
 ```{r}
+#| code-fold: false
+
 anova(m.trout)
 ```
 
@@ -102,6 +108,8 @@ För att kunna göra Tukey's HSD använder vi oss av paketet `emmeans`. Om du in
 Vi använder oss av funktionen `emmeans()` i paketet med samma namn.
 
 ```{r}
+#| code-fold: false
+
 library(emmeans)
 post.hoc.trout <- emmeans (m.trout, pairwise ~ Stream)
 ```
@@ -113,6 +121,8 @@ Om vi inspekterar vår kod `emmeans (m.trout, pairwise ~ Stream)` så anger vi f
 Vi skriver in namnet på vår post-hoc analys och kör koden
 
 ```{r}
+#| code-fold: false
+
 post.hoc.trout
 ```
 
@@ -137,6 +147,8 @@ Var modellen lämplig att använda för ditt dataset?
 Vi utvärderar modellen genom *diagnostiska grafer* genom att använda funktionen `plot()` på vår statistiska modell.
 
 ```{r}
+#| code-fold: false
+
 plot(m.trout)
 ```
 
@@ -159,6 +171,8 @@ Vi avslutar med att göra en publiceringsduglig figur, och använder oss av pake
 Koden bygger helt på den vi lärde oss under vår [tutorial för t-test](https://martin-lind.github.io/Introduktion-till-R/tutorials/t-test/#publiceringsduglig-figur), och förklaras inte närmare här.
 
 ```{r}
+#| code-fold: false
+
 library(ggplot2)
 
 plot.trout.simple <- ggplot(trout_data, aes(x = Stream, y = Trout.length, fill = Stream)) +
@@ -178,7 +192,7 @@ Det blev en bra start, men vi kan fixa ytterligare med den.
 2.  Vi vill välja andra färger, och dessutom vill vi ha savenska namn med å, ä och ö för våra bäckar. Fixas med `scale_fill_manual()`
 
 ```{r}
-library(ggplot2)
+#| code-fold: false
 
 plot.trout.final <- ggplot(trout_data, aes(x = Stream, y = Trout.length, fill = Stream)) +
   stat_summary(geom = "bar", fun = mean, width = 0.4) +

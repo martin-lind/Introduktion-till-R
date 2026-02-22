@@ -20,6 +20,8 @@ Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kall
 **Glöm inte att dokumentera din kod i ett script,** med kommentarer som förklarar vad du gör! [Se vår tutorial om script](https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler) om du behöver påminnelse om hur man skapar och använder script.
 
 ```{r}
+#| code-fold: false
+
 nutrientdata <- read.table("data/experiment_nutrients.txt",
                            header=T,
                            sep="\t",
@@ -43,6 +45,8 @@ nutrientdata <- read.table("data/experiment_nutrients.txt",
 Börja med att titta på datans struktur med `str()`.
 
 ```{r}
+#| code-fold: false
+
 str(nutrientdata)
 ```
 
@@ -55,6 +59,8 @@ Om du har en kolumn som innehåller decimaltal skall det stå `num`. Om det ist�
 Visa sedan de fem första raderna av ditt dataset med `head()` för att se att allt ser korrekt ut
 
 ```{r}
+#| code-fold: false
+
 head(nutrientdata)
 ```
 
@@ -63,6 +69,8 @@ head(nutrientdata)
 Vi gör en enkel graf med `boxplot()`
 
 ```{r}
+#| code-fold: false
+
 boxplot(Mass~Nutrient_level, 
         data = nutrientdata)
 ```
@@ -80,6 +88,8 @@ Vi vill nu göra ett t-test för att undersöka om vår responsvariabel (beroend
 Vi specificerar en modell med hjälp av funktionen `t.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.garden`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
 
 ```{r}
+#| code-fold: false
+
 m.nutrients<-t.test(Mass~Nutrient_level,
                     data=nutrientdata)
 ```
@@ -91,6 +101,8 @@ I vår modell har vi vår responsvariabel (det vi har på y-axeln) till vänster
 Vi tittar på resultatet genom att skriva in modellens namn och köra den
 
 ```{r}
+#| code-fold: false
+
 m.nutrients
 ```
 
@@ -109,6 +121,8 @@ Var modellen lämplig att använda för ditt dataset?
 Vi utvärderar modellen genom *diagnostiska grafer*
 
 ```{r}
+#| code-fold: false
+
 qqnorm (nutrientdata$Mass)
 qqline(nutrientdata$Mass)
 
@@ -123,6 +137,8 @@ Vi avslutar med att göra en publiceringsduglig figur, och använder oss av pake
 ### Först - en enkel plot med ggplot2
 
 ```{r}
+#| code-fold: false
+
 library(ggplot2)
 
 plot.nutrient.simple <- ggplot(nutrientdata, aes(x = Nutrient_level, y = Mass, fill = Nutrient_level)) +
@@ -156,7 +172,7 @@ Vår enkla figur där vi enbart anger dataset och våra variablar blev ju inte a
 3.  Vi vill välja andra färger, och dessutom skall det inte stå Nutrient_level i vår legend. Fixas med `scale_fill_manual()`
 
 ```{r}
-library(ggplot2)
+#| code-fold: false
 
 plot.nutrient <- ggplot(nutrientdata, aes(x = Nutrient_level, y = Mass, fill = Nutrient_level)) +
   stat_summary(geom = "bar", fun = mean, width = 0.4) +

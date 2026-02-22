@@ -44,6 +44,8 @@ head(tree.data)
 Vi gör en graf med `plot()`. Eftersom vi inte har någon hypotes om ett orsakssamband mellan våra variabler spelar det ingen roll vilken vi har på vilken axel (hade vi haft en hypotes om ett orsakssamband så hade vi gjort en regression istället). Av samma anledning har vi inte heller någon regressionslinje i grafen när vi vill undersöka en korrelation.
 
 ```{r}
+#| code-fold: false
+
 plot(height ~ diameter, data = tree.data)
 ```
 
@@ -56,6 +58,8 @@ Vi vill nu göra en korrelationsanalys mellan våra två variablar.
 Vi använder oss av funktionen `cor.test()` och väljer att spara resultatet i ett objekt som vi kallar `m.trees`.
 
 ```{r}
+#| code-fold: false
+
 m.trees <- cor.test(tree.data$diameter, tree.data$height, method = "p")
 ```
 
@@ -66,6 +70,8 @@ Notera att korrelationstesten kräver att man anger modellen på ett annat sätt
 Vi skriver modellnamnet och kör koden
 
 ```{r}
+#| code-fold: false
+
 m.trees
 ```
 
@@ -92,10 +98,14 @@ Det finns ingen implementering av `plot(modellnamn)`för korrelationstest, så v
 Histogram har värdet hos din variabel på x-axeln, och frekvens (antalet observationer) på y-axeln. En normalfördelning har flest observationer av värden runt medelvärdet, och antalet observationer minskar sedan symmetriskt om man går mot extremare värden.
 
 ```{r}
+#| code-fold: false
+
 hist(tree.data$diameter)
 ```
 
 ```{r}
+#| code-fold: false
+
 hist(tree.data$height)
 ```
 
@@ -105,7 +115,6 @@ Det ser normalfördelat ut. Om det blir för få staplar kan man ange antal stap
 hist(tree.data$height, breaks = 14)
 ```
 
-
 ## Publiceringsduglig figur
 
 Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet **ggplot2**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("ggplot2")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
@@ -113,6 +122,8 @@ Vi avslutar med att göra en publiceringsduglig figur, och använder oss av pake
 ### Först - en enkel plot med ggplot2
 
 ```{r}
+#| code-fold: false
+
 library(ggplot2)
 
 plot.trees.simple <- ggplot(tree.data, aes(x = diameter, y = height)) +
@@ -134,8 +145,8 @@ Den blev helt ok, men vi kan förbättra den.
 
 3.  Vi vill välja gröna punkter, och vi vill att de skall vara lite större,fixas med `cex` och `color` inom `geom_point()`
 
-``` {r}
-library(ggplot2)
+```{r}
+#| code-fold: false
 
 plot.trees.final <- ggplot(tree.data, aes(x = diameter, y = height)) +
   geom_point(cex = 3, colour = "darkgreen") +
@@ -145,3 +156,4 @@ plot.trees.final <- ggplot(tree.data, aes(x = diameter, y = height)) +
 
 plot.trees.final
 ```
+
