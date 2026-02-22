@@ -93,7 +93,7 @@ Hur tolkar du grafen? Ser det ut som att antalet avkomma skiljer sig åt beroend
 
 Vi vill nu göra ett Wilcoxons test för att undersöka om vår responsvariabel (beroende variabel) *offspring* beror av vår förklarande variabel (oberoende variabel) *treatment*, med andra ord om antalet avkomma beror av huruvida området haft predatorkontroll eller ej
 
-Vi specificerar en modell med hjälp av funktionen `wilcox_test()`  i paketet `coin`. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("coin")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()` Vi väljer att spara resultatet i ett objekt som vi kallar `m.dunlin`. Vi behöver ange att `treatment` är en faktor (dvs har kategorier) genom att omsluta det med funktionen `as.factor()`.
+Vi specificerar en modell med hjälp av funktionen `wilcox_test()` i paketet `coin`. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("coin")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()` Vi väljer att spara resultatet i ett objekt som vi kallar `m.dunlin`. Vi behöver ange att `treatment` är en faktor (dvs har kategorier) genom att omsluta det med funktionen `as.factor()`.
 
 ```{r}
 #| code-fold: false
@@ -102,6 +102,7 @@ library(coin)
 m.dunlin <- wilcox_test(offspring ~ as.factor(treatment),
                     data = dunlin_data)
 ```
+
 *En sidonotering*: många textböcker förelår att man använder funktionen `wilcox.test()` (jag vet, snarlikt namn) som inte kräver att man laddar ner några paket. Den implementeringen av testet är dock begränsad och har exempelvis problem om man har många siffror med samma värde (som vi har med många nollor). Att som vi gjort alltid använda funktionen `wilcox_test()` i paketet "`coin`" är därmed ett bättre val.
 
 ### Statistiska resultat

@@ -1,5 +1,5 @@
 ---
-title: "Faktoriell ANOVA"
+title: "Faktoriell (tvåvägs) ANOVA"
 ---
 
 I alla tidigare analyser har vi enbart haft en oberoende variabel (predictor). Ofta har vi dock mer än en oberoende variabel, det kan vara att vi vill undersöka effekten av såväl temperatur (hög, låg) som ursprung (nordlig, sydlig) på grodornas utveckling.
@@ -47,8 +47,9 @@ head(size_nutrient_data)
 Vi gör en enkel graf med `boxplot()` Eftersom vi har två faktorer behöver vi specificera båda i vår kod, till höger om tilde-tecknet `~`.
 
 ```{r}
+#| code-fold: false
 boxplot(Weight ~ Nutrient_level + Species, data = size_nutrient_data)
-````
+```
 
 Hur tolkar du datat? Har arterna olika vikt? Blir de tyngre eller lättare vid hög näring? Eller beror effekten av näring på vilken art det är? Det vill säga, verkar det som vi kan ha en *interaktion* mellan Näring och Art?
 
@@ -58,6 +59,8 @@ Vi vill nu göra en faktoriell ANOVA för att undersöka om vår responsvariabel
 
 På samma sätt som när vi gjorde regression och envägs-ANOVA specificerar en modell med hjälp av funktionen `lm()` som står för *linjär modell*. Vi väljer att spara resultatet i ett objekt som vi kallar `m.size_nutrient`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
 ```{r}
+#| code-fold: false
+
 m.size_nutrient <- lm (Weight ~ Nutrient_level * Species,
                     data = size_nutrient_data)
 ```
@@ -71,6 +74,8 @@ Notera att vi har ett multiplikationstecken i vår modell `~ Nutrient_level * Sp
 Vi börjar med en ANOVA-tabell
 
 ```{r}
+#| code-fold: false
+
 anova(m.size_nutrient)
 ```
 
@@ -89,6 +94,8 @@ Vi har nu en signifikant interaktion, som tyder på att de olika arterna svarar 
 Om interaktionen däremot **inte är signifikant**, skall du **inte** göra en post-hoc analys av interaktionen.
 
 ```{r}
+#| code-fold: false
+
 library(emmeans)
 emmeans(m.size_nutrient, pairwise ~ Nutrient_level | Species)
 ```
@@ -134,6 +141,8 @@ De få förändringen är att vi under `aes()` anger olika faktorer under`x =`oc
 Under `stat_summary()` lägger vi även till `position = "dodge"`, det betyder att de två staplarna (och felstaplarna) skall ligga bredvid varandra och inte ovanpå varandra.
 
 ```{r}
+#| code-fold: false
+
 library(ggplot2)
 
 plot.size_nutrient.simple <- ggplot(size_nutrient_data, aes(x = Species, y = Weight, fill = Nutrient_level)) +
@@ -157,7 +166,7 @@ Ok, halvbra start men inte mer. Vi måste jobba vidare med den.
 4.  Det känns mest logiskt att staplarna för Low är till vänster om staplarna för High (man är van att det skall öka när man går åt höger på x-axeln)
 
 ```{r}
-library(ggplot2)
+#| code-fold: false
 
 manual_dodge <- position_dodge(width = 0.4)
 

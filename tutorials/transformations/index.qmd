@@ -225,6 +225,8 @@ Koden `MyData$sqrt.transformed.Response <-`betyder att vi sparar resultatet i en
 
 ### Läs in data
 
+Vi testar på att transponera data i följande exempel. Du vill veta om blåmesarnas häckningsframgång skiljer sig mellan två olika skogar, och du har data på antal ungar som ett antal blåmeshonor får under ett år.
+
 Ladda ner följande fil [bluetit.txt](data/bluetit.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
 
 ```{r}

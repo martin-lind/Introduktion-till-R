@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Faktoriell ANOVA – Introduktion till R</title>
+<title>Faktoriell (tvåvägs) ANOVA – Introduktion till R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Faktoriell ANOVA</h1>
+<h1 class="title">Faktoriell (tvåvägs) ANOVA</h1>
 </div>
 
 
@@ -251,10 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="visualisera-datat-med-en-enkel-graf">Visualisera datat med en enkel graf</h2>
 <p>Vi gör en enkel graf med <code>boxplot()</code> Eftersom vi har två faktorer behöver vi specificera båda i vår kod, till höger om tilde-tecknet <code>~</code>.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Weight <span class="sc">~</span> Nutrient_level <span class="sc">+</span> Species, <span class="at">data =</span> size_nutrient_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -270,11 +267,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Vi vill nu göra en faktoriell ANOVA för att undersöka om vår responsvariabel (beroende variabel) <em>Weight</em> beror av våra förklarande variabelar (oberoende variabelar) <em>Nutrient_level</em> och <em>Species</em>.</p>
 <p>På samma sätt som när vi gjorde regression och envägs-ANOVA specificerar en modell med hjälp av funktionen <code>lm()</code> som står för <em>linjär modell</em>. Vi väljer att spara resultatet i ett objekt som vi kallar <code>m.size_nutrient</code>. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med <code>m.</code> för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m.size_nutrient <span class="ot">&lt;-</span> <span class="fu">lm</span> (Weight <span class="sc">~</span> Nutrient_level <span class="sc">*</span> Species,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> size_nutrient_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>I vår modell har vi vår responsvariabel (det vi har på y-axeln) till vänster om tilde-tecknet <code>~</code> och våra förklarande faktorer till höger. Eftersom vi har två faktorer behöver vi lägga till båda till höger om tilde-tecknet <code>~</code>.</p>
 <p>Notera att vi har ett multiplikationstecken i vår modell <code>~ Nutrient_level * Species</code>. Multiplikationstecknet är en genväg som talar om för R att vi vill undersöka effekten av <code>Nutrient_level</code>, effekten av <code>Species</code>, samt interaktionen mellan dem (<code>Nutrient_level: Species</code>). Ett alternativt och mer explicit sätt att skriva modellen är därmed <code>Weight ~ Nutrient_level + Species + Nutrient_level: Species</code>. Det sättet att skriva blir dock väldigt komplicerat om man har fler än två faktorer (dvs det är stor risk för fel i koden).</p>
@@ -282,10 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="statistiska-resultat">Statistiska resultat</h3>
 <p>Vi börjar med en ANOVA-tabell</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m.size_nutrient)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -309,19 +300,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Vi har nu en signifikant interaktion, som tyder på att de olika arterna svarar olika på ökad näring. I grafen ser det ut som om art B definitivt väger mer om näringen ökar, medan art A kanske minskar i vikt. Eller är den oförändrad? Den spontana tanken vore att göra separata t-test för de båda arterna, men man bör genomföra allt i samma analys. Däremot kan vi gå vidare och göra ett post-hoc-test på vår interaktion i paketet <code>emmeans()</code> som vi tidigare använde i vår envägs-ANOVA.</p>
 <p>Om interaktionen däremot <strong>inte är signifikant</strong>, skall du <strong>inte</strong> göra en post-hoc analys av interaktionen.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Welcome to emmeans.
 Caution: You lose important information if you filter this package's results.
 See '? untidy'</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(m.size_nutrient, pairwise <span class="sc">~</span> Nutrient_level <span class="sc">|</span> Species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>$emmeans
 Species = A:
@@ -343,7 +328,7 @@ Species = A:
 
 Species = B:
  contrast   estimate   SE df t.ratio p.value
- High - Low    22.40 1.75 56  12.803  &lt;.0001</code></pre>
+ High - Low    22.40 1.75 56  12.803 &lt;0.0001</code></pre>
 </div>
 </div>
 <p>Som vi ser har vi modifierat vår formel jämfört med när vi gjorde ett posthoc-test i en envägs-ANOVA, eftersom vi nu har två faktorer. <code>pairwise ~ Nutrient_level | Species</code> betyder att vi gör parvisa jämförelser över nivåerna i faktorn <code>Nutrient_level</code>, och att vi gör det separat för de olika nivåerna i faktorn <code>Species.</code></p>
@@ -407,8 +392,6 @@ Species = B:
 <p>De få förändringen är att vi under <code>aes()</code> anger olika faktorer under<code>x =</code>och <code>fill =</code>. x<code>= Species</code> betyder att vi har art på x-axeln, medan<code>fill = Nutrient_level</code> betyder att för varje Art skapar vi två staplar, en för varje nivå på <code>Nutrient_level</code>, och dessa får också olika färg.</p>
 <p>Under <code>stat_summary()</code> lägger vi även till <code>position = "dodge"</code>, det betyder att de två staplarna (och felstaplarna) skall ligga bredvid varandra och inte ovanpå varandra.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.simple <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(size_nutrient_data, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Weight, <span class="at">fill =</span> Nutrient_level)) <span class="sc">+</span></span>
@@ -417,7 +400,6 @@ Species = B:
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.simple</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -437,24 +419,19 @@ Species = B:
 <li><p>Det känns mest logiskt att staplarna för Low är till vänster om staplarna för High (man är van att det skall öka när man går åt höger på x-axeln)</p></li>
 </ol>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>manual_dodge <span class="ot">&lt;-</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.4</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>manual_dodge <span class="ot">&lt;-</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.4</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(size_nutrient_data, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Weight, <span class="at">fill =</span> <span class="fu">factor</span>(Nutrient_level, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>)))) <span class="sc">+</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> mean, <span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">position =</span> manual_dodge) <span class="sc">+</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">fun.data =</span> mean_se, <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">position =</span>  manual_dodge) <span class="sc">+</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Weight (g)"</span>)<span class="sc">+</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Nutrient level"</span>,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Low"</span> <span class="ot">=</span> <span class="st">"lightgreen"</span>, <span class="st">"High"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>),</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>))<span class="sc">+</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.final</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(size_nutrient_data, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Weight, <span class="at">fill =</span> <span class="fu">factor</span>(Nutrient_level, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>)))) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"bar"</span>, <span class="at">fun =</span> mean, <span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">position =</span> manual_dodge) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">fun.data =</span> mean_se, <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">position =</span>  manual_dodge) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Weight (g)"</span>)<span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Nutrient level"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Low"</span> <span class="ot">=</span> <span class="st">"lightgreen"</span>, <span class="st">"High"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>))<span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>plot.size_nutrient.final</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
