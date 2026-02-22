@@ -43,6 +43,8 @@ Du kan se var din Working Directory är just nu genom funktionen `getwd()`
 Testa att undersöka var din Working Directory är
 
 ```{r}
+#| code-fold: false
+
 getwd()
 ```
 
@@ -69,6 +71,8 @@ Det är dock bra att dokumentera din Working Directory i ditt script, så att du
 1.  Ta du reda på den absoluta sökvägen till din Working Directory med `getwd()` . Markera och kopiera sökvägen.
 
 ```{r}
+#| code-fold: false
+
 getwd()
 ```
 
@@ -85,6 +89,8 @@ Nu är din Working Directory samma mapp som filen `testdata.txt` ligger i.
 Vi kommer att läsa in filen med funktionen `read.table()`.
 
 ```{r}
+#| code-fold: false
+
 testdata <- read.table("testdata_v2.txt",
                      header=T,
                      sep="\t",
@@ -110,6 +116,8 @@ Nästa steg är att insprektera ditt dataset, för att se om allt gått rätt ti
 Börja med att inspektera datasetets struktur med `str()`.
 
 ```{r}
+#| code-fold: false
+
 str(testdata)
 ```
 
@@ -124,6 +132,8 @@ Om du har en kolumn som borde innehålla decimaltal, skall det stå `num`. Om de
 Sedan visar du de första raderna i ditt dataset med funktionen `head()` och verifierar att allt ser korrekt ut.
 
 ```{r}
+#| code-fold: false
+
 head(testdata)
 ```
 
@@ -160,6 +170,8 @@ Markera och kopiera sökvägen, den använder vi när vi läser in filen i R
 Vi kommer åter att läsa in filen med funktionen `read.table()` och vi kallar vårt inlästa dataset `testdata_absolut`.
 
 ```{r}
+#| code-fold: false
+
 testdata_absolut <- read.table("data/testdata.txt",
                      header=T,
                      sep="\t",
@@ -173,6 +185,8 @@ Notera att vi nu har en längre sökväg till filen.
 Se [Läs in filen i R] för vår tidigare beskrivning av hur man tolkar de olika delarna av funktionen `read.table()`. Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
 
 ```{r}
+#| code-fold: false
+
 str(testdata_absolut)
 head(testdata_absolut)
 ```
@@ -226,6 +240,8 @@ Efter det letar du upp filen, antingen genom att använda [Relativ sökväg till
 Vi kommer åter att läsa in filen med funktionen `read.csv()`. Fyll i korrekt sökväg till din fil
 
 ```{r}
+#| code-fold: false
+
 testdata_csv <- read.csv("data/testdata_csv.csv",
                      header=T,
                      sep=";",
@@ -237,6 +253,8 @@ Vi sparar resultatet från funktionen `read.csv()`, vilket är ett dataset, med 
 `sep=";"` betyder att värderna i filen är separerade av semikolon. I övrigt påminner funktionen om `read.table()` som beskrivits i detalj ovan ([Läs in filen](#läs-in-filen-1)). Efter att du läst in filen skall du alltid [Inspektera ditt data] innan du börjar med dina analyser.
 
 ```{r}
+#| code-fold: false
+
 str(testdata_csv)
 head(testdata_csv)
 ```
@@ -270,12 +288,16 @@ Du installerar paketet med koden `install.packages("openxlsx")`
 När paketet är installerat behöver vi läsa in det i vår pågående session i R
 
 ```{r}
+#| code-fold: false
+
 library(openxlsx)
 ```
 
 Nu är paketet inläst och vi kan använda oss av funktionen `read.xlsx()` för att läsa in vår Excelfil.
 
 ```{r}
+#| code-fold: false
+
 testdata_excel <- read.xlsx("data/testdata_excel.xlsx",
                      sheet=1) 
 ```

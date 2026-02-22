@@ -27,22 +27,30 @@ R är en excellent miniräknare, och eftersom du ser din formel kan du lätt dub
 R kan även med enkelhet hantera potenstal. Testa att skriva följande:
 
 ```{r}
+#| code-fold: false
+
 10^2
 ```
 
 ```{r}
+#| code-fold: false
+
 1.24e-3
 ```
 
 Att ta kvadratroten ur ett tal är inga problem:
 
 ```{r}
+#| code-fold: false
+
 sqrt(8)
 ```
 
 R känner också till matematiska konstanter, som till exempel *pi*
 
 ```{r}
+#| code-fold: false
+
 pi
 ```
 
@@ -55,6 +63,8 @@ Vi skall nu göra en övning i att använda objekt. Övningen är väldigt enkel
 Låt oss beräkna hur stor del av EUs länder du har besökt. Fundera på hur många det är. Vi skapar sedan ett objekt som vi kallar `visited_countries` och det objektet skall innehålla ett tal som motsvarar det antal länder du besökt.
 
 ```{r}
+#| code-fold: false
+
 visited_countries <- 12
 ```
 
@@ -63,36 +73,48 @@ Låt oss titta på formeln. `visited_countries` är namnet på vårt objekt. Det
 Vill du se vad ett objekt innehåller skriver du objektets namn och trycker på Enter.
 
 ```{r}
+#| code-fold: false
+
 visited_countries
 ```
 
 För att beräkna andelen av EUs länder du besökt måste vi göra ett objekt som vi kallar `total_countries` och som innehåller antalet länder som är medlemmar i EU
 
 ```{r}
+#| code-fold: false
+
 total_countries <- 27
 ```
 
 Nu kan vi beräkna andelen av EUS länder som du besökt, genom att dividera objektet `visited_countries` med `total_countries`
 
 ```{r}
+#| code-fold: false
+
 visited_countries / total_countries
 ```
 
 Du kanske hellre vill ha det i procent? Modifiera formeln!
 
 ```{r}
+#| code-fold: false
+
 visited_countries / total_countries * 100
 ```
 
 Du kanske skall använda det här resultatet i framtida beräkningar och vill ha det sparat som ett objekt. Modifiera den senaste formeln så att du sparar resultatet som ett objekt du kallar `percent_EUcountries_visited`
 
 ```{r}
+#| code-fold: false
+
 percent_EUcountries_visited <- visited_countries / total_countries * 100
 ```
 
 Undersök vad objektet `percent_EUcountries_visited` innehåller genom att skriva dess namn och tryck på Enter
 
 ```{r}
+#| code-fold: false
+
 percent_EUcountries_visited
 ```
 
@@ -101,6 +123,8 @@ percent_EUcountries_visited
 Tycker du att R visar onödigt många decimaler? Om du använder funktionen `round()` kan du bestämma hur många decimaler R skall visa. Lås oss uttrycka procentsatsen i objektet `percent_EUcountries_visited` med en decimal
 
 ```{r}
+#| code-fold: false
+
 round(percent_EUcountries_visited, digits = 1)
 ```
 
@@ -113,6 +137,8 @@ Om du inte vet hur en funktion fungerar kan du alltid nå R's hjälpfiler genom 
 Vi testar några funktioner för att få summarisk statistik på ett antal värden, som vi sparar i ett objekt som vi kallar `counts`
 
 ```{r}
+#| code-fold: false
+
 counts <- c(3,6,5,8,4,6,2,4,6,4,5,3,9,10,2,5,7,6)
 ```
 
@@ -210,7 +236,7 @@ Kör raden med koden `1+1` enligt instruktionen ovan:
 1+1
 ```
 
-När du kört raden så dyker den upp i kosnolen, och på raden under får du svaret från R.
+När du kört raden så dyker den upp i konsolen, och på raden under får du svaret från R.
 
 ### Kör kod i rätt ordning
 
@@ -221,6 +247,8 @@ Får du ett felmeddelande? `Error: object 'studiemedel2025' not found`
 Det betyder att du ber R att göra någonting med ett objekt, men R vet inte vad det är för objekt. Du har dokumenterat skapandet av objektet i ditt script några rader ovanför:
 
 ```{r}
+#| code-fold: false
+
 # Skapa objekt med studiemedel för respektive år
 studiemedel2024 <- 13156
 studiemedel2025 <-13500
@@ -229,6 +257,8 @@ studiemedel2025 <-13500
 Du måste först köra de raderna, så att R vet vad objekten `studiemedel2024` och `studiemedel2025` innehåller. Sedan kan du köra raden `studiemedel2025 - studiemedel2024` på nytt. Då skall det fungera!
 
 ```{r}
+#| code-fold: false
+
 # Beräkna höjningen i kronor
 studiemedel2025 - studiemedel2024
 ```

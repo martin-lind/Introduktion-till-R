@@ -8,14 +8,17 @@ Alla grundläggande funktioner ingår redan i R och finns tillgängliga vid upps
 
 Nedan listas några vanliga paket inom biologisk statistik.
 
-| Paket    | Användning                                       |
-|----------|--------------------------------------------------|
-| ggplot2  | Grafer och visualiseringar                       |
-| openxlsx | Läsa in Excel-dokument                           |
-| dplyr    | Bearbeta datafiler, göra urval av data           |
-| lme4     | Mixed-effect modeller                            |
-| car      | Signifikansberäkning i mixed-effect modeller     |
-| vegan    | Multivariat statistik och biodiversitetsanalyser |
+| Paket     | Användning                                       |
+|-----------|--------------------------------------------------|
+| ggplot2   | Grafer och visualiseringar                       |
+| openxlsx  | Läsa in Excel-dokument                           |
+| dplyr     | Bearbeta datafiler, göra urval av data           |
+| lme4      | Mixed-effect modeller                            |
+| emmeans   | Post-hoc tester                                  |
+| coin      | Wilcoxons test                                   |
+| dunn.test | Post-hoc test för ickeparametrisk ANOVA          |
+| car       | Signifikansberäkning i mixed-effect modeller     |
+| vegan     | Multivariat statistik och biodiversitetsanalyser |
 
 ## Installera paket
 
@@ -32,6 +35,8 @@ När du startar R är inga paket laddade i körningen, även om paketen är inst
 Vi laddar nu in det nyligen installerade paketet `ggplot2` i R.
 
 ```{r}
+#| code-fold: false
+
 library(ggplot2)
 ```
 
