@@ -167,7 +167,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#utvärdera-den-statistiska-modellen" id="toc-utvärdera-den-statistiska-modellen" class="nav-link" data-scroll-target="#utvärdera-den-statistiska-modellen">Utvärdera den statistiska modellen</a></li>
   <li><a href="#publiceringsduglig-figur" id="toc-publiceringsduglig-figur" class="nav-link" data-scroll-target="#publiceringsduglig-figur">Publiceringsduglig figur</a>
   <ul class="collapse">
-  <li><a href="#först---en-enkel-plot-med-ggplot2" id="toc-först---en-enkel-plot-med-ggplot2" class="nav-link" data-scroll-target="#först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</a></li>
   <li><a href="#modifiera-din-plot-så-den-blir-publiceringsduglig" id="toc-modifiera-din-plot-så-den-blir-publiceringsduglig" class="nav-link" data-scroll-target="#modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</a></li>
   </ul></li>
   </ul>
@@ -249,8 +248,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="visualisera-datat-med-en-enkel-graf">Visualisera datat med en enkel graf</h2>
 <p>Vi börjar med att titta på vårt data. De plot-funktioner som är inbyggda i R är dock dåliga på att hantera två regressionslinjer (det går men är omständigt) så vi gör direkt en enkel graf med hjälp av paketet <strong>ggplot2</strong>. Om du inte sedan tidigare har paketet installerat så gör du det med koden <code>install.packages("ggplot2")</code>. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen <code>library()</code></p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plot.jumping_frogs.simple <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(jumping_frogs_data, <span class="fu">aes</span>(<span class="at">x =</span> Size, <span class="at">y =</span> Jump_length, <span class="at">color =</span> Sex)) <span class="sc">+</span></span>
@@ -259,7 +256,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plot.jumping_frogs.simple</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -278,11 +274,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Vi vill nu göra en ANCOVA för att undersöka om vår responsvariabel (beroende variabel) <em>Jump_length</em> beror av våra förklarande variabelar (oberoende variabelar) <em>Size</em> och <em>Sex</em>.</p>
 <p>På samma sätt som när vi gjorde regression och envägs-ANOVA specificerar en modell med hjälp av funktionen <code>lm()</code> som står för <em>linjär modell</em>. Vi väljer att spara resultatet i ett objekt som vi kallar <code>m.jumping_frogs</code>. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med <code>m.</code> för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m.jumping_frogs <span class="ot">&lt;-</span> <span class="fu">lm</span> (Jump_length <span class="sc">~</span> Size <span class="sc">*</span> Sex,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> jumping_frogs_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>I vår modell har vi vår responsvariabel (det vi har på y-axeln) till vänster om tilde-tecknet <code>~</code> och våra förklarande faktorer till höger. Eftersom vi har två faktorer behöver vi lägga till båda till höger om tilde-tecknet <code>~</code>.</p>
 <p>Notera att vi har ett multiplikationstecken i vår modell <code>~ Size * Sex</code>. Multiplikationstecknet är en genväg som talar om för R att vi vill undersöka effekten av <code>Size</code>, effekten av <code>Sex</code>, samt interaktionen mellan dem (<code>Size: Sex</code>).</p>
@@ -290,10 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="statistiska-resultat">Statistiska resultat</h3>
 <p>Vi börjar med en ANOVA-tabell</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m.jumping_frogs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -317,22 +307,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Vi har nu en signifikant interaktion, visar att effekten av storlek på hopplängd skiljer sig åt hos de två könen. Det kan även vara intressant att veta om storlek över huvud taget har någon effekt på hopplängden för båda könen, om man studerar grafen kan man tänka sig att hanarnas storlek inte påverkar deras hopplängd. Vi kan testa det genom ett post-hoc test i paketet <code>emmeans()</code> som vi tidigare använde i vår envägs-ANOVA.</p>
 <p>Om interaktionen däremot <strong>inte är signifikant</strong>, skall du <strong>inte</strong> göra en post-hoc analys av interaktionen.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Welcome to emmeans.
 Caution: You lose important information if you filter this package's results.
 See '? untidy'</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emtrends</span>(m.jumping_frogs, <span class="sc">~</span> Sex, <span class="at">var =</span> <span class="st">"Size"</span>, <span class="at">infer =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code> Sex    Size.trend     SE df lower.CL upper.CL t.ratio p.value
- Female     0.7870 0.0816 96    0.625   0.9489   9.648  &lt;.0001
+ Female     0.7870 0.0816 96    0.625   0.9489   9.648 &lt;0.0001
  Male      -0.0699 0.0854 96   -0.239   0.0996  -0.818  0.4152
 
 Confidence level used: 0.95 </code></pre>
@@ -389,12 +373,31 @@ Confidence level used: 0.95 </code></pre>
 </section>
 <section id="publiceringsduglig-figur" class="level2">
 <h2 class="anchored" data-anchor-id="publiceringsduglig-figur">Publiceringsduglig figur</h2>
-<p>Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet <strong>ggplot2</strong>. Om du inte sedan tidigare har paketet installerat så gör du det med koden <code>install.packages("ggplot2")</code>. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen <code>library()</code></p>
-<section id="först---en-enkel-plot-med-ggplot2" class="level3">
-<h3 class="anchored" data-anchor-id="först---en-enkel-plot-med-ggplot2">Först - en enkel plot med ggplot2</h3>
-</section>
+<p>Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet <strong>ggplot2</strong>. Eftersom vi redan börjar med en sådan plot så fokuserar vi på att modifiera den så att den blir publikationsduglig.</p>
 <section id="modifiera-din-plot-så-den-blir-publiceringsduglig" class="level3">
 <h3 class="anchored" data-anchor-id="modifiera-din-plot-så-den-blir-publiceringsduglig">Modifiera din plot så den blir publiceringsduglig</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plot.jumping_frogs.final <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(jumping_frogs_data, <span class="fu">aes</span>(<span class="at">x =</span> Size, <span class="at">y =</span> Jump_length, <span class="at">color =</span> Sex)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">cex =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Size (mm)"</span>)<span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Jump length (mm)"</span>)<span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plot.jumping_frogs.final</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>

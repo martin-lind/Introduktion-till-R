@@ -20,7 +20,7 @@ title: "Tutorials"
 -   [$\chi$ ^2^ test (Chi-2)](chi2/) 
 -   [Transformeringar](transformations/)
 -   [Icke-parametriska tester](non-parametric)
--   [Faktoriell (flervägs) ANOVA](factorial-anova/) \[Under utveckling\]
--   [Ancova](ancova) \[Under utveckling\]
+-   [Faktoriell (tvåvägs) ANOVA](factorial-anova/) 
+-   [Ancova](ancova)
 
 ### Visualisera data

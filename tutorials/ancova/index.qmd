@@ -45,6 +45,8 @@ head(jumping_frogs_data)
 Vi börjar med att titta på vårt data. De plot-funktioner som är inbyggda i R är dock dåliga på att hantera två regressionslinjer (det går men är omständigt) så vi gör direkt en enkel graf med hjälp av paketet **ggplot2**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("ggplot2")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
 
 ```{r}
+#| code-fold: false
+
 library(ggplot2)
 
 plot.jumping_frogs.simple <- ggplot(jumping_frogs_data, aes(x = Size, y = Jump_length, color = Sex)) +
@@ -64,6 +66,8 @@ Vi vill nu göra en ANCOVA för att undersöka om vår responsvariabel (beroende
 På samma sätt som när vi gjorde regression och envägs-ANOVA specificerar en modell med hjälp av funktionen `lm()` som står för *linjär modell*. Vi väljer att spara resultatet i ett objekt som vi kallar `m.jumping_frogs`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
 
 ```{r}
+#| code-fold: false
+
 m.jumping_frogs <- lm (Jump_length ~ Size * Sex,
                     data = jumping_frogs_data)
 ```
@@ -77,6 +81,8 @@ Notera att vi har ett multiplikationstecken i vår modell `~ Size * Sex`. Multip
 Vi börjar med en ANOVA-tabell
 
 ```{r}
+#| code-fold: false
+
 anova(m.jumping_frogs)
 ```
 
@@ -95,6 +101,8 @@ Vi har nu en signifikant interaktion, visar att effekten av storlek på hopplän
 Om interaktionen däremot **inte är signifikant**, skall du **inte** göra en post-hoc analys av interaktionen.
 
 ```{r}
+#| code-fold: false
+
 library(emmeans)
 emtrends(m.jumping_frogs, ~ Sex, var = "Size", infer = TRUE)
 ```
@@ -127,8 +135,21 @@ Vi får fyra grafer att utvärdera, de två första är viktigast. Du kan behöv
 
 ## Publiceringsduglig figur
 
-Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet **ggplot2**. Om du inte sedan tidigare har paketet installerat så gör du det med koden `install.packages("ggplot2")`. Innan du använder paketet behöver du läsa in det i din session i R genom funktionen `library()`
-
-### Först - en enkel plot med ggplot2
+Vi avslutar med att göra en publiceringsduglig figur, och använder oss av paketet **ggplot2**. Eftersom vi redan börjar med en sådan plot så fokuserar vi på att modifiera den så att den blir publikationsduglig.
 
 ### Modifiera din plot så den blir publiceringsduglig
+
+```{r}
+#| code-fold: false
+
+library(ggplot2)
+
+plot.jumping_frogs.final <- ggplot(jumping_frogs_data, aes(x = Size, y = Jump_length, color = Sex)) +
+  geom_point(cex = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlab("Size (mm)")+
+  ylab("Jump length (mm)")+
+  theme_classic()
+
+plot.jumping_frogs.final
+```

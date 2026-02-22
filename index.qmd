@@ -6,6 +6,8 @@ title: "Introduktion till R"
 
 ### Introduktion till statistisk analys i R för biologer
 
-Hemsidan är under uppbyggnad, en första version beräknas vara färdig i februari 2026, och kommer kontinuerligt att fyllas på med material.
+Hemsidan ger en introduktion till statistisk analys i R, med fokus på analyser som är vanligt förekommande inom biologi och angränsande vetenskaper.
+
+Analyserna finns tillgängliga under [Tutorials](https://martin-lind.github.io/Introduktion-till-R/tutorials/), och om du inte tidigare använt R rekommenderas att först göra de inledande övningarna innan du fortsätter med analyserna.
 
 Hemsidan byggs av Martin Lind, Högskolan i Halmstad och Uppsala Universitet.
