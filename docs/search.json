@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Introduktion till R",
     "section": "",
-    "text": "Introduktion till statistisk analys i R för biologer\nHemsidan ger en introduktion till statistisk analys i R, med fokus på analyser som är vanligt förekommande inom biologi och angränsande vetenskaper.\nAnalyserna finns tillgängliga under Tutorials, och om du inte tidigare använt R rekommenderas att först göra de inledande övningarna innan du fortsätter med analyserna.\nHemsidan byggs av Martin Lind, Högskolan i Halmstad och Uppsala Universitet."
+    "text": "Introduktion till statistisk analys i R för biovetare\nHemsidan ger en introduktion till statistisk analys i R, med fokus på analyser som är vanligt förekommande inom biologi och angränsande vetenskaper (biovetenskap).\nAnalyserna finns tillgängliga under Tutorials, och om du inte tidigare använt R rekommenderas att först göra de inledande övningarna innan du fortsätter med analyserna.\nHemsidan byggs av Martin Lind, Högskolan i Halmstad och Uppsala Universitet."
   },
   {
     "objectID": "tutorials/linear-regression/index.html",

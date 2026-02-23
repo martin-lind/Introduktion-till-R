@@ -4,9 +4,9 @@ title: "Introduktion till R"
 
 ![](images/frontimage.png)\
 
-### Introduktion till statistisk analys i R för biologer
+### Introduktion till statistisk analys i R för biovetare
 
-Hemsidan ger en introduktion till statistisk analys i R, med fokus på analyser som är vanligt förekommande inom biologi och angränsande vetenskaper.
+Hemsidan ger en introduktion till statistisk analys i R, med fokus på analyser som är vanligt förekommande inom biologi och angränsande vetenskaper (biovetenskap).
 
 Analyserna finns tillgängliga under [Tutorials](https://martin-lind.github.io/Introduktion-till-R/tutorials/), och om du inte tidigare använt R rekommenderas att först göra de inledande övningarna innan du fortsätter med analyserna.
 
