@@ -164,6 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#statistiska-resultat" id="toc-statistiska-resultat" class="nav-link" data-scroll-target="#statistiska-resultat">Statistiska resultat</a></li>
   <li><a href="#post-hoc-på-interaktionen" id="toc-post-hoc-på-interaktionen" class="nav-link" data-scroll-target="#post-hoc-på-interaktionen">Post-hoc på interaktionen</a></li>
   </ul></li>
+  <li><a href="#presentera-din-statistiska-analys" id="toc-presentera-din-statistiska-analys" class="nav-link" data-scroll-target="#presentera-din-statistiska-analys">Presentera din statistiska analys</a></li>
   <li><a href="#utvärdera-den-statistiska-modellen" id="toc-utvärdera-den-statistiska-modellen" class="nav-link" data-scroll-target="#utvärdera-den-statistiska-modellen">Utvärdera den statistiska modellen</a></li>
   <li><a href="#publiceringsduglig-figur" id="toc-publiceringsduglig-figur" class="nav-link" data-scroll-target="#publiceringsduglig-figur">Publiceringsduglig figur</a>
   <ul class="collapse">
@@ -200,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
 <p>Vi har undersökt hopplängden hos ett antal grodor av samma art, och även mätt deras storlek. I tillägg vet vi om de är hanar eller honor. Påverkar deras storlek hopplängden, och skiljer det sig åt mellan könen?</p>
 <p>Ladda ner följande fil <a href="data/jumping_frogs.txt">jumping_frogs.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
-<p>Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det <code>size_nutrient_data</code> En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a>.</p>
+<p>Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det <code>jumping_frogs_data</code> En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a>.</p>
 <p><strong>Glöm inte att dokumentera din kod i ett script,</strong> med kommentarer som förklarar vad du gör! <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler">Se vår tutorial om script</a> om du behöver påminnelse om hur man skapar och använder script.</p>
 <div class="cell">
 <details class="code-fold">
@@ -322,10 +323,13 @@ See '? untidy'</code></pre>
 Confidence level used: 0.95 </code></pre>
 </div>
 </div>
-<p>Som vi ser har vi modifierat vår formel jämfört med när vi gjorde ett posthoc-test i en envägs-ANOVA, eftersom vi nu har två faktorer. Den är dessutom annorlunda från tvåvägs-anova, eftersom vi inte har två nivåer av båda faktorerna. <code>~ Sex, var = "Size", infer = TRUE</code> betyder att vi undersöker hur Size påverkar Size, och vi kör det separat för de två könen. <code>infer = TRUE</code> betyder att vi vill ha p-värden.</p>
-<p>Vi ser att för honor har vi en signifikant effekt av storlek på hopplängd (p &lt; 0.001) mewn ingen effekt för hanar (p = 0.415) ## Presentera din statistiska analys</p>
-<p>Vi har en signifikant interaktion mellan storlek och kön (ANCOVA, F = 52.651, df = 1 och 96, p &lt; 0.001) vilket betyder att hur hopplängden påverkas av storlek skiljer sig åt för de två könen. Medan hopplängden ökar med storlek för honorna (post-hoc, t = 9.648, df = 96, p &lt; 0.001) så påverkas inte hopplängden hos hanarna av deras storlek (post-hoc, t = -0.818, df = 96, p = 0.415). I tillägg till interaktionen är huvud effekten av såväl storlek (ANCOVA, F = 37.858, df = 1 och 96, p &lt; 0.001) som kön (ANCOVA, F = 226.266, df = 1 och 96, p &lt; 0.001) signifikanta.</p>
+<p>Som vi ser har vi modifierat vår formel jämfört med när vi gjorde ett posthoc-test i en envägs-ANOVA, eftersom vi nu har två faktorer. Den är dessutom annorlunda från tvåvägs-anova, eftersom vi inte har två nivåer av båda faktorerna. <code>~ Sex, var = "Size", infer = TRUE</code> betyder att vi undersöker hur Size påverkar Size, och vi gör det separat för de två könen. <code>infer = TRUE</code> betyder att vi vill ha p-värden.</p>
+<p>Vi ser att för honor har vi en signifikant effekt av storlek på hopplängd (p &lt; 0.001) men ingen effekt för hanar (p = 0.415)</p>
 </section>
+</section>
+<section id="presentera-din-statistiska-analys" class="level2">
+<h2 class="anchored" data-anchor-id="presentera-din-statistiska-analys">Presentera din statistiska analys</h2>
+<p>Vi har en signifikant interaktion mellan storlek och kön (ANCOVA, F = 52.651, df = 1 och 96, p &lt; 0.001) vilket betyder att hur hopplängden påverkas av storlek skiljer sig åt för de två könen. Medan hopplängden ökar med storlek för honorna (post-hoc, t = 9.648, df = 96, p &lt; 0.001) så påverkas inte hopplängden hos hanarna av deras storlek (post-hoc, t = -0.818, df = 96, p = 0.415). I tillägg till interaktionen är huvud effekten av såväl storlek (ANCOVA, F = 37.858, df = 1 och 96, p &lt; 0.001) som kön (ANCOVA, F = 226.266, df = 1 och 96, p &lt; 0.001) signifikanta.</p>
 </section>
 <section id="utvärdera-den-statistiska-modellen" class="level2">
 <h2 class="anchored" data-anchor-id="utvärdera-den-statistiska-modellen">Utvärdera den statistiska modellen</h2>

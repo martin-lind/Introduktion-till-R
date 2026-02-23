@@ -58,6 +58,7 @@ Hur tolkar du datat? Har arterna olika vikt? Blir de tyngre eller lättare vid h
 Vi vill nu göra en faktoriell ANOVA för att undersöka om vår responsvariabel (beroende variabel) *Weight* beror av våra förklarande variabelar (oberoende variabelar) *Nutrient_level* och *Species*.
 
 På samma sätt som när vi gjorde regression och envägs-ANOVA specificerar en modell med hjälp av funktionen `lm()` som står för *linjär modell*. Vi väljer att spara resultatet i ett objekt som vi kallar `m.size_nutrient`. Jag föredrar att alla mina modeller (resultat av statistka test) har ett namn som börjar med `m.` för att jag skall veta vad som är dataset och vad som är modeller. Ge alltid dina modeller beskrivande namn.
+
 ```{r}
 #| code-fold: false
 
@@ -100,9 +101,11 @@ library(emmeans)
 emmeans(m.size_nutrient, pairwise ~ Nutrient_level | Species)
 ```
 
-Som vi ser har vi modifierat vår formel jämfört med när vi gjorde ett posthoc-test i en envägs-ANOVA, eftersom vi nu har två faktorer. `pairwise ~ Nutrient_level | Species` betyder att vi gör parvisa jämförelser över nivåerna i faktorn `Nutrient_level`, och att vi gör det separat för de olika nivåerna i faktorn `Species.`
+Som vi ser har vi modifierat vår formel jämfört med när vi gjorde ett posthoc-test i en envägs-ANOVA, eftersom vi nu har två faktorer. `pairwise ~ Nutrient_level | Species` betyder att vi gör parvisa jämförelser över nivåerna i faktorn `Nutrient_level`, och att vi gör det separat för de olika nivåerna i faktorn `Species.` 
 
 I våra resultat under `$emmeans` ser vi medelvärden och standard error för de olika nivåerna av våra faktorer, medan resultaten av post-hoc analysen finns under `$contrasts`. För art A får vi ett p-värde på `0.0619`, dvs vikten hos art A påverkas inte signifikant av näringstillgången (men väldigt nära signifikans...). Om vi tittar på art B så ser vi dock ett p-värde på `<.0001`, det vill säga art B's vikt påverkas av näringstillgången.
+
+Notera att du bör konstruera din posthoc-design för att undersöka det du identifierat som interaktion i din plot. Om du byter plats på faktorerna i formeln (`~ Species | Nutrient_level`) testar du om de två arterna skiljer sig åt vid en given näringstillgång, vilket inte är vad du var ute efter att testa. Ett robust alternativ är att testa alla möjliga interaktioner, även de biologiskt ointressanta. Då konstruerar du formeln med ett multiplikationstecken `emmeans(m.size_nutrient, pairwise ~ Nutrient_level * Species)`. Notera att det innebär fler parvisa tester, med ytterligare justerade p-värden.
 
 ## Presentera din statistiska analys
 
