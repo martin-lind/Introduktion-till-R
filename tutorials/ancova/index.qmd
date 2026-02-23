@@ -2,7 +2,7 @@
 title: "ANCOVA"
 ---
 
-När vi studerade faktoriella designer hade vi två diskreta faktorer som oberoende variabler. Man skulle dock kunna ha en kontinuerlig variabel och en faktor som oberoende variablar. Det innebär att vi gör en analys med ett antal regressionslinjer, en regressionslinje för varje nivå av vår kontinuerliga faktor. Om vi istället för att göra separata regressioner för varje nivå av vår faktor (exempelvis separata regressioner för varje art) har med art som en faktor i vår analys kan vi testa om det finns en interaktion, dvs om regressionslinjens lutning skiljer sig åt mellan arterna.
+När vi studerade faktoriella designer hade vi två diskreta faktorer som oberoende variabler. Man skulle dock kunna ha en kontinuerlig variabel och en faktor som oberoende variablar. Det innebär att vi gör en analys med ett antal regressionslinjer, en regressionslinje för varje nivå av vår kontinuerliga faktor. Om vi har med vår kategoriska faktor som en faktor i vår analys kan vi testa om det finns en interaktion, dvs om regressionslinjens lutning skiljer sig åt mellan nivåerna
 
 Vi kallar en sådan här analys en ANCOVA, vilket står för *Analysis of Covariance*, där vår kontinuerliga variabel ofta benämns som vår covariat. Specifikationen av modellen är dock identisk som för en faktoriell analys, i båda fallen har vi en responsvariabel och två oberoende variabler.
 
