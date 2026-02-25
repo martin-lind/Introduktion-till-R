@@ -46,14 +46,14 @@
     "href": "tutorials/index.html",
     "title": "Tutorials",
     "section": "",
-    "text": "Installera R\nAnvända R, en introduktion\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test\nLinjär regression\nKorrelation\nEnvägs ANOVA\n\\(\\chi\\) 2 test (Chi-2)\nTransformeringar\nIcke-parametriska tester\nFaktoriell (tvåvägs) ANOVA\nAncova"
+    "text": "Installera R\nAnvända R, en introduktion\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test - jämföra medelvärden mellan två grupper\nLinjär regression - orsakssamband mellan två kontinuerliga variablar\nKorrelation - samband mellan två kontinuerliga variablar\nEnvägs ANOVA - jämföra medelvärden mellan fler än två grupper\n\\(\\chi\\) 2 test (Chi-2) - skiljer sig frekvenser åt mellan grupper i en korstabell\nTransformeringar - gör om skeva fördelningar till normalfördelning\nIcke-parametriska tester - om data har omöjliga fördelningar\nFaktoriell (tvåvägs) ANOVA - hur två kategoriska faktorer påverkar din response\nAncova - skiljer sig två regressionslinjer åt i lutning"
   },
   {
     "objectID": "tutorials/index.html#lista-över-tutorials",
     "href": "tutorials/index.html#lista-över-tutorials",
     "title": "Tutorials",
     "section": "",
-    "text": "Installera R\nAnvända R, en introduktion\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test\nLinjär regression\nKorrelation\nEnvägs ANOVA\n\\(\\chi\\) 2 test (Chi-2)\nTransformeringar\nIcke-parametriska tester\nFaktoriell (tvåvägs) ANOVA\nAncova"
+    "text": "Installera R\nAnvända R, en introduktion\nInstallera paket\nLäsa in data i R\n\n\n\n\n\nt-test - jämföra medelvärden mellan två grupper\nLinjär regression - orsakssamband mellan två kontinuerliga variablar\nKorrelation - samband mellan två kontinuerliga variablar\nEnvägs ANOVA - jämföra medelvärden mellan fler än två grupper\n\\(\\chi\\) 2 test (Chi-2) - skiljer sig frekvenser åt mellan grupper i en korstabell\nTransformeringar - gör om skeva fördelningar till normalfördelning\nIcke-parametriska tester - om data har omöjliga fördelningar\nFaktoriell (tvåvägs) ANOVA - hur två kategoriska faktorer påverkar din response\nAncova - skiljer sig två regressionslinjer åt i lutning"
   },
   {
     "objectID": "about.html",

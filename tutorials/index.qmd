@@ -13,14 +13,14 @@ title: "Tutorials"
 
 ### Statistiska test
 
--   [t-test](t-test/)
--   [Linjär regression](linear-regression/)
--   [Korrelation](correlation/)
--   [Envägs ANOVA](anova/)
--   [$\chi$ ^2^ test (Chi-2)](chi2/) 
--   [Transformeringar](transformations/)
--   [Icke-parametriska tester](non-parametric)
--   [Faktoriell (tvåvägs) ANOVA](factorial-anova/) 
--   [Ancova](ancova)
+-   [t-test](t-test/) - jämföra medelvärden mellan två grupper
+-   [Linjär regression](linear-regression/) - orsakssamband mellan två kontinuerliga variablar
+-   [Korrelation](correlation/) - samband mellan två kontinuerliga variablar
+-   [Envägs ANOVA](anova/) - jämföra medelvärden mellan fler än två grupper
+-   [$\chi$ ^2^ test (Chi-2)](chi2/) - skiljer sig frekvenser åt mellan grupper i en korstabell
+-   [Transformeringar](transformations/) - gör om skeva fördelningar till normalfördelning
+-   [Icke-parametriska tester](non-parametric) - om data har omöjliga fördelningar
+-   [Faktoriell (tvåvägs) ANOVA](factorial-anova/) - hur två kategoriska faktorer påverkar din response
+-   [Ancova](ancova) - skiljer sig två regressionslinjer åt i lutning
 
 ### Visualisera data
