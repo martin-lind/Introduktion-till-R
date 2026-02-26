@@ -23,4 +23,4 @@ title: "Tutorials"
 -   [Faktoriell (tvåvägs) ANOVA](factorial-anova/) - hur två kategoriska faktorer påverkar din response
 -   [Ancova](ancova) - skiljer sig två regressionslinjer åt i lutning
 
-### Visualisera data
+### 
