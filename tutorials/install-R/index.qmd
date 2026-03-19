@@ -16,7 +16,7 @@ R är också en mjukvara (ett program) som vi använder oss av när vi gör stat
 
 ## RStudio
 
-***RStudio*** är ett alternativt grafiskt interface (GUI) till R. För att använda RStudio krävs att du redan har installerat programmet ***R***.
+***RStudio*** är ett alternativt grafiskt interface (GUI) till R. För att använda RStudio krävs att du redan har installerat programmet ***R***. Även RStudio är tillgängligt för alla större plattformar.
 
 ![](images/RStudio_logo.png){fig-align="left" width="147"}
 
@@ -26,4 +26,4 @@ R är också en mjukvara (ett program) som vi använder oss av när vi gör stat
 
 Såväl ***R*** som ***RStudio*** hanterar R-kod på samma sätt (eftersom RStudio använder sig av R i bakgrunden) och det spelar ingen roll vilken man använder för att göra statistik och visualiseringar.
 
-***RStudio*** utmärker sig genom ett annorlunda interface och hjälpsamma funktioner såsom tab completion, färgning av kod (ger bättre överblick) och möjligheter till avancerad organisering av dina projekt. Dessutom kan RStudio hantera fler programmeringsspråk och enkelt integreras i vanliga arbetsflöden (ex via github).
+***RStudio*** utmärker sig genom ett annorlunda interface och hjälpsamma funktioner såsom tab completion, färgning av kod (ger bättre överblick) och möjligheter till avancerad organisering av dina projekt. Dessutom kan RStudio hantera fler programmeringsspråk, är smidigt att integrera med markdown-dokument och kan enkelt integreras i vanliga arbetsflöden (ex via github).
