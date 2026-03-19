@@ -11,7 +11,7 @@ title: "Tutorials"
 -   [Installera paket](R-packages)
 -   [Läsa in data i R](read-data/)
 
-### Statistiska test
+### Statistiska test - grundläggande
 
 -   [t-test](t-test/) - jämföra medelvärden mellan två grupper
 -   [Linjär regression](linear-regression/) - orsakssamband mellan två kontinuerliga variablar
@@ -23,4 +23,8 @@ title: "Tutorials"
 -   [Faktoriell (tvåvägs) ANOVA](factorial-anova/) - hur två kategoriska faktorer påverkar din response
 -   [Ancova](ancova) - skiljer sig två regressionslinjer åt i lutning
 
-### 
+### Datamanipulering
+
+### Statistiska test - fortsättning
+
+### Statistiska test - biodiversitet

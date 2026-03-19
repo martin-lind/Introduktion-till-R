@@ -105,7 +105,7 @@ testdata <- read.table("testdata_v2.txt",
 
 `header=T` betyder att den första raden i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du `T` med `F` (`T` står för TRUE, `F` står för FALSE).
 
-`sep=T` betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).
+`sep="\t"` betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).
 
 `dec=","` betyder att kommatecken används som decimalseparator (ex 1,32). Om filen istället använder punkt som decimalseparator (ex 1.32), anger du istället `dec="."`
 

@@ -290,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>read.table()</code> är funktionen för att läsa in textfiler med filändelsen <code>.txt</code></p>
 <p><code>"testdata_v2.txt"</code> är sökvägen till datafilen, och eftersom den ligger direkt i din Working Directiory behöver vi bara skriva ut namnet på filen (<code>testdata_v2.txt</code>).</p>
 <p><code>header=T</code> betyder att den första raden i datafilen är en rubrikrad och inte består av data. Det är nästan alltid fallet om du läser in en datafil till R. Om även första raden består av data (dvs det finns inga rubriker) ersätter du <code>T</code> med <code>F</code> (<code>T</code> står för TRUE, <code>F</code> står för FALSE).</p>
-<p><code>sep=T</code> betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).</p>
+<p><code>sep="\t"</code> betyder att alla värden/celler är separerade med TAB (det är en tab-separerad textfil).</p>
 <p><code>dec=","</code> betyder att kommatecken används som decimalseparator (ex 1,32). Om filen istället använder punkt som decimalseparator (ex 1.32), anger du istället <code>dec="."</code></p>
 </section>
 </section>

@@ -43,7 +43,7 @@ plant_reproduction_data <- read.table("data/plant_reproduction.txt",
 
 `header=T`betyder att första raden i filen är kolumnernas rubriker, dvs inte värden.
 
-`sep=T` betyder att alla värden är separerade med TAB.
+`sep="\t"` betyder att alla värden är separerade med TAB.
 
 `dec=","` betyder att komma används som decimalavgränsare (ex. 1,32).
 
