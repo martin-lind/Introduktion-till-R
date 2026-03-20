@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tutorials – Introduktion till R</title>
+<title>Multivariata metoder - ordinering med NMDS – Introduktion till R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,35 +104,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -108,9 +114,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Introduktion till R</span>
     </a>
   </div>
@@ -121,15 +127,15 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Hem</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../tutorials/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../tutorials/index.html"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">Om hemsidan</span></a>
   </li>  
 </ul>
@@ -148,14 +154,14 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lista-över-tutorials" id="toc-lista-över-tutorials" class="nav-link active" data-scroll-target="#lista-över-tutorials">Lista över tutorials</a>
+  <li><a href="#läs-in-data" id="toc-läs-in-data" class="nav-link active" data-scroll-target="#läs-in-data">Läs in data</a>
   <ul class="collapse">
-  <li><a href="#att-installera-och-arbeta-i-r" id="toc-att-installera-och-arbeta-i-r" class="nav-link" data-scroll-target="#att-installera-och-arbeta-i-r">Att installera och arbeta i R</a></li>
-  <li><a href="#statistiska-test---grundläggande" id="toc-statistiska-test---grundläggande" class="nav-link" data-scroll-target="#statistiska-test---grundläggande">Statistiska test - grundläggande</a></li>
-  <li><a href="#manipulering-av-dataset" id="toc-manipulering-av-dataset" class="nav-link" data-scroll-target="#manipulering-av-dataset">Manipulering av dataset</a></li>
-  <li><a href="#statistiska-test---fortsättning" id="toc-statistiska-test---fortsättning" class="nav-link" data-scroll-target="#statistiska-test---fortsättning">Statistiska test - fortsättning</a></li>
-  <li><a href="#biodiversitets-analyser" id="toc-biodiversitets-analyser" class="nav-link" data-scroll-target="#biodiversitets-analyser">Biodiversitets-analyser</a></li>
+  <li><a href="#inspektera-data" id="toc-inspektera-data" class="nav-link" data-scroll-target="#inspektera-data">Inspektera data</a></li>
   </ul></li>
+  <li><a href="#gör-en-community-matrix" id="toc-gör-en-community-matrix" class="nav-link" data-scroll-target="#gör-en-community-matrix">Gör en community matrix</a></li>
+  <li><a href="#gör-en-nmds" id="toc-gör-en-nmds" class="nav-link" data-scroll-target="#gör-en-nmds">Gör en NMDS</a></li>
+  <li><a href="#enkel-figur" id="toc-enkel-figur" class="nav-link" data-scroll-target="#enkel-figur">Enkel figur</a></li>
+  <li><a href="#fullständig-figur" id="toc-fullständig-figur" class="nav-link" data-scroll-target="#fullständig-figur">Fullständig figur</a></li>
   </ul>
 </nav>
     </div>
@@ -164,7 +170,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tutorials</h1>
+<h1 class="title">Multivariata metoder - ordinering med NMDS</h1>
 </div>
 
 
@@ -181,48 +187,207 @@ window.Quarto = {
 </header>
 
 
-<section id="lista-över-tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="lista-över-tutorials">Lista över tutorials</h2>
-<section id="att-installera-och-arbeta-i-r" class="level3">
-<h3 class="anchored" data-anchor-id="att-installera-och-arbeta-i-r">Att installera och arbeta i R</h3>
-<ul>
-<li><a href="install-R/">Installera R</a></li>
-<li><a href="use-R">Använda R, en introduktion</a></li>
-<li><a href="R-packages">Installera paket</a></li>
-<li><a href="read-data/">Läsa in data i R</a></li>
-</ul>
+<p>[Introduktion till ordineringsmetoder]</p>
+<section id="läs-in-data" class="level2">
+<h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
+<p>Vi har mätt täckningsgrad av ett antal växtarter i kvadrater i tre habitat i skogar omkring Umeå, och undrar om växtsammhållerna skiljer sig åt mellan habitaten.</p>
+<p>Ladda ner följande fil <a href="data/veg_umea.txt">veg_umea.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
+<p>Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det <code>veg_umea_data</code> En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a>.</p>
+<p><strong>Glöm inte att dokumentera din kod i ett script,</strong> med kommentarer som förklarar vad du gör! <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler">Se vår tutorial om script</a> om du behöver påminnelse om hur man skapar och använder script.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>veg_umea_data<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">"data/veg_umea.txt"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">header=</span>T,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">dec=</span><span class="st">","</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="inspektera-data" class="level3">
+<h3 class="anchored" data-anchor-id="inspektera-data">Inspektera data</h3>
+<p>Börja med att titta på datans struktur med <code>str()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(veg_umea_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   42 obs. of  59 variables:
+ $ habitat          : chr  "Meadow" "Meadow" "Meadow" "Meadow" ...
+ $ moisture         : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ light            : int  3 3 3 3 3 3 3 3 3 3 ...
+ $ nutrients        : int  3 3 3 3 3 3 3 3 3 3 ...
+ $ angsfraken       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ angsgroe         : int  0 0 25 5 0 25 0 0 0 0 ...
+ $ angskovall       : int  0 0 0 0 0 0 0 0 0 5 ...
+ $ angsyra          : int  0 0 0 0 0 0 5 5 0 0 ...
+ $ Blabar           : int  0 0 0 0 0 0 0 0 5 0 ...
+ $ Brudborste       : int  5 25 25 0 0 5 0 5 0 0 ...
+ $ Brunror          : int  0 80 0 0 0 25 5 0 0 0 ...
+ $ Dvarglummer      : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Ekbraken         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Ekorrbar         : int  5 0 25 5 5 0 5 5 25 0 ...
+ $ En               : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Fladervanderot   : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Gran             : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Grasstjarnblomma : int  0 0 5 5 0 0 0 0 0 0 ...
+ $ Graal            : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Gullris          : int  0 0 0 0 5 0 0 0 5 5 ...
+ $ Hallon           : int  0 0 0 5 0 0 0 0 0 0 ...
+ $ Harsyra          : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Hasslebrodd      : int  5 0 0 0 0 0 0 0 0 0 ...
+ $ Hultbraken       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Karrviol         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Krakbar          : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Krakvicker       : int  0 0 0 0 0 5 0 0 0 0 ...
+ $ Krustatel        : int  0 0 80 0 25 0 80 0 80 25 ...
+ $ Lingon           : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Ljung            : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Lundstjarnblomma : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Midsommarblomster: int  0 5 25 25 25 25 5 5 0 5 ...
+ $ Mossviol         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Mjolkort         : int  0 5 0 5 0 5 0 0 0 0 ...
+ $ Nordbraken       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Nordlundsarv     : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Nysort           : int  0 25 0 0 0 0 0 0 0 0 ...
+ $ Ormbar           : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Odon             : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Revlummer        : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Rodblara         : int  0 5 5 5 5 25 5 5 0 5 ...
+ $ Rodsvingel       : int  0 0 25 0 0 0 0 0 0 0 ...
+ $ Rodven           : int  0 80 25 80 25 0 0 25 25 25 ...
+ $ Rolleka          : int  0 5 80 25 0 5 0 0 5 0 ...
+ $ Ronn             : int  0 0 0 0 0 0 0 0 5 0 ...
+ $ Skogsbraken      : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Skogsfraken      : int  0 0 5 5 5 5 5 0 5 5 ...
+ $ Skogskovall      : int  0 0 0 0 25 0 0 0 0 0 ...
+ $ Skogsviol        : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Skogsstjarna     : int  5 0 5 5 5 0 5 0 5 0 ...
+ $ Strutbraken      : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Sumpmara         : int  5 0 0 0 0 0 0 0 0 0 ...
+ $ Topplosa         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Trajon           : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Tuvtatel         : int  5 25 0 0 0 0 0 25 0 5 ...
+ $ Varfryle         : int  0 0 0 25 25 80 25 5 25 0 ...
+ $ akerbar          : int  0 5 0 0 0 0 0 0 0 0 ...
+ $ Mossa            : int  0 80 80 80 80 25 80 5 80 80 ...
+ $ Lav              : int  0 0 0 0 0 5 0 0 0 0 ...</code></pre>
+</div>
+</div>
 </section>
-<section id="statistiska-test---grundläggande" class="level3">
-<h3 class="anchored" data-anchor-id="statistiska-test---grundläggande">Statistiska test - grundläggande</h3>
-<ul>
-<li><a href="t-test/">t-test</a> - jämföra medelvärden mellan två grupper</li>
-<li><a href="linear-regression/">Linjär regression</a> - orsakssamband mellan två kontinuerliga variablar</li>
-<li><a href="correlation/">Korrelation</a> - samband mellan två kontinuerliga variablar</li>
-<li><a href="anova/">Envägs ANOVA</a> - jämföra medelvärden mellan fler än två grupper</li>
-<li><a href="chi2/"><span class="math inline">\(\chi\)</span> <sup>2</sup> test (Chi-2)</a> - skiljer sig frekvenser åt mellan grupper i en korstabell</li>
-<li><a href="transformations/">Transformeringar</a> - gör om skeva fördelningar till normalfördelning</li>
-<li><a href="non-parametric">Icke-parametriska tester</a> - om data har omöjliga fördelningar</li>
-<li><a href="factorial-anova/">Faktoriell (tvåvägs) ANOVA</a> - hur två kategoriska faktorer påverkar din respons</li>
-<li><a href="ancova">Ancova</a> - skiljer sig två regressionslinjer åt i lutning och läge</li>
-</ul>
 </section>
-<section id="manipulering-av-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="manipulering-av-dataset">Manipulering av dataset</h3>
-<p>[Innehåll planeras i framtiden]</p>
+<section id="gör-en-community-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="gör-en-community-matrix">Gör en community matrix</h2>
+<p>Vi fortsätter med att förbereda vårt dataset för en NMDS-analys. För att göra det börjar vi med att läsa in paketet <code>vegan</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: permute</code></pre>
+</div>
+</div>
+<p>Nästa steg är att konstruera en community matrix, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner. Som vi såg när vi körde <code>str()</code> så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.</p>
+<p>För att välja ut kolumner ur ett dataset kan man använda operatorn <code>[]</code>. Vi vill börja med kolumn nummer 5, men vilken är den sista kolumnen? med funktionen <code>ncol()</code> kan vi ta reda på antalet kolumner i vårt dataset.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(veg_umea_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 59</code></pre>
+</div>
+</div>
+<p>Vi ser att vi har 59 kolumner, och vårt nya dataset som är en community matrix skall därför sträcka sig från kolumn 5 till kolumn 59 av vårt originaldata. Vi kallar vårt nya dataset <code>community_matrix</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>community_matrix <span class="ot">&lt;-</span> veg_umea_data[,<span class="dv">5</span><span class="sc">:</span><span class="dv">59</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="statistiska-test---fortsättning" class="level3">
-<h3 class="anchored" data-anchor-id="statistiska-test---fortsättning">Statistiska test - fortsättning</h3>
-<p>[Innehåll planeras i framtiden]</p>
+<section id="gör-en-nmds" class="level2">
+<h2 class="anchored" data-anchor-id="gör-en-nmds">Gör en NMDS</h2>
+<p>Nu har vi en community matrix, och vi är redo att göra en ordinering! Vi använder oss av funktionen metaMDS() där vi anger vår community matrix, hur distanserna skall beräknas (det lämpligaste för artförekomst är Bray-Curtis, vilket kallas <code>"bray"</code>) och slutligen antalet dimensioner vi vill visualisera (normalt sett använder vi oss av 2 dimensioner, anges med <code>k = 2</code>)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nmds_umea <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(community_matrix,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">"bray"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">k =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Vi kör koden, och får ett antal rader som börjar med Run… R analyserar nu ditt data genom en iterativ process där den söker efter den bästa visualiseringen av din data i två dimensioner. Det kan gå sekundsnabbt eller ta längre tid, beroende på storleken av din community matrix.</p>
+<p>När vi är klara väljer vi att titta på lite information om vår NMDS-analys, och vi fokuserar på stress-värdet.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nmds_umea</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+metaMDS(comm = community_matrix, distance = "bray", k = 2) 
+
+global Multidimensional Scaling using monoMDS
+
+Data:     wisconsin(sqrt(community_matrix)) 
+Distance: bray 
+
+Dimensions: 2 
+Stress:     0.146319 
+Stress type 1, weak ties
+Best solution was repeated 3 times in 20 tries
+The best solution was from try 12 (random start)
+Scaling: centring, PC rotation, halfchange scaling 
+Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></pre>
+</div>
+</div>
+<p>Vi ser raden <code>Stress:     0.146319</code> som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stress-värde</th>
+<th>Tolkning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt; 0.5</td>
+<td>Din NMDS är en excellent representation av dina data</td>
+</tr>
+<tr class="even">
+<td>&lt; 0.10</td>
+<td>En bra ordinering, mycket tolkningsbar</td>
+</tr>
+<tr class="odd">
+<td>&lt; 0.20</td>
+<td>En användbar ordinering, men detaljerna kan vara missvisande, tolka med försiktighet</td>
+</tr>
+<tr class="even">
+<td>&gt; 0.35</td>
+<td>Din ordinering är helt slumpmässig och går inte att tolka</td>
+</tr>
+</tbody>
+</table>
+<p>Vi har ett stress-värde på 0.146, så ordineringen är användbar men skall tolkas med viss försiktighet. Det skall noteras att ju större dataset man har, desto svårare är det att visualisera det i två dimensioner, så man skall inte förvänta sig väldigt låga stress-värden i sådana fall.</p>
 </section>
-<section id="biodiversitets-analyser" class="level3">
-<h3 class="anchored" data-anchor-id="biodiversitets-analyser">Biodiversitets-analyser</h3>
-<p>[Innehåll planeras i framtiden]</p>
-<ul>
-<li><a href="nmds/">Ordinering med NMDS</a> [under utveckling]</li>
-</ul>
+<section id="enkel-figur" class="level2">
+<h2 class="anchored" data-anchor-id="enkel-figur">Enkel figur</h2>
+<p>Vi börjar med en enkel figur av vår nmds-analys, utan några specificeringar.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nmds_umea)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fullständig-figur" class="level2">
+<h2 class="anchored" data-anchor-id="fullständig-figur">Fullständig figur</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nmds_umea, <span class="at">type=</span><span class="st">"n"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"species"</span>, <span class="at">col=</span><span class="st">"red"</span>, <span class="at">cex=</span><span class="fl">0.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

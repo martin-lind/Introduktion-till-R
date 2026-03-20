@@ -20,8 +20,8 @@ title: "Tutorials"
 -   [$\chi$ ^2^ test (Chi-2)](chi2/) - skiljer sig frekvenser åt mellan grupper i en korstabell
 -   [Transformeringar](transformations/) - gör om skeva fördelningar till normalfördelning
 -   [Icke-parametriska tester](non-parametric) - om data har omöjliga fördelningar
--   [Faktoriell (tvåvägs) ANOVA](factorial-anova/) - hur två kategoriska faktorer påverkar din response
--   [Ancova](ancova) - skiljer sig två regressionslinjer åt i lutning
+-   [Faktoriell (tvåvägs) ANOVA](factorial-anova/) - hur två kategoriska faktorer påverkar din respons
+-   [Ancova](ancova) - skiljer sig två regressionslinjer åt i lutning och läge
 
 ### Manipulering av dataset
 
@@ -31,6 +31,8 @@ title: "Tutorials"
 
 \[Innehåll planeras i framtiden\]
 
-### Statistiska test - biodiversitet
+### Biodiversitets-analyser
 
 \[Innehåll planeras i framtiden\]
+
+-   [Ordinering med NMDS](nmds/) [under utveckling]

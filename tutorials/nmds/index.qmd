@@ -1,0 +1,115 @@
+---
+title: "Multivariata metoder - ordinering med NMDS"
+---
+
+[Introduktion till ordineringsmetoder]
+
+## Läs in data
+
+Vi har mätt täckningsgrad av ett antal växtarter i kvadrater i tre habitat i skogar omkring Umeå, och undrar om växtsammhållerna skiljer sig åt mellan habitaten.
+
+Ladda ner följande fil [veg_umea.txt](data/veg_umea.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
+
+Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det `veg_umea_data` En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial [Läsa in data i R](https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen).
+
+**Glöm inte att dokumentera din kod i ett script,** med kommentarer som förklarar vad du gör! [Se vår tutorial om script](https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler) om du behöver påminnelse om hur man skapar och använder script.
+
+```{r}
+#| code-fold: false
+
+veg_umea_data<-read.table("data/veg_umea.txt",
+                          header=T,
+                          sep="\t",
+                          dec=",") 
+```
+
+### Inspektera data
+
+Börja med att titta på datans struktur med `str()`.
+
+```{r}
+#| code-fold: false
+
+str(veg_umea_data)
+```
+
+## Gör en community matrix
+
+Vi fortsätter med att förbereda vårt dataset för en NMDS-analys. För att göra det börjar vi med att läsa in paketet `vegan`.
+
+```{r}
+#| code-fold: false
+
+library(vegan)
+```
+
+Nästa steg är att konstruera en community matrix, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner. Som vi såg när vi körde `str()` så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.
+
+För att välja ut kolumner ur ett dataset kan man använda operatorn `[]`. Vi vill börja med kolumn nummer 5, men vilken är den sista kolumnen? med funktionen `ncol()` kan vi ta reda på antalet kolumner i vårt dataset.
+
+```{r}
+#| code-fold: false
+
+ncol(veg_umea_data)
+```
+
+Vi ser att vi har 59 kolumner, och vårt nya dataset som är en community matrix skall därför sträcka sig från kolumn 5 till kolumn 59 av vårt originaldata. Vi kallar vårt nya dataset `community_matrix`
+
+```{r}
+#| code-fold: false
+
+community_matrix <- veg_umea_data[,5:59]
+```
+
+
+## Gör en NMDS
+
+Nu har vi en community matrix, och vi är redo att göra en ordinering! Vi använder oss av funktionen metaMDS() där vi anger vår community matrix, hur distanserna skall beräknas (det lämpligaste för artförekomst är Bray-Curtis, vilket kallas `"bray"`) och slutligen antalet dimensioner vi vill visualisera (normalt sett använder vi oss av 2 dimensioner, anges med `k = 2`)
+
+```{r}
+#| code-fold: false
+#| results: 'hide'
+
+nmds_umea <- metaMDS(community_matrix,
+                     distance = "bray",
+                     k = 2)
+```
+
+Vi kör koden, och får ett antal rader som börjar med Run... R analyserar nu ditt data genom en iterativ process där den söker efter den bästa visualiseringen av din data i två dimensioner. Det kan gå sekundsnabbt eller ta längre tid, beroende på storleken av din community matrix.
+
+När vi är klara väljer vi att titta på lite information om vår NMDS-analys, och vi fokuserar på stress-värdet.
+
+```{r}
+#| code-fold: false
+
+nmds_umea
+```
+
+Vi ser raden `Stress:     0.146319` som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.
+
+| Stress-värde | Tolkning |
+|----------------|--------------------------------------------------------|
+| \< 0.5 | Din NMDS är en excellent representation av dina data |
+| \< 0.10 | En bra ordinering, mycket tolkningsbar |
+| \< 0.20 | En användbar ordinering, men detaljerna kan vara missvisande, tolka med försiktighet |
+| \> 0.35 | Din ordinering är helt slumpmässig och går inte att tolka |
+
+Vi har ett stress-värde på 0.146, så ordineringen är användbar men skall tolkas med viss försiktighet. Det skall noteras att ju större dataset man har, desto svårare är det att visualisera det i två dimensioner, så man skall inte förvänta sig väldigt låga stress-värden i sådana fall.
+
+## Enkel figur
+Vi börjar med en enkel figur av vår nmds-analys, utan några specificeringar.
+
+```{r}
+#| code-fold: false
+
+plot(nmds_umea)
+
+```
+
+## Fullständig figur
+
+```{r}
+plot(nmds_umea, type="n")
+points(nmds_umea, "species", col="red", cex=0.2)
+
+```
