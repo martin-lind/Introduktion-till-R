@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Loading required package: permute</code></pre>
 </div>
 </div>
-<p>Nästa steg är att konstruera en community matrix, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner. Som vi såg när vi körde <code>str()</code> så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.</p>
+<p>Nästa steg är att konstruera en <strong>community matrix</strong>, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner (en matris som innehåller hela det biologiska <em>samhället</em> vi vill analysera). Som vi såg när vi körde <code>str()</code> så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.</p>
 <p>För att välja ut kolumner ur ett dataset kan man använda operatorn <code>[]</code>. Vi vill börja med kolumn nummer 5, men vilken är den sista kolumnen? med funktionen <code>ncol()</code> kan vi ta reda på antalet kolumner i vårt dataset.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(veg_umea_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -294,13 +294,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="gör-en-nmds" class="level2">
 <h2 class="anchored" data-anchor-id="gör-en-nmds">Gör en NMDS</h2>
-<p>Nu har vi en community matrix, och vi är redo att göra en ordinering! Vi använder oss av funktionen metaMDS() där vi anger vår community matrix, hur distanserna skall beräknas (det lämpligaste för artförekomst är Bray-Curtis, vilket kallas <code>"bray"</code>) och slutligen antalet dimensioner vi vill visualisera (normalt sett använder vi oss av 2 dimensioner, anges med <code>k = 2</code>)</p>
+<p>Nu har vi en community matrix, och vi är redo att göra en ordinering! Vi använder oss av funktionen <code>metaMDS()</code> där vi anger vår community matrix, hur distanserna skall beräknas (det lämpligaste för artförekomst är Bray-Curtis, vilket kallas <code>"bray"</code>) och slutligen antalet dimensioner vi vill visualisera (normalt sett använder vi oss av 2 dimensioner, anges med <code>k = 2</code>)</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nmds_umea <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(community_matrix,</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">"bray"</span>,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">k =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Vi kör koden, och får ett antal rader som börjar med Run… R analyserar nu ditt data genom en iterativ process där den söker efter den bästa visualiseringen av din data i två dimensioner. Det kan gå sekundsnabbt eller ta längre tid, beroende på storleken av din community matrix.</p>
+<p>Vi kör koden, och får ett antal rader som börjar med <code>Run...</code> R analyserar nu ditt data genom en iterativ process där den söker efter den bästa visualiseringen av din data i två dimensioner. Det kan gå sekundsnabbt eller ta längre tid, beroende på storleken av din community matrix.</p>
 <p>När vi är klara väljer vi att titta på lite information om vår NMDS-analys, och vi fokuserar på stress-värdet.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nmds_umea</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -317,8 +317,8 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.146319 
 Stress type 1, weak ties
-Best solution was repeated 3 times in 20 tries
-The best solution was from try 12 (random start)
+Best solution was repeated 1 time in 20 tries
+The best solution was from try 19 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></pre>
 </div>
@@ -372,20 +372,101 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 </section>
 <section id="fullständig-figur" class="level2">
 <h2 class="anchored" data-anchor-id="fullständig-figur">Fullständig figur</h2>
+<p>Vi väljer att rita ut</p>
+<p>Först behöver vi skapa en vektor som associerar varje provruta (site) med en vegetationstype (dvs en nivå ur variabeln <code>habitat</code>).</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nmds_umea, <span class="at">type=</span><span class="st">"n"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"species"</span>, <span class="at">col=</span><span class="st">"red"</span>, <span class="at">cex=</span><span class="fl">0.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>habitats <span class="ot">&lt;-</span> veg_umea_data[,<span class="dv">1</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>habitats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Meadow"        "Meadow"        "Meadow"        "Meadow"       
+ [5] "Meadow"        "Meadow"        "Meadow"        "Meadow"       
+ [9] "Meadow"        "Meadow"        "Stream"        "Stream"       
+[13] "Stream"        "Stream"        "Stream"        "Stream"       
+[17] "Stream"        "Stream"        "Stream"        "Stream"       
+[21] "Stream"        "Spruce.forest" "Spruce.forest" "Spruce.forest"
+[25] "Spruce.forest" "Spruce.forest" "Spruce.forest" "Spruce.forest"
+[29] "Spruce.forest" "Spruce.forest" "Spruce.forest" "Pine.forest"  
+[33] "Pine.forest"   "Pine.forest"   "Pine.forest"   "Pine.forest"  
+[37] "Pine.forest"   "Pine.forest"   "Pine.forest"   "Pine.forest"  
+[41] "Pine.forest"   "Pine.forest"  </code></pre>
+</div>
+</div>
+<p>Vi vill även att de olika habitaten skall ha olika färg, så vi behöver skapa en ny variabel med färger. Vi börjar med att ange en palett, dvs vad varje habitat skall ha för färg. Välj gärna färger som på något sätt kan symbolisera dina kategorier.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>my_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Meadow"</span> <span class="ot">=</span> <span class="st">"green"</span>, <span class="st">"Stream"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"Spruce.forest"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>, <span class="st">"Pine.forest"</span> <span class="ot">=</span> <span class="st">"brown"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Sedan skapar vi färg-vektorn med funktionen <code>match()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>color_vector <span class="ot">&lt;-</span> my_palette[<span class="fu">match</span>(habitats, <span class="fu">names</span>(my_palette))]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Efter det gör vi om habitat till en faktor (vilket krävs för senare steg) men samtidigt ser vi till att nivåerna i habitat är direkt kopplade till färgerna, så att inte ordningen av dem tappas bort (det är lätt hänt när R gärna sorterar om ordningen när den gör om en variabel till en faktor)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>habitats <span class="ot">&lt;-</span> <span class="fu">factor</span>(habitats, <span class="at">levels =</span> <span class="fu">names</span>(my_palette))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Slutligen gör vi en plot!</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordiplot</span>(nmds_umea, <span class="at">type=</span><span class="st">"n"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"sites"</span>, <span class="at">col =</span> color_vector, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea,<span class="st">"species"</span>, <span class="at">pch=</span><span class="dv">3</span>,<span class="at">col=</span><span class="st">"black"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,<span class="at">legend =</span> <span class="fu">names</span>(my_palette),<span class="at">col =</span> my_palette, <span class="at">pch =</span> <span class="dv">16</span>,<span class="at">title =</span> <span class="st">"Habitats"</span>,<span class="at">bty =</span> <span class="st">"n"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>Vi kan även välja att göra ellipser runt våra habitat</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordiplot</span>(nmds_umea, <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"sites"</span>, <span class="at">col =</span> color_vector, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"species"</span>, <span class="at">pch =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ordiellipse</span>(nmds_umea,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">groups =</span> habitats,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> my_palette,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">kind =</span> <span class="st">"sd"</span>,      <span class="co"># or "se"</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">names</span>(my_palette),</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> my_palette,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Habitats"</span>,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vi kan som en alternativ figur välja att skriva ut vissa av artnamnen. Det gör vi genom att använda oss av funktionen <code>orditorp()</code>, där vi specificerar att det är artnamnen vi vill skriva ut.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordiplot</span>(nmds_umea, <span class="at">type=</span><span class="st">"n"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"sites"</span>, <span class="at">col =</span> color_vector, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">orditorp</span>(nmds_umea,<span class="at">display=</span><span class="st">"species"</span>, <span class="at">pch=</span><span class="dv">3</span>,<span class="at">col=</span><span class="st">"black"</span>,<span class="at">air=</span><span class="dv">2</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">names</span>(my_palette),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> my_palette,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Habitats"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>air</code> = specifiserar hur mycket luft det skall vara mellan artnamnen. Om man sätter den till <code>air = 0</code> så skrivs artnamn ovanpå varandra, vilket kan göra det hela oläsligt om man har många arter som följs åt. Testa olika värden på air tills du hittar ett som är lämpligt. Arter som inte skrivs ut visas med artsymbolen<code>+</code>.</p>
+<p>Jag tycker att det i många fall kan vara intressant att skriva ut artnamnen, för att se vilka arter är specifika för vilka samhällen. Notera dock att alla arter inte skrivs ut om man har högre värden på <code>air</code> än 0, så man kan inte se de arter som inte skrivs ut, de kan dockl vara lika viktiga som de som skrivs ut. Anledningen till att de inte skrivs ut är ju för att de ligger så nära de andra artnamnen att de skulle täcka dem!</p>
 
 
 </section>

@@ -43,7 +43,7 @@ Vi fortsätter med att förbereda vårt dataset för en NMDS-analys. För att g�
 library(vegan)
 ```
 
-Nästa steg är att konstruera en community matrix, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner. Som vi såg när vi körde `str()` så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.
+Nästa steg är att konstruera en **community matrix**, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner (en matris som innehåller hela det biologiska *samhället* vi vill analysera). Som vi såg när vi körde `str()` så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.
 
 För att välja ut kolumner ur ett dataset kan man använda operatorn `[]`. Vi vill börja med kolumn nummer 5, men vilken är den sista kolumnen? med funktionen `ncol()` kan vi ta reda på antalet kolumner i vårt dataset.
 
@@ -64,7 +64,7 @@ community_matrix <- veg_umea_data[,5:59]
 
 ## Gör en NMDS
 
-Nu har vi en community matrix, och vi är redo att göra en ordinering! Vi använder oss av funktionen metaMDS() där vi anger vår community matrix, hur distanserna skall beräknas (det lämpligaste för artförekomst är Bray-Curtis, vilket kallas `"bray"`) och slutligen antalet dimensioner vi vill visualisera (normalt sett använder vi oss av 2 dimensioner, anges med `k = 2`)
+Nu har vi en community matrix, och vi är redo att göra en ordinering! Vi använder oss av funktionen `metaMDS()` där vi anger vår community matrix, hur distanserna skall beräknas (det lämpligaste för artförekomst är Bray-Curtis, vilket kallas `"bray"`) och slutligen antalet dimensioner vi vill visualisera (normalt sett använder vi oss av 2 dimensioner, anges med `k = 2`)
 
 ```{r}
 #| code-fold: false
@@ -75,7 +75,7 @@ nmds_umea <- metaMDS(community_matrix,
                      k = 2)
 ```
 
-Vi kör koden, och får ett antal rader som börjar med Run... R analyserar nu ditt data genom en iterativ process där den söker efter den bästa visualiseringen av din data i två dimensioner. Det kan gå sekundsnabbt eller ta längre tid, beroende på storleken av din community matrix.
+Vi kör koden, och får ett antal rader som börjar med `Run...` R analyserar nu ditt data genom en iterativ process där den söker efter den bästa visualiseringen av din data i två dimensioner. Det kan gå sekundsnabbt eller ta längre tid, beroende på storleken av din community matrix.
 
 När vi är klara väljer vi att titta på lite information om vår NMDS-analys, och vi fokuserar på stress-värdet.
 
@@ -108,8 +108,93 @@ plot(nmds_umea)
 
 ## Fullständig figur
 
+Vi väljer att rita ut 
+
+Först behöver vi skapa en vektor som associerar varje provruta (site) med en vegetationstype (dvs en nivå ur variabeln `habitat`).
+
 ```{r}
-plot(nmds_umea, type="n")
-points(nmds_umea, "species", col="red", cex=0.2)
+#| code-fold: false
+
+habitats <- veg_umea_data[,1]
+
+habitats
+```
+Vi vill även att de olika habitaten skall ha olika färg, så vi behöver skapa en ny variabel med färger. Vi börjar med att ange en palett, dvs vad varje habitat skall ha för färg. Välj gärna färger som på något sätt kan symbolisera dina kategorier.
+
+```{r}
+#| code-fold: false
+
+my_palette <- c("Meadow" = "green", "Stream" = "blue", "Spruce.forest" = "darkgreen", "Pine.forest" = "brown")
+```
+
+Sedan skapar vi färg-vektorn med funktionen `match()`.
+```{r}
+#| code-fold: false
+
+color_vector <- my_palette[match(habitats, names(my_palette))]
+```
+
+Efter det gör vi om habitat till en faktor (vilket krävs för senare steg) men samtidigt ser vi till att nivåerna i habitat är direkt kopplade till färgerna, så att inte ordningen av dem tappas bort (det är lätt hänt när R gärna sorterar om ordningen när den gör om en variabel till en faktor)
+
+```{r}
+#| code-fold: false
+
+habitats <- factor(habitats, levels = names(my_palette))
+```
+
+Slutligen gör vi en plot!
+
+```{r}
+#| code-fold: false
+
+ordiplot(nmds_umea, type="n")
+points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
+points(nmds_umea,"species", pch=3,col="black")
+legend("topleft",legend = names(my_palette),col = my_palette, pch = 16,title = "Habitats",bty = "n") 
 
 ```
+ Vi kan även välja att göra ellipser runt våra habitat
+ 
+```{r}
+#| code-fold: false
+
+ordiplot(nmds_umea, type = "n")
+
+points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
+points(nmds_umea, "species", pch = 3, col = "black")
+
+ordiellipse(nmds_umea,
+            groups = habitats,
+            col = my_palette,
+            kind = "sd",      # or "se"
+            lwd = 2,
+            label = FALSE)
+
+legend("topleft",
+       legend = names(my_palette),
+       col = my_palette,
+       pch = 16,
+       title = "Habitats",
+       bty = "n")
+```
+
+
+ 
+Vi kan som en alternativ figur välja att skriva ut vissa av artnamnen. Det gör vi genom att använda oss av funktionen `orditorp()`, där vi specificerar att det är artnamnen vi vill skriva ut.
+ 
+```{r}
+#| code-fold: false
+
+ordiplot(nmds_umea, type="n")
+points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
+orditorp(nmds_umea,display="species", pch=3,col="black",air=2)
+legend("topleft",
+       legend = names(my_palette),
+       col = my_palette,
+       pch = 16,
+       title = "Habitats",
+       bty = "n")
+```
+`air` = specifiserar hur mycket luft det skall vara mellan artnamnen. Om man sätter den till `air = 0` så skrivs artnamn ovanpå varandra, vilket kan göra det hela oläsligt om man har många arter som följs åt. Testa olika värden på air tills du hittar ett som är lämpligt. Arter som inte skrivs ut visas med artsymbolen` +`.
+
+Jag tycker att det i många fall kan vara intressant att skriva ut artnamnen, för att se vilka arter är specifika för vilka samhällen. Notera dock att alla arter inte skrivs ut om man har högre värden på `air` än 0, så man kan inte se de arter som inte skrivs ut, de kan dockl vara lika viktiga som de som skrivs ut. Anledningen till att de inte skrivs ut är ju för att de ligger så nära de andra artnamnen att de skulle täcka dem!
