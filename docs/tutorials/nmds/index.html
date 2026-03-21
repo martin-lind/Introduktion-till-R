@@ -162,6 +162,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#gör-en-nmds" id="toc-gör-en-nmds" class="nav-link" data-scroll-target="#gör-en-nmds">Gör en NMDS</a></li>
   <li><a href="#enkel-figur" id="toc-enkel-figur" class="nav-link" data-scroll-target="#enkel-figur">Enkel figur</a></li>
   <li><a href="#fullständig-figur" id="toc-fullständig-figur" class="nav-link" data-scroll-target="#fullständig-figur">Fullständig figur</a></li>
+  <li><a href="#statistisk-analys---skiljer-sig-våra-habitat" id="toc-statistisk-analys---skiljer-sig-våra-habitat" class="nav-link" data-scroll-target="#statistisk-analys---skiljer-sig-våra-habitat">Statistisk analys - skiljer sig våra habitat?</a>
+  <ul class="collapse">
+  <li><a href="#post-hoc-test-på-habitaten" id="toc-post-hoc-test-på-habitaten" class="nav-link" data-scroll-target="#post-hoc-test-på-habitaten">Post-hoc test på habitaten</a></li>
+  <li><a href="#utvärdera-din-modell" id="toc-utvärdera-din-modell" class="nav-link" data-scroll-target="#utvärdera-din-modell">Utvärdera din modell</a></li>
+  </ul></li>
+  <li><a href="#miljövariabler" id="toc-miljövariabler" class="nav-link" data-scroll-target="#miljövariabler">Miljövariabler</a></li>
   </ul>
 </nav>
     </div>
@@ -190,7 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>[Introduktion till ordineringsmetoder]</p>
 <section id="läs-in-data" class="level2">
 <h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
-<p>Vi har mätt täckningsgrad av ett antal växtarter i kvadrater i tre habitat i skogar omkring Umeå, och undrar om växtsammhållerna skiljer sig åt mellan habitaten.</p>
+<p>Vi har mätt täckningsgrad av ett antal växtarter i kvadrater i fyra habitat i skogar omkring Umeå, och undrar om växtsammhållerna skiljer sig åt mellan habitaten.</p>
 <p>Ladda ner följande fil <a href="data/veg_umea.txt">veg_umea.txt</a> (högerklicka, välj “spara länk som”) och spara filen på din hårddisk i en mapp med ett lämpligt namn.</p>
 <p>Fortsätt med att läsa in datasetet och ge det ett namn, i det här fallet kallar vi det <code>veg_umea_data</code> En detalerad beskrivning i hur man läser in filer finns i vår tidigare tutorial <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/read-data/#l%C3%A4s-in-filen">Läsa in data i R</a>.</p>
 <p><strong>Glöm inte att dokumentera din kod i ett script,</strong> med kommentarer som förklarar vad du gör! <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/use-R/#anv%C3%A4nda-scriptfiler">Se vår tutorial om script</a> om du behöver påminnelse om hur man skapar och använder script.</p>
@@ -317,8 +323,8 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.146319 
 Stress type 1, weak ties
-Best solution was repeated 1 time in 20 tries
-The best solution was from try 19 (random start)
+Best solution was repeated 3 times in 20 tries
+The best solution was from try 12 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></pre>
 </div>
@@ -337,7 +343,7 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 </thead>
 <tbody>
 <tr class="odd">
-<td>&lt; 0.5</td>
+<td>&lt; 0.05</td>
 <td>Din NMDS är en excellent representation av dina data</td>
 </tr>
 <tr class="even">
@@ -373,7 +379,7 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 <section id="fullständig-figur" class="level2">
 <h2 class="anchored" data-anchor-id="fullständig-figur">Fullständig figur</h2>
 <p>Vi väljer att rita ut</p>
-<p>Först behöver vi skapa en vektor som associerar varje provruta (site) med en vegetationstype (dvs en nivå ur variabeln <code>habitat</code>).</p>
+<p>Först behöver vi skapa en vektor som associerar varje provruta (site) med en vegetationstyp (dvs en nivå ur variabeln <code>habitat</code>). Våra habitat låg i den första kolumnen i vårt dataset <code>veg_umea_data</code>, vi väljer ut den kolumnen med operatorn <code>[]</code> och sparar i en ny vektor som vi kallar <code>habitats</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>habitats <span class="ot">&lt;-</span> veg_umea_data[,<span class="dv">1</span>]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -467,6 +473,131 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 </div>
 <p><code>air</code> = specifiserar hur mycket luft det skall vara mellan artnamnen. Om man sätter den till <code>air = 0</code> så skrivs artnamn ovanpå varandra, vilket kan göra det hela oläsligt om man har många arter som följs åt. Testa olika värden på air tills du hittar ett som är lämpligt. Arter som inte skrivs ut visas med artsymbolen<code>+</code>.</p>
 <p>Jag tycker att det i många fall kan vara intressant att skriva ut artnamnen, för att se vilka arter är specifika för vilka samhällen. Notera dock att alla arter inte skrivs ut om man har högre värden på <code>air</code> än 0, så man kan inte se de arter som inte skrivs ut, de kan dockl vara lika viktiga som de som skrivs ut. Anledningen till att de inte skrivs ut är ju för att de ligger så nära de andra artnamnen att de skulle täcka dem!</p>
+</section>
+<section id="statistisk-analys---skiljer-sig-våra-habitat" class="level2">
+<h2 class="anchored" data-anchor-id="statistisk-analys---skiljer-sig-våra-habitat">Statistisk analys - skiljer sig våra habitat?</h2>
+<p>Vi ser</p>
+<p>Vi använder oss av en teknik som kallas PERMANOVA. Det är…</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m.habitats <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(community_matrix <span class="sc">~</span> habitats, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>m.habitats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Permutation test for adonis under reduced model
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = community_matrix ~ habitats, method = "bray")
+         Df SumOfSqs     R2      F Pr(&gt;F)    
+Model     3   6.9658 0.5854 17.885  0.001 ***
+Residual 38   4.9334 0.4146                  
+Total    41  11.8992 1.0000                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Vi ser att o-värdet (kallat <code>Pr(&gt;F)</code>) är mindre än 0.05, dvs vi har en signifikant effekt av habitat. Deras centroider ligger alltså på olika platser i ordineringen.</p>
+<section id="post-hoc-test-på-habitaten" class="level3">
+<h3 class="anchored" data-anchor-id="post-hoc-test-på-habitaten">Post-hoc test på habitaten</h3>
+<p>Eftersom vi har fler än två habitat så vet vi dockl inte om alla skiljer sig från varandra, eller om bara någon eller några gör det. Vi behöver genomföra ett post-hoc test!</p>
+<p>Det enklaste sättet är att använda paketet <code>pairwiseAdonis</code>, men tyvärr behöver det installeras manuellt via Github. Därför gör vi det med hjälp av paketet <code>vegan</code> som vi redan använder, även om det är mer omständigt rent kodmässigt. Det är en hel del kod nedan, men det enda vi behöver göra är att kontrollera vad vår variabel <code>habitat</code> är inskriven (rad 1, 4 och 6), liksom vår community matrix (som vi kallade <code>community_matrix</code>, rad 6). Det är det enda som du kan behöva ändra i koden (om du inte har gett dem samma namn som jag gjort). Resten av koden skall lämnas oförändrad.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>pairs <span class="ot">&lt;-</span> <span class="fu">combn</span>(<span class="fu">unique</span>(habitats), <span class="dv">2</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a>pairwise_results <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(pairs, <span class="cf">function</span>(pair) {</span>
+<span id="cb23-3"><a href="#cb23-3"></a>  </span>
+<span id="cb23-4"><a href="#cb23-4"></a>  subset_idx <span class="ot">&lt;-</span> habitats <span class="sc">%in%</span> pair</span>
+<span id="cb23-5"><a href="#cb23-5"></a>  </span>
+<span id="cb23-6"><a href="#cb23-6"></a>  mod <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(community_matrix[subset_idx, ] <span class="sc">~</span> habitats[subset_idx],</span>
+<span id="cb23-7"><a href="#cb23-7"></a>                 <span class="at">method =</span> <span class="st">"bray"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8"></a>                 <span class="at">permutations =</span> <span class="dv">999</span>)</span>
+<span id="cb23-9"><a href="#cb23-9"></a>  </span>
+<span id="cb23-10"><a href="#cb23-10"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb23-11"><a href="#cb23-11"></a>    <span class="at">group1 =</span> pair[<span class="dv">1</span>],</span>
+<span id="cb23-12"><a href="#cb23-12"></a>    <span class="at">group2 =</span> pair[<span class="dv">2</span>],</span>
+<span id="cb23-13"><a href="#cb23-13"></a>    <span class="at">F =</span> mod<span class="sc">$</span>F[<span class="dv">1</span>],</span>
+<span id="cb23-14"><a href="#cb23-14"></a>    <span class="at">R2 =</span> mod<span class="sc">$</span>R2[<span class="dv">1</span>],</span>
+<span id="cb23-15"><a href="#cb23-15"></a>    <span class="at">p =</span> mod<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>]</span>
+<span id="cb23-16"><a href="#cb23-16"></a>  )</span>
+<span id="cb23-17"><a href="#cb23-17"></a>}))</span>
+<span id="cb23-18"><a href="#cb23-18"></a></span>
+<span id="cb23-19"><a href="#cb23-19"></a>pairwise_results<span class="sc">$</span>p_adj <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(pairwise_results<span class="sc">$</span>p, <span class="at">method =</span> <span class="st">"BH"</span>)</span>
+<span id="cb23-20"><a href="#cb23-20"></a>pairwise_results<span class="sc">$</span>contrast <span class="ot">&lt;-</span> <span class="fu">paste</span>(pairwise_results<span class="sc">$</span>group1,</span>
+<span id="cb23-21"><a href="#cb23-21"></a>                                   <span class="st">"vs"</span>,</span>
+<span id="cb23-22"><a href="#cb23-22"></a>                                   pairwise_results<span class="sc">$</span>group2)</span>
+<span id="cb23-23"><a href="#cb23-23"></a>pairwise_results[, <span class="fu">c</span>(<span class="st">"contrast"</span>, <span class="st">"F"</span>, <span class="st">"R2"</span>, <span class="st">"p"</span>, <span class="st">"p_adj"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      contrast         F        R2     p p_adj
+1             Meadow vs Stream  8.519836 0.3095889 0.001 0.001
+2      Meadow vs Spruce.forest 11.589142 0.3916687 0.001 0.001
+3        Meadow vs Pine.forest 17.695218 0.4822214 0.001 0.001
+4      Stream vs Spruce.forest 21.942916 0.5359393 0.001 0.001
+5        Stream vs Pine.forest 22.488844 0.5292882 0.001 0.001
+6 Spruce.forest vs Pine.forest 39.070244 0.6728101 0.001 0.001</code></pre>
+</div>
+</div>
+<p>Vi tittar på <code>p_adj</code>, som är p-värdet som är justerat för multipla tester (det görs alltid i post-hoc test). Vi ser att alla p-värden är mindre än 0.05, dvs alla habitat är skilda från varandra i artsammansättning!</p>
+</section>
+<section id="utvärdera-din-modell" class="level3">
+<h3 class="anchored" data-anchor-id="utvärdera-din-modell">Utvärdera din modell</h3>
+<p>En förutsättning för en PERMANOVA är att dina grupper inte skiljer sig åt i dispersion (dvs hur utspridda de är i ordineringen). Om så är fallet kan skillnaden i din PERMANOVA delvis bero på olika dispersion.</p>
+<p>Vi testar det enkelt med funktionen <code>betadisper()</code>. Vi anger vår community matrix och våra habitat. Vi sparar resultatet i ett objekt som vi kallar <code>disp_habitat</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>disp_habitat <span class="ot">&lt;-</span> <span class="fu">betadisper</span>(<span class="fu">vegdist</span>(community_matrix), habitats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Först tittar vi på en ANOVA-tabell av vår dispersal, med funktionen <code>anova()</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(disp_habitat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: Distances
+          Df  Sum Sq  Mean Sq F value   Pr(&gt;F)   
+Groups     3 0.49897 0.166322  5.8165 0.002254 **
+Residuals 38 1.08660 0.028595                    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Vi ser att vi har signifikant skillnad i dispersion mellan våra habitat. FÖr att veta vilka habitat som skiljer sig i dispersion gör vi ett post-hoc test med funktionen <code>TukeyHSD()</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(disp_habitat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = distances ~ group, data = df)
+
+$group
+                                 diff         lwr         upr     p adj
+Stream-Meadow             -0.03383843 -0.23232823  0.16465137 0.9676509
+Spruce.forest-Meadow      -0.28245373 -0.48561451 -0.07929294 0.0033048
+Pine.forest-Meadow        -0.15049719 -0.34898699  0.04799261 0.1926781
+Spruce.forest-Stream      -0.24861530 -0.44710510 -0.05012550 0.0091456
+Pine.forest-Stream        -0.11665877 -0.31036498  0.07704745 0.3809811
+Pine.forest-Spruce.forest  0.13195653 -0.06653327  0.33044633 0.2956771</code></pre>
+</div>
+</div>
+<p>Vi ser att våra signifikanta p-värden är i kontrasterna <code>Spruce.forest-Meadow</code> samt <code>Spruce.forest-Stream</code>. De skillnaderna vi upptäcker i artsammansättning mellan dessa habitat kan alltså till viss del bero på att <code>Spruce.forest</code> har lägre dispersion.</p>
+</section>
+</section>
+<section id="miljövariabler" class="level2">
+<h2 class="anchored" data-anchor-id="miljövariabler">Miljövariabler</h2>
+<p>Vi ahr även mätt tre miljövariabler, nämligen fuktighet, ljus och näringshalt. Hur är de korrelerade med våra samhällen?</p>
+<p>Vi börjar med att skapa ett dataset av våra miljövariabler. Om du på nytt kör koden <code>str(veg_umea_data)</code> ser du att kolumn 2-4 representerar miljövariabler. Vi väljer ut de variablerna med operatorn <code>[]</code> och sparar i ett nytt dataset som vi kallar <code>environment_data</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>environment_data <span class="ot">&lt;-</span> veg_umea_data[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(environment_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "moisture"  "light"     "nutrients"</code></pre>
+</div>
+</div>
+<p>Vi analyserar … med hjälp av funktionen <code>envfit()</code> och sparar resultatet i objektet <code>m.environment</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>m.environment <span class="ot">&lt;-</span> <span class="fu">envfit</span>(nmds_umea <span class="sc">~</span> moisture <span class="sc">+</span> light <span class="sc">+</span> nutrients, </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> environment_data, </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">permutations =</span> <span class="dv">999</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>

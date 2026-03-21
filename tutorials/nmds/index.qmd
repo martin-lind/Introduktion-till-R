@@ -6,7 +6,7 @@ title: "Multivariata metoder - ordinering med NMDS"
 
 ## Läs in data
 
-Vi har mätt täckningsgrad av ett antal växtarter i kvadrater i tre habitat i skogar omkring Umeå, och undrar om växtsammhållerna skiljer sig åt mellan habitaten.
+Vi har mätt täckningsgrad av ett antal växtarter i kvadrater i fyra habitat i skogar omkring Umeå, och undrar om växtsammhållerna skiljer sig åt mellan habitaten.
 
 Ladda ner följande fil [veg_umea.txt](data/veg_umea.txt) (högerklicka, välj "spara länk som") och spara filen på din hårddisk i en mapp med ett lämpligt namn.
 
@@ -89,7 +89,7 @@ Vi ser raden `Stress:     0.146319` som visar hur väl din community matrix kan 
 
 | Stress-värde | Tolkning |
 |----------------|--------------------------------------------------------|
-| \< 0.5 | Din NMDS är en excellent representation av dina data |
+| \< 0.05 | Din NMDS är en excellent representation av dina data |
 | \< 0.10 | En bra ordinering, mycket tolkningsbar |
 | \< 0.20 | En användbar ordinering, men detaljerna kan vara missvisande, tolka med försiktighet |
 | \> 0.35 | Din ordinering är helt slumpmässig och går inte att tolka |
@@ -110,7 +110,7 @@ plot(nmds_umea)
 
 Vi väljer att rita ut 
 
-Först behöver vi skapa en vektor som associerar varje provruta (site) med en vegetationstype (dvs en nivå ur variabeln `habitat`).
+Först behöver vi skapa en vektor som associerar varje provruta (site) med en vegetationstyp (dvs en nivå ur variabeln `habitat`). Våra habitat låg i den första kolumnen i vårt dataset `veg_umea_data`, vi väljer ut den kolumnen med operatorn `[]` och sparar i en ny vektor som vi kallar `habitats`.
 
 ```{r}
 #| code-fold: false
@@ -198,3 +198,103 @@ legend("topleft",
 `air` = specifiserar hur mycket luft det skall vara mellan artnamnen. Om man sätter den till `air = 0` så skrivs artnamn ovanpå varandra, vilket kan göra det hela oläsligt om man har många arter som följs åt. Testa olika värden på air tills du hittar ett som är lämpligt. Arter som inte skrivs ut visas med artsymbolen` +`.
 
 Jag tycker att det i många fall kan vara intressant att skriva ut artnamnen, för att se vilka arter är specifika för vilka samhällen. Notera dock att alla arter inte skrivs ut om man har högre värden på `air` än 0, så man kan inte se de arter som inte skrivs ut, de kan dockl vara lika viktiga som de som skrivs ut. Anledningen till att de inte skrivs ut är ju för att de ligger så nära de andra artnamnen att de skulle täcka dem!
+
+## Statistisk analys - skiljer sig våra habitat?
+
+Vi ser 
+
+Vi använder oss av en teknik som kallas PERMANOVA. Det är...
+
+```{r}
+#| code-fold: false
+
+m.habitats <- adonis2(community_matrix ~ habitats, method = "bray")
+
+m.habitats
+```
+Vi ser att o-värdet (kallat `Pr(>F)`) är mindre än 0.05, dvs vi har en signifikant effekt av habitat. Deras centroider ligger alltså på olika platser i ordineringen.
+
+### Post-hoc test på habitaten
+Eftersom vi har fler än två habitat så vet vi dockl inte om alla skiljer sig från varandra, eller om bara någon eller några gör det. Vi behöver genomföra ett post-hoc test!
+
+Det enklaste sättet är att använda paketet `pairwiseAdonis`, men tyvärr behöver det installeras manuellt via Github. Därför gör vi det med hjälp av paketet `vegan` som vi redan använder, även om det är mer omständigt rent kodmässigt. Det är en hel del kod nedan, men det enda vi behöver göra är att kontrollera vad vår variabel `habitat` är inskriven (rad 1, 4 och 6), liksom vår community matrix (som vi kallade `community_matrix`, rad 6). Det är det enda som du kan behöva ändra i koden (om du inte har gett dem samma namn som jag gjort). Resten av koden skall lämnas oförändrad.
+
+```{r}
+#| code-fold: false
+#| code-line-numbers: true
+
+pairs <- combn(unique(habitats), 2, simplify = FALSE)
+pairwise_results <- do.call(rbind, lapply(pairs, function(pair) {
+  
+  subset_idx <- habitats %in% pair
+  
+  mod <- adonis2(community_matrix[subset_idx, ] ~ habitats[subset_idx],
+                 method = "bray",
+                 permutations = 999)
+  
+  data.frame(
+    group1 = pair[1],
+    group2 = pair[2],
+    F = mod$F[1],
+    R2 = mod$R2[1],
+    p = mod$`Pr(>F)`[1]
+  )
+}))
+
+pairwise_results$p_adj <- p.adjust(pairwise_results$p, method = "BH")
+pairwise_results$contrast <- paste(pairwise_results$group1,
+                                   "vs",
+                                   pairwise_results$group2)
+pairwise_results[, c("contrast", "F", "R2", "p", "p_adj")]
+
+```
+Vi tittar på `p_adj`, som är p-värdet som är justerat för multipla tester (det görs alltid i post-hoc test). Vi ser att alla p-värden är mindre än 0.05, dvs alla habitat är skilda från varandra i artsammansättning!
+
+### Utvärdera din modell
+
+En förutsättning för en PERMANOVA är att dina grupper inte skiljer sig åt i dispersion (dvs hur utspridda de är i ordineringen). Om så är fallet kan skillnaden i din PERMANOVA delvis bero på olika dispersion.
+
+Vi testar det enkelt med funktionen `betadisper()`. Vi anger vår community matrix och våra habitat. Vi sparar resultatet i ett objekt som vi kallar `disp_habitat`
+```{r}
+#| code-fold: false
+
+disp_habitat <- betadisper(vegdist(community_matrix), habitats)
+```
+
+Först tittar vi på en ANOVA-tabell av vår dispersal, med funktionen `anova()`
+```{r}
+#| code-fold: false
+
+anova(disp_habitat)
+```
+Vi ser att vi har signifikant skillnad i dispersion mellan våra habitat. FÖr att veta vilka habitat som skiljer sig i dispersion gör vi ett post-hoc test med funktionen `TukeyHSD()`
+```{r}
+#| code-fold: false
+
+TukeyHSD(disp_habitat)
+```
+Vi ser att våra signifikanta p-värden är i kontrasterna `Spruce.forest-Meadow` samt `Spruce.forest-Stream`. De skillnaderna vi upptäcker i artsammansättning mellan dessa habitat kan alltså till viss del bero på att `Spruce.forest` har lägre dispersion.
+
+
+## Miljövariabler
+Vi ahr även mätt tre miljövariabler, nämligen fuktighet, ljus och näringshalt. Hur är de korrelerade med våra samhällen?
+
+Vi börjar med att skapa ett dataset av våra miljövariabler. Om du på nytt kör koden `str(veg_umea_data)` ser du att kolumn 2-4 representerar miljövariabler. Vi väljer ut de variablerna med operatorn `[]` och sparar i ett nytt dataset som vi kallar `environment_data`
+
+
+```{r}
+#| code-fold: false
+
+environment_data <- veg_umea_data[,2:4]
+
+names(environment_data)
+```
+
+Vi analyserar ... med hjälp av funktionen `envfit()` och sparar resultatet i objektet `m.environment`
+
+```{r}
+#| code-fold: false
+m.environment <- envfit(nmds_umea ~ moisture + light + nutrients, 
+                        data = environment_data, 
+                        permutations = 999)
+```
