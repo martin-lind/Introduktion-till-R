@@ -323,8 +323,8 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.146319 
 Stress type 1, weak ties
-Best solution was repeated 3 times in 20 tries
-The best solution was from try 13 (random start)
+Best solution was repeated 5 times in 20 tries
+The best solution was from try 2 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></pre>
 </div>
@@ -332,8 +332,8 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 <p>Vi ser raden <code>Stress:     0.146319</code> som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 77%">
+<col style="width: 25%">
+<col style="width: 75%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -501,7 +501,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="post-hoc-test-på-habitaten" class="level3">
 <h3 class="anchored" data-anchor-id="post-hoc-test-på-habitaten">Post-hoc test på habitaten</h3>
 <p>Eftersom vi har fler än två habitat så vet vi dockl inte om alla skiljer sig från varandra, eller om bara någon eller några gör det. Vi behöver genomföra ett post-hoc test!</p>
-<p>Det enklaste sättet är att använda paketet <code>pairwiseAdonis</code>, men tyvärr behöver det installeras manuellt via Github. Därför gör vi det med hjälp av paketet <code>vegan</code> som vi redan använder, även om det är mer omständigt rent kodmässigt. Det är en hel del kod nedan, men det enda vi behöver göra är att kontrollera vad vår variabel <code>habitat</code> är inskriven (rad 1, 4 och 6), liksom vår community matrix (som vi kallade <code>community_matrix</code>, rad 6). Det är det enda som du kan behöva ändra i koden (om du inte har gett dem samma namn som jag gjort). Resten av koden skall lämnas oförändrad.</p>
+<p>Det enklaste sättet är att använda paketet <code>pairwiseAdonis</code>, men tyvärr behöver det installeras manuellt via Github (<a href="https://github.com/pmartinezarbizu/pairwiseAdonis">se beskrivning om du är intresserad</a>). Därför gör vi det med hjälp av paketet <code>vegan</code> som vi redan använder, även om det är mer omständigt rent kodmässigt. Det är en hel del kod nedan, men det enda vi behöver göra är att kontrollera vad vår variabel <code>habitat</code> är inskriven (rad 1, 4 och 6), liksom vår community matrix (som vi kallade <code>community_matrix</code>, rad 6). Det är det enda som du kan behöva ändra i koden (om du inte har gett dem samma namn som jag gjort). Resten av koden skall lämnas oförändrad.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>pairs <span class="ot">&lt;-</span> <span class="fu">combn</span>(<span class="fu">unique</span>(habitats), <span class="dv">2</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb23-2"><a href="#cb23-2"></a>pairwise_results <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(pairs, <span class="cf">function</span>(pair) {</span>

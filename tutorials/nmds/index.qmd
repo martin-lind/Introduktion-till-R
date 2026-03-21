@@ -2,7 +2,7 @@
 title: "Multivariata metoder - ordinering med NMDS"
 ---
 
-[Introduktion till ordineringsmetoder]
+\[Introduktion till ordineringsmetoder\]
 
 ## Läs in data
 
@@ -61,7 +61,6 @@ Vi ser att vi har 59 kolumner, och vårt nya dataset som är en community matrix
 community_matrix <- veg_umea_data[,5:59]
 ```
 
-
 ## Gör en NMDS
 
 Nu har vi en community matrix, och vi är redo att göra en ordinering! Vi använder oss av funktionen `metaMDS()` där vi anger vår community matrix, hur distanserna skall beräknas (det lämpligaste för artförekomst är Bray-Curtis, vilket kallas `"bray"`) och slutligen antalet dimensioner vi vill visualisera (normalt sett använder vi oss av 2 dimensioner, anges med `k = 2`)
@@ -88,7 +87,7 @@ nmds_umea
 Vi ser raden `Stress:     0.146319` som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.
 
 | Stress-värde | Tolkning |
-|----------------|--------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | \< 0.05 | Din NMDS är en excellent representation av dina data |
 | \< 0.10 | En bra ordinering, mycket tolkningsbar |
 | \< 0.20 | En användbar ordinering, men detaljerna kan vara missvisande, tolka med försiktighet |
@@ -97,6 +96,7 @@ Vi ser raden `Stress:     0.146319` som visar hur väl din community matrix kan 
 Vi har ett stress-värde på 0.146, så ordineringen är användbar men skall tolkas med viss försiktighet. Det skall noteras att ju större dataset man har, desto svårare är det att visualisera det i två dimensioner, så man skall inte förvänta sig väldigt låga stress-värden i sådana fall.
 
 ## Enkel figur
+
 Vi börjar med en enkel figur av vår nmds-analys, utan några specificeringar.
 
 ```{r}
@@ -108,7 +108,7 @@ plot(nmds_umea)
 
 ## Fullständig figur
 
-Vi väljer att rita ut 
+Vi väljer att rita ut
 
 Först behöver vi skapa en vektor som associerar varje provruta (site) med en vegetationstyp (dvs en nivå ur variabeln `habitat`). Våra habitat låg i den första kolumnen i vårt dataset `veg_umea_data`, vi väljer ut den kolumnen med operatorn `[]` och sparar i en ny vektor som vi kallar `habitats`.
 
@@ -119,6 +119,7 @@ habitats <- veg_umea_data[,1]
 
 habitats
 ```
+
 Vi vill även att de olika habitaten skall ha olika färg, så vi behöver skapa en ny variabel med färger. Vi börjar med att ange en palett, dvs vad varje habitat skall ha för färg. Välj gärna färger som på något sätt kan symbolisera dina kategorier.
 
 ```{r}
@@ -128,6 +129,7 @@ my_palette <- c("Meadow" = "green", "Stream" = "blue", "Spruce.forest" = "darkgr
 ```
 
 Sedan skapar vi färg-vektorn med funktionen `match()`.
+
 ```{r}
 #| code-fold: false
 
@@ -153,8 +155,9 @@ points(nmds_umea,"species", pch=3,col="black")
 legend("topleft",legend = names(my_palette),col = my_palette, pch = 16,title = "Habitats",bty = "n") 
 
 ```
- Vi kan även välja att göra ellipser runt våra habitat
- 
+
+Vi kan även välja att göra ellipser runt våra habitat
+
 ```{r}
 #| code-fold: false
 
@@ -178,10 +181,8 @@ legend("topleft",
        bty = "n")
 ```
 
-
- 
 Vi kan som en alternativ figur välja att skriva ut vissa av artnamnen. Det gör vi genom att använda oss av funktionen `orditorp()`, där vi specificerar att det är artnamnen vi vill skriva ut.
- 
+
 ```{r}
 #| code-fold: false
 
@@ -195,17 +196,18 @@ legend("topleft",
        title = "Habitats",
        bty = "n")
 ```
-`air` = specifiserar hur mycket luft det skall vara mellan artnamnen. Om man sätter den till `air = 0` så skrivs artnamn ovanpå varandra, vilket kan göra det hela oläsligt om man har många arter som följs åt. Testa olika värden på air tills du hittar ett som är lämpligt. Arter som inte skrivs ut visas med artsymbolen` +`.
+
+`air` = specifiserar hur mycket luft det skall vara mellan artnamnen. Om man sätter den till `air = 0` så skrivs artnamn ovanpå varandra, vilket kan göra det hela oläsligt om man har många arter som följs åt. Testa olika värden på air tills du hittar ett som är lämpligt. Arter som inte skrivs ut visas med artsymbolen`+`.
 
 Jag tycker att det i många fall kan vara intressant att skriva ut artnamnen, för att se vilka arter är specifika för vilka samhällen. Notera dock att alla arter inte skrivs ut om man har högre värden på `air` än 0, så man kan inte se de arter som inte skrivs ut, de kan dockl vara lika viktiga som de som skrivs ut. Anledningen till att de inte skrivs ut är ju för att de ligger så nära de andra artnamnen att de skulle täcka dem!
 
 ## Statistisk analys - skiljer sig våra habitat?
 
-Vi ser 
+Vi ser
 
 Vi använder oss av en teknik som kallas **PERMANOVA**. Det är en multivartiat ANOVA (dvs en **M**ANOVA), som använder sig av permutationer (därav namnet **PER**MANOVA). Permutationer är ett icke-parametriskt typ av test - datat blandas om ett stort antal gånger och varje gång görs ett statistiskt test. Om dina fakltiska fördelning av data är mer extrem än vad det blir om man slumpmässigt omfördelar dina data mellan dina grupper kan vi dra slutsatsen att resultatet inte beror på slumpen.
 
-Nollhypotesen i en PERMSANOVA är att dina grupper inte skiljer sig i centroidernas placering och/eller i datans utspridning (dispersion). 
+Nollhypotesen i en PERMSANOVA är att dina grupper inte skiljer sig i centroidernas placering och/eller i datans utspridning (dispersion).
 
 ```{r}
 #| code-fold: false
@@ -214,12 +216,14 @@ m.habitats <- adonis2(community_matrix ~ habitats, method = "bray")
 
 m.habitats
 ```
+
 Vi ser att o-värdet (kallat `Pr(>F)`) är mindre än 0.05, dvs vi har en signifikant effekt av habitat. Deras centroider ligger alltså på olika platser i ordineringen.
 
 ### Post-hoc test på habitaten
+
 Eftersom vi har fler än två habitat så vet vi dockl inte om alla skiljer sig från varandra, eller om bara någon eller några gör det. Vi behöver genomföra ett post-hoc test!
 
-Det enklaste sättet är att använda paketet `pairwiseAdonis`, men tyvärr behöver det installeras manuellt via Github. Därför gör vi det med hjälp av paketet `vegan` som vi redan använder, även om det är mer omständigt rent kodmässigt. Det är en hel del kod nedan, men det enda vi behöver göra är att kontrollera vad vår variabel `habitat` är inskriven (rad 1, 4 och 6), liksom vår community matrix (som vi kallade `community_matrix`, rad 6). Det är det enda som du kan behöva ändra i koden (om du inte har gett dem samma namn som jag gjort). Resten av koden skall lämnas oförändrad.
+Det enklaste sättet är att använda paketet `pairwiseAdonis`, men tyvärr behöver det installeras manuellt via Github ([se beskrivning om du är intresserad](https://github.com/pmartinezarbizu/pairwiseAdonis)). Därför gör vi det med hjälp av paketet `vegan` som vi redan använder, även om det är mer omständigt rent kodmässigt. Det är en hel del kod nedan, men det enda vi behöver göra är att kontrollera vad vår variabel `habitat` är inskriven (rad 1, 4 och 6), liksom vår community matrix (som vi kallade `community_matrix`, rad 6). Det är det enda som du kan behöva ändra i koden (om du inte har gett dem samma namn som jag gjort). Resten av koden skall lämnas oförändrad.
 
 ```{r}
 #| code-fold: false
@@ -250,6 +254,7 @@ pairwise_results$contrast <- paste(pairwise_results$group1,
 pairwise_results[, c("contrast", "F", "R2", "p", "p_adj")]
 
 ```
+
 Vi tittar på `p_adj`, som är p-värdet som är justerat för multipla tester (det görs alltid i post-hoc test). Vi ser att alla p-värden är mindre än 0.05, dvs alla habitat är skilda från varandra i artsammansättning!
 
 ### Utvärdera din modell
@@ -257,6 +262,7 @@ Vi tittar på `p_adj`, som är p-värdet som är justerat för multipla tester (
 En förutsättning för en PERMANOVA är att dina grupper inte skiljer sig åt i dispersion (dvs hur utspridda de är i ordineringen). Om så är fallet kan skillnaden i din PERMANOVA delvis bero på olika dispersion.
 
 Vi testar det enkelt med funktionen `betadisper()`. Vi anger vår community matrix och våra habitat. Vi sparar resultatet i ett objekt som vi kallar `disp_habitat`
+
 ```{r}
 #| code-fold: false
 
@@ -264,25 +270,28 @@ disp_habitat <- betadisper(vegdist(community_matrix), habitats)
 ```
 
 Först tittar vi på en ANOVA-tabell av vår dispersal, med funktionen `anova()`
+
 ```{r}
 #| code-fold: false
 
 anova(disp_habitat)
 ```
+
 Vi ser att vi har signifikant skillnad i dispersion mellan våra habitat. FÖr att veta vilka habitat som skiljer sig i dispersion gör vi ett post-hoc test med funktionen `TukeyHSD()`
+
 ```{r}
 #| code-fold: false
 
 TukeyHSD(disp_habitat)
 ```
+
 Vi ser att våra signifikanta p-värden är i kontrasterna `Spruce.forest-Meadow` samt `Spruce.forest-Stream`. De skillnaderna vi upptäcker i artsammansättning mellan dessa habitat kan alltså till viss del bero på att `Spruce.forest` har lägre dispersion.
 
-
 ## Miljövariabler
+
 Vi ahr även mätt tre miljövariabler, nämligen fuktighet, ljus och näringshalt. Hur är de korrelerade med våra samhällen?
 
 Vi börjar med att skapa ett dataset av våra miljövariabler. Om du på nytt kör koden `str(veg_umea_data)` ser du att kolumn 2-4 representerar miljövariabler. Vi väljer ut de variablerna med operatorn `[]` och sparar i ett nytt dataset som vi kallar `environment_data`
-
 
 ```{r}
 #| code-fold: false
