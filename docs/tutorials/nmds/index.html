@@ -323,8 +323,8 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.146319 
 Stress type 1, weak ties
-Best solution was repeated 5 times in 20 tries
-The best solution was from try 2 (random start)
+Best solution was repeated 1 time in 20 tries
+The best solution was from try 17 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></pre>
 </div>
@@ -452,21 +452,59 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 </div>
 </div>
 </div>
-<p>Vi kan som en alternativ figur välja att skriva ut vissa av artnamnen. Det gör vi genom att använda oss av funktionen <code>orditorp()</code>, där vi specificerar att det är artnamnen vi vill skriva ut.</p>
+<p>Ytterligare ett alternativ är att visualisera centroiderna (centerpunktion i varje habitat) samt knyta ihop varje punkt med sin centroid. Fördelen med det här är att det direkt korresponderar med de statistiska tesaten som vi kommer att gå igenom nedan, där vi testar om våra habitat skiljer sig åt.</p>
+<p>Först extraherar vi våra centroider från vår ordinering</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordiplot</span>(nmds_umea, <span class="at">type=</span><span class="st">"n"</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"sites"</span>, <span class="at">col =</span> color_vector, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">orditorp</span>(nmds_umea,<span class="at">display=</span><span class="st">"species"</span>, <span class="at">pch=</span><span class="dv">3</span>,<span class="at">col=</span><span class="st">"black"</span>,<span class="at">air=</span><span class="dv">2</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">names</span>(my_palette),</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> my_palette,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">16</span>,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Habitats"</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>centroids <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(nmds_umea<span class="sc">$</span>points, <span class="at">by =</span> <span class="fu">list</span>(habitats), <span class="at">FUN =</span> mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Sedan använder vi det i vår figur</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordiplot</span>(nmds_umea, <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"sites"</span>, <span class="at">col =</span> color_vector, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(centroids[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">1</span>,        <span class="co"># symbol, välj något annat än dina sites</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="dv">2</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> my_palette[centroids<span class="sc">$</span>Group<span class="fl">.1</span>])</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ordispider</span>(nmds_umea,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">groups =</span> habitats,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> my_palette,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"species"</span>, <span class="at">pch =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">names</span>(my_palette),</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> my_palette,</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Habitats"</span>,</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vi kan som en alternativ figur välja att skriva ut vissa av artnamnen. Det gör vi genom att använda oss av funktionen <code>orditorp()</code>, där vi specificerar att det är artnamnen vi vill skriva ut.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordiplot</span>(nmds_umea, <span class="at">type=</span><span class="st">"n"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"sites"</span>, <span class="at">col =</span> color_vector, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">orditorp</span>(nmds_umea,<span class="at">display=</span><span class="st">"species"</span>, <span class="at">pch=</span><span class="dv">3</span>,<span class="at">col=</span><span class="st">"black"</span>,<span class="at">air=</span><span class="dv">2</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">names</span>(my_palette),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> my_palette,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Habitats"</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -480,9 +518,9 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 <p>Vi använder oss av en teknik som kallas <strong>PERMANOVA</strong>. Det är en multivartiat ANOVA (dvs en <strong>M</strong>ANOVA), som använder sig av permutationer (därav namnet <strong>PER</strong>MANOVA). Permutationer är ett icke-parametriskt typ av test - datat blandas om ett stort antal gånger och varje gång görs ett statistiskt test. Om dina fakltiska fördelning av data är mer extrem än vad det blir om man slumpmässigt omfördelar dina data mellan dina grupper kan vi dra slutsatsen att resultatet inte beror på slumpen.</p>
 <p>Nollhypotesen i en PERMSANOVA är att dina grupper inte skiljer sig i centroidernas placering och/eller i datans utspridning (dispersion).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m.habitats <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(community_matrix <span class="sc">~</span> habitats, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>m.habitats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>m.habitats <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(community_matrix <span class="sc">~</span> habitats, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>m.habitats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Permutation test for adonis under reduced model
 Permutation: free
@@ -503,29 +541,29 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Eftersom vi har fler än två habitat så vet vi dockl inte om alla skiljer sig från varandra, eller om bara någon eller några gör det. Vi behöver genomföra ett post-hoc test!</p>
 <p>Det enklaste sättet är att använda paketet <code>pairwiseAdonis</code>, men tyvärr behöver det installeras manuellt via Github (<a href="https://github.com/pmartinezarbizu/pairwiseAdonis">se beskrivning om du är intresserad</a>). Därför gör vi det med hjälp av paketet <code>vegan</code> som vi redan använder, även om det är mer omständigt rent kodmässigt. Det är en hel del kod nedan, men det enda vi behöver göra är att kontrollera vad vår variabel <code>habitat</code> är inskriven (rad 1, 4 och 6), liksom vår community matrix (som vi kallade <code>community_matrix</code>, rad 6). Det är det enda som du kan behöva ändra i koden (om du inte har gett dem samma namn som jag gjort). Resten av koden skall lämnas oförändrad.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>pairs <span class="ot">&lt;-</span> <span class="fu">combn</span>(<span class="fu">unique</span>(habitats), <span class="dv">2</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb23-2"><a href="#cb23-2"></a>pairwise_results <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(pairs, <span class="cf">function</span>(pair) {</span>
-<span id="cb23-3"><a href="#cb23-3"></a>  </span>
-<span id="cb23-4"><a href="#cb23-4"></a>  subset_idx <span class="ot">&lt;-</span> habitats <span class="sc">%in%</span> pair</span>
-<span id="cb23-5"><a href="#cb23-5"></a>  </span>
-<span id="cb23-6"><a href="#cb23-6"></a>  mod <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(community_matrix[subset_idx, ] <span class="sc">~</span> habitats[subset_idx],</span>
-<span id="cb23-7"><a href="#cb23-7"></a>                 <span class="at">method =</span> <span class="st">"bray"</span>,</span>
-<span id="cb23-8"><a href="#cb23-8"></a>                 <span class="at">permutations =</span> <span class="dv">999</span>)</span>
-<span id="cb23-9"><a href="#cb23-9"></a>  </span>
-<span id="cb23-10"><a href="#cb23-10"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb23-11"><a href="#cb23-11"></a>    <span class="at">group1 =</span> pair[<span class="dv">1</span>],</span>
-<span id="cb23-12"><a href="#cb23-12"></a>    <span class="at">group2 =</span> pair[<span class="dv">2</span>],</span>
-<span id="cb23-13"><a href="#cb23-13"></a>    <span class="at">F =</span> mod<span class="sc">$</span>F[<span class="dv">1</span>],</span>
-<span id="cb23-14"><a href="#cb23-14"></a>    <span class="at">R2 =</span> mod<span class="sc">$</span>R2[<span class="dv">1</span>],</span>
-<span id="cb23-15"><a href="#cb23-15"></a>    <span class="at">p =</span> mod<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>]</span>
-<span id="cb23-16"><a href="#cb23-16"></a>  )</span>
-<span id="cb23-17"><a href="#cb23-17"></a>}))</span>
-<span id="cb23-18"><a href="#cb23-18"></a></span>
-<span id="cb23-19"><a href="#cb23-19"></a>pairwise_results<span class="sc">$</span>p_adj <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(pairwise_results<span class="sc">$</span>p, <span class="at">method =</span> <span class="st">"BH"</span>)</span>
-<span id="cb23-20"><a href="#cb23-20"></a>pairwise_results<span class="sc">$</span>contrast <span class="ot">&lt;-</span> <span class="fu">paste</span>(pairwise_results<span class="sc">$</span>group1,</span>
-<span id="cb23-21"><a href="#cb23-21"></a>                                   <span class="st">"vs"</span>,</span>
-<span id="cb23-22"><a href="#cb23-22"></a>                                   pairwise_results<span class="sc">$</span>group2)</span>
-<span id="cb23-23"><a href="#cb23-23"></a>pairwise_results[, <span class="fu">c</span>(<span class="st">"contrast"</span>, <span class="st">"F"</span>, <span class="st">"R2"</span>, <span class="st">"p"</span>, <span class="st">"p_adj"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>pairs <span class="ot">&lt;-</span> <span class="fu">combn</span>(<span class="fu">unique</span>(habitats), <span class="dv">2</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>pairwise_results <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(pairs, <span class="cf">function</span>(pair) {</span>
+<span id="cb25-3"><a href="#cb25-3"></a>  </span>
+<span id="cb25-4"><a href="#cb25-4"></a>  subset_idx <span class="ot">&lt;-</span> habitats <span class="sc">%in%</span> pair</span>
+<span id="cb25-5"><a href="#cb25-5"></a>  </span>
+<span id="cb25-6"><a href="#cb25-6"></a>  mod <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(community_matrix[subset_idx, ] <span class="sc">~</span> habitats[subset_idx],</span>
+<span id="cb25-7"><a href="#cb25-7"></a>                 <span class="at">method =</span> <span class="st">"bray"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8"></a>                 <span class="at">permutations =</span> <span class="dv">999</span>)</span>
+<span id="cb25-9"><a href="#cb25-9"></a>  </span>
+<span id="cb25-10"><a href="#cb25-10"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb25-11"><a href="#cb25-11"></a>    <span class="at">group1 =</span> pair[<span class="dv">1</span>],</span>
+<span id="cb25-12"><a href="#cb25-12"></a>    <span class="at">group2 =</span> pair[<span class="dv">2</span>],</span>
+<span id="cb25-13"><a href="#cb25-13"></a>    <span class="at">F =</span> mod<span class="sc">$</span>F[<span class="dv">1</span>],</span>
+<span id="cb25-14"><a href="#cb25-14"></a>    <span class="at">R2 =</span> mod<span class="sc">$</span>R2[<span class="dv">1</span>],</span>
+<span id="cb25-15"><a href="#cb25-15"></a>    <span class="at">p =</span> mod<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>]</span>
+<span id="cb25-16"><a href="#cb25-16"></a>  )</span>
+<span id="cb25-17"><a href="#cb25-17"></a>}))</span>
+<span id="cb25-18"><a href="#cb25-18"></a></span>
+<span id="cb25-19"><a href="#cb25-19"></a>pairwise_results<span class="sc">$</span>p_adj <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(pairwise_results<span class="sc">$</span>p, <span class="at">method =</span> <span class="st">"BH"</span>)</span>
+<span id="cb25-20"><a href="#cb25-20"></a>pairwise_results<span class="sc">$</span>contrast <span class="ot">&lt;-</span> <span class="fu">paste</span>(pairwise_results<span class="sc">$</span>group1,</span>
+<span id="cb25-21"><a href="#cb25-21"></a>                                   <span class="st">"vs"</span>,</span>
+<span id="cb25-22"><a href="#cb25-22"></a>                                   pairwise_results<span class="sc">$</span>group2)</span>
+<span id="cb25-23"><a href="#cb25-23"></a>pairwise_results[, <span class="fu">c</span>(<span class="st">"contrast"</span>, <span class="st">"F"</span>, <span class="st">"R2"</span>, <span class="st">"p"</span>, <span class="st">"p_adj"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                      contrast         F        R2     p p_adj
 1             Meadow vs Stream  8.519836 0.3095889 0.001 0.001
@@ -543,11 +581,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>En förutsättning för en PERMANOVA är att dina grupper inte skiljer sig åt i dispersion (dvs hur utspridda de är i ordineringen). Om så är fallet kan skillnaden i din PERMANOVA delvis bero på olika dispersion.</p>
 <p>Vi testar det enkelt med funktionen <code>betadisper()</code>. Vi anger vår community matrix och våra habitat. Vi sparar resultatet i ett objekt som vi kallar <code>disp_habitat</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>disp_habitat <span class="ot">&lt;-</span> <span class="fu">betadisper</span>(<span class="fu">vegdist</span>(community_matrix), habitats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>disp_habitat <span class="ot">&lt;-</span> <span class="fu">betadisper</span>(<span class="fu">vegdist</span>(community_matrix), habitats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Först tittar vi på en ANOVA-tabell av vår dispersal, med funktionen <code>anova()</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(disp_habitat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(disp_habitat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -561,7 +599,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Vi ser att vi har signifikant skillnad i dispersion mellan våra habitat. FÖr att veta vilka habitat som skiljer sig i dispersion gör vi ett post-hoc test med funktionen <code>TukeyHSD()</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(disp_habitat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(disp_habitat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -583,21 +621,39 @@ Pine.forest-Spruce.forest  0.13195653 -0.06653327  0.33044633 0.2956771</code></
 </section>
 <section id="miljövariabler" class="level2">
 <h2 class="anchored" data-anchor-id="miljövariabler">Miljövariabler</h2>
-<p>Vi ahr även mätt tre miljövariabler, nämligen fuktighet, ljus och näringshalt. Hur är de korrelerade med våra samhällen?</p>
+<p>Vi har även mätt tre miljövariabler, nämligen fuktighet, ljus och näringshalt. Hur är de korrelerade med våra samhällen?</p>
 <p>Vi börjar med att skapa ett dataset av våra miljövariabler. Om du på nytt kör koden <code>str(veg_umea_data)</code> ser du att kolumn 2-4 representerar miljövariabler. Vi väljer ut de variablerna med operatorn <code>[]</code> och sparar i ett nytt dataset som vi kallar <code>environment_data</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>environment_data <span class="ot">&lt;-</span> veg_umea_data[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(environment_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>environment_data <span class="ot">&lt;-</span> veg_umea_data[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(environment_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "moisture"  "light"     "nutrients"</code></pre>
 </div>
 </div>
 <p>Vi analyserar … med hjälp av funktionen <code>envfit()</code> och sparar resultatet i objektet <code>m.environment</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>m.environment <span class="ot">&lt;-</span> <span class="fu">envfit</span>(nmds_umea <span class="sc">~</span> moisture <span class="sc">+</span> light <span class="sc">+</span> nutrients, </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> environment_data, </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">permutations =</span> <span class="dv">999</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>m.environment <span class="ot">&lt;-</span> <span class="fu">envfit</span>(nmds_umea <span class="sc">~</span> moisture <span class="sc">+</span> light <span class="sc">+</span> nutrients, </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> environment_data, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">permutations =</span> <span class="dv">999</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Till vänster om <code>~</code>skriver vi ut vår ordinering <code>nmds_umea</code> och till höger har vi våra miljövariablar uppradade <code>moisture + light + nutrients</code>. Datasetet som används är <code>environment_data</code> och vi gör alltid 999 permuteringar.</p>
+<p>Vi skriver in objektets namn för att titta på resultatet</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>m.environment</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+***VECTORS
+
+             NMDS1    NMDS2     r2 Pr(&gt;r)    
+moisture  -0.35205 -0.93598 0.2785  0.006 ** 
+light     -0.33755  0.94131 0.0276  0.592    
+nutrients -0.99905 -0.04361 0.8377  0.001 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Permutation: free
+Number of permutations: 999</code></pre>
+</div>
 </div>
 
 

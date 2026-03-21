@@ -180,6 +180,43 @@ legend("topleft",
        title = "Habitats",
        bty = "n")
 ```
+Ytterligare ett alternativ är att visualisera centroiderna (centerpunktion i varje habitat) samt knyta ihop varje punkt med sin centroid. Fördelen med det här är att det direkt korresponderar med de statistiska tesaten som vi kommer att gå igenom nedan, där vi testar om våra habitat skiljer sig åt.
+
+Först extraherar vi våra centroider från vår ordinering
+```{r}
+#| code-fold: false
+centroids <- aggregate(nmds_umea$points, by = list(habitats), FUN = mean)
+```
+
+Sedan använder vi det i vår figur
+
+```{r}
+#| code-fold: false
+
+ordiplot(nmds_umea, type = "n")
+
+points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
+
+points(centroids[,2:3],
+       pch = 1,        # symbol, välj något annat än dina sites
+       cex = 2,
+       lwd = 2,
+       col = my_palette[centroids$Group.1])
+
+ordispider(nmds_umea,
+           groups = habitats,
+           col = my_palette,
+           lwd = 1)
+
+points(nmds_umea, "species", pch = 3, col = "black")
+
+legend("topleft",
+       legend = names(my_palette),
+       col = my_palette,
+       pch = 16,
+       title = "Habitats",
+       bty = "n")
+```
 
 Vi kan som en alternativ figur välja att skriva ut vissa av artnamnen. Det gör vi genom att använda oss av funktionen `orditorp()`, där vi specificerar att det är artnamnen vi vill skriva ut.
 
@@ -289,7 +326,7 @@ Vi ser att våra signifikanta p-värden är i kontrasterna `Spruce.forest-Meadow
 
 ## Miljövariabler
 
-Vi ahr även mätt tre miljövariabler, nämligen fuktighet, ljus och näringshalt. Hur är de korrelerade med våra samhällen?
+Vi har även mätt tre miljövariabler, nämligen fuktighet, ljus och näringshalt. Hur är de korrelerade med våra samhällen?
 
 Vi börjar med att skapa ett dataset av våra miljövariabler. Om du på nytt kör koden `str(veg_umea_data)` ser du att kolumn 2-4 representerar miljövariabler. Vi väljer ut de variablerna med operatorn `[]` och sparar i ett nytt dataset som vi kallar `environment_data`
 
@@ -308,4 +345,13 @@ Vi analyserar ... med hjälp av funktionen `envfit()` och sparar resultatet i ob
 m.environment <- envfit(nmds_umea ~ moisture + light + nutrients, 
                         data = environment_data, 
                         permutations = 999)
+```
+
+Till vänster om `~`skriver vi ut vår ordinering `nmds_umea` och till höger har vi våra miljövariablar uppradade `moisture + light + nutrients`. Datasetet som används är `environment_data` och vi gör alltid 999 permuteringar.
+
+Vi skriver in objektets namn för att titta på resultatet
+
+```{r}
+#| code-fold: false
+m.environment
 ```
