@@ -324,7 +324,7 @@ Dimensions: 2
 Stress:     0.146319 
 Stress type 1, weak ties
 Best solution was repeated 3 times in 20 tries
-The best solution was from try 12 (random start)
+The best solution was from try 13 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></pre>
 </div>
@@ -477,7 +477,8 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 <section id="statistisk-analys---skiljer-sig-våra-habitat" class="level2">
 <h2 class="anchored" data-anchor-id="statistisk-analys---skiljer-sig-våra-habitat">Statistisk analys - skiljer sig våra habitat?</h2>
 <p>Vi ser</p>
-<p>Vi använder oss av en teknik som kallas PERMANOVA. Det är…</p>
+<p>Vi använder oss av en teknik som kallas <strong>PERMANOVA</strong>. Det är en multivartiat ANOVA (dvs en <strong>M</strong>ANOVA), som använder sig av permutationer (därav namnet <strong>PER</strong>MANOVA). Permutationer är ett icke-parametriskt typ av test - datat blandas om ett stort antal gånger och varje gång görs ett statistiskt test. Om dina fakltiska fördelning av data är mer extrem än vad det blir om man slumpmässigt omfördelar dina data mellan dina grupper kan vi dra slutsatsen att resultatet inte beror på slumpen.</p>
+<p>Nollhypotesen i en PERMSANOVA är att dina grupper inte skiljer sig i centroidernas placering och/eller i datans utspridning (dispersion).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m.habitats <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(community_matrix <span class="sc">~</span> habitats, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>

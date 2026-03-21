@@ -203,7 +203,9 @@ Jag tycker att det i många fall kan vara intressant att skriva ut artnamnen, f�
 
 Vi ser 
 
-Vi använder oss av en teknik som kallas PERMANOVA. Det är...
+Vi använder oss av en teknik som kallas **PERMANOVA**. Det är en multivartiat ANOVA (dvs en **M**ANOVA), som använder sig av permutationer (därav namnet **PER**MANOVA). Permutationer är ett icke-parametriskt typ av test - datat blandas om ett stort antal gånger och varje gång görs ett statistiskt test. Om dina fakltiska fördelning av data är mer extrem än vad det blir om man slumpmässigt omfördelar dina data mellan dina grupper kan vi dra slutsatsen att resultatet inte beror på slumpen.
+
+Nollhypotesen i en PERMSANOVA är att dina grupper inte skiljer sig i centroidernas placering och/eller i datans utspridning (dispersion). 
 
 ```{r}
 #| code-fold: false
