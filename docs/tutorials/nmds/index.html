@@ -154,7 +154,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#läs-in-data" id="toc-läs-in-data" class="nav-link active" data-scroll-target="#läs-in-data">Läs in data</a>
+  <li><a href="#den-multivariata-analysen" id="toc-den-multivariata-analysen" class="nav-link active" data-scroll-target="#den-multivariata-analysen">Den multivariata analysen</a></li>
+  <li><a href="#olika-multivariata-analyser" id="toc-olika-multivariata-analyser" class="nav-link" data-scroll-target="#olika-multivariata-analyser">Olika multivariata analyser</a></li>
+  <li><a href="#nmds---non-metric-multidimensional-scaling" id="toc-nmds---non-metric-multidimensional-scaling" class="nav-link" data-scroll-target="#nmds---non-metric-multidimensional-scaling">NMDS - Non-Metric Multidimensional Scaling</a></li>
+  <li><a href="#läs-in-data" id="toc-läs-in-data" class="nav-link" data-scroll-target="#läs-in-data">Läs in data</a>
   <ul class="collapse">
   <li><a href="#inspektera-data" id="toc-inspektera-data" class="nav-link" data-scroll-target="#inspektera-data">Inspektera data</a></li>
   </ul></li>
@@ -194,6 +197,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>[Introduktion till ordineringsmetoder]</p>
+<p>Vi har tidigare alltid haft en responsvariebal i varje analys, det kan vara växtens höjd, antal ungar hos bofinken eller pH värdet i sjöarna. Men ibland kanske man är intresserad av många responsvariabler? Säg att du har tittat på förekomsten av alla växtarter i två olika miljöer, och ahr hittat ett sjuttiotal arter. Du kan testa art för art om den skiljer sig i abundans mellan de två olika miljöerna, men det blir väldigt många test. Kan man inte istället titta på om <strong>växtsamhället</strong> i helhet skiljer sig mellan de två olika miljöerna?</p>
+<p>Det är sådana här frågor som multivariata metoder är användbara för. De används i genetiken där man kan mäta genuttryck av tiotusentals gener och vill veta om genuttrycket skiljer sig åt mellan behandlingar, men även när man har mätt tiotals morfologiska egenskaper hos individer och vill se om de skiljer sig åt i form. Det vi skall fokusera på här är dock när det används inom analys av biodiversitetsdata. Det kan vara arter du observerat vid inventeringar, men ett nytt forskningsfält som också använder likanande metoder är analys av mikrobiomdata samt metabarcoding-studier med eDNA.</p>
+<section id="den-multivariata-analysen" class="level3">
+<h3 class="anchored" data-anchor-id="den-multivariata-analysen">Den multivariata analysen</h3>
+<p>Alla våra tidigare analyser har haft en responsvariabel, som vi ritat ut på y-axeln, och med vår prediktor på x-axeln har vi fått en graf i två dimensioner. Men hur gör vi om vi har ytterligare en responsvariabel? Kan vi ha ytterligare en axel? Ja, I princip kan vi det, om vi gör grafen i tre dimensioner (en 3D-graf). Men sedan blir det svårt, hur visualiserar man 4 dimensioner? Kan du föreställa dig det? Om vi har mätt abundans av 50 arter så får vi 50 axlar, det går inte ens att föreställa sig hur en sådan graf ser ut! Hur skall vi göra?</p>
+<p>Det är här den multivariata analysen kommer in. Alla dina datapunkter ligger i den multivarata rymden, som har lika många dimensioner som du har resppnsvariabler. Men ditt data ligger inte helt slumpmässigt i den här rymden. Om du exempelvis har mätt abundansen i replikerade kvadrater i en granskog och i en tallskog så kommer artsammansättningen i alla dina kvadrater i granskogen troligen påminna om varandra, och detsamma gäller i tallskogen. Det som den multivariata analysen gör är att den först söker efter den raka linjen genom din multivarata rymd som förklarar mest av variationen i ditt dataset, och det blir din första axel. Sedan letar den upp en linje som ligger vinkelrätt från din första axel och som förklarar mest av den kvarvarande variationen i din data. Det blir din andra axel. Nu har vi två axlar, vi kan göra en figur i två dimensioner.</p>
+<p>[Infoga förklarande bild!]</p>
+<p>Namnet på de två axlarna döps efter analysen. Om man gör en PCA heter de PC1 och PC2, gör man en NMDS heter de NMDS1 och NMDS2 osv. OM man gör en parametrisk analys (såsom PCA) kan man få reda på hur mycket variation som förklaras av varje ny axel eller deras eigenvärde, medan man för icke-parametriska analyser istället tittar på analysens stress-värde (se nedan) för att veta om ditt multivariata dataset går bra att visualisera i två dimensioner.</p>
+</section>
+<section id="olika-multivariata-analyser" class="level3">
+<h3 class="anchored" data-anchor-id="olika-multivariata-analyser">Olika multivariata analyser</h3>
+<p>Nedan går vi igenom de vanligaste multivariata analysmetoderna. Val av metod beror framför allt på om man har väldigt många nollor i sitt dataset (vilket är vanligt om man inventerat arter).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Analys</th>
+<th>Datatyp</th>
+<th>Känslighet för icke-normalfördelning</th>
+<th>Beskrivning</th>
+<th>Användning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PCA</td>
+<td>Linjära data</td>
+<td>Känslig</td>
+<td>Om du har kontinuerliga data med få nollvärden. Ofta starkt korrelerade variablar</td>
+<td>Genetiska data, morfologiska data där du vill reducera komplexiteten</td>
+</tr>
+<tr class="even">
+<td>CCA</td>
+<td>Linjära data</td>
+<td>Mindre känslig</td>
+<td>Ej kontinuerliga data, många nollvärden, men <strong>data måste vara i frekvenser</strong> (antal individer/täckningsgrad)</td>
+<td>Biodiversitetsanalyser, korrelation med miljövariabler</td>
+</tr>
+<tr class="odd">
+<td>DCA</td>
+<td>Linjära data</td>
+<td>Mindre känslig</td>
+<td>Ej kontinuerliga data, många nollvärden, men <strong>data måste vara i frekvenser</strong> (antal individer/täckningsgrad)</td>
+<td>Biodiversitetsanalyser</td>
+</tr>
+<tr class="even">
+<td>NMDS</td>
+<td>Icke-linjära data</td>
+<td>Okänslig</td>
+<td>Ej kontinuerliga data, många nollvärden och avvikande data eller <strong>data som inte är frekvenser (till exempel närvaro/frånvaro av art)</strong></td>
+<td>Biodiversitetsanalyser, korrelation med miljövariabler</td>
+</tr>
+</tbody>
+</table>
+<p>Som du ser är PCA den analysen som kräver mest av datat (normalfördelat och kontinuerligt) medan NMDS som är en icke-parametrisk metod kan hantera alla möjliga datatyper, inklusive data som visar på närvaro och frånvaro, men inte exakt antal individer/täckningsgrad. Eftersom metoden är robust och klarar alla typer av data från inventeringar kommer vi att först titta på den metoden.</p>
+</section>
+<section id="nmds---non-metric-multidimensional-scaling" class="level2">
+<h2 class="anchored" data-anchor-id="nmds---non-metric-multidimensional-scaling">NMDS - Non-Metric Multidimensional Scaling</h2>
+<p>Som hörs av medodens namn, är NMDS icke-metrisk, det vill säga att avståndet mellan arterna inte är linjärt. Till exempel kan vi tänka oss närvaro och frånvaro av en art. OM en art saknas så finns den inte, men betyder närvaro av blåbär i en ruta att det är lika många blåbär i alla rutor där vi noterat närvaro? Nä, det kan vara allt ifrån en liten buske till en ruta som är helt täckt av blåbär.</p>
+</section>
 <section id="läs-in-data" class="level2">
 <h2 class="anchored" data-anchor-id="läs-in-data">Läs in data</h2>
 <p>Vi har mätt täckningsgrad av ett antal växtarter i kvadrater i fyra habitat i skogar omkring Umeå, och undrar om växtsammhållerna skiljer sig åt mellan habitaten.</p>
@@ -323,8 +392,8 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.146319 
 Stress type 1, weak ties
-Best solution was repeated 1 time in 20 tries
-The best solution was from try 17 (random start)
+Best solution was repeated 4 times in 20 tries
+The best solution was from try 6 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></pre>
 </div>
@@ -332,8 +401,8 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 <p>Vi ser raden <code>Stress:     0.146319</code> som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 75%">
+<col style="width: 26%">
+<col style="width: 73%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -646,9 +715,9 @@ Pine.forest-Spruce.forest  0.13195653 -0.06653327  0.33044633 0.2956771</code></
 ***VECTORS
 
              NMDS1    NMDS2     r2 Pr(&gt;r)    
-moisture  -0.35205 -0.93598 0.2785  0.006 ** 
-light     -0.33755  0.94131 0.0276  0.592    
-nutrients -0.99905 -0.04361 0.8377  0.001 ***
+moisture  -0.35205 -0.93598 0.2785  0.002 ** 
+light     -0.33756  0.94130 0.0276  0.560    
+nutrients -0.99905 -0.04362 0.8377  0.001 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Permutation: free
