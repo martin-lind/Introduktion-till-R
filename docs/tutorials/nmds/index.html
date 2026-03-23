@@ -170,7 +170,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#post-hoc-test-på-habitaten" id="toc-post-hoc-test-på-habitaten" class="nav-link" data-scroll-target="#post-hoc-test-på-habitaten">Post-hoc test på habitaten</a></li>
   <li><a href="#utvärdera-din-modell" id="toc-utvärdera-din-modell" class="nav-link" data-scroll-target="#utvärdera-din-modell">Utvärdera din modell</a></li>
   </ul></li>
-  <li><a href="#miljövariabler" id="toc-miljövariabler" class="nav-link" data-scroll-target="#miljövariabler">Miljövariabler</a></li>
+  <li><a href="#miljövariabler" id="toc-miljövariabler" class="nav-link" data-scroll-target="#miljövariabler">Miljövariabler</a>
+  <ul class="collapse">
+  <li><a href="#figur-med-miljövariabler" id="toc-figur-med-miljövariabler" class="nav-link" data-scroll-target="#figur-med-miljövariabler">Figur med miljövariabler</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -393,7 +396,7 @@ Dimensions: 2
 Stress:     0.146319 
 Stress type 1, weak ties
 Best solution was repeated 4 times in 20 tries
-The best solution was from try 6 (random start)
+The best solution was from try 16 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></pre>
 </div>
@@ -607,7 +610,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Vi ser att o-värdet (kallat <code>Pr(&gt;F)</code>) är mindre än 0.05, dvs vi har en signifikant effekt av habitat. Deras centroider ligger alltså på olika platser i ordineringen.</p>
 <section id="post-hoc-test-på-habitaten" class="level3">
 <h3 class="anchored" data-anchor-id="post-hoc-test-på-habitaten">Post-hoc test på habitaten</h3>
-<p>Eftersom vi har fler än två habitat så vet vi dockl inte om alla skiljer sig från varandra, eller om bara någon eller några gör det. Vi behöver genomföra ett post-hoc test!</p>
+<p>Eftersom vi har fler än två habitat så vet vi dock inte om alla skiljer sig från varandra, eller om bara någon eller några gör det. Vi behöver genomföra ett post-hoc test!</p>
 <p>Det enklaste sättet är att använda paketet <code>pairwiseAdonis</code>, men tyvärr behöver det installeras manuellt via Github (<a href="https://github.com/pmartinezarbizu/pairwiseAdonis">se beskrivning om du är intresserad</a>). Därför gör vi det med hjälp av paketet <code>vegan</code> som vi redan använder, även om det är mer omständigt rent kodmässigt. Det är en hel del kod nedan, men det enda vi behöver göra är att kontrollera vad vår variabel <code>habitat</code> är inskriven (rad 1, 4 och 6), liksom vår community matrix (som vi kallade <code>community_matrix</code>, rad 6). Det är det enda som du kan behöva ändra i koden (om du inte har gett dem samma namn som jag gjort). Resten av koden skall lämnas oförändrad.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>pairs <span class="ot">&lt;-</span> <span class="fu">combn</span>(<span class="fu">unique</span>(habitats), <span class="dv">2</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span>
@@ -716,16 +719,55 @@ Pine.forest-Spruce.forest  0.13195653 -0.06653327  0.33044633 0.2956771</code></
 
              NMDS1    NMDS2     r2 Pr(&gt;r)    
 moisture  -0.35205 -0.93598 0.2785  0.002 ** 
-light     -0.33756  0.94130 0.0276  0.560    
-nutrients -0.99905 -0.04362 0.8377  0.001 ***
+light     -0.33755  0.94131 0.0276  0.578    
+nutrients -0.99905 -0.04360 0.8377  0.001 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Permutation: free
 Number of permutations: 999</code></pre>
 </div>
 </div>
+<p>Vi ser att <code>moisture</code> (fuktighet) och <code>nutrients</code> (näring) är signifikant associerat med växtsamhällernas komposition, medan <code>light</code> (ljus) inte är det. Notera att varje variabel är testad för sig, så om flera variabler korrelerar med varandra så kan de representera samma ekologiska gradient.</p>
+<section id="figur-med-miljövariabler" class="level3">
+<h3 class="anchored" data-anchor-id="figur-med-miljövariabler">Figur med miljövariabler</h3>
+<p>Låt oss lägga till miljövariablerna i vår figur, och enbart rita ut de signifikanta variablerna.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordiplot</span>(nmds_umea, <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"sites"</span>, <span class="at">col =</span> color_vector, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(nmds_umea, <span class="st">"species"</span>, <span class="at">pch =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ordiellipse</span>(nmds_umea,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">groups =</span> habitats,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> my_palette,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">kind =</span> <span class="st">"sd"</span>,      <span class="co"># or "se"</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">names</span>(my_palette),</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> my_palette,</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Habitats"</span>,</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m.environment,</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">p.max =</span> <span class="fl">0.05</span>,</span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"red"</span>,</span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">1.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nu ser vi… Det kan verka förvånande att piulen för moisture går bort från lokalerna vid bäcken, trots att de var fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn för nutrients har (r2 = 0.84)</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

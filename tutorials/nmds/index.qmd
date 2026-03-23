@@ -291,7 +291,7 @@ Vi ser att o-värdet (kallat `Pr(>F)`) är mindre än 0.05, dvs vi har en signif
 
 ### Post-hoc test på habitaten
 
-Eftersom vi har fler än två habitat så vet vi dockl inte om alla skiljer sig från varandra, eller om bara någon eller några gör det. Vi behöver genomföra ett post-hoc test!
+Eftersom vi har fler än två habitat så vet vi dock inte om alla skiljer sig från varandra, eller om bara någon eller några gör det. Vi behöver genomföra ett post-hoc test!
 
 Det enklaste sättet är att använda paketet `pairwiseAdonis`, men tyvärr behöver det installeras manuellt via Github ([se beskrivning om du är intresserad](https://github.com/pmartinezarbizu/pairwiseAdonis)). Därför gör vi det med hjälp av paketet `vegan` som vi redan använder, även om det är mer omständigt rent kodmässigt. Det är en hel del kod nedan, men det enda vi behöver göra är att kontrollera vad vår variabel `habitat` är inskriven (rad 1, 4 och 6), liksom vår community matrix (som vi kallade `community_matrix`, rad 6). Det är det enda som du kan behöva ändra i koden (om du inte har gett dem samma namn som jag gjort). Resten av koden skall lämnas oförändrad.
 
@@ -388,3 +388,40 @@ Vi skriver in objektets namn för att titta på resultatet
 #| code-fold: false
 m.environment
 ```
+Vi ser att `moisture` (fuktighet) och `nutrients` (näring) är signifikant associerat med växtsamhällernas komposition, medan `light` (ljus) inte är det. Notera att varje variabel är testad för sig, så om flera variabler korrelerar med varandra så kan de representera samma ekologiska gradient. 
+
+### Figur med miljövariabler
+
+Låt oss lägga till miljövariablerna i vår figur, och enbart rita ut de signifikanta variablerna.
+
+```{r}
+#| code-fold: false
+
+
+ordiplot(nmds_umea, type = "n")
+
+points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
+points(nmds_umea, "species", pch = 3, col = "black")
+
+ordiellipse(nmds_umea,
+            groups = habitats,
+            col = my_palette,
+            kind = "sd",      # or "se"
+            lwd = 2,
+            label = FALSE)
+
+legend("topleft",
+       legend = names(my_palette),
+       col = my_palette,
+       pch = 16,
+       title = "Habitats",
+       bty = "n")
+
+
+plot(m.environment,
+     p.max = 0.05,
+     col = "red",
+     cex = 1.2)
+```
+
+Nu ser vi... Det kan verka förvånande att piulen för moisture går bort från lokalerna vid bäcken, trots att de var fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn för nutrients har (r2 = 0.84)
