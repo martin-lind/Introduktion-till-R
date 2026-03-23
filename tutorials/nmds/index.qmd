@@ -14,6 +14,18 @@ Alla våra tidigare analyser har haft en responsvariabel, som vi ritat ut på y-
 
 Det är här ordineringen kommer in. Alla dina datapunkter ligger i den multivarata rymden, som har lika många dimensioner som du har resppnsvariabler. Men ditt data ligger inte helt slumpmässigt i den här rymden. Om du exempelvis har mätt abundansen i replikerade kvadrater i en granskog och i en tallskog så kommer artsammansättningen i alla dina kvadrater i granskogen troligen påminna om varandra, och detsamma gäller i tallskogen. Det som den multivariata analysen gör är att den först söker efter den raka linjen genom din multivarata rymd som förklarar mest av variationen i ditt dataset, och det blir din första axel. Sedan letar den upp en linje som ligger vinkelrätt från din första axel och som förklarar mest av den kvarvarande variationen i din data. Det blir din andra axel. Nu har vi två axlar, vi kan göra en figur i två dimensioner.
 
+### Illustration av en ordinering
+
+Figuren nedan visar multivariat data i 3 dimensioner (tänk tre arter kallade x, y och Z).
+
+1.  Grafen går att rotera, rotera den tills du ser dimensionen med mest variation, det borde bli din första axel
+
+2.  Tryck sedan på "Lägg till Axel 1" - det är den första axeln av din ordinering, som föjklarar mest variation
+
+3.  Lägg sedan till Axel 2 med motsvarande knapp, det är en axel som är vinkelrätt mot axel 1 och som förklarar näst mest variation.
+
+4.  Rotera figuren så att Axel 1 är vägrätt och Axel 2 är lodrätt. Det motsvarar din ordinering i 2 dimensioner!
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -59,10 +71,9 @@ pc2_line <- data.frame(
 )
 
 
-#plot
 fig <- plot_ly()
 
-# Scatter points
+# Data
 fig <- fig %>%
   add_markers(
     data = df,
@@ -71,32 +82,74 @@ fig <- fig %>%
     name = "Data"
   )
 
-# PC1 line
+# PC1 (initially hidden)
 fig <- fig %>%
   add_trace(
     data = pc1_line,
     x = ~x, y = ~y, z = ~z,
     type = "scatter3d",
     mode = "lines",
-    line = list(width = 3, color = "red"),
-    name = "Axel 1"
+    line = list(width = 6, color = "red"),
+    name = "Axel 1",
+    visible = FALSE
   )
 
-# PC2 line
+# PC2 (initially hidden)
 fig <- fig %>%
   add_trace(
     data = pc2_line,
     x = ~x, y = ~y, z = ~z,
     type = "scatter3d",
     mode = "lines",
-    line = list(width = 3, color = "blue",lty=3),
-    name = "Axel 2"
+    line = list(width = 6, color = "blue"),
+    name = "Axel 2",
+    visible = FALSE
+  )
+# Buttons
+fig <- fig %>%
+  layout(
+    updatemenus = list(
+      list(
+        type = "buttons",
+        direction = "right",
+        x = 0.1,
+        y = 1.1,
+        buttons = list(
+
+          list(
+            label = "Visa Data",
+            method = "update",
+            args = list(list(visible = c(TRUE, FALSE, FALSE)))
+          ),
+
+          list(
+            label = "Lägg till Axel 1",
+            method = "update",
+            args = list(list(visible = c(TRUE, TRUE, FALSE)))
+          ),
+
+          list(
+            label = "Lägg till Axel 2",
+            method = "update",
+            args = list(list(visible = c(TRUE, TRUE, TRUE)))
+          )
+        )
+      )
+    )
+  )
+
+fig <- fig %>%
+  layout(
+    scene = list(
+      camera = list(
+        eye = list(x = -0.5, y = 1.8, z = 0.6)  # tweak these!
+      )
+    )
   )
 
 fig
-
-
 ```
+
 Namnet på de två axlarna döps efter analysen. Om man gör en PCA heter de PC1 och PC2, gör man en NMDS heter de NMDS1 och NMDS2 osv. Om man gör en parametrisk analys (såsom PCA) kan man få reda på hur mycket variation som förklaras av varje ny axel eller deras eigenvärde, medan man för icke-parametriska analyser istället tittar på analysens stress-värde (se nedan) för att veta om ditt multivariata dataset går bra att visualisera i två dimensioner.
 
 ### Olika multivariata analyser
@@ -200,7 +253,7 @@ nmds_umea
 När man utvärderar en NMDS skall man fokusera på stress-värdet. Vi ser raden `Stress: 0.146319` som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.
 
 | Stress-värde | Tolkning |
-|--------------------|----------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | \< 0.05 | Din NMDS är en excellent representation av dina data |
 | \< 0.10 | En bra ordinering, mycket tolkningsbar |
 | \< 0.20 | En användbar ordinering, men detaljerna kan vara missvisande, tolka med försiktighet |
