@@ -1,21 +1,102 @@
 ---
-title: "Multivariata metoder - ordinering med NMDS"
+title: "Ordinering med NMDS"
 ---
 
 \[Introduktion till ordineringsmetoder\]
 
-Vi har tidigare alltid haft en responsvariebal i varje analys, det kan vara växtens höjd, antal ungar hos bofinken eller pH värdet i sjöarna. Men ibland kanske man är intresserad av många responsvariabler? Säg att du har tittat på förekomsten av alla växtarter i två olika miljöer, och ahr hittat ett sjuttiotal arter. Du kan testa art för art om den skiljer sig i abundans mellan de två olika miljöerna, men det blir väldigt många test. Kan man inte istället titta på om **växtsamhället** i helhet skiljer sig mellan de två olika miljöerna?
+Vi har tidigare alltid haft en responsvariebal i varje analys, det kan vara växtens höjd, antal ungar hos bofinken eller pH värdet i sjöarna. Men ibland kanske man är intresserad av många responsvariabler? Säg att du har tittat på förekomsten av alla växtarter i två olika miljöer, och har hittat ett sjuttiotal arter. Du kan testa art för art om den skiljer sig i abundans mellan de två olika miljöerna, men det blir väldigt många test. Kan man inte istället titta på om **växtsamhället** i helhet skiljer sig mellan de två olika miljöerna?
 
-Det är sådana här frågor som multivariata metoder är användbara för. De används i genetiken där man kan mäta genuttryck av tiotusentals gener och vill veta om genuttrycket skiljer sig åt mellan behandlingar, men även när man har mätt tiotals morfologiska egenskaper hos individer och vill se om de skiljer sig åt i form. Det vi skall fokusera på här är dock när det används inom analys av biodiversitetsdata. Det kan vara arter du observerat vid inventeringar, men ett nytt forskningsfält som också använder likanande metoder är analys av mikrobiomdata samt metabarcoding-studier med eDNA.
+Det är sådana här frågor som *multivariata metoder* är användbara för, och den vanligaste typen av multivariata metoder som ekologer använder sig av är **ordinering**. De används i genetiken där man kan mäta genuttryck av tiotusentals gener och vill veta om genuttrycket skiljer sig åt mellan behandlingar, men även när man har mätt tiotals morfologiska egenskaper hos individer och vill se om de skiljer sig åt i form. Det vi skall fokusera på här är dock när det används inom analys av biodiversitetsdata. Det kan vara arter du observerat vid inventeringar, men ett nytt forskningsfält som också använder likanande metoder är analys av mikrobiomdata samt metabarcoding-studier med eDNA.
 
-### Den multivariata analysen
+### Den multivariata ordinerings-analysen
 
 Alla våra tidigare analyser har haft en responsvariabel, som vi ritat ut på y-axeln, och med vår prediktor på x-axeln har vi fått en graf i två dimensioner. Men hur gör vi om vi har ytterligare en responsvariabel? Kan vi ha ytterligare en axel? Ja, I princip kan vi det, om vi gör grafen i tre dimensioner (en 3D-graf). Men sedan blir det svårt, hur visualiserar man 4 dimensioner? Kan du föreställa dig det? Om vi har mätt abundans av 50 arter så får vi 50 axlar, det går inte ens att föreställa sig hur en sådan graf ser ut! Hur skall vi göra?
 
-Det är här den multivariata analysen kommer in. Alla dina datapunkter ligger i den multivarata rymden, som har lika många dimensioner som du har resppnsvariabler. Men ditt data ligger inte helt slumpmässigt i den här rymden. Om du exempelvis har mätt abundansen i replikerade kvadrater i en granskog och i en tallskog så kommer artsammansättningen i alla dina kvadrater i granskogen troligen påminna om varandra, och detsamma gäller i tallskogen. Det som den multivariata analysen gör är att den först söker efter den raka linjen genom din multivarata rymd som förklarar mest av variationen i ditt dataset, och det blir din första axel. Sedan letar den upp en linje som ligger vinkelrätt från din första axel och som förklarar mest av den kvarvarande variationen i din data. Det blir din andra axel. Nu har vi två axlar, vi kan göra en figur i två dimensioner.
+Det är här ordineringen kommer in. Alla dina datapunkter ligger i den multivarata rymden, som har lika många dimensioner som du har resppnsvariabler. Men ditt data ligger inte helt slumpmässigt i den här rymden. Om du exempelvis har mätt abundansen i replikerade kvadrater i en granskog och i en tallskog så kommer artsammansättningen i alla dina kvadrater i granskogen troligen påminna om varandra, och detsamma gäller i tallskogen. Det som den multivariata analysen gör är att den först söker efter den raka linjen genom din multivarata rymd som förklarar mest av variationen i ditt dataset, och det blir din första axel. Sedan letar den upp en linje som ligger vinkelrätt från din första axel och som förklarar mest av den kvarvarande variationen i din data. Det blir din andra axel. Nu har vi två axlar, vi kan göra en figur i två dimensioner.
 
-\[Infoga förklarande bild!\]
+```{r}
+#| echo: false
+#| warning: false
 
+
+library(plotly)
+
+set.seed(123)
+
+# Create correlated 3D data
+n <- 100
+x <- rnorm(n)
+y <- 0.8 * x + rnorm(n, sd = 0.5)
+z <- 0.5 * x - 0.3 * y + rnorm(n, sd = 0.5)
+
+df <- data.frame(x, y, z)
+
+pca <- prcomp(df, scale. = TRUE)
+
+# Principal component directions
+pc1 <- pca$rotation[,1]
+pc2 <- pca$rotation[,2]
+
+# Center of the data
+center <- colMeans(df)
+
+# Scale factor for visual clarity
+scores <- pca$x
+
+pc1_range <- range(scores[,1])
+pc2_range <- range(scores[,2])
+
+pc1_line <- data.frame(
+  x = center[1] + pc1_range * pc1[1],
+  y = center[2] + pc1_range * pc1[2],
+  z = center[3] + pc1_range * pc1[3]
+)
+
+pc2_line <- data.frame(
+  x = center[1] + pc2_range * pc2[1],
+  y = center[2] + pc2_range * pc2[2],
+  z = center[3] + pc2_range * pc2[3]
+)
+
+
+#plot
+fig <- plot_ly()
+
+# Scatter points
+fig <- fig %>%
+  add_markers(
+    data = df,
+    x = ~x, y = ~y, z = ~z,
+    marker = list(size = 3),
+    name = "Data"
+  )
+
+# PC1 line
+fig <- fig %>%
+  add_trace(
+    data = pc1_line,
+    x = ~x, y = ~y, z = ~z,
+    type = "scatter3d",
+    mode = "lines",
+    line = list(width = 3, color = "red"),
+    name = "Axel 1"
+  )
+
+# PC2 line
+fig <- fig %>%
+  add_trace(
+    data = pc2_line,
+    x = ~x, y = ~y, z = ~z,
+    type = "scatter3d",
+    mode = "lines",
+    line = list(width = 3, color = "blue",lty=3),
+    name = "Axel 2"
+  )
+
+fig
+
+
+```
 Namnet på de två axlarna döps efter analysen. Om man gör en PCA heter de PC1 och PC2, gör man en NMDS heter de NMDS1 och NMDS2 osv. Om man gör en parametrisk analys (såsom PCA) kan man få reda på hur mycket variation som förklaras av varje ny axel eller deras eigenvärde, medan man för icke-parametriska analyser istället tittar på analysens stress-värde (se nedan) för att veta om ditt multivariata dataset går bra att visualisera i två dimensioner.
 
 ### Olika multivariata analyser
@@ -23,17 +104,16 @@ Namnet på de två axlarna döps efter analysen. Om man gör en PCA heter de PC1
 Nedan går vi igenom de vanligaste multivariata analysmetoderna. Val av metod beror framför allt på om man har väldigt många nollor i sitt dataset (vilket är vanligt om man inventerat arter).
 
 | Analys | Datatyp | Känslighet för icke-normalfördelning | Beskrivning | Användning |
-|----|----|----|----|----|
-| PCA | Linjära data | Känslig | Om du har kontinuerliga data med få nollvärden. Ofta starkt korrelerade variablar | Genetiska data, morfologiska data där du vill reducera komplexiteten |
+|---------------|---------------|---------------|---------------|---------------|
+| PCA | Linjära data | Känslig | Om du har kontinuerliga data med få nollvärden. Ofta starkt korrelerade variablar | Genetiska data, morfologiska data där du vill reducera komplexiteten och antal dimensioner i datat |
 | CCA | Linjära data | Mindre känslig | Ej kontinuerliga data, många nollvärden, men **data måste vara i frekvenser** (antal individer/täckningsgrad) | Biodiversitetsanalyser, korrelation med miljövariabler |
-| DCA | Linjära data | Mindre känslig | Ej kontinuerliga data, många nollvärden, men **data måste vara i frekvenser** (antal individer/täckningsgrad) | Biodiversitetsanalyser |
 | NMDS | Icke-linjära data | Okänslig | Ej kontinuerliga data, många nollvärden och avvikande data eller **data som inte är frekvenser (till exempel närvaro/frånvaro av art)** | Biodiversitetsanalyser, korrelation med miljövariabler |
 
 Som du ser är PCA den analysen som kräver mest av datat (normalfördelat och kontinuerligt) medan NMDS som är en icke-parametrisk metod kan hantera alla möjliga datatyper, inklusive data som visar på närvaro och frånvaro, men inte exakt antal individer/täckningsgrad. Eftersom metoden är robust och klarar alla typer av data från inventeringar kommer vi att först titta på den metoden.
 
 ## NMDS - Non-Metric Multidimensional Scaling
 
-Som hörs av medodens namn, är NMDS icke-metrisk, det vill säga att avståndet mellan arterna inte är linjärt. Till exempel kan vi tänka oss närvaro och frånvaro av en art. OM en art saknas så finns den inte, men betyder närvaro av blåbär i en ruta att det är lika många blåbär i alla rutor där vi noterat närvaro? Nä, det kan vara allt ifrån en liten buske till en ruta som är helt täckt av blåbär. 
+Som hörs av medodens namn, är NMDS icke-metrisk, det vill säga att avståndet mellan arterna inte är linjärt. Till exempel kan vi tänka oss närvaro och frånvaro av en art. OM en art saknas så finns den inte, men betyder närvaro av blåbär i en ruta att det är lika många blåbär i alla rutor där vi noterat närvaro? Nä, det kan vara allt ifrån en liten buske till en ruta som är helt täckt av blåbär.
 
 ## Läs in data
 
@@ -114,12 +194,13 @@ När vi är klara väljer vi att titta på lite information om vår NMDS-analys,
 
 nmds_umea
 ```
+
 ### Stress-värden
 
 När man utvärderar en NMDS skall man fokusera på stress-värdet. Vi ser raden `Stress: 0.146319` som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.
 
 | Stress-värde | Tolkning |
-|-------------------|-----------------------------------------------------|
+|--------------------|----------------------------------------------------|
 | \< 0.05 | Din NMDS är en excellent representation av dina data |
 | \< 0.10 | En bra ordinering, mycket tolkningsbar |
 | \< 0.20 | En användbar ordinering, men detaljerna kan vara missvisande, tolka med försiktighet |
@@ -389,7 +470,8 @@ Vi skriver in objektets namn för att titta på resultatet
 #| code-fold: false
 m.environment
 ```
-Vi ser att `moisture` (fuktighet) och `nutrients` (näring) är signifikant associerat med växtsamhällernas komposition, medan `light` (ljus) inte är det. Notera att varje variabel är testad för sig, så om flera variabler korrelerar med varandra så kan de representera samma ekologiska gradient. 
+
+Vi ser att `moisture` (fuktighet) och `nutrients` (näring) är signifikant associerat med växtsamhällernas komposition, medan `light` (ljus) inte är det. Notera att varje variabel är testad för sig, så om flera variabler korrelerar med varandra så kan de representera samma ekologiska gradient.
 
 ### Figur med miljövariabler
 
@@ -425,4 +507,4 @@ plot(m.environment, # Den nya koden som lägger till miljövariabler
      cex = 1.2)
 ```
 
-Nu ser vi... Det kan verka förvånande att vektorn för moisture går bort från lokalerna vid bäcken, trots att de också var ganska fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn  nutrients har (r2 = 0.84). 
+Nu ser vi... Det kan verka förvånande att vektorn för moisture går bort från lokalerna vid bäcken, trots att de också var ganska fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn nutrients har (r2 = 0.84).
