@@ -287,7 +287,7 @@ m.habitats <- adonis2(community_matrix ~ habitats, method = "bray")
 m.habitats
 ```
 
-Vi ser att o-värdet (kallat `Pr(>F)`) är mindre än 0.05, dvs vi har en signifikant effekt av habitat. Deras centroider ligger alltså på olika platser i ordineringen.
+Vi ser att p-värdet (kallat `Pr(>F)`) är mindre än 0.05, dvs vi har en signifikant effekt av habitat. Deras centroider ligger alltså på olika platser i ordineringen.
 
 ### Post-hoc test på habitaten
 
@@ -418,10 +418,10 @@ legend("topleft",
        bty = "n")
 
 
-plot(m.environment,
-     p.max = 0.05,
+plot(m.environment, # Den nya koden som lägger till miljövariabler
+     p.max = 0.05,  # Det maximala p-värdet för att miljövariabeln skall ritas ut
      col = "red",
      cex = 1.2)
 ```
 
-Nu ser vi... Det kan verka förvånande att piulen för moisture går bort från lokalerna vid bäcken, trots att de var fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn för nutrients har (r2 = 0.84)
+Nu ser vi... Det kan verka förvånande att vektorn för moisture går bort från lokalerna vid bäcken, trots att de var fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn för nutrients har (r2 = 0.84). 
