@@ -162,7 +162,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#inspektera-data" id="toc-inspektera-data" class="nav-link" data-scroll-target="#inspektera-data">Inspektera data</a></li>
   </ul></li>
   <li><a href="#gör-en-community-matrix" id="toc-gör-en-community-matrix" class="nav-link" data-scroll-target="#gör-en-community-matrix">Gör en community matrix</a></li>
-  <li><a href="#gör-en-nmds" id="toc-gör-en-nmds" class="nav-link" data-scroll-target="#gör-en-nmds">Gör en NMDS</a></li>
+  <li><a href="#gör-en-nmds" id="toc-gör-en-nmds" class="nav-link" data-scroll-target="#gör-en-nmds">Gör en NMDS</a>
+  <ul class="collapse">
+  <li><a href="#stress-värden" id="toc-stress-värden" class="nav-link" data-scroll-target="#stress-värden">Stress-värden</a></li>
+  </ul></li>
   <li><a href="#enkel-figur" id="toc-enkel-figur" class="nav-link" data-scroll-target="#enkel-figur">Enkel figur</a></li>
   <li><a href="#fullständig-figur" id="toc-fullständig-figur" class="nav-link" data-scroll-target="#fullständig-figur">Fullständig figur</a></li>
   <li><a href="#statistisk-analys---skiljer-sig-våra-habitat" id="toc-statistisk-analys---skiljer-sig-våra-habitat" class="nav-link" data-scroll-target="#statistisk-analys---skiljer-sig-våra-habitat">Statistisk analys - skiljer sig våra habitat?</a>
@@ -207,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Alla våra tidigare analyser har haft en responsvariabel, som vi ritat ut på y-axeln, och med vår prediktor på x-axeln har vi fått en graf i två dimensioner. Men hur gör vi om vi har ytterligare en responsvariabel? Kan vi ha ytterligare en axel? Ja, I princip kan vi det, om vi gör grafen i tre dimensioner (en 3D-graf). Men sedan blir det svårt, hur visualiserar man 4 dimensioner? Kan du föreställa dig det? Om vi har mätt abundans av 50 arter så får vi 50 axlar, det går inte ens att föreställa sig hur en sådan graf ser ut! Hur skall vi göra?</p>
 <p>Det är här den multivariata analysen kommer in. Alla dina datapunkter ligger i den multivarata rymden, som har lika många dimensioner som du har resppnsvariabler. Men ditt data ligger inte helt slumpmässigt i den här rymden. Om du exempelvis har mätt abundansen i replikerade kvadrater i en granskog och i en tallskog så kommer artsammansättningen i alla dina kvadrater i granskogen troligen påminna om varandra, och detsamma gäller i tallskogen. Det som den multivariata analysen gör är att den först söker efter den raka linjen genom din multivarata rymd som förklarar mest av variationen i ditt dataset, och det blir din första axel. Sedan letar den upp en linje som ligger vinkelrätt från din första axel och som förklarar mest av den kvarvarande variationen i din data. Det blir din andra axel. Nu har vi två axlar, vi kan göra en figur i två dimensioner.</p>
 <p>[Infoga förklarande bild!]</p>
-<p>Namnet på de två axlarna döps efter analysen. Om man gör en PCA heter de PC1 och PC2, gör man en NMDS heter de NMDS1 och NMDS2 osv. OM man gör en parametrisk analys (såsom PCA) kan man få reda på hur mycket variation som förklaras av varje ny axel eller deras eigenvärde, medan man för icke-parametriska analyser istället tittar på analysens stress-värde (se nedan) för att veta om ditt multivariata dataset går bra att visualisera i två dimensioner.</p>
+<p>Namnet på de två axlarna döps efter analysen. Om man gör en PCA heter de PC1 och PC2, gör man en NMDS heter de NMDS1 och NMDS2 osv. Om man gör en parametrisk analys (såsom PCA) kan man få reda på hur mycket variation som förklaras av varje ny axel eller deras eigenvärde, medan man för icke-parametriska analyser istället tittar på analysens stress-värde (se nedan) för att veta om ditt multivariata dataset går bra att visualisera i två dimensioner.</p>
 </section>
 <section id="olika-multivariata-analyser" class="level3">
 <h3 class="anchored" data-anchor-id="olika-multivariata-analyser">Olika multivariata analyser</h3>
@@ -395,13 +398,15 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.146319 
 Stress type 1, weak ties
-Best solution was repeated 3 times in 20 tries
-The best solution was from try 10 (random start)
+Best solution was repeated 5 times in 20 tries
+The best solution was from try 5 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></pre>
 </div>
 </div>
-<p>Vi ser raden <code>Stress:     0.146319</code> som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.</p>
+<section id="stress-värden" class="level3">
+<h3 class="anchored" data-anchor-id="stress-värden">Stress-värden</h3>
+<p>När man utvärderar en NMDS skall man fokusera på stress-värdet. Vi ser raden <code>Stress: 0.146319</code> som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 26%">
@@ -433,6 +438,7 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 </tbody>
 </table>
 <p>Vi har ett stress-värde på 0.146, så ordineringen är användbar men skall tolkas med viss försiktighet. Det skall noteras att ju större dataset man har, desto svårare är det att visualisera det i två dimensioner, så man skall inte förvänta sig väldigt låga stress-värden i sådana fall.</p>
+</section>
 </section>
 <section id="enkel-figur" class="level2">
 <h2 class="anchored" data-anchor-id="enkel-figur">Enkel figur</h2>
@@ -524,7 +530,7 @@ Species: expanded scores based on 'wisconsin(sqrt(community_matrix))' </code></p
 </div>
 </div>
 </div>
-<p>Ytterligare ett alternativ är att visualisera centroiderna (centerpunktion i varje habitat) samt knyta ihop varje punkt med sin centroid. Fördelen med det här är att det direkt korresponderar med de statistiska tesaten som vi kommer att gå igenom nedan, där vi testar om våra habitat skiljer sig åt.</p>
+<p>Ytterligare ett alternativ är att visualisera centroiderna (centerpunktion i varje habitat) samt knyta ihop varje punkt med sin centroid. Fördelen med det här är att det direkt korresponderar med de statistiska testen som vi kommer att gå igenom nedan, där vi testar om våra habitat skiljer sig åt.</p>
 <p>Först extraherar vi våra centroider från vår ordinering</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>centroids <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(nmds_umea<span class="sc">$</span>points, <span class="at">by =</span> <span class="fu">list</span>(habitats), <span class="at">FUN =</span> mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -718,9 +724,9 @@ Pine.forest-Spruce.forest  0.13195653 -0.06653327  0.33044633 0.2956771</code></
 ***VECTORS
 
              NMDS1    NMDS2     r2 Pr(&gt;r)    
-moisture  -0.35205 -0.93598 0.2785  0.002 ** 
-light     -0.33755  0.94131 0.0276  0.575    
-nutrients -0.99905 -0.04361 0.8377  0.001 ***
+moisture  -0.35206 -0.93598 0.2785  0.005 ** 
+light     -0.33754  0.94131 0.0276  0.578    
+nutrients -0.99905 -0.04360 0.8377  0.001 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Permutation: free
@@ -764,7 +770,7 @@ Number of permutations: 999</code></pre>
 </div>
 </div>
 </div>
-<p>Nu ser vi… Det kan verka förvånande att vektorn för moisture går bort från lokalerna vid bäcken, trots att de var fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn för nutrients har (r2 = 0.84).</p>
+<p>Nu ser vi… Det kan verka förvånande att vektorn för moisture går bort från lokalerna vid bäcken, trots att de också var ganska fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn nutrients har (r2 = 0.84).</p>
 
 
 </section>

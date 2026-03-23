@@ -16,7 +16,7 @@ Det är här den multivariata analysen kommer in. Alla dina datapunkter ligger i
 
 \[Infoga förklarande bild!\]
 
-Namnet på de två axlarna döps efter analysen. Om man gör en PCA heter de PC1 och PC2, gör man en NMDS heter de NMDS1 och NMDS2 osv. OM man gör en parametrisk analys (såsom PCA) kan man få reda på hur mycket variation som förklaras av varje ny axel eller deras eigenvärde, medan man för icke-parametriska analyser istället tittar på analysens stress-värde (se nedan) för att veta om ditt multivariata dataset går bra att visualisera i två dimensioner.
+Namnet på de två axlarna döps efter analysen. Om man gör en PCA heter de PC1 och PC2, gör man en NMDS heter de NMDS1 och NMDS2 osv. Om man gör en parametrisk analys (såsom PCA) kan man få reda på hur mycket variation som förklaras av varje ny axel eller deras eigenvärde, medan man för icke-parametriska analyser istället tittar på analysens stress-värde (se nedan) för att veta om ditt multivariata dataset går bra att visualisera i två dimensioner.
 
 ### Olika multivariata analyser
 
@@ -114,8 +114,9 @@ När vi är klara väljer vi att titta på lite information om vår NMDS-analys,
 
 nmds_umea
 ```
+### Stress-värden
 
-Vi ser raden `Stress:     0.146319` som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.
+När man utvärderar en NMDS skall man fokusera på stress-värdet. Vi ser raden `Stress: 0.146319` som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.
 
 | Stress-värde | Tolkning |
 |-------------------|-----------------------------------------------------|
@@ -212,7 +213,7 @@ legend("topleft",
        bty = "n")
 ```
 
-Ytterligare ett alternativ är att visualisera centroiderna (centerpunktion i varje habitat) samt knyta ihop varje punkt med sin centroid. Fördelen med det här är att det direkt korresponderar med de statistiska tesaten som vi kommer att gå igenom nedan, där vi testar om våra habitat skiljer sig åt.
+Ytterligare ett alternativ är att visualisera centroiderna (centerpunktion i varje habitat) samt knyta ihop varje punkt med sin centroid. Fördelen med det här är att det direkt korresponderar med de statistiska testen som vi kommer att gå igenom nedan, där vi testar om våra habitat skiljer sig åt.
 
 Först extraherar vi våra centroider från vår ordinering
 
@@ -424,4 +425,4 @@ plot(m.environment, # Den nya koden som lägger till miljövariabler
      cex = 1.2)
 ```
 
-Nu ser vi... Det kan verka förvånande att vektorn för moisture går bort från lokalerna vid bäcken, trots att de var fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn för nutrients har (r2 = 0.84). 
+Nu ser vi... Det kan verka förvånande att vektorn för moisture går bort från lokalerna vid bäcken, trots att de också var ganska fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn  nutrients har (r2 = 0.84). 
