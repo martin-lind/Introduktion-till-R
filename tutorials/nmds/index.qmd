@@ -24,7 +24,7 @@ Figuren nedan visar multivariat data i 3 dimensioner (tänk tre arter kallade X,
 
 3.  Lägg sedan till Axel 2 med motsvarande knapp, det är en axel som är vinkelrätt mot axel 1 och som förklarar näst mest variation.
 
-4.  Rotera figuren så att Axel 1 är vägrätt och Axel 2 är lodrätt. Det motsvarar din ordinering i 2 dimensioner!
+4.  Rotera figuren så att Axel 1 och Axel 2 ligger som ett platt kors mot dig (ungefär som om du hade lagt korset på ett golv och tittat på det rakt uppifrån). Det motsvarar din ordinering i 2 dimensioner!
 
 ```{r}
 #| echo: false
