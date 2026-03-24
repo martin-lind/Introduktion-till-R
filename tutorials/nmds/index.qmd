@@ -199,8 +199,7 @@ str(veg_umea_data)
 
 ## Gör en community matrix
 
-Vi fortsätter med att förbereda vårt dataset för en NMDS-analys. 
-Nästa steg är att konstruera en **community matrix**, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner (en matris som innehåller hela det biologiska *samhället* vi vill analysera). Som vi såg när vi körde `str()` så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.
+Vi fortsätter med att förbereda vårt dataset för en NMDS-analys. Nästa steg är att konstruera en **community matrix**, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner (en matris som innehåller hela det biologiska *samhället* vi vill analysera). Som vi såg när vi körde `str()` så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.
 
 För att välja ut kolumner ur ett dataset kan man använda operatorn `[]`. Vi vill börja med kolumn nummer 5, men vilken är den sista kolumnen? med funktionen `ncol()` kan vi ta reda på antalet kolumner i vårt dataset.
 
@@ -254,7 +253,7 @@ nmds_umea
 När man utvärderar en NMDS skall man fokusera på stress-värdet. Vi ser raden `Stress: 0.146319` som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.
 
 | Stress-värde | Tolkning |
-|----------------------|--------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | \< 0.05 | Din NMDS är en excellent representation av dina data |
 | \< 0.10 | En bra ordinering, mycket tolkningsbar |
 | \< 0.20 | En användbar ordinering, men detaljerna kan vara missvisande, tolka med försiktighet |
@@ -272,9 +271,10 @@ Vi börjar med en enkel figur av vår nmds-analys, utan några specificeringar.
 plot(nmds_umea)
 
 ```
-Vi får nu en graf i två dimensioner. De två axlarna är NMDS1 (axeln som förklarar mest variation i ditt dataset) och NMDS2 (den axeln som ligger vinkelrätt mot NMDS1 och som förklarar näst mest variation). Cirklarna visar positionen av dina provytor, och de röda kryssen visar positionen av dina arter. 
 
-Vi ser att cirklarna inte ligger på samma ställe, vilket betyder att våra provytor verkar ha någorlunda olika växtsamhällen. Likaså är kryssen ojämnt spridda, vilket tyder på att arterna inte är jämt fördelade mellan provytorna. 
+Vi får nu en graf i två dimensioner. De två axlarna är NMDS1 (axeln som förklarar mest variation i ditt dataset) och NMDS2 (den axeln som ligger vinkelrätt mot NMDS1 och som förklarar näst mest variation). Cirklarna visar positionen av dina provytor, och de röda kryssen visar positionen av dina arter.
+
+Vi ser att cirklarna inte ligger på samma ställe, vilket betyder att våra provytor verkar ha någorlunda olika växtsamhällen. Likaså är kryssen ojämnt spridda, vilket tyder på att arterna inte är jämt fördelade mellan provytorna.
 
 Men vi hade gjort våra provytor i fyra olika habitat (skogstyper), skiljer de sig från varandra? Det är svårt att se, eftersom vi inte vet vilka cirklar som representerar vilka habitat. Vi behöver därmed arbeta vidare med figuren!
 
@@ -291,6 +291,7 @@ habitats <- veg_umea_data[,1]
 
 habitats
 ```
+
 Xi ser alla våra fyra habitat listade.Vi vill även att de olika habitaten skall ha olika färg, så vi behöver skapa en ny variabel med färger. Vi börjar med att ange en palett, dvs vad varje habitat skall ha för färg. Välj gärna färger som på något sätt kan symbolisera dina kategorier.
 
 ```{r}
@@ -319,10 +320,15 @@ Efter det gör vi om habitat till en faktor (vilket krävs för senare steg) men
 habitats <- factor(habitats, levels = names(my_palette))
 ```
 
-Slutligen gör vi en plot! Vi gör den i flera steg. Först ritar vi vår ordineringsyta, men utan några data illustrerade i den (anges med `type = "n"`). 
-Sedan lägger vi till cirklar får provytor, och ger dem färgerna från vår `color_vector.`
-Efter det lägger vi till kryss för våra arter
-Slutligen lägger vi till en teckenförklaring. `"topleft"` betyder att vi lägger den längs upp till vänster. Andra val är exempelvis "`bottomleft"`, `"topright"` osv. Välj det som bäst passar dina data, så att den inte täcker några punkter i grafen.
+Slutligen gör vi en plot! Vi gör den i flera steg.
+
+1.  Först ritar vi vår ordineringsyta, men utan några data illustrerade i den (anges med `type = "n"`).
+
+2.  Sedan lägger vi till cirklar får provytor, och ger dem färgerna från vår `color_vector.`
+
+3.  Efter det lägger vi till kryss för våra arter
+
+4.  Slutligen lägger vi till en teckenförklaring. `"topleft"` betyder att vi lägger den längs upp till vänster. Andra val är exempelvis "`bottomleft"`, `"topright"` osv. Välj det som bäst passar dina data, så att den inte täcker några punkter i grafen.
 
 ```{r}
 #| code-fold: false
@@ -384,7 +390,7 @@ Sedan använder vi det i vår figur. Vi väljer även att lägga till linjer fr�
 
 ordiplot(nmds_umea, type = "n")
 
-points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
+points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1) # Provytor
 
 points(centroids[,2:3],# Centroider
        pch = 1,        # symbol, välj något annat än dina sites
@@ -397,9 +403,9 @@ ordispider(nmds_umea,           # Linjer från centroiden till dina provytor
            col = my_palette,
            lwd = 1)
 
-points(nmds_umea, "species", pch = 3, col = "black")
+points(nmds_umea, "species", pch = 3, col = "black") # Arter
 
-legend("topleft",
+legend("topleft",                      # Teckenförklaring
        legend = names(my_palette),
        col = my_palette,
        pch = 16,
@@ -422,7 +428,7 @@ orditorp(nmds_umea,display="species", # Arter med artnamn
          air=2 # Justera air för att undvika överlappande artnamn. 
          ) 
 
-legend("topleft",
+legend("topleft",                      # Teckenförklaring
        legend = names(my_palette),
        col = my_palette,
        pch = 16,
@@ -433,6 +439,10 @@ legend("topleft",
 `air` = specifiserar hur mycket luft det skall vara mellan artnamnen. Om man sätter den till `air = 0` så skrivs artnamn ovanpå varandra, vilket kan göra det hela oläsligt om man har många arter som följs åt. Testa olika värden på air tills du hittar ett som är lämpligt. Arter som inte skrivs ut visas med artsymbolen`+`.
 
 Jag tycker att det i många fall kan vara intressant att skriva ut artnamnen, för att se vilka arter är specifika för vilka samhällen. Notera dock att alla arter inte skrivs ut om man har högre värden på `air` än 0, så man kan inte se de arter som inte skrivs ut, de kan dockl vara lika viktiga som de som skrivs ut. Anledningen till att de inte skrivs ut är ju för att de ligger så nära de andra artnamnen att de skulle täcka dem!
+
+### Vad skall vara med på grafen?
+
+Vilket sätt att illustrera skall man välja? Det beror delvis hur ditt dataset ser ut, och hur rörig grafen blir. Ha alltid med cirklar för provytor, kryss för arter och en teckenförklaring om du har mer än en grupp av provytor (olika habitat, olika behandlingar eller jämförelser). Centroid är bra tt ha med om man även gör ett statistiskt test på om grupperna skiljer sig åt i artsammansättning, och ellipser \*eller \*linjer som binder ihop provytorna kan ge ökad förståelse om grafen inte blir för plottrig.
 
 ## Statistisk analys - skiljer sig våra habitat?
 
