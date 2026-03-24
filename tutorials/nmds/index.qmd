@@ -294,7 +294,7 @@ habitats <- veg_umea_data[,1]
 habitats
 ```
 
-Xi ser alla våra fyra habitat listade.Vi vill även att de olika habitaten skall ha olika färg, så vi behöver skapa en ny variabel med färger. Vi börjar med att ange en palett, dvs vad varje habitat skall ha för färg. Välj gärna färger som på något sätt kan symbolisera dina kategorier.
+Vi ser alla våra fyra habitat listade.Vi vill även att de olika habitaten skall ha olika färg, så vi behöver skapa en ny variabel med färger. Vi börjar med att ange en palett, dvs vad varje habitat skall ha för färg. Välj gärna färger som på något sätt kan symbolisera dina kategorier.
 
 ```{r}
 #| code-fold: false
@@ -452,7 +452,7 @@ Vi ser i vår ordineringsgraf att det ser ut som om våra habitat skiljer sig å
 
 Vi använder oss av en teknik som kallas **PERMANOVA**. Det är en multivartiat ANOVA (dvs en **M**ANOVA), som använder sig av permutationer (därav namnet **PER**MANOVA). Permutationer är ett icke-parametriskt typ av test - datat blandas om ett stort antal gånger och varje gång görs ett statistiskt test. Om dina fakltiska fördelning av data är mer extrem än vad det blir om man slumpmässigt omfördelar dina data mellan dina grupper kan vi dra slutsatsen att resultatet inte beror på slumpen.
 
-Nollhypotesen i en PERMSANOVA är att dina grupper inte skiljer sig i centroidernas placering och/eller i datans utspridning (dispersion).
+Nollhypotesen i en PERMANOVA är att dina grupper inte skiljer sig i centroidernas placering och/eller i datans utspridning (dispersion).
 
 ```{r}
 #| code-fold: false
