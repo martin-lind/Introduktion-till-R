@@ -2,11 +2,11 @@
 title: "Ordinering med NMDS"
 ---
 
-\[Introduktion till ordineringsmetoder\]
+Vi har tidigare alltid haft en responsvariebal i varje analys, det kan vara växtens höjd, antal ungar hos bofinken eller pH värdet i sjöarna. Man kallar sådana modeller för **univariata**, då de enbart har en beroende variabel (responsvariabel) per analys. Men ibland kanske man är intresserad av många responsvariabler? Säg att du har tittat på förekomsten av alla växtarter i två olika miljöer, och har hittat ett sjuttiotal arter. Du kan testa art för art om den skiljer sig i abundans mellan de två olika miljöerna, men det blir väldigt många univariata test. Kan man inte istället titta på om **växtsamhället** i helhet skiljer sig mellan de två olika miljöerna?
 
-Vi har tidigare alltid haft en responsvariebal i varje analys, det kan vara växtens höjd, antal ungar hos bofinken eller pH värdet i sjöarna. Men ibland kanske man är intresserad av många responsvariabler? Säg att du har tittat på förekomsten av alla växtarter i två olika miljöer, och har hittat ett sjuttiotal arter. Du kan testa art för art om den skiljer sig i abundans mellan de två olika miljöerna, men det blir väldigt många test. Kan man inte istället titta på om **växtsamhället** i helhet skiljer sig mellan de två olika miljöerna?
+Det är sådana här frågor som **multivariata metoder** är användbara för, Multivarata netoder har fler än en beoroende variabel (reponsvariabel), där alla responsvariabler analyseras tillsammanans i samma analys.
 
-Det är sådana här frågor som *multivariata metoder* är användbara för, och den vanligaste typen av multivariata metoder som ekologer använder sig av är **ordinering**. De används i genetiken där man kan mäta genuttryck av tiotusentals gener och vill veta om genuttrycket skiljer sig åt mellan behandlingar, men även när man har mätt tiotals morfologiska egenskaper hos individer och vill se om de skiljer sig åt i form. Det vi skall fokusera på här är dock när det används inom analys av biodiversitetsdata. Det kan vara arter du observerat vid inventeringar, men ett nytt forskningsfält som också använder likanande metoder är analys av mikrobiomdata samt metabarcoding-studier med eDNA.
+Den vanligaste typen av multivariata metoder som ekologer använder sig av är **ordinering**. Metoden används i genetiken där man kan mäta genuttryck av tiotusentals gener och vill veta om genuttrycket skiljer sig åt mellan behandlingar, men även när man har mätt tiotals morfologiska egenskaper hos individer och vill se om de skiljer sig åt i form. Det vi skall fokusera på här är dock hur ordinering används inom analys av biodiversitetsdata. Det kan vara vilka arter du observerat vid inventeringar, men ett nytt forskningsfält som också använder liknande metoder är analys av mikrobiomdata samt metabarcoding-studier med eDNA.
 
 ### Den multivariata ordinerings-analysen
 
@@ -16,11 +16,11 @@ Det är här ordineringen kommer in. Alla dina datapunkter ligger i den multivar
 
 ### Illustration av en ordinering
 
-Figuren nedan visar multivariat data i 3 dimensioner (tänk tre arter kallade x, y och Z).
+Figuren nedan visar multivariat data i 3 dimensioner (tänk tre arter kallade X, Y och Z), där varje prick motsvarar en kvadrat med ett visst antal individer av arterna X, Y och Z.
 
-1.  Grafen går att rotera, rotera den tills du ser dimensionen med mest variation, det borde bli din första axel
+1.  Grafen går att rotera med musen. Rotera den tills du ser dimensionen med mest variation, det borde bli din första axel.
 
-2.  Tryck sedan på "Lägg till Axel 1" - det är den första axeln av din ordinering, som föjklarar mest variation
+2.  Tryck sedan på "Lägg till Axel 1" - det är den första axeln av din ordinering, som förklarar mest variation
 
 3.  Lägg sedan till Axel 2 med motsvarande knapp, det är en axel som är vinkelrätt mot axel 1 och som förklarar näst mest variation.
 
@@ -150,11 +150,11 @@ fig <- fig %>%
 fig
 ```
 
-Namnet på de två axlarna döps efter analysen. Om man gör en PCA heter de PC1 och PC2, gör man en NMDS heter de NMDS1 och NMDS2 osv. Om man gör en parametrisk analys (såsom PCA) kan man få reda på hur mycket variation som förklaras av varje ny axel eller deras eigenvärde, medan man för icke-parametriska analyser istället tittar på analysens stress-värde (se nedan) för att veta om ditt multivariata dataset går bra att visualisera i två dimensioner.
+Namnet på de två axlarna döps beroende på vilken typ av ordinering du gjort (se nedan). Om man gör en PCA heter de PC1 och PC2, gör man en NMDS heter de NMDS1 och NMDS2 osv. Om man gör en parametrisk analys (såsom PCA) kan man få reda på hur mycket variation som förklaras av varje ny axel eller deras eigenvärde, medan man för icke-parametriska analyser istället tittar på analysens stress-värde (se nedan) för att veta om ditt multivariata dataset går bra att visualisera i två dimensioner.
 
 ### Olika multivariata analyser
 
-Nedan går vi igenom de vanligaste multivariata analysmetoderna. Val av metod beror framför allt på om man har väldigt många nollor i sitt dataset (vilket är vanligt om man inventerat arter).
+Nedan går vi igenom de vanligaste multivariata analysmetoderna. Val av metod beror framför allt på om man har väldigt många nollor i sitt dataset (vilket är vanligt om man inventerat arter, man får nollor om arter saknas i vissa provytor).
 
 | Analys | Datatyp | Känslighet för icke-normalfördelning | Beskrivning | Användning |
 |---------------|---------------|---------------|---------------|---------------|
@@ -162,11 +162,11 @@ Nedan går vi igenom de vanligaste multivariata analysmetoderna. Val av metod be
 | CCA | Linjära data | Mindre känslig | Ej kontinuerliga data, många nollvärden, men **data måste vara i frekvenser** (antal individer/täckningsgrad) | Biodiversitetsanalyser, korrelation med miljövariabler |
 | NMDS | Icke-linjära data | Okänslig | Ej kontinuerliga data, många nollvärden och avvikande data eller **data som inte är frekvenser (till exempel närvaro/frånvaro av art)** | Biodiversitetsanalyser, korrelation med miljövariabler |
 
-Som du ser är PCA den analysen som kräver mest av datat (normalfördelat och kontinuerligt) medan NMDS som är en icke-parametrisk metod kan hantera alla möjliga datatyper, inklusive data som visar på närvaro och frånvaro, men inte exakt antal individer/täckningsgrad. Eftersom metoden är robust och klarar alla typer av data från inventeringar kommer vi att först titta på den metoden.
+Som du ser är PCA den analysen som kräver mest av datat (normalfördelat och kontinuerligt) medan NMDS som är en icke-parametrisk metod kan hantera alla möjliga datatyper, inklusive data som visar på närvaro och frånvaro (skrivs som 1 och 0 i datasetet), men inte exakt antal individer/täckningsgrad. Eftersom metoden är robust och klarar alla typer av data från inventeringar kommer vi att först att lära oss den metoden.
 
 ## NMDS - Non-Metric Multidimensional Scaling
 
-Som hörs av medodens namn, är NMDS icke-metrisk, det vill säga att avståndet mellan arterna inte är linjärt. Till exempel kan vi tänka oss närvaro och frånvaro av en art. OM en art saknas så finns den inte, men betyder närvaro av blåbär i en ruta att det är lika många blåbär i alla rutor där vi noterat närvaro? Nä, det kan vara allt ifrån en liten buske till en ruta som är helt täckt av blåbär.
+Som hörs av medodens namn, är NMDS icke-metrisk, det vill säga att avståndet mellan arterna inte är linjärt. Till exempel kan vi tänka oss närvaro och frånvaro av en art. Om en art saknas så finns den inte, men betyder närvaro av blåbär i en ruta att det är lika många blåbär i alla rutor där vi noterat närvaro? Nä, det kan vara allt ifrån en liten buske till en ruta som är helt täckt av blåbär.
 
 ## Läs in data
 
@@ -199,14 +199,7 @@ str(veg_umea_data)
 
 ## Gör en community matrix
 
-Vi fortsätter med att förbereda vårt dataset för en NMDS-analys. För att göra det börjar vi med att läsa in paketet `vegan`.
-
-```{r}
-#| code-fold: false
-
-library(vegan)
-```
-
+Vi fortsätter med att förbereda vårt dataset för en NMDS-analys. 
 Nästa steg är att konstruera en **community matrix**, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner (en matris som innehåller hela det biologiska *samhället* vi vill analysera). Som vi såg när vi körde `str()` så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.
 
 För att välja ut kolumner ur ett dataset kan man använda operatorn `[]`. Vi vill börja med kolumn nummer 5, men vilken är den sista kolumnen? med funktionen `ncol()` kan vi ta reda på antalet kolumner i vårt dataset.
@@ -227,7 +220,15 @@ community_matrix <- veg_umea_data[,5:59]
 
 ## Gör en NMDS
 
-Nu har vi en community matrix, och vi är redo att göra en ordinering! Vi använder oss av funktionen `metaMDS()` där vi anger vår community matrix, hur distanserna skall beräknas (det lämpligaste för artförekomst är Bray-Curtis, vilket kallas `"bray"`) och slutligen antalet dimensioner vi vill visualisera (normalt sett använder vi oss av 2 dimensioner, anges med `k = 2`)
+Nu har vi en community matrix, och vi är redo att göra en ordinering! För att göra det börjar vi med att läsa in paketet `vegan`. Om du inte har installerat det sidan tidigare kör du först koden `install.packages("vegan")` innan du läser in paketet.
+
+```{r}
+#| code-fold: false
+
+library(vegan)
+```
+
+Vi använder oss av funktionen `metaMDS()` där vi anger vår community matrix, hur distanserna skall beräknas (det lämpligaste för artförekomst är Bray-Curtis, vilket kallas `"bray"`) och slutligen antalet dimensioner vi vill visualisera (normalt sett använder vi oss av 2 dimensioner, anges med `k = 2`)
 
 ```{r}
 #| code-fold: false
@@ -253,7 +254,7 @@ nmds_umea
 När man utvärderar en NMDS skall man fokusera på stress-värdet. Vi ser raden `Stress: 0.146319` som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.
 
 | Stress-värde | Tolkning |
-|---------------------|---------------------------------------------------|
+|----------------------|--------------------------------------------------|
 | \< 0.05 | Din NMDS är en excellent representation av dina data |
 | \< 0.10 | En bra ordinering, mycket tolkningsbar |
 | \< 0.20 | En användbar ordinering, men detaljerna kan vara missvisande, tolka med försiktighet |
@@ -271,10 +272,15 @@ Vi börjar med en enkel figur av vår nmds-analys, utan några specificeringar.
 plot(nmds_umea)
 
 ```
+Vi får nu en graf i två dimensioner. De två axlarna är NMDS1 (axeln som förklarar mest variation i ditt dataset) och NMDS2 (den axeln som ligger vinkelrätt mot NMDS1 och som förklarar näst mest variation). Cirklarna visar positionen av dina provytor, och de röda kryssen visar positionen av dina arter. 
+
+Vi ser att cirklarna inte ligger på samma ställe, vilket betyder att våra provytor verkar ha någorlunda olika växtsamhällen. Likaså är kryssen ojämnt spridda, vilket tyder på att arterna inte är jämt fördelade mellan provytorna. 
+
+Men vi hade gjort våra provytor i fyra olika habitat (skogstyper), skiljer de sig från varandra? Det är svårt att se, eftersom vi inte vet vilka cirklar som representerar vilka habitat. Vi behöver därmed arbeta vidare med figuren!
 
 ## Fullständig figur
 
-Vi väljer att rita ut
+Vi väljer att rita ut våra fyra olika habitat i olika färg, om då cirklarna som representerar ett visst habitat ligger nära varandra, silkt från cirkalr som representerar ett annat habitat, kan vi tolka det som att habitaten skiljer sig åt i växtsamhälle.
 
 Först behöver vi skapa en vektor som associerar varje provruta (site) med en vegetationstyp (dvs en nivå ur variabeln `habitat`). Våra habitat låg i den första kolumnen i vårt dataset `veg_umea_data`, vi väljer ut den kolumnen med operatorn `[]` och sparar i en ny vektor som vi kallar `habitats`.
 
@@ -285,16 +291,19 @@ habitats <- veg_umea_data[,1]
 
 habitats
 ```
-
-Vi vill även att de olika habitaten skall ha olika färg, så vi behöver skapa en ny variabel med färger. Vi börjar med att ange en palett, dvs vad varje habitat skall ha för färg. Välj gärna färger som på något sätt kan symbolisera dina kategorier.
+Xi ser alla våra fyra habitat listade.Vi vill även att de olika habitaten skall ha olika färg, så vi behöver skapa en ny variabel med färger. Vi börjar med att ange en palett, dvs vad varje habitat skall ha för färg. Välj gärna färger som på något sätt kan symbolisera dina kategorier.
 
 ```{r}
 #| code-fold: false
 
-my_palette <- c("Meadow" = "green", "Stream" = "blue", "Spruce.forest" = "darkgreen", "Pine.forest" = "brown")
+my_palette <- c("Meadow" = "green", 
+                "Stream" = "blue", 
+                "Spruce.forest" = "darkgreen", 
+                "Pine.forest" = "brown"
+                )
 ```
 
-Sedan skapar vi färg-vektorn med funktionen `match()`.
+Sedan skapar vi färg-vektorn `color_vector` med funktionen `match()`.
 
 ```{r}
 #| code-fold: false
@@ -310,53 +319,65 @@ Efter det gör vi om habitat till en faktor (vilket krävs för senare steg) men
 habitats <- factor(habitats, levels = names(my_palette))
 ```
 
-Slutligen gör vi en plot!
+Slutligen gör vi en plot! Vi gör den i flera steg. Först ritar vi vår ordineringsyta, men utan några data illustrerade i den (anges med `type = "n"`). 
+Sedan lägger vi till cirklar får provytor, och ger dem färgerna från vår `color_vector.`
+Efter det lägger vi till kryss för våra arter
+Slutligen lägger vi till en teckenförklaring. `"topleft"` betyder att vi lägger den längs upp till vänster. Andra val är exempelvis "`bottomleft"`, `"topright"` osv. Välj det som bäst passar dina data, så att den inte täcker några punkter i grafen.
 
 ```{r}
 #| code-fold: false
 
-ordiplot(nmds_umea, type="n")
-points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
-points(nmds_umea,"species", pch=3,col="black")
-legend("topleft",legend = names(my_palette),col = my_palette, pch = 16,title = "Habitats",bty = "n") 
+ordiplot(nmds_umea, type="n") # En tom plot (anges med type = "n")
+
+points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1) # Provytor
+
+points(nmds_umea,"species", pch=3,col="black") # Arter
+
+legend("topleft",                    # Teckenförklaring
+       legend = names(my_palette),
+       col = my_palette,
+       pch = 16,
+       title = "Habitats",
+       bty = "n") 
 
 ```
 
-Vi kan även välja att göra ellipser runt våra habitat
+Vi kan även välja att göra ellipser runt våra habitat, anges med `ordiellipse()`
 
 ```{r}
 #| code-fold: false
 
 ordiplot(nmds_umea, type = "n")
 
-points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
-points(nmds_umea, "species", pch = 3, col = "black")
+points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1) # Provytor
 
-ordiellipse(nmds_umea,
+points(nmds_umea, "species", pch = 3, col = "black") # Arter
+
+ordiellipse(nmds_umea,                # Ellipser
             groups = habitats,
             col = my_palette,
-            kind = "sd",      # or "se"
+            kind = "sd",      # eller "se"
             lwd = 2,
             label = FALSE)
 
-legend("topleft",
+legend("topleft",                    # Teckenförklaring
        legend = names(my_palette),
        col = my_palette,
        pch = 16,
        title = "Habitats",
-       bty = "n")
+       bty = "n") 
 ```
 
 Ytterligare ett alternativ är att visualisera centroiderna (centerpunktion i varje habitat) samt knyta ihop varje punkt med sin centroid. Fördelen med det här är att det direkt korresponderar med de statistiska testen som vi kommer att gå igenom nedan, där vi testar om våra habitat skiljer sig åt.
 
-Först extraherar vi våra centroider från vår ordinering
+Först extraherar vi våra centroider från vår ordinering och sparar dem i vektorn `centroids`
 
 ```{r}
 #| code-fold: false
 centroids <- aggregate(nmds_umea$points, by = list(habitats), FUN = mean)
 ```
 
-Sedan använder vi det i vår figur
+Sedan använder vi det i vår figur. Vi väljer även att lägga till linjer från våra centroider till våra provytor, med hjälp av funktionen `ordispider()`
 
 ```{r}
 #| code-fold: false
@@ -365,13 +386,13 @@ ordiplot(nmds_umea, type = "n")
 
 points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
 
-points(centroids[,2:3],
+points(centroids[,2:3],# Centroider
        pch = 1,        # symbol, välj något annat än dina sites
        cex = 2,
        lwd = 2,
        col = my_palette[centroids$Group.1])
 
-ordispider(nmds_umea,
+ordispider(nmds_umea,           # Linjer från centroiden till dina provytor
            groups = habitats,
            col = my_palette,
            lwd = 1)
@@ -391,9 +412,16 @@ Vi kan som en alternativ figur välja att skriva ut vissa av artnamnen. Det gör
 ```{r}
 #| code-fold: false
 
-ordiplot(nmds_umea, type="n")
-points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
-orditorp(nmds_umea,display="species", pch=3,col="black",air=2)
+ordiplot(nmds_umea, type="n") # En tom plot (anges med type = "n")
+
+points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1) # Provytor
+
+orditorp(nmds_umea,display="species", # Arter med artnamn
+         pch=3,
+         col="black",
+         air=2 # Justera air för att undvika överlappande artnamn. 
+         ) 
+
 legend("topleft",
        legend = names(my_palette),
        col = my_palette,
@@ -408,7 +436,7 @@ Jag tycker att det i många fall kan vara intressant att skriva ut artnamnen, f�
 
 ## Statistisk analys - skiljer sig våra habitat?
 
-Vi ser
+Vi ser i vår ordineringsgraf att det ser ut som om våra habitat skiljer sig åt i artsammansättning. Men kan vi testa det statistiskt? Ja, det skall vi titta på nu!
 
 Vi använder oss av en teknik som kallas **PERMANOVA**. Det är en multivartiat ANOVA (dvs en **M**ANOVA), som använder sig av permutationer (därav namnet **PER**MANOVA). Permutationer är ett icke-parametriskt typ av test - datat blandas om ett stort antal gånger och varje gång görs ett statistiskt test. Om dina fakltiska fördelning av data är mer extrem än vad det blir om man slumpmässigt omfördelar dina data mellan dina grupper kan vi dra slutsatsen att resultatet inte beror på slumpen.
 
@@ -537,6 +565,7 @@ Låt oss lägga till miljövariablerna i vår figur, och enbart rita ut de signi
 ordiplot(nmds_umea, type = "n")
 
 points(nmds_umea, "sites", col = color_vector, pch = 16, cex = 1)
+
 points(nmds_umea, "species", pch = 3, col = "black")
 
 ordiellipse(nmds_umea,
@@ -560,4 +589,4 @@ plot(m.environment, # Den nya koden som lägger till miljövariabler
      cex = 1.2)
 ```
 
-Nu ser vi... Det kan verka förvånande att vektorn för moisture går bort från lokalerna vid bäcken, trots att de också var ganska fuktiga, men även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn nutrients har (r2 = 0.84).
+Nu ser vi hur våra miljövariabler är associerade med vår ordinering. SOm förväntat är miljöerna vid ängen och bäcken mer näringsrika. Det kan verka förvånande att vektorn för moisture går bort från lokalerna vid bäcken, trots att de också var ganska fuktiga, men även granskogen var fuktig och ängen var en fuktäng. Även om moisture var signifikant så hade den en myckel lägre förklaringsgrad (r2 = 0.28) än vad miljövektorn nutrients har (r2 = 0.84).
