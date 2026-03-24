@@ -33,6 +33,6 @@ title: "Tutorials"
 
 ### Biodiversitets-analyser
 
-\[Innehåll planeras i framtiden\]
+-   [Ordinering med NMDS](nmds/)
 
--   [Ordinering med NMDS](nmds/) [under utveckling]
+\[Ytterligare innehåll planeras i framtiden\]
