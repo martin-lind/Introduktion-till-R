@@ -4,7 +4,7 @@ title: "Ordinering med NMDS"
 
 Vi har tidigare alltid haft en responsvariebal i varje analys, det kan vara växtens höjd, antal ungar hos bofinken eller pH värdet i sjöarna. Man kallar sådana modeller för **univariata**, då de enbart har en beroende variabel (responsvariabel) per analys. Men ibland kanske man är intresserad av många responsvariabler? Säg att du har tittat på förekomsten av alla växtarter i två olika miljöer, och har hittat ett sjuttiotal arter. Du kan testa art för art om den skiljer sig i abundans mellan de två olika miljöerna, men det blir väldigt många univariata test. Kan man inte istället titta på om **växtsamhället** i helhet skiljer sig mellan de två olika miljöerna?
 
-Det är sådana här frågor som **multivariata metoder** är användbara för, Multivarata netoder har fler än en beoroende variabel (reponsvariabel), där alla responsvariabler analyseras tillsammanans i samma analys.
+Det är sådana här frågor som **multivariata metoder** är användbara för, Multivarata metoder har fler än en beoroende variabel (reponsvariabel), där alla responsvariabler analyseras tillsammanans i samma analys.
 
 Den vanligaste typen av multivariata metoder som ekologer använder sig av är **ordinering**. Metoden används i genetiken där man kan mäta genuttryck av tiotusentals gener och vill veta om genuttrycket skiljer sig åt mellan behandlingar, men även när man har mätt tiotals morfologiska egenskaper hos individer och vill se om de skiljer sig åt i form. Det vi skall fokusera på här är dock hur ordinering används inom analys av biodiversitetsdata. Det kan vara vilka arter du observerat vid inventeringar, men ett nytt forskningsfält som också använder liknande metoder är analys av mikrobiomdata samt metabarcoding-studier med eDNA.
 
