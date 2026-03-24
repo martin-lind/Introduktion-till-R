@@ -197,6 +197,8 @@ Börja med att titta på datans struktur med `str()`.
 str(veg_umea_data)
 ```
 
+Som du ser är datasetet uppbyggt med en kolumn för varje art, medan varje rad motsvarar en provyta. Om du kör koden `head(veg_umea_data)` så ser du att datasetet är fullt av nollor, det betyder att den arten saknas i den provytan. Det är utmärkande för biodiversitetsdata att de flesta arter saknas från de flesta provytor (det är ovanliga arter som bara dyker upp i någon eller några provytor), medan enbart de mycket vanliga arterna förekommer i många provytor. Det är anledningen till att biodiversitetsdata kräver analyser som kan hantera många nollvärden (såsom NMDS).
+
 ## Gör en community matrix
 
 Vi fortsätter med att förbereda vårt dataset för en NMDS-analys. Nästa steg är att konstruera en **community matrix**, dvs en matris som innehåller alla kolumner med arter, men inga andra kolumner (en matris som innehåller hela det biologiska *samhället* vi vill analysera). Som vi såg när vi körde `str()` så var de fyra första variablerna namn på behandlingarna eller miljövariabler, det är först i kolumn 5 som den första arten dyker upp. Vi vill alltså skapa ett nytt dataset, som börjar med kolumn 5 och fortsätter till den sista kolumnen.
