@@ -16,13 +16,10 @@ Det finns många sätt att läsa in en fil, det beror dels på om du använder R
 
 Nedan kommer vi gå igen följande metoder:
 
-+-----------------------------+-----------------------------------------------------------------------------------------------+
-| Metod                       | Beskrivning                                                                                   |
-+=============================+===============================================================================================+
+| Metod | Beskrivning |
+|----|----|
 | [Relativ sökväg till filen] | Du anger först vilken mapp din fil ligger i (din Working Directory) och sedan vad filen heter |
-+-----------------------------+-----------------------------------------------------------------------------------------------+
-| [Absolut sökväg till filen] | Du anger exakt var filen ligger på din hårddisk och vad den heter                             |
-+-----------------------------+-----------------------------------------------------------------------------------------------+
+| [Absolut sökväg till filen] | Du anger exakt var filen ligger på din hårddisk och vad den heter |
 
 Vilken metod man använder är en smaksak, båda metoderna är vanliga och man bör känna till båda.
 

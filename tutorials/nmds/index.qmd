@@ -12,7 +12,7 @@ Den vanligaste typen av multivariata metoder som ekologer använder sig av är *
 
 Alla våra tidigare analyser har haft en responsvariabel, som vi ritat ut på y-axeln, och med vår prediktor på x-axeln har vi fått en graf i två dimensioner. Men hur gör vi om vi har ytterligare en responsvariabel? Kan vi ha ytterligare en axel? Ja, I princip kan vi det, om vi gör grafen i tre dimensioner (en 3D-graf). Men sedan blir det svårt, hur visualiserar man 4 dimensioner? Kan du föreställa dig det? Om vi har mätt abundans av 50 arter så får vi 50 axlar, det går inte ens att föreställa sig hur en sådan graf ser ut! Hur skall vi göra?
 
-Det är här ordineringen kommer in. Alla dina datapunkter ligger i den multivarata rymden, som har lika många dimensioner som du har responsvariabler. Men ditt data ligger inte helt slumpmässigt i den här rymden. Om du exempelvis har tittat på förekomst av arter i replikerade kvadrater i en granskog och i en tallskog så kommer artsammansättningen i alla dina kvadrater i granskogen troligen påminna om varandra, och detsamma gäller i tallskogen. Det som den multivariata analysen gör är att den försöker reducera ditt multivariata data så att det kan illustreras i två dimensioner. Först söker efter den raka linjen genom din multivarata rymd som förklarar mest av variationen i ditt dataset, och det blir din första axel. Sedan letar den upp en linje som ligger vinkelrätt från din första axel och som förklarar mest av den kvarvarande variationen i din data. Det blir din andra axel. Nu har vi två axlar, vi kan göra en figur i två dimensioner. Notera att de här axlarna inte motsvarar några av de axlarna (dimensionerna ) du stoppade in i din analys, utan de motsvarar kombinationer av dina originalaxlar.  
+Det är här ordineringen kommer in. Alla dina datapunkter ligger i den multivarata rymden, som har lika många dimensioner som du har responsvariabler. Men ditt data ligger inte helt slumpmässigt i den här rymden. Om du exempelvis har tittat på förekomst av arter i replikerade kvadrater i en granskog och i en tallskog så kommer artsammansättningen i alla dina kvadrater i granskogen troligen påminna om varandra, och detsamma gäller i tallskogen. Det som den multivariata analysen gör är att den försöker reducera ditt multivariata data så att det kan illustreras i två dimensioner. Först söker efter den raka linjen genom din multivarata rymd som förklarar mest av variationen i ditt dataset, och det blir din första axel. Sedan letar den upp en linje som ligger vinkelrätt från din första axel och som förklarar mest av den kvarvarande variationen i din data. Det blir din andra axel. Nu har vi två axlar, vi kan göra en figur i två dimensioner. Notera att de här axlarna inte motsvarar några av de axlarna (dimensionerna ) du stoppade in i din analys, utan de motsvarar kombinationer av dina originalaxlar.
 
 ### Illustration av en ordinering
 
@@ -154,7 +154,7 @@ Namnet på de två axlarna döps beroende på vilken typ av ordinering du gjort 
 
 ### Olika multivariata analyser
 
-Nedan går vi igenom de vanligaste multivariata analysmetoderna. Val av metod beror framför allt på om man har väldigt många nollor i sitt dataset (vilket är vanligt om man inventerat arter, man får nollor om arter saknas i vissa provytor).
+Nedan går vi igenom de vanligaste multivariata analysmetoderna. Val av metod beror framför allt på om datat är normalfördelat, vilket ofta avgörs av huruvida man har väldigt många nollor i sitt dataset (vilket är vanligt om man inventerat arter, man får nollor om arter saknas i vissa provytor). För mer information om fördelningar, se vår tidigare tutorials om [transformeringar](https://martin-lind.github.io/Introduktion-till-R/tutorials/transformations/) och [icke-parametriska test.](https://martin-lind.github.io/Introduktion-till-R/tutorials/non-parametric/)
 
 | Analys | Datatyp | Känslighet för icke-normalfördelning | Beskrivning | Användning |
 |---------------|---------------|---------------|---------------|---------------|
@@ -255,7 +255,7 @@ nmds_umea
 När man utvärderar en NMDS skall man fokusera på stress-värdet. Vi ser raden `Stress: 0.146319` som visar hur väl din community matrix kan representeras i de antal dimensionerna du valt (i de flesta fall 2 dimensioner). Följande tabell ger en indikation av hur du skall tolka ditt stress-värde.
 
 | Stress-värde | Tolkning |
-|-----------------------|-------------------------------------------------|
+|-----------------------|------------------------------------------------|
 | \< 0.05 | Din NMDS är en excellent representation av dina data |
 | \< 0.10 | En bra ordinering, mycket tolkningsbar |
 | \< 0.20 | En användbar ordinering, men detaljerna kan vara missvisande, tolka med försiktighet |
