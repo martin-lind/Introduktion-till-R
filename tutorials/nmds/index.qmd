@@ -154,7 +154,7 @@ Namnet på de två axlarna döps beroende på vilken typ av ordinering du gjort 
 
 ### Olika multivariata analyser
 
-Nedan går vi igenom de vanligaste multivariata analysmetoderna. Val av metod beror framför allt på om datat är normalfördelat, vilket ofta avgörs av huruvida man har väldigt många nollor i sitt dataset (vilket är vanligt om man inventerat arter, man får nollor om arter saknas i vissa provytor). För mer information om fördelningar, se vår tidigare tutorials om [transformeringar](https://martin-lind.github.io/Introduktion-till-R/tutorials/transformations/) och [icke-parametriska test.](https://martin-lind.github.io/Introduktion-till-R/tutorials/non-parametric/)
+Nedan går vi igenom de vanligaste multivariata analysmetoderna. Val av metod beror framför allt på om datat är normalfördelat, vilket ofta avgörs av huruvida man har väldigt många nollor i sitt dataset (vilket är vanligt om man inventerat arter, man får nollor om arter saknas i vissa provytor). För mer generell information om fördelningar, se vår tidigare tutorials om [transformeringar](https://martin-lind.github.io/Introduktion-till-R/tutorials/transformations/) och [icke-parametriska test.](https://martin-lind.github.io/Introduktion-till-R/tutorials/non-parametric/)
 
 | Analys | Datatyp | Känslighet för icke-normalfördelning | Beskrivning | Användning |
 |---------------|---------------|---------------|---------------|---------------|
@@ -282,7 +282,7 @@ Men vi hade gjort våra provytor i fyra olika habitat (skogstyper), skiljer de s
 
 ## Fullständig figur
 
-Vi väljer att rita ut våra fyra olika habitat i olika färg, om då cirklarna som representerar ett visst habitat ligger nära varandra, silkt från cirkalr som representerar ett annat habitat, kan vi tolka det som att habitaten skiljer sig åt i växtsamhälle.
+Vi väljer att rita ut våra fyra olika habitat i olika färg, om då cirklarna som representerar ett visst habitat ligger nära varandra, skilt från cirklar som representerar ett annat habitat, kan vi tolka det som att habitaten skiljer sig åt i växtsamhälle.
 
 Först behöver vi skapa en vektor som associerar varje provruta (site) med en vegetationstyp (dvs en nivå ur variabeln `habitat`). Våra habitat låg i den första kolumnen i vårt dataset `veg_umea_data`, vi väljer ut den kolumnen med operatorn `[]` och sparar i en ny vektor som vi kallar `habitats`.
 

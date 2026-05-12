@@ -16,10 +16,13 @@ Det finns många sätt att läsa in en fil, det beror dels på om du använder R
 
 Nedan kommer vi gå igen följande metoder:
 
-| Metod | Beskrivning |
-|----|----|
++-----------------------------+-----------------------------------------------------------------------------------------------+
+| Metod                       | Beskrivning                                                                                   |
++=============================+===============================================================================================+
 | [Relativ sökväg till filen] | Du anger först vilken mapp din fil ligger i (din Working Directory) och sedan vad filen heter |
-| [Absolut sökväg till filen] | Du anger exakt var filen ligger på din hårddisk och vad den heter |
++-----------------------------+-----------------------------------------------------------------------------------------------+
+| [Absolut sökväg till filen] | Du anger exakt var filen ligger på din hårddisk och vad den heter                             |
++-----------------------------+-----------------------------------------------------------------------------------------------+
 
 Vilken metod man använder är en smaksak, båda metoderna är vanliga och man bör känna till båda.
 
@@ -51,11 +54,13 @@ Ett enkelt sätt att ändra din Working Directory är att använda dig av menyer
 
 Använd menyerna för att välja mappen där du sparat filen `testdata_v2.txt` som din nya Working Directory!
 
-I **R** kan du välja Working Directory genom att klicka följande i menyerna:
+I **R** kan du välja Working Directory genom att klicka följande i menyerna (om du använder Mac):
 
 ![](images/R-setwd.png){width="600"}
 
-I **RStudio** finns motsvarande menyval
+Använder du **R för Windows** går du in i menyn ***File*** och väljer ***Change dir***.
+
+**RStudio** finns motsvarande menyval
 
 ![](images/RStudio-setwd.png){width="600"}
 
