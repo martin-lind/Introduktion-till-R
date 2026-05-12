@@ -54,13 +54,15 @@ Ett enkelt sätt att ändra din Working Directory är att använda dig av menyer
 
 Använd menyerna för att välja mappen där du sparat filen `testdata_v2.txt` som din nya Working Directory!
 
-I **R** kan du välja Working Directory genom att klicka följande i menyerna (om du använder Mac):
+I **R** kan du välja Working Directory genom att klicka ***File -\> Change dir...*** i menyerna (om du använder **Windows**):
+
+![](images/R_windows_setwd.jpg){fig-align="left"}
+
+Använder du **Mac** (OSX) ser det ut på följande sätt:
 
 ![](images/R-setwd.png){width="600"}
 
-Använder du **R för Windows** går du in i menyn ***File*** och väljer ***Change dir***.
-
-**RStudio** finns motsvarande menyval
+**RStudio** finns motsvarande menyval:
 
 ![](images/RStudio-setwd.png){width="600"}
 
