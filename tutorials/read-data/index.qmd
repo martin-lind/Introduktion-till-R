@@ -54,7 +54,7 @@ Ett enkelt sätt att ändra din Working Directory är att använda dig av menyer
 
 Använd menyerna för att välja mappen där du sparat filen `testdata_v2.txt` som din nya Working Directory!
 
-I **R** kan du välja Working Directory genom att klicka ***File -\> Change dir...*** i menyerna (om du använder **Windows**):
+I **R** kan du välja Working Directory genom att klicka ***File -\> Change dir...*** i menyerna (om du använder **Windows**). Om du inte får upp menyvalet kan du först behöva klicka någonstans i din ***Console*** och sedan försöka på nytt.
 
 ![](images/R_windows_setwd.jpg){fig-align="left"}
 
