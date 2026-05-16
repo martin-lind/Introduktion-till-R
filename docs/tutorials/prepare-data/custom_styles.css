@@ -1,0 +1,9 @@
+.gridtable table {
+  border-collapse: collapse;
+}
+
+.gridtable th,
+.gridtable td {
+  border: 1px solid black;
+  padding: 4px;
+}

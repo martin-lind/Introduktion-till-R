@@ -1,5 +1,6 @@
 ---
 title: "Förbered data för R"
+css: custom_styles.css
 ---
 
 För att kunna analysera data måste vi ställa upp våra data på ett sätt som R accepterar. Vi skriver alltid in våra data i ett kalkylblad (exemperlvis Excel, Libreoffice, Numbers eller liknande) varefter vi exporterar vårt dataset till R.
@@ -22,6 +23,7 @@ R förväntar sig att ditt data är i **långt format** (*long format*, kallas i
 
 Nedan följer ett exempel på hur du skall lägga upp ett dataset, om du har mätt vikten på ett antal talgoxar och blåmesar
 
+::: gridtable
 |         |      |
 |---------|------|
 | Art     | Vikt |
@@ -31,17 +33,20 @@ Nedan följer ett exempel på hur du skall lägga upp ett dataset, om du har mä
 | Blames  | 9.9  |
 | Blames  | 11,7 |
 | Blames  | 10,5 |
+:::
 
 Som du ser är varje kolumn en separat variabel, den först är Art och den andra är Vikt. Likaså representerar varje rad en individ.
 
 Du skall **INTE** lägga upp data på följande sätt:
 
+::: gridtable
 |                  |                 |
 |------------------|-----------------|
 | ~~Talgoxe.vikt~~ | ~~Blames.vikt~~ |
 | ~~15,4~~         | ~~9.9~~         |
 | ~~16,9~~         | ~~11,7~~        |
 | ~~15,0~~         | ~~10,5~~        |
+:::
 
 I det här felaktiga exemplet ser du att variabeln Vikt är uppdelad på två kolumner. Likaså representerar inte varje rad en individ, utan det är två individer per rad.
 
@@ -51,6 +56,7 @@ Du har ofta identifierat dina replikat på något sätt, det kan vara i olika ak
 
 I exemplet nedan har vi räknat antal växtarter i kvadrater, som antingen finns på ängar där det bedrivs bete eller slåtter som skötselåtgärd.
 
+::: gridtable
 |     |               |          |
 |-----|---------------|----------|
 | ID  | Skotselatgard | Artantal |
@@ -58,6 +64,7 @@ I exemplet nedan har vi räknat antal växtarter i kvadrater, som antingen finns
 | B2  | Bete          | 55       |
 | S1  | Slatter       | 76       |
 | S2  | Slatter       | 50       |
+:::
 
 Notera att en unik kvadrat måste ha ett unikt ID. Vi kan inte kalla en kvadrat \`1\` i såväl betesmarken som slåtterängen, för då vet vi inte vilken av kvadraterna som ID \`1\` representerar. En enkel lösning är att ha med behandlingens namn som en del av det unika ID. I exemplet ovan så kallar vi den första kvadraten i betesmarken för B1 och den första kvadraten på slåtterängen S1.
 
@@ -67,15 +74,17 @@ Det är vanligt att vi mäter eller räknar flera saker på samma prov, då läg
 
 Vi kanske även har mätt längd hos fåglarna i exemplet ovan. Då lägger vi till en kolumn för längd.
 
-|        |         |      |       |
-|--------|---------|------|-------|
-| ID     | Art     | Vikt | Langd |
-| 124577 | Talgoxe | 15,4 | 13.0  |
-| 154386 | Talgoxe | 16,9 | 14.7  |
-| 214522 | Talgoxe | 15,0 | 13.1  |
-| 190084 | Blames  | 9.9  | 10.5  |
-| 141687 | Blames  | 11,7 | 12.1  |
-| 127750 | Blames  | 10,5 | 11.6  |
+::: gridtable
+|               |         |      |       |
+|---------------|---------|------|-------|
+| ID_ringnummer | Art     | Vikt | Langd |
+| 124577        | Talgoxe | 15,4 | 13.0  |
+| 154386        | Talgoxe | 16,9 | 14.7  |
+| 214522        | Talgoxe | 15,0 | 13.1  |
+| 190084        | Blames  | 9.9  | 10.5  |
+| 141687        | Blames  | 11,7 | 12.1  |
+| 127750        | Blames  | 10,5 | 11.6  |
+:::
 
 ### Flera mätningar av samma sak på samma prov över tid?
 
@@ -83,6 +92,7 @@ Om du mäter samma prov flera gånger, exempelvis över tid, skall du ha en vari
 
 I exemplet nedan har vi mätt höjden på två växter varje vecka.
 
+::: gridtable
 |         |       |      |
 |---------|-------|------|
 | ID      | Vecka | Hojd |
@@ -92,20 +102,23 @@ I exemplet nedan har vi mätt höjden på två växter varje vecka.
 | Kruka_2 | 2     | 9    |
 | Kruka_1 | 3     | 27   |
 | Kruka_2 | 3     | 19   |
+:::
 
 ### Saknas mätvärden?
 
 Om du inte har alla värden är det viktigt att ange det. Till exempel kanske en av dina talgoxar flög iväg innan du hann mäta dess längd. Vad har den för längd då? Du skall inte skriva 0, för det betyder att du vet längden, och att den är 0 cm. Men du vet ju inte längden. Då fyller du istället i `NA`, vilket betyder *Not Available*, dvs att data saknas. R kan sedan tolka det som att data saknas.
 
-|        |         |      |       |
-|--------|---------|------|-------|
-| ID     | Art     | Vikt | Langd |
-| 124577 | Talgoxe | 15,4 | 13.0  |
-| 154386 | Talgoxe | 16,9 | NA    |
-| 214522 | Talgoxe | 15,0 | 13.1  |
-| 190084 | Blames  | 9.9  | 10.5  |
-| 141687 | Blames  | 11,7 | 12.1  |
-| 127750 | Blames  | 10,5 | 11.6  |
+::: gridtable
+|               |         |      |       |
+|---------------|---------|------|-------|
+| ID_ringnummer | Art     | Vikt | Langd |
+| 124577        | Talgoxe | 15,4 | 13.0  |
+| 154386        | Talgoxe | 16,9 | NA    |
+| 214522        | Talgoxe | 15,0 | 13.1  |
+| 190084        | Blames  | 9.9  | 10.5  |
+| 141687        | Blames  | 11,7 | 12.1  |
+| 127750        | Blames  | 10,5 | 11.6  |
+:::
 
 ## Exporera data från ditt kalkylprogram
 
