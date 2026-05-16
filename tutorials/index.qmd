@@ -9,6 +9,9 @@ title: "Tutorials"
 -   [Installera R](install-R/)
 -   [Använda R, en introduktion](use-R)
 -   [Installera paket](R-packages)
+
+### Grundläggande databehandling
+-   [Förbered dataset för R](prepare-data/) [Under utveckling]
 -   [Läsa in data i R](read-data/)
 
 ### Statistiska test - grundläggande
