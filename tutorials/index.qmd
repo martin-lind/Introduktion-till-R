@@ -11,7 +11,7 @@ title: "Tutorials"
 -   [Installera paket](R-packages)
 
 ### Grundläggande databehandling
--   [Förbered dataset för R](prepare-data/) [Under utveckling]
+-   [Förbered dataset för R](prepare-data/)
 -   [Läsa in data i R](read-data/)
 
 ### Statistiska test - grundläggande
