@@ -9,7 +9,7 @@ För att kunna analysera data måste vi ställa upp våra data på ett sätt som
 
 **Undvik mellanslag.** Vi vill inte använda oss av mellanslag i våra celler, då R tolkar mellanslag som att det är separata variablar. `Totalt Kol` är därmed ett dåligt namn, medan `Totalt_Kol` är ett bra namn.
 
-**Undvik specialtecken.** Specialtecken kan ställa till det för R, eller för andra personer som skall analysera datasetet och inte har dina specialtecknen på sitt tangentbord. Från ett svenskt perspektiv innebär det att undvika Å, Ä och Ö. `Längd` är ett dåligt namn, medan `Langd` är ett bra namn. Eller använd alltid engelska, eftersom det är standardspråket inom vetenskap (dvs skriv `Length`)
+**Undvik specialtecken.** Specialtecken kan ställa till det för R, eller för andra personer som skall analysera datasetet och inte har dina specialtecknen på sitt tangentbord. Från ett svenskt perspektiv innebär det att undvika Å, Ä och Ö. `Längd` är ett problematiskt namn, medan `Langd` är ett bra namn. Eller använd alltid engelska, eftersom det är standardspråket inom vetenskap (dvs skriv `Length`)
 
 **Undvik väldigt långa namn.** När du gör statistik behöver du skriva in namnet på dina variablar i din kod. För att få en översiktlig kod och undvika att skriva fel är det en fördelen om namnen är korta, men ändå förklarar tydligt vad de beskriver. `Kroppslang_i_mm_fran_nabbspets_till_mittersta_stjartpennans_slut` är ett alldeles för långt namn, medan `Kroppslangd` är ett kort och bra namn. Beskrivningen av hur kroppslängd mätts är nödvändigt att skriva upp i din metodik, men behövs inte i ditt namn på variabeln.
 
@@ -78,12 +78,12 @@ Vi kanske även har mätt längd hos fåglarna i exemplet ovan. Då lägger vi t
 |               |         |      |       |
 |---------------|---------|------|-------|
 | ID_ringnummer | Art     | Vikt | Langd |
-| 124577        | Talgoxe | 15,4 | 13.0  |
-| 154386        | Talgoxe | 16,9 | 14.7  |
-| 214522        | Talgoxe | 15,0 | 13.1  |
-| 190084        | Blames  | 9.9  | 10.5  |
-| 141687        | Blames  | 11,7 | 12.1  |
-| 127750        | Blames  | 10,5 | 11.6  |
+| 124577        | Talgoxe | 15,4 | 13,0  |
+| 154386        | Talgoxe | 16,9 | 14,7  |
+| 214522        | Talgoxe | 15,0 | 13,1  |
+| 190084        | Blames  | 9.9  | 10,5  |
+| 141687        | Blames  | 11,7 | 12,1  |
+| 127750        | Blames  | 10,5 | 11,6  |
 :::
 
 ### Flera mätningar av samma sak på samma prov över tid?
@@ -112,21 +112,21 @@ Om du inte har alla värden är det viktigt att ange det. Till exempel kanske en
 |               |         |      |       |
 |---------------|---------|------|-------|
 | ID_ringnummer | Art     | Vikt | Langd |
-| 124577        | Talgoxe | 15,4 | 13.0  |
+| 124577        | Talgoxe | 15,4 | 13,0  |
 | 154386        | Talgoxe | 16,9 | NA    |
-| 214522        | Talgoxe | 15,0 | 13.1  |
-| 190084        | Blames  | 9.9  | 10.5  |
-| 141687        | Blames  | 11,7 | 12.1  |
-| 127750        | Blames  | 10,5 | 11.6  |
+| 214522        | Talgoxe | 15,0 | 13,1  |
+| 190084        | Blames  | 9.9  | 10,5  |
+| 141687        | Blames  | 11,7 | 12,1  |
+| 127750        | Blames  | 10,5 | 11,6  |
 :::
 
 ## Exporera data från ditt kalkylprogram
 
 När data är infört i ditt kalkylprogram måste du exportera det till ett format R kan läsa, till exempel till en `*.txt` -fil. För att det skall lyckas behöver du göra följande:
 
-### Kalkylbladet skall enbart innehålla ditt data
+### Kalkylbladet skall enbart innehålla ditt dataset
 
-Se till att din data börjar i cellen A1 och att det inte finns några blankrader eller något annat (grafer, beräkningar av medelvärden eller liknande) i ditt kalkylblad. Är du osäker kan kopiera ditt data och klistra in det i ett nytt tomt kalkylblad innan export
+Se till att din dataset börjar i cellen A1 (det är rubriken för din första kolumn) och att det inte finns några blankrader eller något annat (grafer, beräkningar av medelvärden eller liknande) i ditt kalkylblad. Är du osäker kan kopiera ditt data och klistra in det i ett nytt tomt kalkylblad innan export
 
 ### Välj exportformat
 
