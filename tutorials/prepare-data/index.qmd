@@ -11,7 +11,7 @@ För att kunna analysera data måste vi ställa upp våra data på ett sätt som
 
 **Undvik specialtecken.** Specialtecken kan ställa till det för R, eller för andra personer som skall analysera datasetet och inte har dina specialtecknen på sitt tangentbord. Från ett svenskt perspektiv innebär det att undvika Å, Ä och Ö. `Längd` är ett problematiskt namn, medan `Langd` är ett bra namn. Eller använd alltid engelska, eftersom det är standardspråket inom vetenskap (dvs skriv `Length`)
 
-**Undvik väldigt långa namn.** När du gör statistik behöver du skriva in namnet på dina variablar i din kod. För att få en översiktlig kod och undvika att skriva fel är det en fördelen om namnen är korta, men ändå förklarar tydligt vad de beskriver. `Kroppslang_i_mm_fran_nabbspets_till_mittersta_stjartpennans_slut` är ett alldeles för långt namn, medan `Kroppslangd` är ett kort och bra namn. Beskrivningen av hur kroppslängd mätts är nödvändigt att skriva upp i din metodik, men behövs inte i ditt namn på variabeln.
+**Undvik väldigt långa namn.** När du gör statistik behöver du skriva in namnet på dina variablar i din kod. För att få en översiktlig kod och undvika att skriva fel är det en fördelen om namnen är korta, men ändå förklarar tydligt vad de beskriver. `Kroppslangd_i_mm_fran_nabbspets_till_mittersta_stjartpennans_slut` är ett alldeles för långt namn, medan `Kroppslangd` är ett kort och bra namn. Beskrivningen av hur kroppslängd mätts är nödvändigt att skriva upp i din metodik, men behövs inte i ditt namn på variabeln.
 
 ## Långt format
 
