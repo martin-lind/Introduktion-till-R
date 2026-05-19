@@ -3,7 +3,7 @@ title: "Förbered data för R"
 css: custom_styles.css
 ---
 
-För att kunna analysera data måste vi ställa upp våra data på ett sätt som R accepterar. Vi skriver alltid in våra data i ett kalkylblad (exemperlvis Excel, Libreoffice, Numbers eller liknande) varefter vi exporterar vårt dataset till R.
+För att kunna analysera data måste vi ställa upp våra data på ett sätt som R accepterar. Vi skriver alltid in våra data i ett kalkylblad (exempelvis Excel, Libreoffice, Numbers eller liknande) varefter vi exporterar vårt dataset till R.
 
 ## Namngivning
 
@@ -30,7 +30,7 @@ Nedan följer ett exempel på hur du skall lägga upp ett dataset, om du har mä
 | Talgoxe | 15,4 |
 | Talgoxe | 16,9 |
 | Talgoxe | 15,0 |
-| Blames  | 9.9  |
+| Blames  | 9,9  |
 | Blames  | 11,7 |
 | Blames  | 10,5 |
 :::
@@ -43,7 +43,7 @@ Du skall **INTE** lägga upp data på följande sätt:
 |                  |                 |
 |------------------|-----------------|
 | ~~Talgoxe.vikt~~ | ~~Blames.vikt~~ |
-| ~~15,4~~         | ~~9.9~~         |
+| ~~15,4~~         | ~~9,9~~         |
 | ~~16,9~~         | ~~11,7~~        |
 | ~~15,0~~         | ~~10,5~~        |
 :::
@@ -81,7 +81,7 @@ Vi kanske även har mätt längd hos fåglarna i exemplet ovan. Då lägger vi t
 | 124577        | Talgoxe | 15,4 | 13,0  |
 | 154386        | Talgoxe | 16,9 | 14,7  |
 | 214522        | Talgoxe | 15,0 | 13,1  |
-| 190084        | Blames  | 9.9  | 10,5  |
+| 190084        | Blames  | 9,9  | 10,5  |
 | 141687        | Blames  | 11,7 | 12,1  |
 | 127750        | Blames  | 10,5 | 11,6  |
 :::
@@ -115,7 +115,7 @@ Om du inte har alla värden är det viktigt att ange det. Till exempel kanske en
 | 124577        | Talgoxe | 15,4 | 13,0  |
 | 154386        | Talgoxe | 16,9 | NA    |
 | 214522        | Talgoxe | 15,0 | 13,1  |
-| 190084        | Blames  | 9.9  | 10,5  |
+| 190084        | Blames  | 9,9  | 10,5  |
 | 141687        | Blames  | 11,7 | 12,1  |
 | 127750        | Blames  | 10,5 | 11,6  |
 :::
