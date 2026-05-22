@@ -249,7 +249,7 @@
     "href": "tutorials/t-test/index.html",
     "title": "t-test",
     "section": "",
-    "text": "Ett t-test (kallas även Student´s t-test) används när man är intresserad om huruvida två grupper av en faktor skiljer sig åt i medelvärde. Om man har fler än två grupper, eller har flera faktorer, använder man sig istället av Anova, vilket vi kommer använda oss av senare under kursen.\nEtt t-test förutsätter följande"
+    "text": "Ett t-test (kallas även Student´s t-test) är en grupp av tester, där det vanligaste är oberoende t-test (independent samples t-test), vilket används när man är intresserad om huruvida två grupper av en faktor skiljer sig åt i medelvärde. Det är det testet vi fokuserar på här. Om man har fler än två grupper, eller har flera faktorer, använder man sig istället av Anova, vilket vi kommer använda oss av senare under kursen.\nEtt t-test förutsätter följande"
   },
   {
     "objectID": "tutorials/t-test/index.html#läs-in-data",
