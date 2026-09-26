@@ -17,9 +17,9 @@ För att kunna analysera data måste vi ställa upp våra data på ett sätt som
 
 R förväntar sig att ditt data är i **långt format** (*long format*, kallas ibland *tidy format*). Formatet utmärks av följande:
 
--   Varje kolumn är en variabel (något som grupperar ditt dataset eller något som du mätt)
+- Varje kolumn är en variabel (något som grupperar ditt dataset eller något som du mätt)
 
--   Varje rad är ett prov (något som du mätt din responsvariabel i/på)
+- Varje rad är ett prov (något som du mätt din responsvariabel i/på)
 
 Nedan följer ett exempel på hur du skall lägga upp ett dataset, om du har mätt vikten på ett antal talgoxar och blåmesar
 

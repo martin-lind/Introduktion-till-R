@@ -6,8 +6,8 @@ Ett **t-test** (kallas även *Student´s t-test*) är en grupp av tester, där d
 
 **Ett t-test förutsätter följande**
 
--   att datat är normalfördelat
--   att varianserna är homogena
+- att datat är normalfördelat
+- att varianserna är homogena
 
 ## Läs in data
 

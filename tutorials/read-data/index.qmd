@@ -16,13 +16,10 @@ Det finns många sätt att läsa in en fil, det beror dels på om du använder R
 
 Nedan kommer vi gå igen följande metoder:
 
-+-----------------------------+-----------------------------------------------------------------------------------------------+
-| Metod                       | Beskrivning                                                                                   |
-+=============================+===============================================================================================+
+| Metod | Beskrivning |
+|----|----|
 | [Relativ sökväg till filen] | Du anger först vilken mapp din fil ligger i (din Working Directory) och sedan vad filen heter |
-+-----------------------------+-----------------------------------------------------------------------------------------------+
-| [Absolut sökväg till filen] | Du anger exakt var filen ligger på din hårddisk och vad den heter                             |
-+-----------------------------+-----------------------------------------------------------------------------------------------+
+| [Absolut sökväg till filen] | Du anger exakt var filen ligger på din hårddisk och vad den heter |
 
 Vilken metod man använder är en smaksak, båda metoderna är vanliga och man bör känna till båda.
 
@@ -149,11 +146,11 @@ Ett alternativ är att ange den absoluta sökvägen till filen, dvs exakt var de
 
 **Fördel**
 
--   Ger en absolut sökväg (du hittar alltid vilken fil du arbetar med)
+- Ger en absolut sökväg (du hittar alltid vilken fil du arbetar med)
 
 **Nackdel**
 
--   Om du arbetar med många olika filer som alla ligger i samma mapp kan det vara smidigast med relativ sökväg
+- Om du arbetar med många olika filer som alla ligger i samma mapp kan det vara smidigast med relativ sökväg
 
 ### Ta reda på den absoluta sökvägen till din fil med data
 
@@ -269,15 +266,15 @@ De flesta som samlar in biologiska data skriver in sina värden i Excel, och exp
 
 **Fördelar med att direkt läsa in excelfiler**
 
--   Du har bara en enda fil med data, det är ingen risk att du lägger in nya data i Excel men glömmer att exportera det som txt eller csv-fil
+- Du har bara en enda fil med data, det är ingen risk att du lägger in nya data i Excel men glömmer att exportera det som txt eller csv-fil
 
 **Nackdelar med att direkt läsa in excelfiler**
 
--   Excel har ett propriärt format, det är inte säkert att dina filer kan läsas i framtiden, därmed bättre att spara dina data i ett öppet format som txt eller csv
+- Excel har ett propriärt format, det är inte säkert att dina filer kan läsas i framtiden, därmed bättre att spara dina data i ett öppet format som txt eller csv
 
--   Det är bra att separera sina excelfiler (där pågående datainsamling skrivs in) från ditt färdiga data (din txt eller csv-fil) som inte skall manipuleras
+- Det är bra att separera sina excelfiler (där pågående datainsamling skrivs in) från ditt färdiga data (din txt eller csv-fil) som inte skall manipuleras
 
--   Excelbladet du läser in måste vara helt rent, dvs du får inte ha några celler med annan information än data (exempelvis inga grafer, blanka kolumner eller liknande).
+- Excelbladet du läser in måste vara helt rent, dvs du får inte ha några celler med annan information än data (exempelvis inga grafer, blanka kolumner eller liknande).
 
 Ladda ner filen [testdata_excel.xlsx](data/testdata_excel.xlsx) och spara den någonstans på din hårddisk.
 
