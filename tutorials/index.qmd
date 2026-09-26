@@ -6,25 +6,26 @@ title: "Tutorials"
 
 ### Att installera och arbeta i R
 
--   [Installera R](install-R/)
--   [Använda R, en introduktion](use-R)
--   [Installera paket](R-packages)
+- [Installera R](install-R/)
+- [Använda R, en introduktion](use-R) /// [English version](use-R_eng/)
+- [Installera paket](R-packages)
 
 ### Grundläggande databehandling
--   [Förbered dataset för R](prepare-data/)
--   [Läsa in data i R](read-data/)
+
+- [Förbered dataset för R](prepare-data/)
+- [Läsa in data i R](read-data/) /// [English version](read-data_eng/)
 
 ### Statistiska test - grundläggande
 
--   [t-test](t-test/) - jämföra medelvärden mellan två grupper
--   [Linjär regression](linear-regression/) - orsakssamband mellan två kontinuerliga variablar
--   [Korrelation](correlation/) - samband mellan två kontinuerliga variablar
--   [Envägs ANOVA](anova/) - jämföra medelvärden mellan fler än två grupper
--   [$\chi$ ^2^ test (Chi-2)](chi2/) - skiljer sig frekvenser åt mellan grupper i en korstabell
--   [Transformeringar](transformations/) - gör om skeva fördelningar till normalfördelning
--   [Icke-parametriska tester](non-parametric) - om data har omöjliga fördelningar
--   [Faktoriell (tvåvägs) ANOVA](factorial-anova/) - hur två kategoriska faktorer påverkar din respons
--   [Ancova](ancova) - skiljer sig två regressionslinjer åt i lutning och läge
+- [t-test](t-test/) - jämföra medelvärden mellan två grupper
+- [Linjär regression](linear-regression/) - orsakssamband mellan två kontinuerliga variablar [English version](linear-regression_eng/)
+- [Korrelation](correlation/) - samband mellan två kontinuerliga variablar
+- [Envägs ANOVA](anova/) - jämföra medelvärden mellan fler än två grupper
+- [$\chi$ ^2^ test (Chi-2)](chi2/) - skiljer sig frekvenser åt mellan grupper i en korstabell
+- [Transformeringar](transformations/) - gör om skeva fördelningar till normalfördelning
+- [Icke-parametriska tester](non-parametric) - om data har omöjliga fördelningar
+- [Faktoriell (tvåvägs) ANOVA](factorial-anova/) - hur två kategoriska faktorer påverkar din respons
+- [Ancova](ancova) - skiljer sig två regressionslinjer åt i lutning och läge
 
 ### Manipulering av dataset
 
@@ -36,6 +37,6 @@ title: "Tutorials"
 
 ### Biodiversitets-analyser
 
--   [Ordinering med NMDS](nmds/)
+- [Ordinering med NMDS](nmds/) /// [English version](nmds_eng/)
 
 \[Ytterligare innehåll planeras i framtiden\]

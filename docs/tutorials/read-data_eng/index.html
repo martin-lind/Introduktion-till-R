@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Reading Data into R – Introduktion till R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Introduktion till R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Hem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutorials/index.html"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">Om hemsidan</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#which-way-should-a-file-be-read-in" id="toc-which-way-should-a-file-be-read-in" class="nav-link active" data-scroll-target="#which-way-should-a-file-be-read-in">Which way should a file be read in?</a></li>
+  <li><a href="#relative-path-to-the-file" id="toc-relative-path-to-the-file" class="nav-link" data-scroll-target="#relative-path-to-the-file">Relative path to the file</a>
+  <ul class="collapse">
+  <li><a href="#where-am-i" id="toc-where-am-i" class="nav-link" data-scroll-target="#where-am-i">Where am I?</a></li>
+  <li><a href="#change-your-working-directory" id="toc-change-your-working-directory" class="nav-link" data-scroll-target="#change-your-working-directory">Change your Working Directory</a></li>
+  <li><a href="#read-in-the-file" id="toc-read-in-the-file" class="nav-link" data-scroll-target="#read-in-the-file">Read in the file</a></li>
+  </ul></li>
+  <li><a href="#inspect-your-data" id="toc-inspect-your-data" class="nav-link" data-scroll-target="#inspect-your-data">Inspect your data</a></li>
+  <li><a href="#absolute-path-to-the-file" id="toc-absolute-path-to-the-file" class="nav-link" data-scroll-target="#absolute-path-to-the-file">Absolute path to the file</a>
+  <ul class="collapse">
+  <li><a href="#find-out-the-absolute-path-to-your-data-file" id="toc-find-out-the-absolute-path-to-your-data-file" class="nav-link" data-scroll-target="#find-out-the-absolute-path-to-your-data-file">Find out the absolute path to your data file</a></li>
+  <li><a href="#path-via-file.choose" id="toc-path-via-file.choose" class="nav-link" data-scroll-target="#path-via-file.choose">Path via <code>file.choose()</code></a></li>
+  <li><a href="#read-in-the-file-in-r" id="toc-read-in-the-file-in-r" class="nav-link" data-scroll-target="#read-in-the-file-in-r">Read in the file in R</a></li>
+  <li><a href="#path-via-your-file-manager-terminal" id="toc-path-via-your-file-manager-terminal" class="nav-link" data-scroll-target="#path-via-your-file-manager-terminal">Path via your file manager + terminal</a></li>
+  </ul></li>
+  <li><a href="#data-formats" id="toc-data-formats" class="nav-link" data-scroll-target="#data-formats">Data formats</a></li>
+  <li><a href="#reading-in-a-csv-file" id="toc-reading-in-a-csv-file" class="nav-link" data-scroll-target="#reading-in-a-csv-file">Reading in a csv file</a>
+  <ul class="collapse">
+  <li><a href="#read-in-the-file-1" id="toc-read-in-the-file-1" class="nav-link" data-scroll-target="#read-in-the-file-1">Read in the file</a></li>
+  </ul></li>
+  <li><a href="#reading-in-an-excel-file" id="toc-reading-in-an-excel-file" class="nav-link" data-scroll-target="#reading-in-an-excel-file">Reading in an Excel file</a>
+  <ul class="collapse">
+  <li><a href="#reading-in-the-excel-file" id="toc-reading-in-the-excel-file" class="nav-link" data-scroll-target="#reading-in-the-excel-file">Reading in the Excel file</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Reading Data into R</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The first step, before doing a statistical analysis, is always to read the data into R.</p>
+<p>We will go through the following:</p>
+<ol type="1">
+<li><p>How to read data files into R</p></li>
+<li><p>An overview of common file types that R can read, described in the section on <a href="#data-formats">Data formats</a></p></li>
+</ol>
+<section id="which-way-should-a-file-be-read-in" class="level2">
+<h2 class="anchored" data-anchor-id="which-way-should-a-file-be-read-in">Which way should a file be read in?</h2>
+<p>There are many ways to read in a file — it partly depends on whether you use R or RStudio, but also on whether you want to document the file’s name and location (recommended for reproducibility). Finally, the choice may depend on whether you are using an R project or not.</p>
+<p>Below we will go through the following methods:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#relative-path-to-the-file">Relative path to the file</a></td>
+<td>You first specify which folder your file is in (your Working Directory) and then the file’s name</td>
+</tr>
+<tr class="even">
+<td><a href="#absolute-path-to-the-file">Absolute path to the file</a></td>
+<td>You specify exactly where the file is located on your hard drive and its name</td>
+</tr>
+</tbody>
+</table>
+<p>Which method you use is a matter of taste — both methods are common, and you should be familiar with both.</p>
+</section>
+<section id="relative-path-to-the-file" class="level2">
+<h2 class="anchored" data-anchor-id="relative-path-to-the-file">Relative path to the file</h2>
+<p>A relative path means that you first specify which folder the file is in, and then the file’s name.</p>
+<p>Download the following file <a href="data/testdata_v2.txt">testdata_v2.txt</a> (right-click, choose “Save link as”) and save the file on your hard drive in a folder with a suitable name.</p>
+<p>The next step is to tell R where on your hard drive you have saved the file, i.e.&nbsp;what the path is to the folder the file is in. Then you can tell R which file in that folder to read.</p>
+<section id="where-am-i" class="level3">
+<h3 class="anchored" data-anchor-id="where-am-i">Where am I?</h3>
+<p>The location you are currently in is your Working Directory, and you can decide for yourself what your Working Directory is. You probably have all the files belonging to a certain project in one folder on your hard drive, so it would make sense to set that folder as your Working Directory.</p>
+<p>You can see where your Working Directory currently is with the function <code>getwd()</code></p>
+<p>Try checking where your Working Directory is</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/martin.lind/git_projects/Introduktion-till-R/tutorials/read-data_eng"</code></pre>
+</div>
+</div>
+</section>
+<section id="change-your-working-directory" class="level3">
+<h3 class="anchored" data-anchor-id="change-your-working-directory">Change your Working Directory</h3>
+<p>A simple way to change your Working Directory is to use the menus.</p>
+<p>Use the menus to select the folder where you saved the file <code>testdata_v2.txt</code> as your new Working Directory!</p>
+<p>In <strong>R</strong> you can choose the Working Directory by clicking <strong><em>File -&gt; Change dir…</em></strong> in the menus (if you are using <strong>Windows</strong>). If the menu option doesn’t appear, you may first need to click somewhere in your <strong><em>Console</em></strong> and then try again.</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/R_windows_setwd.jpg" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
+</figure>
+</div>
+<p>If you’re using <strong>Mac</strong> (OSX) it looks like this:</p>
+<p><img src="images/R-setwd.png" class="img-fluid" width="600"></p>
+<p><strong>RStudio</strong> has a corresponding menu option:</p>
+<p><img src="images/RStudio-setwd.png" class="img-fluid" width="600"></p>
+<p>Now you have set your Working Directory so that it is the folder containing the files you want to work with!</p>
+<p>However, it’s good practice to document your Working Directory in your script, so you don’t need to set it manually in the menus the next time you work with the same data. It also helps you remember where the files are located.</p>
+<p><strong>After you have set the correct Working Directory in the menus, do the following:</strong></p>
+<ol type="1">
+<li>Find out the absolute path to your Working Directory with <code>getwd()</code>. Select and copy the path.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/martin.lind/git_projects/Introduktion-till-R/tutorials/read-data_eng"</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Type (or paste) the absolute path into your script, inside the function <code>setwd()</code></li>
+</ol>
+<p><code>setwd("/Users/martin/git_projects/Introduktion-till-R")</code></p>
+<p>The next time you open R and your script, it’s enough to run the line with <code>setwd()</code> where you’ve just filled in the path to your Working Directory, and you’ll land directly in your folder and be able to read in your files!</p>
+</section>
+<section id="read-in-the-file" class="level3">
+<h3 class="anchored" data-anchor-id="read-in-the-file">Read in the file</h3>
+<p>Now your Working Directory is the same folder that the file <code>testdata.txt</code> is in.</p>
+<p>We will read in the file with the function <code>read.table()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>testdata <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"testdata_v2.txt"</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">header=</span>T,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dec=</span><span class="st">","</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>&lt;-</code> means that we save the result of the function (here <code>read.table()</code>) in an object. Since it’s our data, the object is a <strong>dataframe</strong>. The arrow <code>&lt;-</code> points to the object, and we give it a suitable name, in this case <code>testdata</code>.</p>
+<p><code>read.table()</code> is the function for reading in text files with the <code>.txt</code> file extension</p>
+<p><code>"testdata_v2.txt"</code> is the path to the data file, and since it’s located directly in your Working Directory, we only need to write out the name of the file (<code>testdata_v2.txt</code>).</p>
+<p><code>header=T</code> means that the first row of the data file is a header row and not made up of data. This is almost always the case when reading a data file into R. If the first row also consists of data (i.e.&nbsp;there are no headers), you replace <code>T</code> with <code>F</code> (<code>T</code> stands for TRUE, <code>F</code> stands for FALSE).</p>
+<p><code>sep="\t"</code> means that all values/cells are separated by TAB (it is a tab-separated text file).</p>
+<p><code>dec=","</code> means that a comma is used as the decimal separator (e.g.&nbsp;1,32). If the file instead uses a period as the decimal separator (e.g.&nbsp;1.32), you instead specify <code>dec="."</code></p>
+</section>
+</section>
+<section id="inspect-your-data" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-your-data">Inspect your data</h2>
+<p>The next step is to inspect your dataset, to check that everything went correctly when reading it in.</p>
+<p>Start by inspecting the structure of the dataset with <code>str()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(testdata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10 obs. of  3 variables:
+ $ Colour: chr  "Green" "Green" "Green" "Green" ...
+ $ Weight: int  4 3 5 4 5 12 14 15 11 14
+ $ Length: num  1.3 1.1 3.4 2.5 7.1 14.5 16.9 13.5 9.4 11</code></pre>
+</div>
+</div>
+<p><code>$ Colour: chr</code> means that the values in the <code>Colour</code> column are <em>characters</em></p>
+<p><code>$ Weight: int</code> means that the values in the column <code>Weight</code> are <em>integers</em></p>
+<p><code>$ Length: num</code> means that the values in the column <code>Length</code> are <em>decimal numbers</em> (numeric)</p>
+<p>If you have a column that should contain decimal numbers, it should say <code>num</code>. If instead it says <code>chr</code>, it means the data file has a period as the decimal separator, but you assumed it was a comma (or vice versa), and R therefore thinks it’s text. Change the separator, e.g.&nbsp;from <code>dec=","</code> to <code>dec="."</code> in the code and import the dataset again.</p>
+<p>Then show the first rows of your dataset with the function <code>head()</code> and verify that everything looks correct.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testdata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Colour Weight Length
+1  Green      4    1.3
+2  Green      3    1.1
+3  Green      5    3.4
+4  Green      4    2.5
+5  Green      5    7.1
+6   Blue     12   14.5</code></pre>
+</div>
+</div>
+<p>If everything looks correct, you’re ready to analyze your data!</p>
+</section>
+<section id="absolute-path-to-the-file" class="level2" data-link="Absolute path to the file">
+<h2 data-link="Absolute path to the file" class="anchored" data-anchor-id="absolute-path-to-the-file">Absolute path to the file</h2>
+<p>An alternative is to specify the absolute path to the file, i.e.&nbsp;exactly where it is located on your hard drive. This is a good method to use so you always know which file you’re working with, and it’s advantageous if you work with files spread across different folders on your computer. It’s unwise to change your Working Directory during an ongoing analysis, and it’s also unwise to have more than one copy of the same file on your hard drive. To avoid that, you can use absolute paths.</p>
+<p><strong>Advantage</strong></p>
+<ul>
+<li>Gives an absolute path (you always know exactly which file you’re working with)</li>
+</ul>
+<p><strong>Disadvantage</strong></p>
+<ul>
+<li>If you work with many different files that are all located in the same folder, a relative path may be more convenient</li>
+</ul>
+<section id="find-out-the-absolute-path-to-your-data-file" class="level3">
+<h3 class="anchored" data-anchor-id="find-out-the-absolute-path-to-your-data-file">Find out the absolute path to your data file</h3>
+<p>Download the file <a href="data/testdata.txt">testdata.txt</a> (right-click, choose “Save link as”) and save the file on your hard drive <strong>in a different folder</strong> than where you saved the file in the previous example.</p>
+<p>The next step is to tell R where on your hard drive you have saved the file (the absolute path to the file).</p>
+</section>
+<section id="path-via-file.choose" class="level3">
+<h3 class="anchored" data-anchor-id="path-via-file.choose">Path via <code>file.choose()</code></h3>
+<p>The simplest way is to use the function <code>file.choose()</code>. Type in that function without filling in anything inside the parentheses. A dialog box will then appear where you locate your file and select it. R will then give you the absolute path to the file — in my case it was:</p>
+<p>[“data/testdata.txt”]</p>
+<p>Select and copy the path — we’ll use it when we read the file into R</p>
+</section>
+<section id="read-in-the-file-in-r" class="level3" data-link="Read in the file in R">
+<h3 data-link="Read in the file in R" class="anchored" data-anchor-id="read-in-the-file-in-r">Read in the file in R</h3>
+<p>We will again read in the file with the function <code>read.table()</code>, and we’ll call our loaded dataset <code>testdata_absolut</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>testdata_absolut <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/testdata.txt"</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">header=</span>T,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dec=</span><span class="st">","</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Note that we now have a longer path to the file.</p>
+<p><code>"data/testdata.txt"</code> is the path to the data file, i.e.&nbsp;where it is saved on your hard drive (<code>data/</code>), together with the name of the file (<code>testdata.txt</code>). You replace this text with the path to your file that you copied in the step above.</p>
+<p>See <a href="#read-in-the-file-in-r">Read in the file in R</a> for our earlier description of how to interpret the different parts of the function <code>read.table()</code>. After reading in the file, you should always <a href="#inspect-your-data">Inspect your data</a> before starting your analyses.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(testdata_absolut)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10 obs. of  3 variables:
+ $ Colour: chr  "Green" "Green" "Green" "Green" ...
+ $ Weight: int  4 3 5 4 5 12 14 15 11 14
+ $ Length: num  1.3 1.1 3.4 2.5 7.1 14.5 16.9 13.5 9.4 11</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testdata_absolut)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Colour Weight Length
+1  Green      4    1.3
+2  Green      3    1.1
+3  Green      5    3.4
+4  Green      4    2.5
+5  Green      5    7.1
+6   Blue     12   14.5</code></pre>
+</div>
+</div>
+</section>
+<section id="path-via-your-file-manager-terminal" class="level3">
+<h3 class="anchored" data-anchor-id="path-via-your-file-manager-terminal">Path via your file manager + terminal</h3>
+<p>If you already have the file open in your file manager (Finder, Explorer or similar), an alternative way to find out the absolute path is to <strong>drag the file and drop it into the R console</strong>. You will then see its path, shown in <strong>blue</strong> on a Mac (as well as possibly some error messages, since you’re doing something R doesn’t understand — but R gives you the path, which is what we want).</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/absolute-path-R.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="600"></p>
+</figure>
+</div>
+<p>The path to the file on my computer is: <code>~/git_projects/Introduktion-till-R/tutorials/read-data/data/testdata.txt</code></p>
+<p><strong>RStudio</strong> - if you’re using RStudio, dragging the file into the console doesn’t work. Instead you can open your terminal (Terminal, iTerm, EMAC, MobaXterm etc.) and drop the file there. Or do it in plain R. Then you’ll get a path.</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/absolute-path-terminal.png" class="img-fluid figure-img" width="600"></p>
+<figcaption>Path to the file when dropped into a terminal (iTerm in the example)</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="data-formats" class="level2">
+<h2 class="anchored" data-anchor-id="data-formats">Data formats</h2>
+<p>R can handle a large number of data formats — some of them are read automatically, others require you to download and install specialized packages.</p>
+<table class="caption-top table">
+<caption>Common data types R can read (many more options exist)</caption>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 46%">
+<col style="width: 2%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2"><h1 id="file-extension">File extension</h1>
+<p><code>txt</code></p></td>
+<td rowspan="2"><h1 id="description">Description</h1>
+<p>Tab-delimited text</p></td>
+<td rowspan="2"><h1 id="function">Function</h1>
+<p><code>read.table()</code></p></td>
+<td colspan="3" rowspan="2">Extra package required | Comments | ===================+==================================================================================================+ - | |</td>
+</tr>
+<tr class="even">
+</tr>
+<tr class="odd">
+<td><code>csv</code></td>
+<td>Comma/semicolon-delimited text</td>
+<td><code>read.csv()</code></td>
+<td>-</td>
+<td colspan="2">Specify whether the delimiter is “,” or “;” |</td>
+</tr>
+<tr class="even">
+<td><code>xlsx</code></td>
+<td>Excel document</td>
+<td><code>read.xlsx()</code></td>
+<td><code>openxlsx</code></td>
+<td colspan="2"><a href="https://cran.r-project.org/web/packages/openxlsx/readme/README.html">See the package’s documentation</a></td>
+</tr>
+<tr class="odd">
+<td><code>rda</code> <code>rdata</code></td>
+<td>R data file</td>
+<td><code>load()</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>sas7bdat</code> <code>sas7bcat</code> <code>dta</code> <code>sav</code></td>
+<td>SAS<br>
+Stata<br>
+SPSS</td>
+<td><code>read_sas()</code><br>
+<code>read_dta()</code><br>
+<code>read_sav()</code></td>
+<td><code>haven</code></td>
+<td colspan="2"><a href="https://haven.tidyverse.org/">See the package’s documentation</a> | |</td>
+</tr>
+</tbody>
+</table>
+<p>We have already tried reading in a tab-delimited text file (a .txt file) in the <a href="#read-in-the-file-1">Read in the file</a> section above. Now we’ll try a few other file types.</p>
+</section>
+<section id="reading-in-a-csv-file" class="level2">
+<h2 class="anchored" data-anchor-id="reading-in-a-csv-file">Reading in a csv file</h2>
+<p>A csv file is a file where the values are separated by commas or semicolons. It’s a very common file type for long-term data storage.</p>
+<p>Download the file <a href="data/testdata_csv.csv">testdata_csv.csv</a> and save it somewhere on your hard drive.</p>
+<p>After that, locate the file, either by using <a href="#relative-path-to-the-file">Relative path to the file</a> or <a href="#absolute-path-to-the-file">Absolute path to the file</a>. If you saved it in the same folder as your Working Directory, it’s easy to use a relative path.</p>
+<section id="read-in-the-file-1" class="level3">
+<h3 class="anchored" data-anchor-id="read-in-the-file-1">Read in the file</h3>
+<p>We will again read in the file with the function <code>read.csv()</code>. Fill in the correct path to your file</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>testdata_csv <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/testdata_csv.csv"</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">header=</span>T,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep=</span><span class="st">";"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dec=</span><span class="st">","</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We save the result from the function <code>read.csv()</code>, which is a dataset, under the name <code>testdata_csv</code>. You should always use different names for different datasets.</p>
+<p><code>sep=";"</code> means that the values in the file are separated by semicolons. Otherwise the function works like <code>read.table()</code>, described in detail above (<a href="#read-in-the-file-1">Read in the file</a>). After reading in the file, you should always <a href="#inspect-your-data">Inspect your data</a> before starting your analyses.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(testdata_csv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10 obs. of  3 variables:
+ $ Colour: chr  "Red" "Red" "Red" "Red" ...
+ $ Weight: int  7 4 3 4 5 12 14 15 11 14
+ $ Length: num  2.3 4.1 3.4 2.5 7.1 14.5 16.9 13.5 9.4 11</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testdata_csv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Colour Weight Length
+1    Red      7    2.3
+2    Red      4    4.1
+3    Red      3    3.4
+4    Red      4    2.5
+5    Red      5    7.1
+6  White     12   14.5</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="reading-in-an-excel-file" class="level2">
+<h2 class="anchored" data-anchor-id="reading-in-an-excel-file">Reading in an Excel file</h2>
+<p>Most people who collect biological data enter their values in Excel, and then export their data as a txt or csv file. It can therefore be tempting to read the Excel sheet directly into R, without taking the detour of exporting to another format.</p>
+<p><strong>Advantages of reading Excel files directly</strong></p>
+<ul>
+<li>You only have a single file with data — there’s no risk of entering new data in Excel but forgetting to export it as a txt or csv file</li>
+</ul>
+<p><strong>Disadvantages of reading Excel files directly</strong></p>
+<ul>
+<li><p>Excel has a proprietary format; it’s not guaranteed that your files can be read in the future, so it’s better to save your data in an open format such as txt or csv</p></li>
+<li><p>It’s good practice to separate your Excel files (where ongoing data collection is entered) from your finished data (your txt or csv file), which should not be manipulated</p></li>
+<li><p>The Excel sheet you read in must be completely clean, i.e.&nbsp;you must not have any cells with information other than data (for example, no charts, blank columns, or similar).</p></li>
+</ul>
+<p>Download the file <a href="data/testdata_excel.xlsx">testdata_excel.xlsx</a> and save it somewhere on your hard drive.</p>
+<p>After that, locate the file, either by using <a href="#relative-path-to-the-file">Relative path to the file</a> or <a href="#absolute-path-to-the-file">Absolute path to the file</a>. If you saved it in the same folder as your Working Directory, it’s easy to use a relative path.</p>
+<section id="reading-in-the-excel-file" class="level3">
+<h3 class="anchored" data-anchor-id="reading-in-the-excel-file">Reading in the Excel file</h3>
+<p>To be able to read in an Excel file we need to install the package <code>openxlsx</code>. See the earlier information in the chapter on <a href="https://martin-lind.github.io/Introduktion-till-R/tutorials/R-packages/">installing packages</a> for a full walkthrough of how to manage packages.</p>
+<p>You install the package with the code <code>install.packages("openxlsx")</code></p>
+<p>Once the package is installed, we need to load it into our current R session</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now the package is loaded and we can use the function <code>read.xlsx()</code> to read in our Excel file.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>testdata_excel <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">"data/testdata_excel.xlsx"</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sheet=</span><span class="dv">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>sheet=1</code> means you read in the first sheet of the Excel document.</p>
+<p>After reading in the file, you should always <a href="#inspect-your-data">Inspect your data</a> before starting your analyses.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(testdata_excel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10 obs. of  3 variables:
+ $ Colour: chr  "Purple" "Purple" "Purple" "Purple" ...
+ $ Mass  : num  2 5 3 5 5 12 14 15 11 14
+ $ Width : num  12.3 14.1 12.4 12.5 17.1 20.5 26.9 23.5 19.4 21</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testdata_excel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Colour Mass Width
+1 Purple    2  12.3
+2 Purple    5  14.1
+3 Purple    3  12.4
+4 Purple    5  12.5
+5 Purple    5  17.1
+6 Yellow   12  20.5</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
